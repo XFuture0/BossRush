@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class PlayerCanvs : MonoBehaviour
 {
     public Text HealthCount;
-    private void Start()
+    private void Update()
     {
         RefreshHealthCount();
     }

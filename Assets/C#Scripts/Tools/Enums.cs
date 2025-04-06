@@ -10,3 +10,8 @@ public enum SkillType
     Sky_Trident,
     Evoke_Army
 }
+public enum BallType
+{
+    Attack,
+    Speed,
+}

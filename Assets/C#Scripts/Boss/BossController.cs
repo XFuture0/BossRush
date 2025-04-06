@@ -8,6 +8,7 @@ public class BossController : MonoBehaviour
     private Rigidbody2D rb;
     private BossCheck Check;
     private bool IsSkill;
+    public bool IsStopBoss;
     private float SkillLevel;
     private SkillType Skill;
     public BossSkillList SkillList;
@@ -52,15 +53,23 @@ public class BossController : MonoBehaviour
     }
     private void Start()
     {
-        SkillTime_Count = SkillTime;
+        Invoke("DestoryIng", 0.01f);
+    }
+    private void OnEnable()
+    {
+        SkillTime_Count = 0.2f;
+    }
+    private void DestoryIng()
+    {
+        gameObject.SetActive(false);
     }
     private void Update()
     {
-        if (SkillTime_Count > -2)
+        if (SkillTime_Count > -2 && !IsStopBoss)
         {
             SkillTime_Count -= Time.deltaTime;
         }
-        if (SkillTime_Count < 0 && !IsSkill)
+        if (SkillTime_Count < 0 && !IsSkill && !IsStopBoss)
         {
             IsSkill = true;
             ChangeSkill();
@@ -402,7 +411,7 @@ public class BossController : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            Debug.Log(1);
+            GameManager.Instance.Attack(gameObject.GetComponent<CharacterStats>(),other.GetComponent<CharacterStats>());
         }
     }
 }

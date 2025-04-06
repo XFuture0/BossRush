@@ -29,7 +29,7 @@ public class SkyTrident : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            Debug.Log(2);
+            GameManager.Instance.Attack(GameManager.Instance.BossStats, other.GetComponent<CharacterStats>());
         }
     }
     private void OnDisable()

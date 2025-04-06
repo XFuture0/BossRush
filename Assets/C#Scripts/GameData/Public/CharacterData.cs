@@ -7,4 +7,5 @@ public class CharacterData : ScriptableObject
     public float MaxHealth;
     public float NowHealth;
     public float AttackPower;
+    public float InvincibleTime;
 }

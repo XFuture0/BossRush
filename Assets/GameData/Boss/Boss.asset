@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b96ce6a610dde2458f9208d2447d5cd, type: 3}
   m_Name: Boss
   m_EditorClassIdentifier: 
-  MaxHealth: 3
-  NowHealth: 3
+  MaxHealth: 1
+  NowHealth: 1
   AttackPower: 1
+  InvincibleTime: 0

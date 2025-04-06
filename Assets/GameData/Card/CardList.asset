@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180e3e011d5731644b695b77d311bee2, type: 3}
+  m_Name: CardList
+  m_EditorClassIdentifier: 
+  CardLists:
+  - Description: HP +1
+    Health: 1
+    AttackPower: 0
+    BallType: 1
+  - Description: HP +2
+    Health: 2
+    AttackPower: 0
+    BallType: 1
+  - Description: HP +3
+    Health: 3
+    AttackPower: 0
+    BallType: 1
+  - Description: HP +4
+    Health: 4
+    AttackPower: 0
+    BallType: 1
+  - Description: AttackPower +1
+    Health: 0
+    AttackPower: 1
+    BallType: 0
+  - Description: AttackPower +2
+    Health: 0
+    AttackPower: 2
+    BallType: 0
+  - Description: AttackPower +3
+    Health: 0
+    AttackPower: 3
+    BallType: 0
+  - Description: AttackPower +4
+    Health: 0
+    AttackPower: 4
+    BallType: 0

@@ -22,6 +22,21 @@ public class KeyBoardManager : SingleTons<KeyBoardManager>
         }
         return 0f;
     }
-
+    public bool GetKeyDown_J()
+    {
+        if (!StopAnyKey && !StopMoveKey)
+        {
+            return Input.GetKeyDown(KeyCode.J);
+        }
+        return false;
+    }
+    public bool GetKeyDown_R()
+    {
+        if (!StopAnyKey && !StopMoveKey)
+        {
+            return Input.GetKeyDown(KeyCode.R);
+        }
+        return false;
+    }
 }
 

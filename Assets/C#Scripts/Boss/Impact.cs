@@ -22,7 +22,7 @@ public class Impact : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            Debug.Log(1);
+            GameManager.Instance.Attack(other.GetComponent<CharacterStats>(), 1);
         }
     }
     private void OnDestroying()

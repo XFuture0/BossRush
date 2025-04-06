@@ -15,9 +15,10 @@ GameObject:
   - component: {fileID: 8594094953625088129}
   - component: {fileID: 5021287683356244335}
   - component: {fileID: 2067549499868502719}
+  - component: {fileID: 9088439676723637382}
   m_Layer: 7
   m_Name: BossArmy
-  m_TagString: Untagged
+  m_TagString: BossArmy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -248,3 +249,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 100
+--- !u!114 &9088439676723637382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310799613369338219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba596c999df6b244eb1737d30730efda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsProtected: 0
+  CharacterData: {fileID: 11400000, guid: 26f7e46e1dd0f524892ee05b9c76a86c, type: 2}
+  CharacterData_Temp: {fileID: 0}

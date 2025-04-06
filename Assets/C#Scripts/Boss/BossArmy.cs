@@ -18,6 +18,10 @@ public class BossArmy : MonoBehaviour
     private void FixedUpdate()
     {
         TrackPlayer();
+        if(gameObject.GetComponent<CharacterStats>().CharacterData_Temp.NowHealth <= 0)
+        {
+            Dead();
+        }
     }
     private void TrackPlayer()
     {
@@ -34,7 +38,11 @@ public class BossArmy : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Debug.Log(1);
+            GameManager.Instance.Attack(gameObject.GetComponent<CharacterStats>(), other.GetComponent<CharacterStats>());
         }
+    }
+    private void Dead()
+    {
+        Destroy(gameObject);
     }
 }

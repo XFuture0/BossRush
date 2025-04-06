@@ -63,4 +63,11 @@ public class PlayerController : MonoBehaviour
         JumpForce = PlayerData.JumpForce;
         JumpDownSpeed_Max = PlayerData.JumpDownSpeed_Max;
     }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if((other.tag == "Boss" || other.tag == "BossArmy") && transform.GetChild(0).gameObject.activeSelf)
+        {
+            GameManager.Instance.Attack(gameObject.GetComponent<CharacterStats>(), other.GetComponent<CharacterStats>());
+        }
+    }
 }
