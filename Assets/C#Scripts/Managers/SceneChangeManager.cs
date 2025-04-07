@@ -14,6 +14,12 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     public BallTypeEventSO BallTypeEvent;
     public VoidEventSO CloseBossDoorEvent;
     public VoidEventSO CloseCardDoorEvent;
+    [Header("¡Ÿ ±≥°æ∞±£¥Ê")]
+    public SceneData TempNextScene;
+    private void OnEnable()
+    {
+        ChangeScene(TempNextScene);
+    }
     public void ChangeScene(SceneData NowScene, SceneData NextScene)
     {
         Nowscene = NowScene;
@@ -71,5 +77,10 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         yield return new WaitForSeconds(0.5f);
         KeyBoardManager.Instance.StopAnyKey = false;
         Boss.GetComponent<BossController>().IsStopBoss = false;
+    }
+    public void ChangeScene(SceneData NextScene)
+    {
+        Nextscene = NextScene;
+        SceneManager.LoadSceneAsync(Nextscene.SceneName, LoadSceneMode.Additive);
     }
 }

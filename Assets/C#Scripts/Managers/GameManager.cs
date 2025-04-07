@@ -15,8 +15,6 @@ public class GameManager : SingleTons<GameManager>
     }
     public CharacterStats PlayerStats;
     public CharacterStats BossStats;
-    public Collider2D MainBounds;
-    public GameObject BossBound;
     public ChooseCardList CardList;
     private List<Card> CardList_Choose = new List<Card>();
     public bool BossActive = true;
@@ -26,10 +24,8 @@ public class GameManager : SingleTons<GameManager>
     public BossSkillList BossSkillList;
     public int BossSkillNameList_Count = 0;
     [Header("¹ã²¥")]
-    public BoundEventSO BoundEvent;
     public VoidEventSO ImpulseEvent;
-    [Header("ÊÂ¼þ¼àÌý")]
-    public BoundEventSO GetBoundEvent;
+    public BoundEventSO BoundEvent;
     private void Update()
     {
         if(BossStats.CharacterData_Temp.NowHealth <= 0 && BossActive)
@@ -37,19 +33,6 @@ public class GameManager : SingleTons<GameManager>
             BossActive = false;
             BossStats.gameObject.SetActive(false);
         }
-    }
-    private void OnEnable()
-    {
-        GetBoundEvent.OnBoundEventRaised += OnGetBound;
-    }
-    private void OnGetBound(Collider2D target)
-    {
-        BossBound = target.gameObject;
-    }
-
-    public void ReturnMainBounds()
-    {
-        BoundEvent.BoundRaiseEvent(MainBounds);
     }
     public void Attack(CharacterStats Attacker,CharacterStats Defender)
     {
@@ -194,5 +177,9 @@ public class GameManager : SingleTons<GameManager>
         {
             skill.IsOpen = false;
         }
+    }
+    public void OnBoundEvent(Collider2D collider2D) 
+    {
+        BoundEvent.RaiseBoundEvent(collider2D);
     }
 }

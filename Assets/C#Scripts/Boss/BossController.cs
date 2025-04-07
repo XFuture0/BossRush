@@ -168,19 +168,19 @@ public class BossController : MonoBehaviour
     }
     private void UseCollide()
     {
-        if (PlayerPosition.x >= GameManager.Instance.BossBound.transform.GetChild(2).position.x)//”“±ﬂ
+        if (PlayerPosition.x >= 25.5f)//”“±ﬂ
         {
             Collide_Time_Count = Collide_Time;
             Collide_Speed_Count = Collide_Speed;
             Collide = true;
-            transform.position = GameManager.Instance.BossBound.transform.GetChild(0).position;
+            transform.position = new Vector3(15.3f, 0.622f, 0);
         }
-        else if (PlayerPosition.x < GameManager.Instance.BossBound.transform.GetChild(2).position.x)//◊Û±ﬂ
+        else if (PlayerPosition.x < 25.5f)//◊Û±ﬂ
         {
             Collide_Time_Count = Collide_Time;
             Collide_Speed_Count = -Collide_Speed;
             Collide = true;
-            transform.position = GameManager.Instance.BossBound.transform.GetChild(1).position;
+            transform.position = new Vector3(35,0.622f,0);
         }
     }
     private void Collide_End()
@@ -323,16 +323,16 @@ public class BossController : MonoBehaviour
     }
     private IEnumerator UseGround_Laser()
     {
-        if (PlayerPosition.x >= GameManager.Instance.BossBound.transform.GetChild(2).position.x)//”“±ﬂ
+        if (PlayerPosition.x >= 25.5f)//”“±ﬂ
         {
-            transform.position = GameManager.Instance.BossBound.transform.GetChild(0).position;
+            transform.position = new Vector3(15.3f,0.622f,0);
             yield return new WaitForSeconds(1f);
             transform.GetChild(0).gameObject.SetActive(true);
             transform.GetChild(0).gameObject.transform.localScale = new Vector3(-2f, 1.25f, 1);
         }
-        else if (PlayerPosition.x < GameManager.Instance.BossBound.transform.GetChild(2).position.x)//◊Û±ﬂ
+        else if (PlayerPosition.x < 25.5f)//◊Û±ﬂ
         {
-            transform.position = GameManager.Instance.BossBound.transform.GetChild(1).position;
+            transform.position = new Vector3(35, 0.622f, 0);
             yield return new WaitForSeconds(1f);
             transform.GetChild(0).gameObject.SetActive(true);
             transform.GetChild(0).gameObject.transform.localScale = new Vector3(2f, 1.25f, 1);

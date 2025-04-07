@@ -6,8 +6,9 @@ using UnityEngine.Events;
 public class BoundEventSO : ScriptableObject
 {
     public UnityAction<Collider2D> OnBoundEventRaised;
-    public void BoundRaiseEvent(Collider2D collider2D)
+    public void RaiseBoundEvent(Collider2D collider2D)
     {
         OnBoundEventRaised?.Invoke(collider2D);
     }
+
 }

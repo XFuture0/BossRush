@@ -11,6 +11,9 @@ public class CameraBound : MonoBehaviour
     private void Awake()
     {
         Confiner2D = GetComponent<CinemachineConfiner2D>();
+    }
+    private void OnEnable()
+    {
         BoundEvent.OnBoundEventRaised += OnChangeBound;
     }
     public void OnChangeBound(Collider2D Bound)
