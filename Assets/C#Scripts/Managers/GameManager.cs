@@ -13,19 +13,24 @@ public class GameManager : SingleTons<GameManager>
         public BallType BallType;
         public int index;
     }
+    public PlayerData PlayerData;
     public CharacterStats PlayerStats;
     public CharacterStats BossStats;
     public ChooseCardList CardList;
+    public GameObject Coin;
     private List<Card> CardList_Choose = new List<Card>();
     public bool BossActive = true;
-    private BallType[] BallTypes = new BallType[2];
-    public BallType ThisBallType;
     public BossSkillNameList BossSkillNameList;
     public BossSkillList BossSkillList;
-    public int BossSkillNameList_Count = 0;
+    public int BossSkillNameList_Count;
     [Header("¹ã²¥")]
     public VoidEventSO ImpulseEvent;
     public BoundEventSO BoundEvent;
+    protected override void Awake()
+    {
+        base.Awake();
+        BossSkillNameList_Count = 0;
+    }
     private void Update()
     {
         if(BossStats.CharacterData_Temp.NowHealth <= 0 && BossActive)
@@ -85,26 +90,23 @@ public class GameManager : SingleTons<GameManager>
         {
             var HaveCard = false;
             var GetCardCount = UnityEngine.Random.Range(0, CardList.CardLists.Count);
-            if(ThisBallType == CardList.CardLists[GetCardCount].BallType)
+            foreach (var card in CardList_Choose)
             {
-                foreach (var card in CardList_Choose)
+                if (card.index == GetCardCount)
                 {
-                    if (card.index == GetCardCount)
-                    {
-                        HaveCard = true;
-                    }
+                    HaveCard = true;
                 }
-                if (!HaveCard)
-                {
-                    var NewCard = new Card();
-                    NewCard.index = GetCardCount;
-                    NewCard.Description = CardList.CardLists[GetCardCount].Description;
-                    NewCard.Health = CardList.CardLists[GetCardCount].Health;
-                    NewCard.AttackPower = CardList.CardLists[GetCardCount].AttackPower;
-                    NewCard.BallType = CardList.CardLists[GetCardCount].BallType;
-                    CardList_Choose.Add(NewCard);
-                    i++;
-                }
+            }
+            if (!HaveCard)
+            {
+                var NewCard = new Card();
+                NewCard.index = GetCardCount;
+                NewCard.Description = CardList.CardLists[GetCardCount].Description;
+                NewCard.Health = CardList.CardLists[GetCardCount].Health;
+                NewCard.AttackPower = CardList.CardLists[GetCardCount].AttackPower;
+                NewCard.BallType = CardList.CardLists[GetCardCount].BallType;
+                CardList_Choose.Add(NewCard);
+                i++;
             }
         }
         return CardList_Choose;
@@ -124,40 +126,10 @@ public class GameManager : SingleTons<GameManager>
         yield return new WaitForSeconds(0.3f);
         Time.timeScale = 1;
     }
-    public BallType[] ChooseBallType()
-    {
-        var BallCountTemp = -1;
-        for(int i = 0; i < 2;)
-        {
-            var BallCount = UnityEngine.Random.Range(0, 2);
-            if (BallCountTemp != BallCount)
-            {
-                BallCountTemp = BallCount;
-                switch (BallCountTemp)
-                {
-                    case 0:
-                        BallTypes[i] = BallType.Attack;
-                        i++;
-                        break;
-                    case 1:
-                        BallTypes[i] = BallType.Speed;
-                        i++;
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-        return BallTypes;
-    }
     public void AddBossHealth()
     {
         BossStats.CharacterData_Temp.NowHealth = BossStats.CharacterData_Temp.MaxHealth + 1;
         BossStats.CharacterData_Temp.MaxHealth += 1;
-    }
-    public void SetBoss_Close()
-    {
-        BossStats.gameObject.SetActive(false);
     }
     public void RefreshBossSkill()
     {
@@ -181,5 +153,17 @@ public class GameManager : SingleTons<GameManager>
     public void OnBoundEvent(Collider2D collider2D) 
     {
         BoundEvent.RaiseBoundEvent(collider2D);
+    }
+    public void AddCoin()
+    {
+        PlayerData.CoinCount++;
+    }
+    public void GetBonus()
+    {
+        for(int i = 0;i < 10; i++)
+        {
+            var CoinPosition = new Vector3(-14.91f, 10.95f, 0);
+            Instantiate(Coin, CoinPosition, Quaternion.identity, transform);
+        }
     }
 }

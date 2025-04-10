@@ -17,7 +17,6 @@ public class CardCanvs : MonoBehaviour
         for (int i = 0; i < CardList.Count; i++)
         {
             ChooseList[i].transform.GetChild(1).GetComponent<Text>().text = CardList[i].Description;
-            ChooseList[i].GetComponent<ChooseCard>().card = CardList[i];
         }
     }
 }

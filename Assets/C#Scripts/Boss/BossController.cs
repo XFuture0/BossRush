@@ -168,19 +168,19 @@ public class BossController : MonoBehaviour
     }
     private void UseCollide()
     {
-        if (PlayerPosition.x >= 25.5f)//”“±ﬂ
+        if (PlayerPosition.x >= -15f)//”“±ﬂ
         {
             Collide_Time_Count = Collide_Time;
             Collide_Speed_Count = Collide_Speed;
             Collide = true;
-            transform.position = new Vector3(15.3f, 0.622f, 0);
+            transform.position = new Vector3(-27.2f, 0.97f, 0);
         }
-        else if (PlayerPosition.x < 25.5f)//◊Û±ﬂ
+        else if (PlayerPosition.x < -15f)//◊Û±ﬂ
         {
             Collide_Time_Count = Collide_Time;
             Collide_Speed_Count = -Collide_Speed;
             Collide = true;
-            transform.position = new Vector3(35,0.622f,0);
+            transform.position = new Vector3(-2.57f, 0.97f, 0);
         }
     }
     private void Collide_End()
@@ -286,7 +286,7 @@ public class BossController : MonoBehaviour
     {
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0;
-        transform.position = new Vector3(25.48f,7.7f,0);
+        transform.position = new Vector3(-14.91f,10.95f,0);
         for(int i = 0;i < 12; i++)
         {
             var NewShoot = Instantiate(BossShoot, ShootList.ShootList[i], Quaternion.identity);
@@ -323,16 +323,16 @@ public class BossController : MonoBehaviour
     }
     private IEnumerator UseGround_Laser()
     {
-        if (PlayerPosition.x >= 25.5f)//”“±ﬂ
+        if (PlayerPosition.x >= -15f)//”“±ﬂ
         {
-            transform.position = new Vector3(15.3f,0.622f,0);
+            transform.position = new Vector3(-27.2f, 0.97f, 0);
             yield return new WaitForSeconds(1f);
             transform.GetChild(0).gameObject.SetActive(true);
             transform.GetChild(0).gameObject.transform.localScale = new Vector3(-2f, 1.25f, 1);
         }
-        else if (PlayerPosition.x < 25.5f)//◊Û±ﬂ
+        else if (PlayerPosition.x < -15f)//◊Û±ﬂ
         {
-            transform.position = new Vector3(35, 0.622f, 0);
+            transform.position = new Vector3(-2.57f, 0.97f, 0);
             yield return new WaitForSeconds(1f);
             transform.GetChild(0).gameObject.SetActive(true);
             transform.GetChild(0).gameObject.transform.localScale = new Vector3(2f, 1.25f, 1);
@@ -347,7 +347,7 @@ public class BossController : MonoBehaviour
     {
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0;
-        transform.position = new Vector3(25.48f, 7.7f, 0);
+        transform.position = new Vector3(-14.91f, 10.95f, 0);
         yield return new WaitForSeconds(0.7f);
         Sky_LaserDown = true;
         transform.GetChild(1).gameObject.SetActive(true);
@@ -366,7 +366,7 @@ public class BossController : MonoBehaviour
     {
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0;
-        transform.position = new Vector3(25.48f, 7.7f, 0);
+        transform.position = new Vector3(-14.91f, 10.95f, 0);
         transform.GetChild(2).gameObject.SetActive(true);
         yield return new WaitForSeconds(3f);
         rb.gravityScale = Settings.BossGravity;
@@ -384,7 +384,7 @@ public class BossController : MonoBehaviour
     {
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0;
-        transform.position = new Vector3(25.48f, 7.7f, 0);
+        transform.position = new Vector3(-14.91f, 10.95f, 0);
         transform.GetChild(3).gameObject.SetActive(true);
         yield return new WaitForSeconds(2f);
         transform.GetChild(3).gameObject.SetActive(false);

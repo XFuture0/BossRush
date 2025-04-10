@@ -15,3 +15,10 @@ public enum BallType
     Attack,
     Speed,
 }
+public enum RoomType
+{
+    Boss,
+    Card,
+    Final,
+    Start,
+}
