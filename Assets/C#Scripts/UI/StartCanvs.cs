@@ -15,7 +15,7 @@ public class StartCanvs : MonoBehaviour
     private void OnStartButton()
     {
         KeyBoardManager.Instance.StopMoveKey = false;
-        SceneChangeManager.Instance.ChangeScene(NextScene);
+        SceneChangeManager.Instance.StartGame();
         gameObject.SetActive(false);
     }
 }

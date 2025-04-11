@@ -6,5 +6,4 @@ public class SceneData : ScriptableObject
 {
     public string SceneName;
     public string SceneIndex;
-    public RoomType RoomType;
 }

@@ -17,7 +17,6 @@ public class GameManager : SingleTons<GameManager>
     public CharacterStats PlayerStats;
     public CharacterStats BossStats;
     public ChooseCardList CardList;
-    public GameObject Coin;
     private List<Card> CardList_Choose = new List<Card>();
     public bool BossActive = true;
     public BossSkillNameList BossSkillNameList;
@@ -126,11 +125,6 @@ public class GameManager : SingleTons<GameManager>
         yield return new WaitForSeconds(0.3f);
         Time.timeScale = 1;
     }
-    public void AddBossHealth()
-    {
-        BossStats.CharacterData_Temp.NowHealth = BossStats.CharacterData_Temp.MaxHealth + 1;
-        BossStats.CharacterData_Temp.MaxHealth += 1;
-    }
     public void RefreshBossSkill()
     {
         foreach (var skill in BossSkillList.BossSkills)
@@ -149,21 +143,24 @@ public class GameManager : SingleTons<GameManager>
         {
             skill.IsOpen = false;
         }
+        BossSkillNameList_Count = 0;
+    }
+    public void RefreshBoss()
+    {
+        foreach (var skill in BossSkillList.BossSkills)
+        {
+            skill.IsOpen = false;
+        }
+        BossSkillNameList_Count = 0;
+        BossStats.CharacterData_Temp = Instantiate(BossStats.CharacterData);
+    }
+    public void RefreshPlayer()
+    {
+        PlayerStats.CharacterData_Temp = Instantiate(PlayerStats.CharacterData);
+        PlayerStats.gameObject.GetComponent<PlayerController>().Isdead = false;
     }
     public void OnBoundEvent(Collider2D collider2D) 
     {
         BoundEvent.RaiseBoundEvent(collider2D);
-    }
-    public void AddCoin()
-    {
-        PlayerData.CoinCount++;
-    }
-    public void GetBonus()
-    {
-        for(int i = 0;i < 10; i++)
-        {
-            var CoinPosition = new Vector3(-14.91f, 10.95f, 0);
-            Instantiate(Coin, CoinPosition, Quaternion.identity, transform);
-        }
     }
 }

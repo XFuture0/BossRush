@@ -8,7 +8,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerCheck Check;
     private float InputX;
+    public bool Isdead;
     public PlayerData PlayerData;
+    public GameObject EndCanvs;
     [Header("¡Ÿ ± Ù–‘")]
     private float Speed;
     private float JumpForce;
@@ -25,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         Jump();
+        PlayerDead();
     }
     private void FixedUpdate()
     {
@@ -68,6 +71,15 @@ public class PlayerController : MonoBehaviour
         if((other.tag == "Boss" || other.tag == "BossArmy") && transform.GetChild(0).gameObject.activeSelf)
         {
             GameManager.Instance.Attack(gameObject.GetComponent<CharacterStats>(), other.GetComponent<CharacterStats>());
+        }
+    }
+    private void PlayerDead()
+    {
+        if(GameManager.Instance.PlayerStats.CharacterData_Temp.NowHealth <= 0 && !Isdead)
+        {
+            Isdead = true;
+            KeyBoardManager.Instance.StopMoveKey = true;
+            EndCanvs.SetActive(true);
         }
     }
 }

@@ -19,24 +19,38 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     {
         KeyBoardManager.Instance.StopAnyKey = true;
         Fadecanvs.FadeIn();
+        ColorManager.Instance.ChangeColor();
+     //   SceneManager.LoadSceneAsync(Nextscene.SceneName,LoadSceneMode.Additive);
+        GameManager.Instance.RefreshBossSkill();
+        Boss.SetActive(true);
+        GameManager.Instance.BossActive = true;
+        Boss.transform.position = new Vector3(-27.2f, 0.97f, 0);
+        Player.transform.position = new Vector3(-15.04f, -0.4f, 0);
+        Boss.GetComponent<BossController>().IsStopBoss = true;
         yield return new WaitForSeconds(0.5f);
-        SceneManager.LoadSceneAsync(Nextscene.SceneName,LoadSceneMode.Additive);
-        yield return new WaitForSeconds(0.1f);
-        switch (Nextscene.RoomType)
-        {
-            case RoomType.Boss:
-                GameManager.Instance.RefreshBossSkill();
-                Bosscanvs.ClearBossHealth();
-                Bosscanvs.RefreshHealth();
-                Boss.SetActive(true);
-                GameManager.Instance.BossActive = true;
-                Boss.transform.position = new Vector3(25.42f, 7.6f, 0);
-                Boss.GetComponent<BossController>().IsStopBoss = true;
-                break;
-            default:
-                break;
-        }
-        yield return new WaitForSeconds(0.4f);
+        Fadecanvs.FadeOut();
+        yield return new WaitForSeconds(0.5f);
+        KeyBoardManager.Instance.StopAnyKey = false;
+        Boss.GetComponent<BossController>().IsStopBoss = false;
+    }
+    public void StartGame()
+    {
+        StartCoroutine(OnStartGame());
+    }
+    private IEnumerator OnStartGame()
+    {
+        KeyBoardManager.Instance.StopAnyKey = true;
+        Fadecanvs.FadeIn();
+        ColorManager.Instance.ChangeColor();
+        GameManager.Instance.RefreshPlayer();
+        GameManager.Instance.RefreshBoss();
+        GameManager.Instance.RefreshBossSkill();
+        Boss.SetActive(true);
+        GameManager.Instance.BossActive = true;
+        Boss.transform.position = new Vector3(-27.2f, 0.97f, 0);
+        Player.transform.position = new Vector3(-15.04f, -0.4f, 0);
+        Boss.GetComponent<BossController>().IsStopBoss = true;
+        yield return new WaitForSeconds(0.5f);
         Fadecanvs.FadeOut();
         yield return new WaitForSeconds(0.5f);
         KeyBoardManager.Instance.StopAnyKey = false;
