@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class StartCanvs : MonoBehaviour
 {
+    public GameObject PlayerSlot;
     public Button StartButton;
-    public SceneData NextScene;
     public Vector3 PositionToGo;
     private void Awake()
     {

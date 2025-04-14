@@ -9,11 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b96ce6a610dde2458f9208d2447d5cd, type: 3}
-  m_Name: Boss
+  m_Script: {fileID: 11500000, guid: 7f589e5365929da499cafb3ff530814d, type: 3}
+  m_Name: ReturnPoolEvent
   m_EditorClassIdentifier: 
-  MaxHealth: 100
-  NowHealth: 100
-  AttackPower: 1
-  InvincibleTime: 0
-  HealCount: 50

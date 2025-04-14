@@ -6,6 +6,10 @@ public class KeyBoardManager : SingleTons<KeyBoardManager>
 {
     public bool StopAnyKey;
     public bool StopMoveKey;
+    private void Start()
+    {
+        StopMoveKey = true;
+    }
     public bool GetKeyDown_Space()
     {
         if (!StopAnyKey && !StopMoveKey)
@@ -35,6 +39,14 @@ public class KeyBoardManager : SingleTons<KeyBoardManager>
         if (!StopAnyKey && !StopMoveKey)
         {
             return Input.GetKeyDown(KeyCode.R);
+        }
+        return false;
+    }
+    public bool GetKey_Mouse0()
+    {
+        if (!StopAnyKey && !StopMoveKey)
+        {
+            return Input.GetKey(KeyCode.Mouse0);
         }
         return false;
     }

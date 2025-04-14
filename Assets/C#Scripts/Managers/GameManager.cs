@@ -13,6 +13,7 @@ public class GameManager : SingleTons<GameManager>
         public BallType BallType;
         public int index;
     }
+    public GameObject PlayerSlot;
     public PlayerData PlayerData;
     public CharacterStats PlayerStats;
     public CharacterStats BossStats;
@@ -34,13 +35,16 @@ public class GameManager : SingleTons<GameManager>
     {
         if(BossStats.CharacterData_Temp.NowHealth <= 0 && BossActive)
         {
-            BossActive = false;
-            BossStats.gameObject.SetActive(false);
+            BossDead();
         }
     }
     public void Attack(CharacterStats Attacker,CharacterStats Defender)
     {
         Defender.CharacterData_Temp.NowHealth -= Attacker.CharacterData_Temp.AttackPower;
+        if(Defender.CharacterData_Temp.NowHealth <= 0)
+        {
+            Defender.CharacterData_Temp.NowHealth = 0;
+        }
         switch (Defender.gameObject.tag)
         {
             case "Player":
@@ -48,11 +52,6 @@ public class GameManager : SingleTons<GameManager>
                 StartCoroutine(FrameDrop());
                 break;
             case "Boss":
-                UseImpulse();
-                StartCoroutine(FrameDrop());
-                break;
-            case "BossArmy":
-                StartCoroutine(FrameDrop());
                 break;
             default:
                 break;
@@ -63,6 +62,10 @@ public class GameManager : SingleTons<GameManager>
     public void Attack(CharacterStats Defender,int Count)
     {
         Defender.CharacterData_Temp.NowHealth -= Count;
+        if (Defender.CharacterData_Temp.NowHealth <= 0)
+        {
+            Defender.CharacterData_Temp.NowHealth = 0;
+        }
         switch (Defender.gameObject.tag)
         {
             case "Player":
@@ -70,11 +73,6 @@ public class GameManager : SingleTons<GameManager>
                 StartCoroutine(FrameDrop());
                 break;
             case "Boss":
-                UseImpulse();
-                StartCoroutine(FrameDrop());
-                break;
-            case "BossArmy":
-                StartCoroutine(FrameDrop());
                 break;
             default:
                 break;
@@ -137,6 +135,11 @@ public class GameManager : SingleTons<GameManager>
             }
         }
     }
+    public void AddBossHealth()
+    {
+        BossStats.CharacterData_Temp.NowHealth = BossStats.CharacterData_Temp.MaxHealth + BossStats.CharacterData_Temp.HealCount;
+        BossStats.CharacterData_Temp.MaxHealth = BossStats.CharacterData_Temp.NowHealth;
+    }
     public void ClearBossSkill()
     {
         foreach (var skill in BossSkillList.BossSkills)
@@ -147,17 +150,27 @@ public class GameManager : SingleTons<GameManager>
     }
     public void RefreshBoss()
     {
+        BossStats.gameObject.SetActive(true);
         foreach (var skill in BossSkillList.BossSkills)
         {
             skill.IsOpen = false;
         }
         BossSkillNameList_Count = 0;
         BossStats.CharacterData_Temp = Instantiate(BossStats.CharacterData);
+        BossStats.gameObject.transform.position = new Vector3(-27.2f, 0.97f, 0);
+    }
+    private void BossDead()
+    {
+        BossActive = false;
+        BossStats.gameObject.SetActive(false);
+        SceneChangeManager.Instance.Door.SetActive(true);
+        SceneChangeManager.Instance.Door.GetComponent<Door>().OpenDoor();
     }
     public void RefreshPlayer()
     {
         PlayerStats.CharacterData_Temp = Instantiate(PlayerStats.CharacterData);
         PlayerStats.gameObject.GetComponent<PlayerController>().Isdead = false;
+        PlayerStats.gameObject.transform.position = new Vector3(-20.64f, -0.44f, 0);
     }
     public void OnBoundEvent(Collider2D collider2D) 
     {
