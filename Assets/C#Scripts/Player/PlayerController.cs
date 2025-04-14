@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private float InputX;
     public bool Isdead;
     public PlayerData PlayerData;
+    private CharacterStats Player;
     public GameObject EndCanvs;
     [Header("¡Ÿ ± Ù–‘")]
     private float Speed;
@@ -19,8 +20,9 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         Check = rb.GetComponent<PlayerCheck>();
+        Player = GetComponent<CharacterStats>();
     }
-    private void OnEnable()
+    private void Start()
     {
         RefreshData();
     }
@@ -62,7 +64,7 @@ public class PlayerController : MonoBehaviour
     }
     private void RefreshData()
     {
-        Speed = PlayerData.Speed;
+        Speed = Player.CharacterData_Temp.Speed;
         JumpForce = PlayerData.JumpForce;
         JumpDownSpeed_Max = PlayerData.JumpDownSpeed_Max;
     }

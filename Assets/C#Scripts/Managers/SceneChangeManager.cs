@@ -32,6 +32,8 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         }
         Fadecanvs.FadeIn();
         ColorManager.Instance.ChangeColor();
+        Player.transform.position = new Vector3(-20.64f, -0.44f, 0);
+        GameManager.Instance.RefreshBoss();
         GameManager.Instance.RefreshBossSkill();
         GameManager.Instance.AddBossHealth();
         GameManager.Instance.BossActive = true;

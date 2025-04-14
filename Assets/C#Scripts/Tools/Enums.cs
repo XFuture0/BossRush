@@ -1,6 +1,6 @@
 public enum SkillType 
 {
-    
+    CrashDown
 }
 public enum BallType
 {

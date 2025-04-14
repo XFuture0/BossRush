@@ -23,6 +23,7 @@ public class GameManager : SingleTons<GameManager>
     public BossSkillNameList BossSkillNameList;
     public BossSkillList BossSkillList;
     public int BossSkillNameList_Count;
+    private float CriticalDamageBonus;
     [Header("¹ã²¥")]
     public VoidEventSO ImpulseEvent;
     public BoundEventSO BoundEvent;
@@ -40,7 +41,18 @@ public class GameManager : SingleTons<GameManager>
     }
     public void Attack(CharacterStats Attacker,CharacterStats Defender)
     {
-        Defender.CharacterData_Temp.NowHealth -= Attacker.CharacterData_Temp.AttackPower;
+        var Dodge = UnityEngine.Random.Range(0f, 1f);
+        if(Dodge < Defender.CharacterData_Temp.DodgeRate)
+        {
+            return;
+        }
+        var Critical = UnityEngine.Random.Range(0f, 1f);
+        CriticalDamageBonus = 1;
+        if(Critical < Attacker.CharacterData_Temp.CriticalDamageRate)
+        {
+            CriticalDamageBonus += Attacker.CharacterData_Temp.CriticalDamageBonus;
+        }
+        Defender.CharacterData_Temp.NowHealth -= Attacker.CharacterData_Temp.AttackPower * CriticalDamageBonus;
         if(Defender.CharacterData_Temp.NowHealth <= 0)
         {
             Defender.CharacterData_Temp.NowHealth = 0;
@@ -157,7 +169,7 @@ public class GameManager : SingleTons<GameManager>
         }
         BossSkillNameList_Count = 0;
         BossStats.CharacterData_Temp = Instantiate(BossStats.CharacterData);
-        BossStats.gameObject.transform.position = new Vector3(-27.2f, 0.97f, 0);
+        BossStats.gameObject.transform.position = new Vector3(-15f, 0.97f, 0);
     }
     private void BossDead()
     {

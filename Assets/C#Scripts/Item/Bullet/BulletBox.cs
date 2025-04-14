@@ -9,7 +9,6 @@ public class BulletBox : MonoBehaviour
     public Bullet bullet;
     [HideInInspector]public ObjectPool<Bullet> BulletPool;
     [Header("攻速计时器")]
-    public float AttackSpeedTime;
     private float AttackSpeedTime_Count;
     [Header("事件监听")]
     public GameObjectEventSO ReturnPoolEvent;
@@ -26,7 +25,7 @@ public class BulletBox : MonoBehaviour
         }
         if (KeyBoardManager.Instance.GetKey_Mouse0() && AttackSpeedTime_Count < 0)
         {
-            AttackSpeedTime_Count = AttackSpeedTime;
+            AttackSpeedTime_Count = GameManager.Instance.PlayerStats.CharacterData_Temp.AttackRate;
             StartCoroutine(SetBullet());
         }
     }

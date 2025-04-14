@@ -20,9 +20,9 @@ public class Bullet : MonoBehaviour
     }
     private void Update()
     {
-        if (spriteRenderer.color != ColorManager.Instance.bulletColor)
+        if (spriteRenderer.color != ColorManager.Instance.UpdateColor(2))
         {
-            spriteRenderer.color = ColorManager.Instance.bulletColor;
+            spriteRenderer.color = ColorManager.Instance.UpdateColor(2);
         }
     }
     private void FixedUpdate()
@@ -45,7 +45,7 @@ public class Bullet : MonoBehaviour
     {
         if(other.tag == "Boss")
         {
-            GameManager.Instance.Attack(GameManager.Instance.BossStats,(int)GameManager.Instance.PlayerStats.CharacterData_Temp.AttackPower);
+            GameManager.Instance.Attack(GameManager.Instance.PlayerStats,GameManager.Instance.BossStats);
             ReturnPool();
         }
         if(other.tag == "Ground")

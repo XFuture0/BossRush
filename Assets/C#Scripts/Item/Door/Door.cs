@@ -21,9 +21,9 @@ public class Door : MonoBehaviour
             IsPlayer = false;
             CloseDoor();
         }
-        if (spriteRenderer.color != ColorManager.Instance.DoorColor)
+        if (spriteRenderer.color != ColorManager.Instance.UpdateColor(2))
         {
-            spriteRenderer.color = ColorManager.Instance.DoorColor;
+            spriteRenderer.color = ColorManager.Instance.UpdateColor(2);
         }
     }
     private void DoorDisable()//关闭门(动画中使用)

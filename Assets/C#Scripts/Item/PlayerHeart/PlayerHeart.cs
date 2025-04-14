@@ -12,9 +12,9 @@ public class PlayerHeart : MonoBehaviour
     }
     private void Update()
     {
-        if(image.color != ColorManager.Instance.PlayerHeart)
+        if(image.color != ColorManager.Instance.UpdateColor(2))
         {
-            image.color = ColorManager.Instance.PlayerHeart;
+            image.color = ColorManager.Instance.UpdateColor(2);
         }
     }
 }

@@ -14,5 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 3
   NowHealth: 3
-  AttackPower: 1
+  Speed: 300
+  AttackPower: 5
   InvincibleTime: 1.5
+  HealCount: 0
+  CriticalDamageRate: 0.2
+  CriticalDamageBonus: 0.5
+  DodgeRate: 0.1
+  AttackRate: 0.5
