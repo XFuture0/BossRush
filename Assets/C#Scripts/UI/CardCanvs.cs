@@ -5,18 +5,18 @@ using UnityEngine.UI;
 
 public class CardCanvs : MonoBehaviour
 {
-    public List<GameObject> ChooseList = new List<GameObject>();
-    private List<GameManager.Card> CardList = new List<GameManager.Card>();
+    public List<Card> ChooseList = new List<Card>();
+    private List<CardManager.Card> CardList = new List<CardManager.Card>();
     private void OnEnable()
     {
-        CardList = GameManager.Instance.GetCards();
+        CardList = CardManager.Instance.GetCards();
         ChangeCard();
     }
     private void ChangeCard()
     {
         for (int i = 0; i < CardList.Count; i++)
         {
-            ChooseList[i].transform.GetChild(1).GetComponent<Text>().text = CardList[i].Description;
+            ChooseList[i].UpdateCard(CardList[i]);
         }
     }
 }

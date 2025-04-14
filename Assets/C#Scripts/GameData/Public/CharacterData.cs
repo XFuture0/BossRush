@@ -11,6 +11,8 @@ public class CharacterData : ScriptableObject
     public float AttackPower;//攻击力
     public float InvincibleTime;//无敌时间
     public float HealCount;//治疗量
+    public float AutoHealTime;//自动回复时间
+    public float AutoHealCount;//自动回复量
     public float CriticalDamageRate;//暴击率
     public float CriticalDamageBonus;//暴击加成
     public float DodgeRate;//闪避率

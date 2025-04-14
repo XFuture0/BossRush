@@ -18,9 +18,12 @@ public class BossController : MonoBehaviour
     public bool CrashDown;
     [Header("技能效果")]
     [Header("技能计时器")]
+    public float BaseSkillTime;
     private float SkillTime_Count;
     [Header("行走计时器")]
     private float WalkTime_Count = -2;
+    [Header("自然回血计时器")]
+    private float RebornTiemCount = -2;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -30,6 +33,7 @@ public class BossController : MonoBehaviour
     private void Start()
     {
         Invoke("DestoryIng", 0.01f);
+        SkillTime_Count = BaseSkillTime * Boss.CharacterData_Temp.AttackRate; 
     }
     private void OnEnable()
     {
@@ -52,6 +56,19 @@ public class BossController : MonoBehaviour
             ChangeSkill();
         }
         PlayerPosition = GameManager.Instance.PlayerStats.gameObject.transform.position;
+        Reborn();
+    }
+    private void Reborn()
+    {
+        if(RebornTiemCount > -1)
+        {
+            RebornTiemCount -= Time.deltaTime;
+        }
+        if (RebornTiemCount <= 0)
+        {
+            Boss.CharacterData_Temp.NowHealth += Boss.CharacterData_Temp.AutoHealCount;
+            RebornTiemCount = Boss.CharacterData_Temp.AutoHealTime;
+        }
     }
     private void ChangeSkill()
     {

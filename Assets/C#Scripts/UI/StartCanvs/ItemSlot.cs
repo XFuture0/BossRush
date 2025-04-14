@@ -33,6 +33,10 @@ public class ItemSlot : MonoBehaviour
                 PlayerSlot.transform.GetChild(3).GetChild(0).GetComponent<Image>().sprite = itemData.ItemImage.sprite;
                 PlayerEquipManager.Instance.ChangeHat(itemData.Index);
                 break;
+            case "Character":
+                PlayerSlot.transform.GetChild(4).GetChild(0).GetComponent<Image>().sprite = itemData.ItemImage.sprite;
+                PlayerEquipManager.Instance.ChangeCharacter(itemData.Index);
+                break;
             default:
                 break;
         }

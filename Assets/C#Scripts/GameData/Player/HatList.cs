@@ -9,5 +9,5 @@ public class HatList : ScriptableObject
     {
         public string HatName;
     }
-    public List<HatData> WeaponDatas = new List<HatData>();
+    public List<HatData> HatDatas = new List<HatData>();
 }

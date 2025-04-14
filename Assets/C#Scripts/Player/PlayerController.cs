@@ -13,9 +13,11 @@ public class PlayerController : MonoBehaviour
     private CharacterStats Player;
     public GameObject EndCanvs;
     [Header("临时属性")]
-    private float Speed;
+    public float BaseSpeed;
     private float JumpForce;
     private float JumpDownSpeed_Max;
+    [Header("自然回血计时器")]
+    private float RebornTiemCount = -2;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -28,8 +30,13 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        if(Player.CharacterData_Temp.NowHealth > Player.CharacterData_Temp.MaxHealth)
+        {
+            Player.CharacterData_Temp.NowHealth = Player.CharacterData_Temp.MaxHealth;
+        }
         Jump();
         PlayerDead();
+        Reborn();
     }
     private void FixedUpdate()
     {
@@ -38,7 +45,7 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         InputX = KeyBoardManager.Instance.GetHorizontalRaw();
-        rb.velocity = new Vector2(InputX * Speed * Time.deltaTime, rb.velocity.y);
+        rb.velocity = new Vector2(InputX * BaseSpeed * Player.CharacterData_Temp.Speed * Time.deltaTime, rb.velocity.y);
         if (rb.velocity.x > 0)
         {
             transform.localScale = new Vector3(1, 1, 1);
@@ -62,9 +69,20 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    private void Reborn()
+    {
+        if (RebornTiemCount > -1)
+        {
+            RebornTiemCount -= Time.deltaTime;
+        }
+        if (RebornTiemCount <= 0)
+        {
+            Player.CharacterData_Temp.NowHealth += Player.CharacterData_Temp.HealCount;
+            RebornTiemCount = Player.CharacterData_Temp.AutoHealTime;
+        }
+    }
     private void RefreshData()
     {
-        Speed = Player.CharacterData_Temp.Speed;
         JumpForce = PlayerData.JumpForce;
         JumpDownSpeed_Max = PlayerData.JumpDownSpeed_Max;
     }

@@ -5,20 +5,10 @@ using Unity.Mathematics;
 using UnityEngine;
 public class GameManager : SingleTons<GameManager>
 {
-    public class Card
-    {
-        public string Description;
-        public int Health;
-        public int AttackPower;
-        public BallType BallType;
-        public int index;
-    }
     public GameObject PlayerSlot;
     public PlayerData PlayerData;
     public CharacterStats PlayerStats;
     public CharacterStats BossStats;
-    public ChooseCardList CardList;
-    private List<Card> CardList_Choose = new List<Card>();
     public bool BossActive = true;
     public BossSkillNameList BossSkillNameList;
     public BossSkillList BossSkillList;
@@ -92,39 +82,6 @@ public class GameManager : SingleTons<GameManager>
         Defender.Invincible = true;
         Defender.InvincibleTime_Count = Defender.CharacterData.InvincibleTime;
     }
-    public List<Card> GetCards()
-    {
-        CardList_Choose.Clear();
-        for(int i = 0; i < 3;)
-        {
-            var HaveCard = false;
-            var GetCardCount = UnityEngine.Random.Range(0, CardList.CardLists.Count);
-            foreach (var card in CardList_Choose)
-            {
-                if (card.index == GetCardCount)
-                {
-                    HaveCard = true;
-                }
-            }
-            if (!HaveCard)
-            {
-                var NewCard = new Card();
-                NewCard.index = GetCardCount;
-                NewCard.Description = CardList.CardLists[GetCardCount].Description;
-                NewCard.Health = CardList.CardLists[GetCardCount].Health;
-                NewCard.AttackPower = CardList.CardLists[GetCardCount].AttackPower;
-                NewCard.BallType = CardList.CardLists[GetCardCount].BallType;
-                CardList_Choose.Add(NewCard);
-                i++;
-            }
-        }
-        return CardList_Choose;
-    }
-    public void UseCard(Card card)
-    {
-        PlayerStats.CharacterData_Temp.NowHealth += card.Health;
-        PlayerStats.CharacterData_Temp.AttackPower += card.AttackPower;
-    }
     public void UseImpulse()
     {
         ImpulseEvent.RaiseEvent();
@@ -187,5 +144,13 @@ public class GameManager : SingleTons<GameManager>
     public void OnBoundEvent(Collider2D collider2D) 
     {
         BoundEvent.RaiseBoundEvent(collider2D);
+    }
+    public CharacterData Player()
+    {
+        return PlayerStats.CharacterData_Temp;
+    }
+    public CharacterData Boss()
+    {
+        return BossStats.CharacterData_Temp;
     }
 }
