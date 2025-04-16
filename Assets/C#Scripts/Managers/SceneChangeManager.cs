@@ -11,6 +11,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     public BossCanvs Bosscanvs;
     public FadeCanvs Fadecanvs;
     public GameObject EndCanvs;
+    public int HatIndex;
     [Header("·¿¼äÊý")]
     private int CurrentRoomCount;
     public int RoomCount;
@@ -31,9 +32,11 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
             yield break;
         }
         Fadecanvs.FadeIn();
+        yield return new WaitForSeconds(0.1f);
         ColorManager.Instance.ChangeColor();
         Player.transform.position = new Vector3(-20.64f, -0.44f, 0);
         Boss.transform.position = new Vector3(-15f, 0.97f, 0);
+        Boss.SetActive(true);
         GameManager.Instance.RefreshBossSkill();
         GameManager.Instance.AddBossHealth();
         GameManager.Instance.BossActive = true;
@@ -55,8 +58,10 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         KeyBoardManager.Instance.StopAnyKey = true;
         CurrentRoomCount = 1;
         Fadecanvs.FadeIn();
+        yield return new WaitForSeconds(0.1f);
         ColorManager.Instance.ChangeColor();
         GameManager.Instance.RefreshPlayer();
+        PlayerEquipManager.Instance.ChangeHat(HatIndex);
         GameManager.Instance.RefreshBoss();
         GameManager.Instance.RefreshBossSkill();
         GameManager.Instance.BossActive = true;

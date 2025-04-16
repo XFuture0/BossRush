@@ -12,6 +12,8 @@ public class CharacterList : ScriptableObject
         public float BaseHealth;
         public float BaseAttackPower;
         public float BaseSpeed;
+        [TextArea]
+        public string Description;
     }
     public List<CharacterData> CharacterDatas = new List<CharacterData>();
 

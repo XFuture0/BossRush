@@ -1,6 +1,7 @@
 public enum SkillType 
 {
-    CrashDown
+    ShootBall,
+    Laser
 }
 public enum BallType
 {

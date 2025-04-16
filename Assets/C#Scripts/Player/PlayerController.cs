@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
     private CharacterStats Player;
     public GameObject EndCanvs;
     [Header("临时属性")]
-    public float BaseSpeed;
     private float JumpForce;
     private float JumpDownSpeed_Max;
     [Header("自然回血计时器")]
@@ -45,7 +44,7 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         InputX = KeyBoardManager.Instance.GetHorizontalRaw();
-        rb.velocity = new Vector2(InputX * BaseSpeed * Player.CharacterData_Temp.Speed * Time.deltaTime, rb.velocity.y);
+        rb.velocity = new Vector2(InputX * GameManager.Instance.PlayerStats.CharacterData_Temp.Speed * Player.CharacterData_Temp.SpeedRate * Time.deltaTime, rb.velocity.y);
         if (rb.velocity.x > 0)
         {
             transform.localScale = new Vector3(1, 1, 1);

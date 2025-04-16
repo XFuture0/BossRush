@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class Settings : MonoBehaviour
 {
-    public const float BossGravity = 10f;
+    public const float BossGravity = 8f;
 }

@@ -20,6 +20,7 @@ public class EndCanvs : MonoBehaviour
     {
         Fadecanvs.FadeIn();
         Startcanvs.SetActive(true);
+        GameManager.Instance.PlayerStats.CharacterData_Temp = Instantiate(GameManager.Instance.PlayerStats.CharacterData);
         yield return new WaitForSeconds(0.5f);
         Fadecanvs.FadeOut();
         gameObject.SetActive(false);

@@ -11,6 +11,8 @@ public class WeaponList : ScriptableObject
         public Sprite WeaponSprite;
         public Sprite BulletSprite;
         public int AttackPower;
+        [TextArea]
+        public string Description;
     }
     public List<WeaponData> WeaponDatas = new List<WeaponData>();
 }

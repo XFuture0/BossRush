@@ -1,5 +1,5 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -9,14 +9,23 @@ public class BossController : MonoBehaviour
     private BossCheck Check;
     private bool IsSkill;
     public bool IsStopBoss;
+    private bool NoMove;
     private float SkillLevel;
     private SkillType Skill;
     public BossSkillList SkillList;
     private Vector3 PlayerPosition;
     private CharacterStats Boss;
+    private bool HaveSkill;
+    [Header("技能物品")]
+    public GameObject Shootball;
+    public GameObject laser;
     [Header("技能列表")]
-    public bool CrashDown;
+    public bool ShootBall;
+    public bool Laser;
     [Header("技能效果")]
+    private bool StartLaser;
+    public float LaserSpeed;
+    private float LaserZ;
     [Header("技能计时器")]
     public float BaseSkillTime;
     private float SkillTime_Count;
@@ -26,6 +35,7 @@ public class BossController : MonoBehaviour
     private float RebornTiemCount = -2;
     private void Awake()
     {
+        IsStopBoss = true;
         rb = GetComponent<Rigidbody2D>();
         Check = GetComponent<BossCheck>();
         Boss = GetComponent<CharacterStats>();
@@ -37,7 +47,8 @@ public class BossController : MonoBehaviour
     }
     private void OnEnable()
     {
-        SkillTime_Count = 0.2f;
+        rb.gravityScale = Settings.BossGravity;
+        IsSkill = false;
         WalkTime_Count = 3;
     }
     private void DestoryIng()
@@ -50,13 +61,14 @@ public class BossController : MonoBehaviour
         {
             SkillTime_Count -= Time.deltaTime;
         }
-        if (SkillTime_Count < 0 && !IsSkill && !IsStopBoss)
+        if (SkillTime_Count < 0 && !IsSkill && !IsStopBoss && (Check.IsGround || NoMove))
         {
             IsSkill = true;
             ChangeSkill();
         }
         PlayerPosition = GameManager.Instance.PlayerStats.gameObject.transform.position;
         Reborn();
+        LaserRotation();
     }
     private void Reborn()
     {
@@ -76,22 +88,37 @@ public class BossController : MonoBehaviour
         {
             if (SkillList.BossSkills[i].IsOpen)
             {
-                SkillLevel = Random.Range(0f, 1f);
+                SkillLevel = UnityEngine.Random.Range(0f, 1f);
                 if (SkillLevel < SkillList.BossSkills[i].SkillProbability)
                 {
                     Skill = SkillList.BossSkills[i].Type;
+                    HaveSkill = true;
                     break;
                 }
             }
         }
-        switch (Skill)
+        if (HaveSkill)
         {
-            case SkillType.CrashDown:
-                CrashDown = true;
-              //  StartCoroutine(UseCrashDown());
-                break;
-            default:
-                break;
+            HaveSkill = false;
+            switch (Skill)
+            {
+                case SkillType.ShootBall:
+                    ShootBall = true;
+                    StartCoroutine(UseShootBall());
+                    break;
+                case SkillType.Laser:
+                    Laser = true;
+                    StartCoroutine(UseLaser());
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            HaveSkill = false;
+            IsSkill = false;
+            SkillTime_Count = BaseSkillTime * Boss.CharacterData_Temp.AttackRate;
         }
     }
     private void FixedUpdate()
@@ -100,20 +127,21 @@ public class BossController : MonoBehaviour
     }
     private void CanWalk()
     {
-        if(WalkTime_Count > -1)
+        if(WalkTime_Count > -1 && !IsStopBoss && !IsSkill && !NoMove)
         {
             WalkTime_Count -= Time.deltaTime;
         }
-        if(WalkTime_Count <= 0)
+        if(WalkTime_Count <= 0 && !IsStopBoss && !IsSkill && !NoMove)
         {
-            WalkTime_Count = Random.Range(1f, 3f);
+            WalkTime_Count = UnityEngine.Random.Range(1f, 3f);
             Walk();
         }
     }
     private void Walk()
     {
         var ForceRotation = new Vector2(0, 0);
-        var Walkspeed = Random.Range(Boss.CharacterData_Temp.Speed * 0.8f,Boss.CharacterData_Temp.Speed * 1.5f);
+        var RealSpeed = Boss.CharacterData_Temp.Speed * Boss.CharacterData_Temp.SpeedRate;
+        var Walkspeed = UnityEngine.Random.Range(RealSpeed * 0.8f, RealSpeed * 1.5f);
         if (GameManager.Instance.PlayerStats.gameObject.transform.position.x >= transform.position.x)//在右边
         {
             ForceRotation = new Vector2(1 * Walkspeed, 1 * Walkspeed * 2f);
@@ -131,9 +159,47 @@ public class BossController : MonoBehaviour
             GameManager.Instance.Attack(gameObject.GetComponent<CharacterStats>(),other.GetComponent<CharacterStats>());
         }
     }
-    private IEnumerator UseCrashDown()
+    private void BossFly()
     {
-        var NewCrashDownPosition = new Vector3(0, 0, 0);
-        yield return null;
+        transform.position = new Vector3(-14.88f, 11.75f, 0);
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = 0;
+        NoMove = true;
+    }
+    private IEnumerator UseShootBall()
+    {
+        var SetShootBall = transform.position + new Vector3(0, 2.5f, 0);
+        Instantiate(Shootball, SetShootBall, Quaternion.identity);
+        yield return new WaitForSeconds(3);
+        ShootBall = false;
+        IsSkill = false;
+        SkillTime_Count = BaseSkillTime * Boss.CharacterData_Temp.AttackRate;
+    }
+    private IEnumerator UseLaser()
+    {
+        if(rb.gravityScale != 0)
+        {
+            BossFly();
+            yield return new WaitForSeconds(1);
+        }
+        yield return new WaitForSeconds(1);
+        laser.SetActive(true);
+        laser.transform.eulerAngles = new Vector3(0, 0, 0);
+        LaserZ = 0;
+        StartLaser = true;
+        yield return new WaitForSeconds(5);
+        laser.SetActive(false);
+        StartLaser = false;
+        Laser = false;
+        IsSkill = false;
+        SkillTime_Count = BaseSkillTime * Boss.CharacterData_Temp.AttackRate;
+    }
+    private void LaserRotation()
+    {
+        if (StartLaser)
+        {
+            LaserZ = Mathf.Lerp(LaserZ,200,LaserSpeed * Time.deltaTime);
+            laser.transform.eulerAngles = new Vector3(0, 0, LaserZ);
+        }
     }
 }

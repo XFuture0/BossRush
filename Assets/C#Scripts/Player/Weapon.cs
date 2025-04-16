@@ -42,6 +42,6 @@ public class Weapon : MonoBehaviour
         {
             RotationY += 180f;
         }
-        transform.rotation = Quaternion.Euler(0, 0, RotationY);
+        transform.rotation = Quaternion.Euler(0, 0,RotationY);
     }
 }

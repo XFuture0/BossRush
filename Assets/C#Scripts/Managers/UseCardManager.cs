@@ -40,8 +40,8 @@ public class UseCardManager : SingleTons<UseCardManager>
     }
     private void OnEqualHatred()
     {
-        GameManager.Instance.Player().AttackPower += 5;
-        GameManager.Instance.Boss().AttackPower += 1;
+        GameManager.Instance.Player().WeaponAttackPower += 5;
+        GameManager.Instance.Boss().WeaponAttackPower += 1;
     }
     private void OnEqualReborn()
     {
@@ -62,6 +62,6 @@ public class UseCardManager : SingleTons<UseCardManager>
     }
     private void OnSmallSprayStartUp()
     {
-        GameManager.Instance.Player().Speed += 0.05f;
+        GameManager.Instance.Player().SpeedRate += 0.05f;
     }
 }

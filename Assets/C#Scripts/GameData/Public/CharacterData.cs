@@ -8,7 +8,9 @@ public class CharacterData : ScriptableObject
     public float MaxHealth;//总生命值
     public float NowHealth;//当前生命值
     public float Speed;//移速
+    public float SpeedRate;//移速加成
     public float AttackPower;//攻击力
+    public float WeaponAttackPower;//枪械攻击力
     public float InvincibleTime;//无敌时间
     public float HealCount;//治疗量
     public float AutoHealTime;//自动回复时间

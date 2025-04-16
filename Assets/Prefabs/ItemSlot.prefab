@@ -90,7 +90,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b08c790bafec1e4aa46ce85e57a6f85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerSlot: {fileID: 0}
+  itemData: {fileID: 0}
+  Quesrtion: {fileID: 21300000, guid: 3eb95b166fa08d94f8e254d5c5e4a25d, type: 3}
 --- !u!114 &6551838056155396503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,3 +224,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bf736a385cfe0740b51d60ef78e5a38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemImage: {fileID: 0}
+  Index: 0

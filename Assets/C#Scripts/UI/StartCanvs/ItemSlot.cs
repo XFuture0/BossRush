@@ -8,6 +8,7 @@ public class ItemSlot : MonoBehaviour
 {
     private GameObject PlayerSlot;
     public ItemData itemData;
+    public Sprite Quesrtion;
     private Button ChooseButton;
     private void Awake()
     {
@@ -21,24 +22,36 @@ public class ItemSlot : MonoBehaviour
     }
     private void OnChooseButton()
     {
-        switch (transform.parent.gameObject.tag)
+        if (itemData.IsOpen)
         {
-            case "Weapon":
-                PlayerSlot.transform.GetChild(1).GetComponent<Image>().sprite = itemData.ItemImage.sprite;
-                PlayerSlot.transform.GetChild(2).GetChild(0).GetComponent<Image>().sprite = itemData.ItemImage.sprite;
-                PlayerEquipManager.Instance.ChangeWeapon(itemData.Index);
-                break;
-            case "Hat":
-                PlayerSlot.transform.GetChild(0).GetComponent<Image>().sprite = itemData.ItemImage.sprite;
-                PlayerSlot.transform.GetChild(3).GetChild(0).GetComponent<Image>().sprite = itemData.ItemImage.sprite;
-                PlayerEquipManager.Instance.ChangeHat(itemData.Index);
-                break;
-            case "Character":
-                PlayerSlot.transform.GetChild(4).GetChild(0).GetComponent<Image>().sprite = itemData.ItemImage.sprite;
-                PlayerEquipManager.Instance.ChangeCharacter(itemData.Index);
-                break;
-            default:
-                break;
+            switch (transform.parent.gameObject.tag)
+            {
+                case "Weapon":
+                    PlayerSlot.transform.GetChild(1).GetComponent<Image>().sprite = itemData.ItemImage.sprite;
+                    PlayerSlot.transform.GetChild(2).GetChild(0).GetComponent<Image>().sprite = itemData.ItemImage.sprite;
+                    PlayerEquipManager.Instance.ChangeWeapon(itemData.Index);
+                    break;
+                case "Hat":
+                    PlayerSlot.transform.GetChild(0).GetComponent<Image>().sprite = itemData.ItemImage.sprite;
+                    PlayerSlot.transform.GetChild(3).GetChild(0).GetComponent<Image>().sprite = itemData.ItemImage.sprite;
+                    PlayerEquipManager.Instance.ChangeHatDescription(itemData.Index);
+                    SceneChangeManager.Instance.HatIndex = itemData.Index;
+                    break;
+                case "Character":
+                    PlayerSlot.transform.GetChild(4).GetChild(0).GetComponent<Image>().sprite = itemData.ItemImage.sprite;
+                    PlayerEquipManager.Instance.ChangeCharacter(itemData.Index);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    public void CheckOpen()
+    {
+        if (!itemData.IsOpen)
+        {
+            GetComponent<Image>().sprite = Quesrtion;
+            transform.GetChild(0).GetComponent<Image>().color = new Color(1,1,1,0);
         }
     }
 }

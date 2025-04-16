@@ -42,8 +42,10 @@ public class GameManager : SingleTons<GameManager>
         {
             CriticalDamageBonus += Attacker.CharacterData_Temp.CriticalDamageBonus;
         }
-        Defender.CharacterData_Temp.NowHealth -= Attacker.CharacterData_Temp.AttackPower * CriticalDamageBonus;
-        if(Defender.CharacterData_Temp.NowHealth <= 0)
+        Defender.CharacterData_Temp.NowHealth -= (Attacker.CharacterData_Temp.AttackPower + Attacker.CharacterData_Temp.WeaponAttackPower) * CriticalDamageBonus;
+        Defender.Invincible = true;
+        Defender.InvincibleTime_Count = Defender.CharacterData.InvincibleTime;
+        if (Defender.CharacterData_Temp.NowHealth <= 0)
         {
             Defender.CharacterData_Temp.NowHealth = 0;
         }
@@ -58,8 +60,6 @@ public class GameManager : SingleTons<GameManager>
             default:
                 break;
         }
-        Defender.Invincible = true;
-        Defender.InvincibleTime_Count = Defender.CharacterData.InvincibleTime;
     }
     public void Attack(CharacterStats Defender,int Count)
     {
@@ -99,7 +99,10 @@ public class GameManager : SingleTons<GameManager>
             if(BossSkillNameList.BossSkillName[BossSkillNameList_Count] == skill.SkillName)
             {
                 skill.IsOpen = true;
-                BossSkillNameList_Count++;
+                if(BossSkillNameList_Count + 1< BossSkillNameList.BossSkillName.Count)
+                {
+                    BossSkillNameList_Count++;
+                }
                 break;
             }
         }
@@ -138,6 +141,7 @@ public class GameManager : SingleTons<GameManager>
     public void RefreshPlayer()
     {
         PlayerStats.CharacterData_Temp = Instantiate(PlayerStats.CharacterData);
+        PlayerStats.CharacterData_Temp.NowHealth = PlayerStats.CharacterData_Temp.MaxHealth;//»Ø¸´ÑªÁ¿
         PlayerStats.gameObject.GetComponent<PlayerController>().Isdead = false;
         PlayerStats.gameObject.transform.position = new Vector3(-20.64f, -0.44f, 0);
     }

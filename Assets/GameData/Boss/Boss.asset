@@ -15,9 +15,13 @@ MonoBehaviour:
   MaxHealth: 100
   NowHealth: 100
   Speed: 10
+  SpeedRate: 1
   AttackPower: 1
+  WeaponAttackPower: 0
   InvincibleTime: 0
   HealCount: 50
+  AutoHealTime: 0
+  AutoHealCount: 0
   CriticalDamageRate: 0
   CriticalDamageBonus: 0
   DodgeRate: 0

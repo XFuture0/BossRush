@@ -8,6 +8,9 @@ public class HatList : ScriptableObject
     public class HatData
     {
         public string HatName;
+        public VoidEventSO HatEvent;
+        [TextArea]
+        public string Description;
     }
     public List<HatData> HatDatas = new List<HatData>();
 }
