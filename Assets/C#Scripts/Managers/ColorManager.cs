@@ -14,9 +14,22 @@ public class ColorManager : SingleTons<ColorManager>
     public GameObject Back;
     public ColorData ColorData;
     private int ColorIndex;
+   /* private void Update()
+    {
+        Camera.GetComponent<Camera>().backgroundColor = ColorData.ColorLists[ColorIndex].Color1;
+        Player.GetComponent<SpriteRenderer>().color = ColorData.ColorLists[ColorIndex].Color2;
+        Weapon.GetComponent<SpriteRenderer>().color = ColorData.ColorLists[ColorIndex].Color2;
+        Boss.GetComponent<SpriteRenderer>().color = ColorData.ColorLists[ColorIndex].Color2;
+        BossHealthBox.GetComponent<Image>().color = ColorData.ColorLists[ColorIndex].Color2;
+        BossHealthBox.transform.GetChild(0).GetComponent<Image>().color = ColorData.ColorLists[ColorIndex].Color2;
+        BossHealthBox.transform.GetChild(1).GetComponent<Image>().color = ColorData.ColorLists[ColorIndex].Color2;
+        Back.GetComponent<Tilemap>().color = ColorData.ColorLists[ColorIndex].Color2;
+    }
+   */
     public void ChangeColor()
     {
         ColorIndex = UnityEngine.Random.Range(0,ColorData.ColorLists.Count);
+        //ColorIndex = ColorData.ColorLists.Count - 1;
         Camera.GetComponent<Camera>().backgroundColor = ColorData.ColorLists[ColorIndex].Color1;
         Player.GetComponent<SpriteRenderer>().color = ColorData.ColorLists[ColorIndex].Color2;
         Weapon.GetComponent<SpriteRenderer>().color = ColorData.ColorLists[ColorIndex].Color2;

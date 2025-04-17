@@ -19,7 +19,7 @@ public class Card : MonoBehaviour
     }
     private void UseCard()
     {
-        ThisCard.CardEvent.RaiseEvent();
+        UseCardManager.Instance.StartInvoke(ThisCard.CardInvokeName);
         transform.parent.gameObject.SetActive(false);
     }
 }

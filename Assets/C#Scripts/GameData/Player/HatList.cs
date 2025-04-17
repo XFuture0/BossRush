@@ -8,7 +8,7 @@ public class HatList : ScriptableObject
     public class HatData
     {
         public string HatName;
-        public VoidEventSO HatEvent;
+        public string HatInvokeName;
         [TextArea]
         public string Description;
     }

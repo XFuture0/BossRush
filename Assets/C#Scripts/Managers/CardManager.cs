@@ -7,9 +7,9 @@ public class CardManager : SingleTons<CardManager>
     public class Card
     {
         public string CardName;
+        public string CardInvokeName;
         public string Description;
         public BallType BallType;
-        public VoidEventSO CardEvent;
         public int index;
     }
     public ChooseCardList CardList;
@@ -33,9 +33,9 @@ public class CardManager : SingleTons<CardManager>
                 var NewCard = new Card();
                 NewCard.index = GetCardCount;
                 NewCard.CardName = CardList.CardLists[GetCardCount].CardName;
+                NewCard.CardInvokeName = CardList.CardLists[GetCardCount].CardInvokeName;
                 NewCard.Description = CardList.CardLists[GetCardCount].Description;
                 NewCard.BallType = CardList.CardLists[GetCardCount].BallType;
-                NewCard.CardEvent = CardList.CardLists[GetCardCount].CardEvent;
                 CardList_Choose.Add(NewCard);
                 i++;
             }

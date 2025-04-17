@@ -9,12 +9,11 @@ public class ChooseCardList : ScriptableObject
     public class Card
     {
         public string CardName;
+        public string CardInvokeName;
         [TextArea]
         public string Description;
         public BallType BallType;
         public Quality Quality;
-        public VoidEventSO CardEvent;
-
     }
     public List<Card> CardLists = new List<Card>();
 }

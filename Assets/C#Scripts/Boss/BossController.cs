@@ -12,6 +12,7 @@ public class BossController : MonoBehaviour
     private bool NoMove;
     private float SkillLevel;
     private SkillType Skill;
+    private BossState State;
     public BossSkillList SkillList;
     private Vector3 PlayerPosition;
     private CharacterStats Boss;
@@ -19,13 +20,20 @@ public class BossController : MonoBehaviour
     [Header("技能物品")]
     public GameObject Shootball;
     public GameObject laser;
+    public GameObject FissueBox;
+    public GameObject BossArmy;
     [Header("技能列表")]
     public bool ShootBall;
     public bool Laser;
+    public bool GroundFissue;
+    public bool Collide;
+    public bool SummonArmy;
     [Header("技能效果")]
     private bool StartLaser;
     public float LaserSpeed;
     private float LaserZ;
+    private bool IsGroundFissue;
+    public float CollideForce; 
     [Header("技能计时器")]
     public float BaseSkillTime;
     private float SkillTime_Count;
@@ -48,7 +56,9 @@ public class BossController : MonoBehaviour
     private void OnEnable()
     {
         rb.gravityScale = Settings.BossGravity;
+        State = BossState.Ground;
         IsSkill = false;
+        NoMove = false;
         WalkTime_Count = 3;
     }
     private void DestoryIng()
@@ -69,6 +79,10 @@ public class BossController : MonoBehaviour
         PlayerPosition = GameManager.Instance.PlayerStats.gameObject.transform.position;
         Reborn();
         LaserRotation();
+        if (IsGroundFissue)
+        {
+            EndGroundFissue();
+        }
     }
     private void Reborn()
     {
@@ -89,7 +103,7 @@ public class BossController : MonoBehaviour
             if (SkillList.BossSkills[i].IsOpen)
             {
                 SkillLevel = UnityEngine.Random.Range(0f, 1f);
-                if (SkillLevel < SkillList.BossSkills[i].SkillProbability)
+                if (SkillLevel < SkillList.BossSkills[i].SkillProbability && (SkillList.BossSkills[i].State == State || SkillList.BossSkills[i].State == BossState.ALL))
                 {
                     Skill = SkillList.BossSkills[i].Type;
                     HaveSkill = true;
@@ -109,6 +123,18 @@ public class BossController : MonoBehaviour
                 case SkillType.Laser:
                     Laser = true;
                     StartCoroutine(UseLaser());
+                    break;
+                case SkillType.GroundFissue:
+                    GroundFissue = true;
+                    StartCoroutine(UseGroundFissue());
+                    break;
+                case SkillType.Collide:
+                    Collide = true;
+                    StartCoroutine(UseCollide());
+                    break;
+                case SkillType.SummonArmy:
+                    SummonArmy = true;
+                    StartCoroutine(UseSummonArmy());
                     break;
                 default:
                     break;
@@ -165,6 +191,12 @@ public class BossController : MonoBehaviour
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0;
         NoMove = true;
+        State = BossState.Flying;
+    }
+    private void EndFly()
+    {
+        rb.gravityScale = Settings.BossGravity;
+        State = BossState.Ground;
     }
     private IEnumerator UseShootBall()
     {
@@ -201,5 +233,75 @@ public class BossController : MonoBehaviour
             LaserZ = Mathf.Lerp(LaserZ,200,LaserSpeed * Time.deltaTime);
             laser.transform.eulerAngles = new Vector3(0, 0, LaserZ);
         }
+    }
+    private IEnumerator UseGroundFissue()
+    {
+        if (rb.gravityScale != 0)
+        {
+            BossFly();
+            yield return new WaitForSeconds(1);
+        }
+        EndFly();
+        IsGroundFissue = true;
+        yield return null;
+    }
+    private void EndGroundFissue()
+    {
+        if (Check.IsGround)
+        {
+            IsGroundFissue = false;
+            FissueBox.SetActive(true);
+            GroundFissue = false;
+            IsSkill = false;
+            SkillTime_Count = BaseSkillTime * Boss.CharacterData_Temp.AttackRate;
+        }
+    }
+    private IEnumerator UseCollide()
+    {
+        rb.gravityScale = 0;
+        rb.velocity = Vector2.zero;
+        var NewPosition = (Vector2)PlayerPosition + new Vector2(-4.53f,1.25f);
+        if(!Physics2D.OverlapArea(Check.LeftUpPo + NewPosition,Check.RightDownPo + NewPosition, Check.Ground))
+        {
+            transform.position = NewPosition;
+        }
+        else if (!Physics2D.OverlapArea(Check.LeftUpPo + NewPosition + new Vector2(9.06f,0), Check.RightDownPo + NewPosition + new Vector2(9.06f, 0), Check.Ground))
+        {
+            transform.position = NewPosition + new Vector2(9.06f, 0);
+        }
+        yield return new WaitForSeconds(1);
+        if(PlayerPosition.x - transform.position.x >= 0)//右
+        {
+            rb.AddForce(Vector2.right * CollideForce, ForceMode2D.Impulse);
+        }
+        else if (PlayerPosition.x - transform.position.x < 0)//左
+        {
+            rb.AddForce(Vector2.left * CollideForce, ForceMode2D.Impulse);
+        }
+        yield return new WaitForSeconds(0.3f);
+        rb.velocity = Vector2.zero;
+        yield return new WaitForSeconds(0.3f);
+        rb.gravityScale = Settings.BossGravity;
+        Collide = false;
+        IsSkill = false;
+        SkillTime_Count = BaseSkillTime * Boss.CharacterData_Temp.AttackRate;
+    }
+    private IEnumerator UseSummonArmy()
+    {
+        yield return new WaitForSeconds(0.3f);
+        if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(-3,0), Check.RightDownPo + (Vector2)transform.position + new Vector2(-3, 0), Check.Ground))
+        {
+            var NewArmy = Instantiate(BossArmy,transform.position + new Vector3(-3,0,0),Quaternion.identity);
+            NewArmy.GetComponent<SpriteRenderer>().color = ColorManager.Instance.UpdateColor(2);
+        }
+        else if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(3, 0), Check.RightDownPo + (Vector2)transform.position + new Vector2(3, 0), Check.Ground))
+        {
+            var NewArmy = Instantiate(BossArmy, transform.position + new Vector3(3, 0, 0), Quaternion.identity);
+            NewArmy.GetComponent<SpriteRenderer>().color = ColorManager.Instance.UpdateColor(2);
+        }
+        yield return new WaitForSeconds(0.3f);
+        SummonArmy = false;
+        IsSkill = false;
+        SkillTime_Count = BaseSkillTime * Boss.CharacterData_Temp.AttackRate;
     }
 }

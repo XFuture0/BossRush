@@ -9,6 +9,7 @@ public class BossSkillList : ScriptableObject
     {
         public string SkillName;
         public SkillType Type;
+        public BossState State;
         public float SkillProbability;
         public bool IsOpen;
     }

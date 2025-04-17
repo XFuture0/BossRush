@@ -48,6 +48,11 @@ public class Bullet : MonoBehaviour
             GameManager.Instance.Attack(GameManager.Instance.PlayerStats,GameManager.Instance.BossStats);
             ReturnPool();
         }
+        if(other.tag == "BossArmy")
+        {
+            GameManager.Instance.Attack(GameManager.Instance.PlayerStats,other.GetComponent<CharacterStats>());
+            ReturnPool();
+        }
         if(other.tag == "Ground")
         {
             ReturnPool();

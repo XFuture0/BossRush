@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b96ce6a610dde2458f9208d2447d5cd, type: 3}
+  m_Name: BossArmy
+  m_EditorClassIdentifier: 
+  MaxHealth: 25
+  NowHealth: 25
+  Speed: 100
+  SpeedRate: 1
+  AttackPower: 1
+  WeaponAttackPower: 0
+  InvincibleTime: 0
+  HealCount: 0
+  AutoHealTime: 0
+  AutoHealCount: 0
+  CriticalDamageRate: 0
+  CriticalDamageBonus: 0
+  DodgeRate: 0
+  AttackRate: 0

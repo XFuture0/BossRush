@@ -1,7 +1,17 @@
 public enum SkillType 
 {
     ShootBall,
-    Laser
+    Laser,
+    GroundFissue,
+    Collide,
+    SummonArmy
+}
+public enum BossState
+{
+    ALL,
+    Ground,
+    Flying,
+    Dead,
 }
 public enum BallType
 {

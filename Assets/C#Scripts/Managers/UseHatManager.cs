@@ -2,22 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class UseHatManager : SingleTons<UseHatManager>
 {
-    [Header("使用帽子事件监听")]
-    public VoidEventSO TopHat;
-    private void OnEnable()
+    public void StartInvoke(string HatName)
     {
-        TopHat.OnEventRaised += OnTopHat;
+        Invoke(HatName, 0);
     }
-    private void OnDisable()
-    {
-        TopHat.OnEventRaised -= OnTopHat;
-    }
-    private void OnTopHat()
+    private void TopHat()
     {
         GameManager.Instance.PlayerStats.CharacterData_Temp.MaxHealth += 2;
         GameManager.Instance.Player().NowHealth = GameManager.Instance.Player().MaxHealth;
+        CancelInvoke();
     }
 }

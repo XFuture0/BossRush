@@ -17,6 +17,7 @@ public class GameManager : SingleTons<GameManager>
     [Header("¹ã²¥")]
     public VoidEventSO ImpulseEvent;
     public BoundEventSO BoundEvent;
+    public VoidEventSO BossDeadEvent;
     protected override void Awake()
     {
         base.Awake();
@@ -137,6 +138,7 @@ public class GameManager : SingleTons<GameManager>
         BossStats.gameObject.SetActive(false);
         SceneChangeManager.Instance.Door.SetActive(true);
         SceneChangeManager.Instance.Door.GetComponent<Door>().OpenDoor();
+        BossDeadEvent.RaiseEvent();
     }
     public void RefreshPlayer()
     {
