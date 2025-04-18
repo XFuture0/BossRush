@@ -9,6 +9,7 @@ public class CardCanvs : MonoBehaviour
     private List<CardManager.Card> CardList = new List<CardManager.Card>();
     private void OnEnable()
     {
+        KeyBoardManager.Instance.StopMoveKey = true;
         CardList = CardManager.Instance.GetCards();
         ChangeCard();
     }

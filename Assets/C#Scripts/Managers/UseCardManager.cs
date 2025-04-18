@@ -14,6 +14,7 @@ public class UseCardManager : SingleTons<UseCardManager>
     }
     private void EqualCompetition()
     {
+        GameManager.Instance.Player().MaxHealth += 3;
         GameManager.Instance.Player().NowHealth += 3;
         GameManager.Instance.Boss().NowHealth *= 1.2f;
         CancelInvoke();

@@ -12,17 +12,14 @@ public class EndCanvs : MonoBehaviour
     {
         ReturnButton.onClick.AddListener(EndGame);
     }
+    private void OnEnable()
+    {
+        KeyBoardManager.Instance.StopMoveKey = true;
+        SceneChangeManager.Instance.Boss.GetComponent<BossController>().IsStopBoss = true;
+    }
     private void EndGame()
     {
-        StartCoroutine(Ending());
-    }
-    private IEnumerator Ending()
-    {
-        Fadecanvs.FadeIn();
-        Startcanvs.SetActive(true);
-        GameManager.Instance.PlayerStats.CharacterData_Temp = Instantiate(GameManager.Instance.PlayerStats.CharacterData);
-        yield return new WaitForSeconds(0.5f);
-        Fadecanvs.FadeOut();
+        SceneChangeManager.Instance.EndGame();
         gameObject.SetActive(false);
     }
 }

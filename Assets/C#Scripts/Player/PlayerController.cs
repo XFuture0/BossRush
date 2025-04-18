@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private float JumpForce;
     private float JumpDownSpeed_Max;
     [Header("自然回血计时器")]
+    private bool CanReborn;
     private float RebornTiemCount = -2;
     private void Awake()
     {
@@ -36,6 +37,7 @@ public class PlayerController : MonoBehaviour
         Jump();
         PlayerDead();
         Reborn();
+        CheckReborn();
     }
     private void FixedUpdate()
     {
@@ -70,14 +72,25 @@ public class PlayerController : MonoBehaviour
     }
     private void Reborn()
     {
-        if (RebornTiemCount > -1)
+        if (RebornTiemCount > -1 && CanReborn)
         {
             RebornTiemCount -= Time.deltaTime;
         }
-        if (RebornTiemCount <= 0)
+        if (RebornTiemCount <= 0 && CanReborn)
         {
-            Player.CharacterData_Temp.NowHealth += Player.CharacterData_Temp.HealCount;
+            Player.CharacterData_Temp.NowHealth += Player.CharacterData_Temp.AutoHealCount;
             RebornTiemCount = Player.CharacterData_Temp.AutoHealTime;
+        }
+    }
+    private void CheckReborn()
+    {
+        if(GameManager.Instance.BossStats.CharacterData_Temp.NowHealth >= 0)
+        {
+            CanReborn = true;
+        }
+        else
+        {
+            CanReborn = false;
         }
     }
     private void RefreshData()

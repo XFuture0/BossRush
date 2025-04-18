@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameManager : SingleTons<GameManager>
 {
     public GameObject PlayerSlot;
+    public GameObject CardPaper;
     public PlayerData PlayerData;
     public CharacterStats PlayerStats;
     public CharacterStats BossStats;
@@ -136,8 +137,8 @@ public class GameManager : SingleTons<GameManager>
     {
         BossActive = false;
         BossStats.gameObject.SetActive(false);
+        Instantiate(CardPaper, BossStats.transform.position, Quaternion.identity);
         SceneChangeManager.Instance.Door.SetActive(true);
-        SceneChangeManager.Instance.Door.GetComponent<Door>().OpenDoor();
         BossDeadEvent.RaiseEvent();
     }
     public void RefreshPlayer()

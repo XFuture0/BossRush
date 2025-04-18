@@ -16,7 +16,7 @@ public class Door : MonoBehaviour
     }
     private void Update()
     {
-        if (IsPlayer && KeyBoardManager.Instance.GetKeyDown_R())
+        if (IsPlayer && KeyBoardManager.Instance.GetKeyDown_R() && boxcollider2D.enabled)
         {
             IsPlayer = false;
             CloseDoor();

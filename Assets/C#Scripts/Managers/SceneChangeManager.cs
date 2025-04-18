@@ -9,6 +9,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     public GameObject Boss;
     private Vector3 PlayerPosition;
     public BossCanvs Bosscanvs;
+    public GameObject Startcanvs;
     public FadeCanvs Fadecanvs;
     public GameObject EndCanvs;
     public int HatIndex;
@@ -56,6 +57,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     private IEnumerator OnStartGame()
     {
         KeyBoardManager.Instance.StopAnyKey = true;
+        ScoreManager.Instance.StartGetScore();
         CurrentRoomCount = 1;
         Fadecanvs.FadeIn();
         yield return new WaitForSeconds(0.1f);
@@ -78,5 +80,19 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     public void ShowRoomCount(int count)
     {
         RoomCount = count;
+    }
+    public void EndGame()
+    {
+        StartCoroutine(Ending());
+    }
+    private IEnumerator Ending() 
+    {
+        Fadecanvs.FadeIn();
+        Startcanvs.SetActive(true);
+        GameManager.Instance.PlayerStats.CharacterData_Temp = Instantiate(GameManager.Instance.PlayerStats.CharacterData);
+        yield return new WaitForSeconds(0.5f);
+        Boss.SetActive(false);
+        GameManager.Instance.BossDeadEvent.RaiseEvent();
+        Fadecanvs.FadeOut();
     }
 }

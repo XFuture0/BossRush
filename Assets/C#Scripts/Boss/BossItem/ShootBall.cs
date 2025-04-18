@@ -23,7 +23,10 @@ public class ShootBall : MonoBehaviour
     private void Update()
     {
         PlayerPosition = GameManager.Instance.PlayerStats.gameObject.transform.position;
-        GetComponent<SpriteRenderer>().color = ColorManager.Instance.UpdateColor(2);
+        if(GetComponent<SpriteRenderer>().color != ColorManager.Instance.UpdateColor(2))
+        {
+            GetComponent<SpriteRenderer>().color = ColorManager.Instance.UpdateColor(2);
+        }
     }
     private void FixedUpdate()
     {

@@ -4,7 +4,8 @@ public enum SkillType
     Laser,
     GroundFissue,
     Collide,
-    SummonArmy
+    SummonArmy,
+    Trident
 }
 public enum BossState
 {

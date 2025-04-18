@@ -22,18 +22,24 @@ public class BossController : MonoBehaviour
     public GameObject laser;
     public GameObject FissueBox;
     public GameObject BossArmy;
+    public Transform TridentBox;
+    public Trident trident;
     [Header("技能列表")]
+    private SkillType LastSkill;
     public bool ShootBall;
     public bool Laser;
     public bool GroundFissue;
     public bool Collide;
     public bool SummonArmy;
+    public bool Trident;
     [Header("技能效果")]
     private bool StartLaser;
     public float LaserSpeed;
     private float LaserZ;
     private bool IsGroundFissue;
-    public float CollideForce; 
+    public float CollideForce;
+    [HideInInspector] public ObjectPool<Trident> TridentPool;
+    private int TridentCount;
     [Header("技能计时器")]
     public float BaseSkillTime;
     private float SkillTime_Count;
@@ -47,19 +53,26 @@ public class BossController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         Check = GetComponent<BossCheck>();
         Boss = GetComponent<CharacterStats>();
+        TridentPool = new ObjectPool<Trident>(trident);
+        TridentPool.Box = TridentBox;
     }
     private void Start()
     {
         Invoke("DestoryIng", 0.01f);
-        SkillTime_Count = BaseSkillTime * Boss.CharacterData_Temp.AttackRate; 
     }
     private void OnEnable()
     {
         rb.gravityScale = Settings.BossGravity;
         State = BossState.Ground;
+        SkillTime_Count = 2;
         IsSkill = false;
         NoMove = false;
         WalkTime_Count = 3;
+    }
+    private void OnDisable()
+    {
+        laser.SetActive(false);
+        FissueBox.SetActive(false);
     }
     private void DestoryIng()
     {
@@ -81,7 +94,7 @@ public class BossController : MonoBehaviour
         LaserRotation();
         if (IsGroundFissue)
         {
-            EndGroundFissue();
+            CheckGroundFissue();
         }
     }
     private void Reborn()
@@ -103,7 +116,7 @@ public class BossController : MonoBehaviour
             if (SkillList.BossSkills[i].IsOpen)
             {
                 SkillLevel = UnityEngine.Random.Range(0f, 1f);
-                if (SkillLevel < SkillList.BossSkills[i].SkillProbability && (SkillList.BossSkills[i].State == State || SkillList.BossSkills[i].State == BossState.ALL))
+                if (SkillLevel < SkillList.BossSkills[i].SkillProbability && (SkillList.BossSkills[i].State == State || SkillList.BossSkills[i].State == BossState.ALL) && SkillList.BossSkills[i].Type != LastSkill)
                 {
                     Skill = SkillList.BossSkills[i].Type;
                     HaveSkill = true;
@@ -118,23 +131,33 @@ public class BossController : MonoBehaviour
             {
                 case SkillType.ShootBall:
                     ShootBall = true;
+                    LastSkill = Skill;
                     StartCoroutine(UseShootBall());
                     break;
                 case SkillType.Laser:
                     Laser = true;
+                    LastSkill = Skill;
                     StartCoroutine(UseLaser());
                     break;
                 case SkillType.GroundFissue:
                     GroundFissue = true;
+                    LastSkill = Skill;
                     StartCoroutine(UseGroundFissue());
                     break;
                 case SkillType.Collide:
                     Collide = true;
+                    LastSkill = Skill;
                     StartCoroutine(UseCollide());
                     break;
                 case SkillType.SummonArmy:
                     SummonArmy = true;
+                    LastSkill = Skill;
                     StartCoroutine(UseSummonArmy());
+                    break;
+                case SkillType.Trident:
+                    Trident = true;
+                    LastSkill = Skill;
+                    StartCoroutine(UseTrident());
                     break;
                 default:
                     break;
@@ -215,9 +238,9 @@ public class BossController : MonoBehaviour
             yield return new WaitForSeconds(1);
         }
         yield return new WaitForSeconds(1);
-        laser.SetActive(true);
-        laser.transform.eulerAngles = new Vector3(0, 0, 0);
         LaserZ = 0;
+        laser.transform.eulerAngles = new Vector3(0, 0, 0);
+        laser.SetActive(true);
         StartLaser = true;
         yield return new WaitForSeconds(5);
         laser.SetActive(false);
@@ -245,16 +268,21 @@ public class BossController : MonoBehaviour
         IsGroundFissue = true;
         yield return null;
     }
-    private void EndGroundFissue()
+    private void CheckGroundFissue()
     {
         if (Check.IsGround)
         {
             IsGroundFissue = false;
-            FissueBox.SetActive(true);
-            GroundFissue = false;
-            IsSkill = false;
-            SkillTime_Count = BaseSkillTime * Boss.CharacterData_Temp.AttackRate;
+            StartCoroutine(EndGroundFissue());
         }
+    }
+    public IEnumerator EndGroundFissue()
+    {
+        FissueBox.SetActive(true);
+        yield return new WaitForSeconds(1);
+        GroundFissue = false;
+        IsSkill = false;
+        SkillTime_Count = BaseSkillTime * Boss.CharacterData_Temp.AttackRate;
     }
     private IEnumerator UseCollide()
     {
@@ -301,6 +329,19 @@ public class BossController : MonoBehaviour
         }
         yield return new WaitForSeconds(0.3f);
         SummonArmy = false;
+        IsSkill = false;
+        SkillTime_Count = BaseSkillTime * Boss.CharacterData_Temp.AttackRate;
+    }
+    private IEnumerator UseTrident()
+    {
+        TridentCount = 3;
+        for(int i = 0; i < TridentCount; i++)
+        {
+            var NewTrident = TridentPool.GetObject();
+            NewTrident.gameObject.transform.position = GameManager.Instance.PlayerStats.gameObject.transform.position + new Vector3(0,-0.5f,0);
+            yield return new WaitForSeconds(0.5f);
+        }
+        Trident = false;
         IsSkill = false;
         SkillTime_Count = BaseSkillTime * Boss.CharacterData_Temp.AttackRate;
     }

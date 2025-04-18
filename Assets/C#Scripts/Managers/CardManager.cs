@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,10 @@ public class CardManager : SingleTons<CardManager>
         public int index;
     }
     public ChooseCardList CardList;
+    public GameObject CardCanvs;
     private List<Card> CardList_Choose = new List<Card>();
+    [Header("ÊÂ¼þ¼àÌý")]
+    public VoidEventSO OpenCardCanvsEvent;
     public List<Card> GetCards()
     {
         CardList_Choose.Clear();
@@ -41,5 +45,19 @@ public class CardManager : SingleTons<CardManager>
             }
         }
         return CardList_Choose;
+    }
+    private void OnEnable()
+    {
+        OpenCardCanvsEvent.OnEventRaised += OpenCardCanvs;
+    }
+
+    private void OpenCardCanvs()
+    {
+        CardCanvs.SetActive(true);
+    }
+
+    private void OnDisable()
+    {
+        OpenCardCanvsEvent.OnEventRaised -= OpenCardCanvs;
     }
 }

@@ -37,7 +37,7 @@ public class PlayerEquipManager : SingleTons<PlayerEquipManager>
     }
     public void ChangeHat(int Index)
     {
-        if (HatList.HatDatas[Index] != null)
+        if (HatList.HatDatas[Index] != null && HatList.HatDatas[Index].HatInvokeName != "")
         {
             CurrentHatIndex= Index;
             UseHatManager.Instance.StartInvoke(HatList.HatDatas[Index].HatInvokeName);
