@@ -15,14 +15,28 @@ public class PlayerController : MonoBehaviour
     [Header("临时属性")]
     private float JumpForce;
     private float JumpDownSpeed_Max;
+    private int CurDashCount;
+    private int CurJumpCount;
     [Header("自然回血计时器")]
     private bool CanReborn;
     private float RebornTiemCount = -2;
+    [Header("冲刺")]
+    public PlayerDashTemp DashTemp;
+    public Transform DashPool;
+    [HideInInspector] public ObjectPool<PlayerDashTemp> PlayerDashPool;
+    public float DashForce;
+    public float DashTime;
+    private float DashTime_Count;
+    private bool IsDash;
+    public float CanDashTime;
+    private float CanDashTime_Count;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         Check = rb.GetComponent<PlayerCheck>();
         Player = GetComponent<CharacterStats>();
+        PlayerDashPool = new ObjectPool<PlayerDashTemp>(DashTemp);
+        PlayerDashPool.Box = DashPool;
     }
     private void Start()
     {
@@ -38,10 +52,15 @@ public class PlayerController : MonoBehaviour
         PlayerDead();
         Reborn();
         CheckReborn();
+        CheckDash();
     }
     private void FixedUpdate()
     {
         Move();
+        if (IsDash)
+        {
+            Dash();
+        }
     }
     private void Move()
     {
@@ -58,8 +77,10 @@ public class PlayerController : MonoBehaviour
     }
     private void Jump()
     {
-        if (KeyBoardManager.Instance.GetKeyDown_Space() && Check.IsGround)
+        if (KeyBoardManager.Instance.GetKeyDown_Space()&& CurJumpCount > 0)
         {
+            CurJumpCount--;
+            rb.velocity = Vector2.zero;
             rb.velocity = new Vector2(rb.velocity.x, JumpForce);
         }
         if (!Check.IsGround && rb.velocity.y < 0)
@@ -69,6 +90,56 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, JumpDownSpeed_Max);
             }
         }
+        if (Check.IsGround && rb.velocity.y <= 0)
+        {
+            CurJumpCount = Player.CharacterData_Temp.JumpCount;
+        }
+    }
+    private void CheckDash()
+    {
+        if(CanDashTime_Count <= 0 && Player.CharacterData_Temp.CanDash)
+        {
+            CurDashCount = Player.CharacterData_Temp.DashCount;
+        }
+        if(CanDashTime_Count > -2)
+        {
+            CanDashTime_Count -= Time.deltaTime;
+        }
+        if (DashTime_Count > -2)
+        {
+            DashTime_Count -= Time.deltaTime;
+        }
+        if (DashTime_Count <= 0 && IsDash)
+        {
+            IsDash = false;
+            EndDash();
+        }
+        if (KeyBoardManager.Instance.GetKeyDown_Shift() && CurDashCount > 0)
+        {
+            CurDashCount--;
+            CanDashTime_Count = CanDashTime + DashTime;
+            DashTime_Count = DashTime;
+            IsDash = true;
+            rb.gravityScale = 0;
+            KeyBoardManager.Instance.StopMoveKey = true;
+            InvokeRepeating("AddPlayerDashTemp", 0, 0.02f);
+        }
+    }
+    private void Dash()
+    {
+        rb.velocity = new Vector2(transform.localScale.x,0) * DashForce;
+    }
+    private void AddPlayerDashTemp()
+    {
+        var NewTemp = PlayerDashPool.GetObject();
+        NewTemp.transform.position = transform.position;
+    }
+    private void EndDash()
+    {
+        CancelInvoke("AddPlayerDashTemp");
+        rb.velocity = Vector2.zero;
+        KeyBoardManager.Instance.StopMoveKey = false;
+        rb.gravityScale = Settings.PlayerGravity;
     }
     private void Reborn()
     {

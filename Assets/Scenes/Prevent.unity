@@ -2778,6 +2778,7 @@ Transform:
   - {fileID: 1952514463}
   - {fileID: 1616715120}
   - {fileID: 104600407}
+  - {fileID: 753119803}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
@@ -4194,6 +4195,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b08c790bafec1e4aa46ce85e57a6f85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &753119802
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 753119803}
+  m_Layer: 3
+  m_Name: DashPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &753119803
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 753119802}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -18.22, y: -0.504, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 508012729}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &757251278
 GameObject:
   m_ObjectHideFlags: 0
@@ -12402,7 +12434,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -606540035
   m_SortingLayer: 2
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 1568543602, guid: 37a731708ad676049ae2bf54d80bb049, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -12549,6 +12581,11 @@ MonoBehaviour:
   Isdead: 0
   PlayerData: {fileID: 11400000, guid: 43490a6b7ae5f9341a5fd80838856f40, type: 2}
   EndCanvs: {fileID: 1975173949}
+  DashTemp: {fileID: 1752133803048547985, guid: 7722d658805d8fc4580d748a2d121641, type: 3}
+  DashPool: {fileID: 753119803}
+  DashForce: 40
+  DashTime: 0.13
+  CanDashTime: 1
 --- !u!95 &1545711579
 Animator:
   serializedVersion: 5

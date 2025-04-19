@@ -19,4 +19,7 @@ public class CharacterData : ScriptableObject
     public float CriticalDamageBonus;//暴击加成
     public float DodgeRate;//闪避率
     public float AttackRate;//攻击频率
+    public bool CanDash;//是否可以冲刺
+    public int DashCount;//冲刺次数
+    public int JumpCount;//跳跃次数
 }

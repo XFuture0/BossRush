@@ -50,5 +50,13 @@ public class KeyBoardManager : SingleTons<KeyBoardManager>
         }
         return false;
     }
+    public bool GetKeyDown_Shift()
+    {
+        if (!StopAnyKey && !StopMoveKey)
+        {
+            return Input.GetKeyDown(KeyCode.LeftShift);
+        }
+        return false;
+    }
 }
 
