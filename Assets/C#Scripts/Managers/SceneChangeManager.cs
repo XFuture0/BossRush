@@ -61,6 +61,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         CurrentRoomCount = 1;
         Fadecanvs.FadeIn();
         yield return new WaitForSeconds(0.1f);
+        CardManager.Instance.RefreshCard();
         ColorManager.Instance.ChangeColor();
         GameManager.Instance.RefreshPlayer();
         PlayerEquipManager.Instance.ChangeHat(HatIndex);

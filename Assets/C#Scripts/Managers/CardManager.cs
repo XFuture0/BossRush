@@ -5,42 +5,44 @@ using UnityEngine;
 
 public class CardManager : SingleTons<CardManager>
 {
-    public class Card
-    {
-        public string CardName;
-        public string CardInvokeName;
-        public string Description;
-        public BallType BallType;
-        public int index;
-    }
     public ChooseCardList CardList;
     public GameObject CardCanvs;
-    private List<Card> CardList_Choose = new List<Card>();
+    private List<ChooseCardList.Card> CardList_Choose = new List<ChooseCardList.Card>();
     [Header("ÊÂ¼þ¼àÌý")]
     public VoidEventSO OpenCardCanvsEvent;
-    public List<Card> GetCards()
+    public List<ChooseCardList.Card> GetCards()
     {
         CardList_Choose.Clear();
         for (int i = 0; i < 3;)
         {
+            var OpenCount = 0;
+            foreach (ChooseCardList.Card card in CardList.CardLists)
+            {
+                if (card.IsOpen)
+                {
+                    OpenCount++;
+                }
+            }
+            if(OpenCount < 3)
+            {
+                return null;
+            }
             var HaveCard = false;
             var GetCardCount = UnityEngine.Random.Range(0, CardList.CardLists.Count);
+            if (!CardList.CardLists[GetCardCount].IsOpen)
+            {
+                HaveCard = true;
+            }
             foreach (var card in CardList_Choose)
             {
-                if (card.index == GetCardCount)
+                if (card.CardInvokeName == CardList.CardLists[GetCardCount].CardInvokeName)
                 {
                     HaveCard = true;
                 }
             }
             if (!HaveCard)
             {
-                var NewCard = new Card();
-                NewCard.index = GetCardCount;
-                NewCard.CardName = CardList.CardLists[GetCardCount].CardName;
-                NewCard.CardInvokeName = CardList.CardLists[GetCardCount].CardInvokeName;
-                NewCard.Description = CardList.CardLists[GetCardCount].Description;
-                NewCard.BallType = CardList.CardLists[GetCardCount].BallType;
-                CardList_Choose.Add(NewCard);
+                CardList_Choose.Add(CardList.CardLists[GetCardCount]);
                 i++;
             }
         }
@@ -50,7 +52,13 @@ public class CardManager : SingleTons<CardManager>
     {
         OpenCardCanvsEvent.OnEventRaised += OpenCardCanvs;
     }
-
+    public void RefreshCard()
+    {
+        foreach (var card in CardList.CardLists)
+        {
+            card.IsOpen = true;
+        }
+    }
     private void OpenCardCanvs()
     {
         CardCanvs.SetActive(true);

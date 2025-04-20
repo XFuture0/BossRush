@@ -18,28 +18,46 @@ MonoBehaviour:
     Description: "\u6700\u5927HP+3\nBossHp+20%"
     BallType: 1
     Quality: 0
+    IsOpen: 1
   - CardName: "\u5E73\u7B49\u4EC7\u89C6"
     CardInvokeName: EqualHatred
     Description: "\u4F24\u5BB3+5\nBoss\u7684\u4F24\u5BB3+1"
     BallType: 1
     Quality: 0
+    IsOpen: 1
   - CardName: "\u5E73\u7B49\u518D\u751F"
     CardInvokeName: EqualReborn
     Description: "\u6BCF15\u79D2HP+1\nBoss\u751F\u547D\u518D\u751F+0.5"
     BallType: 1
     Quality: 1
+    IsOpen: 1
   - CardName: "\u7D27\u6025\u907F\u8BA9"
     CardInvokeName: EmergencyAvoidance
     Description: "\u95EA\u907F\u7387+5%\nBoss\u95EA\u907F\u7387+5%"
     BallType: 1
     Quality: 0
+    IsOpen: 1
   - CardName: "\u6025\u4E2D\u751F\u957F"
     CardInvokeName: RapidGrowth
     Description: "\u653B\u901F+5%\nBoss\u653B\u51FB\u9891\u7387+10%"
     BallType: 0
     Quality: 0
+    IsOpen: 1
   - CardName: "\u5C0F\u55B7\u8D77\u6B65"
     CardInvokeName: SmallSprayStartUp
     Description: "\u79FB\u901F+5%"
     BallType: 0
     Quality: 0
+    IsOpen: 1
+  - CardName: "\u5E94\u6025\u53CD\u5E94"
+    CardInvokeName: EmergencyResponse
+    Description: "\u5141\u8BB8\u51B2\u523A,\u53EF\u8FDE\u7EED\u51B2\u523A\u6B21\u6570+1\nBoss\u653B\u51FB\u9891\u7387+10%"
+    BallType: 0
+    Quality: 0
+    IsOpen: 0
+  - CardName: "\u5154\u5B50\u817F"
+    CardInvokeName: RabbitLegs
+    Description: "\u5141\u8BB8\u4E8C\u6BB5\u8DF3\nBoss\u653B\u51FB\u9891\u7387+10%"
+    BallType: 0
+    Quality: 0
+    IsOpen: 1

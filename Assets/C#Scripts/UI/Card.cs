@@ -5,13 +5,13 @@ using UnityEngine.UI;
 public class Card : MonoBehaviour
 {
     private Button CardButton;
-    private CardManager.Card ThisCard;
+    private ChooseCardList.Card ThisCard;
     private void Awake()
     {
         CardButton = GetComponent<Button>();
         CardButton.onClick.AddListener(UseCard);
     }
-    public void UpdateCard(CardManager.Card card)
+    public void UpdateCard(ChooseCardList.Card card)
     {
         ThisCard = card;
         transform.GetChild(0).GetComponent<Text>().text = card.CardName;
@@ -19,6 +19,7 @@ public class Card : MonoBehaviour
     }
     private void UseCard()
     {
+        ThisCard.IsOpen = false;
         UseCardManager.Instance.StartInvoke(ThisCard.CardInvokeName);
         KeyBoardManager.Instance.StopMoveKey = false;
         SceneChangeManager.Instance.Door.GetComponent<Door>().OpenDoor();

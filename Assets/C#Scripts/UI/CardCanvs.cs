@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CardCanvs : MonoBehaviour
 {
     public List<Card> ChooseList = new List<Card>();
-    private List<CardManager.Card> CardList = new List<CardManager.Card>();
+    private List<ChooseCardList.Card> CardList = new List<ChooseCardList.Card>();
     private void OnEnable()
     {
         KeyBoardManager.Instance.StopMoveKey = true;

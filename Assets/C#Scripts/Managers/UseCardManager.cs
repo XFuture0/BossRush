@@ -16,7 +16,7 @@ public class UseCardManager : SingleTons<UseCardManager>
     {
         GameManager.Instance.Player().MaxHealth += 3;
         GameManager.Instance.Player().NowHealth += 3;
-        GameManager.Instance.Boss().NowHealth *= 1.2f;
+        GameManager.Instance.Boss().MaxHealth *= 1.2f;
         CancelInvoke();
     }
     private void EqualHatred()
@@ -49,5 +49,16 @@ public class UseCardManager : SingleTons<UseCardManager>
     {
         GameManager.Instance.Player().SpeedRate += 0.05f;
         CancelInvoke();
+    }
+    private void EmergencyResponse()
+    {
+        GameManager.Instance.Player().CanDash = true;
+        GameManager.Instance.Player().DashCount = 1;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+    }
+    private void RabbitLegs()
+    {
+        GameManager.Instance.Player().JumpCount = 2;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
     }
 }
