@@ -21,7 +21,7 @@ public class UseCardManager : SingleTons<UseCardManager>
     }
     private void EqualHatred()
     {
-        GameManager.Instance.Player().WeaponAttackPower += 5;
+        GameManager.Instance.Player().WeaponAttackPower *= 1.5f;
         GameManager.Instance.Boss().WeaponAttackPower += 1;
         CancelInvoke();
     }
@@ -60,5 +60,10 @@ public class UseCardManager : SingleTons<UseCardManager>
     {
         GameManager.Instance.Player().JumpCount = 2;
         GameManager.Instance.Boss().AttackRate -= 0.1f;
+    }
+    private void VoidWalkAlone()
+    {
+        GameManager.Instance.Player().DashInvincibleFrame = true;
+        GameManager.Instance.Boss().DodgeRate += 0.1f;
     }
 }

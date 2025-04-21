@@ -33,56 +33,62 @@ public class GameManager : SingleTons<GameManager>
     }
     public void Attack(CharacterStats Attacker,CharacterStats Defender)
     {
-        var Dodge = UnityEngine.Random.Range(0f, 1f);
-        if(Dodge < Defender.CharacterData_Temp.DodgeRate)
+        if (!Defender.Invincible)
         {
-            return;
-        }
-        var Critical = UnityEngine.Random.Range(0f, 1f);
-        CriticalDamageBonus = 1;
-        if(Critical < Attacker.CharacterData_Temp.CriticalDamageRate)
-        {
-            CriticalDamageBonus += Attacker.CharacterData_Temp.CriticalDamageBonus;
-        }
-        Defender.CharacterData_Temp.NowHealth -= (Attacker.CharacterData_Temp.AttackPower + Attacker.CharacterData_Temp.WeaponAttackPower) * CriticalDamageBonus;
-        Defender.Invincible = true;
-        Defender.InvincibleTime_Count = Defender.CharacterData.InvincibleTime;
-        if (Defender.CharacterData_Temp.NowHealth <= 0)
-        {
-            Defender.CharacterData_Temp.NowHealth = 0;
-        }
-        switch (Defender.gameObject.tag)
-        {
-            case "Player":
-                UseImpulse();
-                StartCoroutine(FrameDrop());
-                break;
-            case "Boss":
-                break;
-            default:
-                break;
+            var Dodge = UnityEngine.Random.Range(0f, 1f);
+            if (Dodge < Defender.CharacterData_Temp.DodgeRate)
+            {
+                return;
+            }
+            var Critical = UnityEngine.Random.Range(0f, 1f);
+            CriticalDamageBonus = 1;
+            if (Critical < Attacker.CharacterData_Temp.CriticalDamageRate)
+            {
+                CriticalDamageBonus += Attacker.CharacterData_Temp.CriticalDamageBonus;
+            }
+            Defender.CharacterData_Temp.NowHealth -= (Attacker.CharacterData_Temp.AttackPower + Attacker.CharacterData_Temp.WeaponAttackPower) * CriticalDamageBonus;
+            Defender.Invincible = true;
+            Defender.InvincibleTime_Count = Defender.CharacterData.InvincibleTime;
+            if (Defender.CharacterData_Temp.NowHealth <= 0)
+            {
+                Defender.CharacterData_Temp.NowHealth = 0;
+            }
+            switch (Defender.gameObject.tag)
+            {
+                case "Player":
+                    UseImpulse();
+                    StartCoroutine(FrameDrop());
+                    break;
+                case "Boss":
+                    break;
+                default:
+                    break;
+            }
         }
     }
     public void Attack(CharacterStats Defender,int Count)
     {
-        Defender.CharacterData_Temp.NowHealth -= Count;
-        if (Defender.CharacterData_Temp.NowHealth <= 0)
+        if (!Defender.Invincible)
         {
-            Defender.CharacterData_Temp.NowHealth = 0;
+            Defender.CharacterData_Temp.NowHealth -= Count;
+            if (Defender.CharacterData_Temp.NowHealth <= 0)
+            {
+                Defender.CharacterData_Temp.NowHealth = 0;
+            }
+            switch (Defender.gameObject.tag)
+            {
+                case "Player":
+                    UseImpulse();
+                    StartCoroutine(FrameDrop());
+                    break;
+                case "Boss":
+                    break;
+                default:
+                    break;
+            }
+            Defender.Invincible = true;
+            Defender.InvincibleTime_Count = Defender.CharacterData.InvincibleTime;
         }
-        switch (Defender.gameObject.tag)
-        {
-            case "Player":
-                UseImpulse();
-                StartCoroutine(FrameDrop());
-                break;
-            case "Boss":
-                break;
-            default:
-                break;
-        }
-        Defender.Invincible = true;
-        Defender.InvincibleTime_Count = Defender.CharacterData.InvincibleTime;
     }
     public void UseImpulse()
     {
@@ -98,11 +104,12 @@ public class GameManager : SingleTons<GameManager>
     {
         foreach (var skill in BossSkillList.BossSkills)
         {
-            if(BossSkillNameList.BossSkillName[BossSkillNameList_Count] == skill.SkillName)
+            if(BossSkillNameList.BossSkillNames[BossSkillNameList_Count].Name == skill.SkillName)
             {
                 skill.IsOpen = true;
-                if(BossSkillNameList_Count + 1< BossSkillNameList.BossSkillName.Count)
+                if(BossSkillNameList_Count + 1< BossSkillNameList.BossSkillNames.Count)
                 {
+                    skill.SkillLevel = 1;
                     BossSkillNameList_Count++;
                 }
                 break;
@@ -114,20 +121,13 @@ public class GameManager : SingleTons<GameManager>
         BossStats.CharacterData_Temp.NowHealth = BossStats.CharacterData_Temp.MaxHealth + BossStats.CharacterData_Temp.HealCount;
         BossStats.CharacterData_Temp.MaxHealth = BossStats.CharacterData_Temp.NowHealth;
     }
-    public void ClearBossSkill()
-    {
-        foreach (var skill in BossSkillList.BossSkills)
-        {
-            skill.IsOpen = false;
-        }
-        BossSkillNameList_Count = 0;
-    }
     public void RefreshBoss()
     {
         BossStats.gameObject.SetActive(true);
         foreach (var skill in BossSkillList.BossSkills)
         {
             skill.IsOpen = false;
+            skill.SkillLevel = 0;
         }
         BossSkillNameList_Count = 0;
         BossStats.CharacterData_Temp = Instantiate(BossStats.CharacterData);

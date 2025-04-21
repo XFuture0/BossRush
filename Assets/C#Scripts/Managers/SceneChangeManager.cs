@@ -14,7 +14,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     public GameObject EndCanvs;
     public int HatIndex;
     [Header("·¿¼äÊı")]
-    private int CurrentRoomCount;
+    public int CurrentRoomCount;
     public int RoomCount;
     public void ChangeScene()
     {

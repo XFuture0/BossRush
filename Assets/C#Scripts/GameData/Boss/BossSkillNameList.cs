@@ -5,5 +5,21 @@ using UnityEngine;
 
 public class BossSkillNameList : ScriptableObject
 {
-    public List<string> BossSkillName = new List<string>();
+    [System.Serializable]
+    public class BossSkillName
+    {
+        public string Name;
+        [TextArea]
+        public string Description_1;
+        [TextArea]
+        public string Description_2;
+        [TextArea]
+        public string Description_3;
+        [TextArea]
+        public string Description_4;
+        [TextArea]
+        public string Description_5;
+    }
+
+    public List<BossSkillName> BossSkillNames = new List<BossSkillName>();
 }

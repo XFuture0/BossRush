@@ -116,6 +116,11 @@ public class PlayerController : MonoBehaviour
         }
         if (KeyBoardManager.Instance.GetKeyDown_Shift() && CurDashCount > 0)
         {
+            if (Player.CharacterData_Temp.DashInvincibleFrame)
+            {
+                Player.Invincible = true;
+                Player.InvincibleTime_Count = Player.CharacterData.InvincibleTime;
+            }
             CurDashCount--;
             CanDashTime_Count = CanDashTime + DashTime;
             DashTime_Count = DashTime;

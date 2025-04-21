@@ -17,29 +17,35 @@ MonoBehaviour:
     Type: 0
     State: 1
     SkillProbability: 0.3
+    SkillLevel: 5
+    IsOpen: 1
+  - SkillName: SummonArmy
+    Type: 4
+    State: 0
+    SkillProbability: 0.5
+    SkillLevel: 5
     IsOpen: 1
   - SkillName: GroundFissue
     Type: 2
     State: 0
     SkillProbability: 0.2
-    IsOpen: 0
+    SkillLevel: 5
+    IsOpen: 1
   - SkillName: Laser
     Type: 1
     State: 0
     SkillProbability: 0.4
-    IsOpen: 0
+    SkillLevel: 5
+    IsOpen: 1
   - SkillName: Collide
     Type: 3
     State: 1
     SkillProbability: 0.5
-    IsOpen: 0
+    SkillLevel: 5
+    IsOpen: 1
   - SkillName: Trident
     Type: 5
     State: 0
     SkillProbability: 0.4
-    IsOpen: 0
-  - SkillName: SummonArmy
-    Type: 4
-    State: 0
-    SkillProbability: 0.5
-    IsOpen: 0
+    SkillLevel: 5
+    IsOpen: 1

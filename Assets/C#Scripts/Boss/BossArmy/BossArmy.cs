@@ -9,14 +9,34 @@ public class BossArmy : MonoBehaviour
     private Rigidbody2D rb;
     private Vector3 PlayerPosition;
     private Vector2 PlayerRotation;
+    public bool IsLevel4;
+    public bool IsLevel5;
+    public GameObject BossArmyBall;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         bossarmy = GetComponent<CharacterStats>();
     }
+    private void OnEnable()
+    {
+        if (IsLevel4)
+        {
+            InvokeRepeating("ArmyShoot", 1, 2f);
+        }
+    }
     private void Update()
     {
+        if (IsLevel4)
+        {
+            IsLevel4 = false;
+            InvokeRepeating("ArmyShoot", 1, 2f);
+        }
+        if (IsLevel5)
+        {
+            IsLevel5 = false;
+            InvokeRepeating("RebornBoss", 0, 1);
+        }
         PlayerPosition = GameManager.Instance.PlayerStats.gameObject.transform.position;
         BossArmyDead();
     }
@@ -50,6 +70,18 @@ public class BossArmy : MonoBehaviour
         if(other.tag == "Player")
         {
             GameManager.Instance.Attack(bossarmy,GameManager.Instance.PlayerStats);
+        }
+    }
+    private void ArmyShoot()
+    {
+        Instantiate(BossArmyBall, transform.position - new Vector3(transform.localScale.x * 1,0,0), Quaternion.identity);
+    }
+    private void RebornBoss()
+    {
+        GameManager.Instance.Boss().NowHealth += 0.5f;
+        if(GameManager.Instance.Boss().NowHealth >= GameManager.Instance.Boss().MaxHealth)
+        {
+            GameManager.Instance.Boss().NowHealth = GameManager.Instance.Boss().MaxHealth;
         }
     }
     private void BossArmyDead()

@@ -21,7 +21,7 @@ MonoBehaviour:
     IsOpen: 1
   - CardName: "\u5E73\u7B49\u4EC7\u89C6"
     CardInvokeName: EqualHatred
-    Description: "\u4F24\u5BB3+5\nBoss\u7684\u4F24\u5BB3+1"
+    Description: "\u4F24\u5BB3+50%\nBoss\u7684\u4F24\u5BB3+1"
     BallType: 1
     Quality: 0
     IsOpen: 1
@@ -54,10 +54,16 @@ MonoBehaviour:
     Description: "\u5141\u8BB8\u51B2\u523A,\u53EF\u8FDE\u7EED\u51B2\u523A\u6B21\u6570+1\nBoss\u653B\u51FB\u9891\u7387+10%"
     BallType: 0
     Quality: 0
-    IsOpen: 0
+    IsOpen: 1
   - CardName: "\u5154\u5B50\u817F"
     CardInvokeName: RabbitLegs
     Description: "\u5141\u8BB8\u4E8C\u6BB5\u8DF3\nBoss\u653B\u51FB\u9891\u7387+10%"
     BallType: 0
     Quality: 0
+    IsOpen: 1
+  - CardName: "\u865A\u7A7A\u72EC\u884C"
+    CardInvokeName: VoidWalkAlone
+    Description: "\u4F60\u7684\u51B2\u523A\u62E5\u6709\u65E0\u654C\u5E27\nBoss\u95EA\u907F\u7387+10%"
+    BallType: 0
+    Quality: 2
     IsOpen: 1

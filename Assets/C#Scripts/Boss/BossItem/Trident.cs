@@ -6,15 +6,16 @@ public class Trident : MonoBehaviour
 {
     private Animator anim;
     private SpriteRenderer spriteRenderer;
+    public float WaitTime;
     private void Awake()
     {
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
-    private void OnEnable()
+    private void Start()
     {
-        Invoke("StartAttack", 1f);
-        Invoke("Disable",1.7f);
+        Invoke("StartAttack", WaitTime);
+        Invoke("Destorying", 1.5f);
     }
     private void Update()
     {
@@ -27,21 +28,15 @@ public class Trident : MonoBehaviour
     {
         anim.SetBool("Attack", true);
     }
-    private void Disable()
-    {
-        GameManager.Instance.BossStats.gameObject.GetComponent<BossController>().TridentPool.ReturnObject(this);
-    }
-    private void OnDisable()
-    {
-        anim.SetBool("Attack", false);
-        GetComponent<BoxCollider2D>().enabled = false;
-        CancelInvoke();
-    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag == "Player")
         {
             GameManager.Instance.Attack(GameManager.Instance.BossStats,GameManager.Instance.PlayerStats);
         }
+    }
+    private void Destorying()
+    {
+        Destroy(gameObject);
     }
 }

@@ -6,16 +6,23 @@ using UnityEngine.Rendering;
 public class ShootBall : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private Animator anim;
     private Vector3 PlayerPosition;
     public float Speed;
     private float NowSpeed;
     private float WaitTime;
+    private bool IsHit;
+    public bool IsLevel1;
+    public bool IsLevel2;
+    public bool IsLevel4;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
     private void OnEnable()
     {
+        IsHit = false;
         WaitTime = 1;
         NowSpeed = Speed;
         InvokeRepeating("SpeedUp", 1, 0.2f);
@@ -31,7 +38,7 @@ public class ShootBall : MonoBehaviour
     private void FixedUpdate()
     {
         WaitTime -= Time.deltaTime;
-        if (WaitTime <= 0)
+        if (WaitTime <= 0 && !IsHit)
         {
             TrackPlayer();
         }
@@ -53,12 +60,44 @@ public class ShootBall : MonoBehaviour
     {
         if(other.tag == "Player")
         {
+            IsHit = true;
+            rb.velocity = Vector2.zero;
             GameManager.Instance.Attack(GameManager.Instance.BossStats, GameManager.Instance.PlayerStats);
-            Destroy(gameObject);
+            if (IsLevel1)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            if (IsLevel2)
+            {
+                transform.localScale = new Vector3(1.5f, 1.5f, 1);
+            }
+            if (IsLevel4)
+            {
+                transform.localScale = new Vector3(2, 2, 1);
+            }
+            anim.SetTrigger("Attack");
         }
         if(other.tag == "Ground")
         {
-            Destroy(gameObject);
+            IsHit = true;
+            rb.velocity = Vector2.zero;
+            if (IsLevel1)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            if (IsLevel2)
+            {
+                transform.localScale = new Vector3(1.5f, 1.5f, 1);
+            }
+            if (IsLevel4)
+            {
+                transform.localScale = new Vector3(2, 2, 1);
+            }
+            anim.SetTrigger("Attack");
         }
+    }
+    private void DestoryIng()
+    {
+        Destroy(gameObject);
     }
 }

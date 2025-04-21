@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b96ce6a610dde2458f9208d2447d5cd, type: 3}
-  m_Name: Player
+  m_Name: BoostBossArmy
   m_EditorClassIdentifier: 
-  MaxHealth: 3
-  NowHealth: 3
-  Speed: 300
+  MaxHealth: 50
+  NowHealth: 50
+  Speed: 120
   SpeedRate: 1
-  AttackPower: 1
-  WeaponAttackPower: 5
-  InvincibleTime: 1
+  AttackPower: 2
+  WeaponAttackPower: 0
+  InvincibleTime: 0
   HealCount: 0
   AutoHealTime: 0
   AutoHealCount: 0
-  CriticalDamageRate: 0.2
-  CriticalDamageBonus: 0.5
-  DodgeRate: 0.1
-  AttackRate: 1
+  CriticalDamageRate: 0
+  CriticalDamageBonus: 0
+  DodgeRate: 0
+  AttackRate: 0
   CanDash: 0
   DashInvincibleFrame: 0
   DashCount: 0
-  JumpCount: 1
+  JumpCount: 0

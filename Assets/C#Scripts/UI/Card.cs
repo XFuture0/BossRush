@@ -19,7 +19,7 @@ public class Card : MonoBehaviour
     }
     private void UseCard()
     {
-        ThisCard.IsOpen = false;
+        //ThisCard.IsOpen = false;
         UseCardManager.Instance.StartInvoke(ThisCard.CardInvokeName);
         KeyBoardManager.Instance.StopMoveKey = false;
         SceneChangeManager.Instance.Door.GetComponent<Door>().OpenDoor();

@@ -11,6 +11,7 @@ public class BossSkillList : ScriptableObject
         public SkillType Type;
         public BossState State;
         public float SkillProbability;
+        public int SkillLevel;
         public bool IsOpen;
     }
     public List<BossSkill> BossSkills = new List<BossSkill>();
