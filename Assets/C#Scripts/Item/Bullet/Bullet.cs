@@ -4,8 +4,6 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
-    [Header("¹ã²¥")]
-    public GameObjectEventSO ReturnPoolEvent;
     private Rigidbody2D rb;
     public Vector2 BulletRotation;
     public float BulletSpeed;
@@ -33,10 +31,6 @@ public class Bullet : MonoBehaviour
     {
         rb.velocity = BulletRotation * BulletSpeed;
     }
-    private void ReturnPool()
-    {
-        ReturnPoolEvent.RaiseGameObjectEvent(this.gameObject);
-    }
     private void OnDisable()
     {
         CancelInvoke();
@@ -46,16 +40,16 @@ public class Bullet : MonoBehaviour
         if(other.tag == "Boss")
         {
             GameManager.Instance.Attack(GameManager.Instance.PlayerStats,GameManager.Instance.BossStats);
-            ReturnPool();
+            Destroy(gameObject);
         }
         if(other.tag == "BossArmy")
         {
             GameManager.Instance.Attack(GameManager.Instance.PlayerStats,other.GetComponent<CharacterStats>());
-            ReturnPool();
+            Destroy(gameObject);
         }
         if(other.tag == "Ground")
         {
-            ReturnPool();
+            Destroy(gameObject);
         }
     }
 }

@@ -15,6 +15,7 @@ public class GameManager : SingleTons<GameManager>
     public BossSkillList BossSkillList;
     public int BossSkillNameList_Count;
     private float CriticalDamageBonus;
+    private float BossHealth;
     [Header("广播")]
     public VoidEventSO ImpulseEvent;
     public BoundEventSO BoundEvent;
@@ -46,7 +47,7 @@ public class GameManager : SingleTons<GameManager>
             {
                 CriticalDamageBonus += Attacker.CharacterData_Temp.CriticalDamageBonus;
             }
-            Defender.CharacterData_Temp.NowHealth -= (Attacker.CharacterData_Temp.AttackPower + Attacker.CharacterData_Temp.WeaponAttackPower) * CriticalDamageBonus;
+            Defender.CharacterData_Temp.NowHealth -= (Attacker.CharacterData_Temp.AttackPower + Attacker.CharacterData_Temp.WeaponAttackPower) * CriticalDamageBonus * Attacker.CharacterData_Temp.AttackBonus;
             Defender.Invincible = true;
             Defender.InvincibleTime_Count = Defender.CharacterData.InvincibleTime;
             if (Defender.CharacterData_Temp.NowHealth <= 0)
@@ -116,10 +117,25 @@ public class GameManager : SingleTons<GameManager>
             }
         }
     }
+    public void AddBossSkillLevel()
+    {
+        while (true)
+        {
+            var Count = UnityEngine.Random.Range(0, BossSkillList.BossSkills.Count);
+            if (BossSkillList.BossSkills[Count].IsOpen && BossSkillList.BossSkills[Count].SkillLevel < 5)
+            {
+                BossSkillList.BossSkills[Count].SkillLevel += 1;
+                return;
+            }
+        }
+    }
     public void AddBossHealth()
     {
-        BossStats.CharacterData_Temp.NowHealth = BossStats.CharacterData_Temp.MaxHealth + BossStats.CharacterData_Temp.HealCount;
-        BossStats.CharacterData_Temp.MaxHealth = BossStats.CharacterData_Temp.NowHealth;
+        BossStats.CharacterData_Temp.MaxHealth = BossHealth;//恢复最大生命值
+        BossStats.CharacterData_Temp.MaxHealth += BossStats.CharacterData_Temp.HealCount;//增加最大生命值
+        BossHealth = BossStats.CharacterData_Temp.MaxHealth;
+        BossStats.CharacterData_Temp.MaxHealth *= BossStats.CharacterData_Temp.HealthRate;//调整最大生命值
+        BossStats.CharacterData_Temp.NowHealth = BossStats.CharacterData_Temp.MaxHealth;
     }
     public void RefreshBoss()
     {
@@ -132,6 +148,7 @@ public class GameManager : SingleTons<GameManager>
         BossSkillNameList_Count = 0;
         BossStats.CharacterData_Temp = Instantiate(BossStats.CharacterData);
         BossStats.gameObject.transform.position = new Vector3(-15f, 0.97f, 0);
+        BossHealth = BossStats.CharacterData_Temp.MaxHealth;
     }
     private void BossDead()
     {

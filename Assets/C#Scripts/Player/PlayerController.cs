@@ -17,9 +17,6 @@ public class PlayerController : MonoBehaviour
     private float JumpDownSpeed_Max;
     private int CurDashCount;
     private int CurJumpCount;
-    [Header("自然回血计时器")]
-    private bool CanReborn;
-    private float RebornTiemCount = -2;
     [Header("冲刺")]
     public PlayerDashTemp DashTemp;
     public Transform DashPool;
@@ -30,13 +27,14 @@ public class PlayerController : MonoBehaviour
     private bool IsDash;
     public float CanDashTime;
     private float CanDashTime_Count;
+    [Header("事件监听")]
+    public VoidEventSO BossDeadEvent;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         Check = rb.GetComponent<PlayerCheck>();
         Player = GetComponent<CharacterStats>();
         PlayerDashPool = new ObjectPool<PlayerDashTemp>(DashTemp);
-        PlayerDashPool.Box = DashPool;
     }
     private void Start()
     {
@@ -50,8 +48,6 @@ public class PlayerController : MonoBehaviour
         }
         Jump();
         PlayerDead();
-        Reborn();
-        CheckReborn();
         CheckDash();
     }
     private void FixedUpdate()
@@ -136,7 +132,7 @@ public class PlayerController : MonoBehaviour
     }
     private void AddPlayerDashTemp()
     {
-        var NewTemp = PlayerDashPool.GetObject();
+        var NewTemp = PlayerDashPool.GetObject(DashPool);
         NewTemp.transform.position = transform.position;
     }
     private void EndDash()
@@ -145,29 +141,6 @@ public class PlayerController : MonoBehaviour
         rb.velocity = Vector2.zero;
         KeyBoardManager.Instance.StopMoveKey = false;
         rb.gravityScale = Settings.PlayerGravity;
-    }
-    private void Reborn()
-    {
-        if (RebornTiemCount > -1 && CanReborn)
-        {
-            RebornTiemCount -= Time.deltaTime;
-        }
-        if (RebornTiemCount <= 0 && CanReborn)
-        {
-            Player.CharacterData_Temp.NowHealth += Player.CharacterData_Temp.AutoHealCount;
-            RebornTiemCount = Player.CharacterData_Temp.AutoHealTime;
-        }
-    }
-    private void CheckReborn()
-    {
-        if(GameManager.Instance.BossStats.CharacterData_Temp.NowHealth >= 0)
-        {
-            CanReborn = true;
-        }
-        else
-        {
-            CanReborn = false;
-        }
     }
     private void RefreshData()
     {
@@ -189,5 +162,17 @@ public class PlayerController : MonoBehaviour
             KeyBoardManager.Instance.StopMoveKey = true;
             EndCanvs.SetActive(true);
         }
+    }
+    private void OnEnable()
+    {
+        BossDeadEvent.OnEventRaised += OnBossDead;
+    }
+    private void OnBossDead()
+    {
+        Player.CharacterData_Temp.NowHealth += Player.CharacterData_Temp.AutoHealCount;
+    }
+    private void OnDisable()
+    {
+        BossDeadEvent.OnEventRaised -= OnBossDead;
     }
 }

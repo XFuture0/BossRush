@@ -9,11 +9,18 @@ public class Weapon : MonoBehaviour
     private float RotationX;
     private float RotationY;
     private float ResRotation;
+    public GameObject NewWeapon;
+    private int WeaponCount;
     private void Update()
     {
         if (!SceneChangeManager.Instance.EndCanvs.activeSelf)
         {
             ChangeRotation();
+        }
+        if(WeaponCount != GameManager.Instance.Player().WeaponCount)
+        {
+            WeaponCount = GameManager.Instance.Player().WeaponCount;
+            RefreshWeapon();
         }
     }
     private void ChangeRotation()
@@ -43,5 +50,33 @@ public class Weapon : MonoBehaviour
             RotationY += 180f;
         }
         transform.rotation = Quaternion.Euler(0, 0,RotationY);
+    }
+    private void RefreshWeapon()
+    {
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
+        switch (WeaponCount)
+        {
+            case 0:
+                transform.GetChild(0).gameObject.SetActive(true);
+                break;
+            case 1:
+                transform.GetChild(1).gameObject.SetActive(true);
+                break;
+            case 2:
+                transform.GetChild(2).gameObject.SetActive(true);
+                break;
+            case 3:
+                transform.GetChild(3).gameObject.SetActive(true);
+                break;
+            case 4:
+                transform.GetChild(4).gameObject.SetActive(true);
+                break;
+            case 5:
+                transform.GetChild(5).gameObject.SetActive(true);
+                break;
+        }
     }
 }

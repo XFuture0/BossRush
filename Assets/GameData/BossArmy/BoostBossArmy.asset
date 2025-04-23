@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 50
   NowHealth: 50
+  HealthRate: 0
   Speed: 120
   SpeedRate: 1
   AttackPower: 2
   WeaponAttackPower: 0
+  AttackBonus: 1
   InvincibleTime: 0
   HealCount: 0
   AutoHealTime: 0

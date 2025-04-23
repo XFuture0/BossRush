@@ -16,10 +16,11 @@ public class Card : MonoBehaviour
         ThisCard = card;
         transform.GetChild(0).GetComponent<Text>().text = card.CardName;
         transform.GetChild(1).GetComponent<Text>().text = card.Description;
+        transform.GetChild(2).GetComponent<Text>().text = card.Quality.ToString();
     }
     private void UseCard()
     {
-        //ThisCard.IsOpen = false;
+        ThisCard.IsOpen = false;
         UseCardManager.Instance.StartInvoke(ThisCard.CardInvokeName);
         KeyBoardManager.Instance.StopMoveKey = false;
         SceneChangeManager.Instance.Door.GetComponent<Door>().OpenDoor();

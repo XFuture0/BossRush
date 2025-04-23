@@ -52,7 +52,7 @@ public class BossController : MonoBehaviour
     [Header("行走计时器")]
     private float WalkTime_Count = -2;
     [Header("自然回血计时器")]
-    private float RebornTiemCount = -2;
+    private float RebornTimeCount = -2;
     private void Awake()
     {
         IsStopBoss = true;
@@ -80,6 +80,10 @@ public class BossController : MonoBehaviour
         {
             FissueBox.transform.GetChild(i).gameObject.SetActive(false);
         }
+        if (Alltrident.activeSelf)
+        {
+            Alltrident.SetActive(false);
+        }
     }
     private void DestoryIng()
     {
@@ -106,14 +110,14 @@ public class BossController : MonoBehaviour
     }
     private void Reborn()
     {
-        if(RebornTiemCount > -1)
+        if(RebornTimeCount > -1)
         {
-            RebornTiemCount -= Time.deltaTime;
+            RebornTimeCount -= Time.deltaTime;
         }
-        if (RebornTiemCount <= 0)
+        if (RebornTimeCount <= 0)
         {
             Boss.CharacterData_Temp.NowHealth += Boss.CharacterData_Temp.AutoHealCount;
-            RebornTiemCount = Boss.CharacterData_Temp.AutoHealTime;
+            RebornTimeCount = 1;
         }
     }
     private void ChangeSkill()
@@ -957,15 +961,15 @@ public class BossController : MonoBehaviour
     private IEnumerator UseTrident_4()
     {
         Alltrident.SetActive(true);
-        for (int i = 0; i < Alltrident.transform.childCount; i++)
+        TridentCount = 5;
+        for (int i = 0; i < TridentCount; i++)
         {
-            Alltrident.transform.GetChild(i).gameObject.SetActive(true);
+            var NewTrident = Instantiate(trident, transform.position, Quaternion.identity, TridentBox);
+            NewTrident.GetComponent<Trident>().WaitTime = 0.5f;
+            NewTrident.gameObject.transform.position = GameManager.Instance.PlayerStats.gameObject.transform.position + new Vector3(0, -0.5f, 0);
+            yield return new WaitForSeconds(0.5f);
         }
         yield return new WaitForSeconds(1.5f);
-        for (int i = 0; i < Alltrident.transform.childCount; i++)
-        {
-            Alltrident.transform.GetChild(i).gameObject.SetActive(false);
-        }
         Alltrident.SetActive(false);
         Trident = false;
         IsSkill = false;
@@ -974,20 +978,18 @@ public class BossController : MonoBehaviour
     private IEnumerator UseTrident_5()
     {
         Alltrident.SetActive(true);
-        for (int i = 0; i < Alltrident.transform.childCount; i++)
+        TridentCount = 5;
+        for (int i = 0; i < TridentCount; i++)
         {
-            Alltrident.transform.GetChild(i).gameObject.SetActive(true);
-        }
-        yield return new WaitForSeconds(1.5f);
-        for(int i = 1;i < Alltrident.transform.childCount; i++)
-        {
-            Alltrident.transform.GetChild(i).gameObject.SetActive(false);
+            var NewTrident = Instantiate(trident, transform.position, Quaternion.identity, TridentBox);
+            NewTrident.GetComponent<Trident>().WaitTime = 0.5f;
+            NewTrident.gameObject.transform.position = GameManager.Instance.PlayerStats.gameObject.transform.position + new Vector3(0, -0.5f, 0);
+            yield return new WaitForSeconds(0.5f);
         }
         Trident = false;
         IsSkill = false;
         SkillTime_Count = BaseSkillTime * Boss.CharacterData_Temp.AttackRate;
-        yield return new WaitForSeconds(3.5f);
-        Alltrident.transform.GetChild(0).gameObject.SetActive(false);
+        yield return new WaitForSeconds(5f);
         Alltrident.SetActive(false);
     }
 }

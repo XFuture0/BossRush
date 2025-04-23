@@ -32,7 +32,6 @@ public class PlayerEquipManager : SingleTons<PlayerEquipManager>
             Weapon.GetComponent<SpriteRenderer>().sprite = WeaponList.WeaponDatas[Index].WeaponSprite;
             GameManager.Instance.PlayerStats.CharacterData.WeaponAttackPower = WeaponList.WeaponDatas[Index].AttackPower;
             Bullet.GetComponent<SpriteRenderer>().sprite = WeaponList.WeaponDatas[Index].BulletSprite;
-            Weapon.GetComponent<BulletBox>().ClearPool();
         }
     }
     public void ChangeHat(int Index)

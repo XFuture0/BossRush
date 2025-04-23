@@ -7,7 +7,6 @@ public class ColorManager : SingleTons<ColorManager>
 {
     public GameObject Camera;
     public GameObject Player;
-    public GameObject Weapon;
     public GameObject Boss;
     public GameObject BossHealthBox;
     public GameObject Back;
@@ -15,7 +14,7 @@ public class ColorManager : SingleTons<ColorManager>
     private int ColorIndex;
     private void Update()
     {
-        Camera.GetComponent<Camera>().backgroundColor = ColorData.ColorLists[ColorIndex].Color1;
+      /*  Camera.GetComponent<Camera>().backgroundColor = ColorData.ColorLists[ColorIndex].Color1;
         Player.GetComponent<SpriteRenderer>().color = ColorData.ColorLists[ColorIndex].Color2;
         Weapon.GetComponent<SpriteRenderer>().color = ColorData.ColorLists[ColorIndex].Color2;
         Boss.GetComponent<SpriteRenderer>().color = ColorData.ColorLists[ColorIndex].Color2;
@@ -23,7 +22,7 @@ public class ColorManager : SingleTons<ColorManager>
         BossHealthBox.transform.GetChild(0).GetComponent<Image>().color = ColorData.ColorLists[ColorIndex].Color2;
         BossHealthBox.transform.GetChild(1).GetComponent<Image>().color = ColorData.ColorLists[ColorIndex].Color2;
         Back.GetComponent<Tilemap>().color = ColorData.ColorLists[ColorIndex].Color2;
-      
+      */
     }
    
     public void ChangeColor()
@@ -32,7 +31,6 @@ public class ColorManager : SingleTons<ColorManager>
         //ColorIndex = ColorData.ColorLists.Count - 1;
         Camera.GetComponent<Camera>().backgroundColor = ColorData.ColorLists[ColorIndex].Color1;
         Player.GetComponent<SpriteRenderer>().color = ColorData.ColorLists[ColorIndex].Color2;
-        Weapon.GetComponent<SpriteRenderer>().color = ColorData.ColorLists[ColorIndex].Color2;
         Boss.GetComponent<SpriteRenderer>().color = ColorData.ColorLists[ColorIndex].Color2;
         BossHealthBox.GetComponent<Image>().color = ColorData.ColorLists[ColorIndex].Color2;
         BossHealthBox.transform.GetChild(0).GetComponent<Image>().color = ColorData.ColorLists[ColorIndex].Color2;

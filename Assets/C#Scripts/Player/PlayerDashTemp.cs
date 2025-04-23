@@ -26,7 +26,7 @@ public class PlayerDashTemp : MonoBehaviour
         UpdateAlpha();
         if(DashColor.a <= 0.01)
         {
-            GameManager.Instance.PlayerStats.gameObject.GetComponent<PlayerController>().PlayerDashPool.ReturnObject(this);
+            GameManager.Instance.PlayerStats.gameObject.GetComponent<PlayerController>().PlayerDashPool.ReturnObject(this, GameManager.Instance.PlayerStats.gameObject.GetComponent<PlayerController>().DashPool);
         }
     }
     private void UpdateAlpha()

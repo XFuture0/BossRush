@@ -1,0 +1,159 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180e3e011d5731644b695b77d311bee2, type: 3}
+  m_Name: Scene2
+  m_EditorClassIdentifier: 
+  CardLists:
+  - CardName: "\u9AD8\u5EA6\u8B66\u89C9"
+    CardInvokeName: WideAwake
+    Description: "\u6700\u5927\u751F\u547D\u503C+1\n\u95EA\u907F\u7387+5%\nBoss\u6700\u5927\u751F\u547D\u503C+5%\nBoss\u95EA\u907F\u7387+2%"
+    BallType: 0
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u9E70\u773C\u89C6\u89C9"
+    CardInvokeName: EagleEyeVision
+    Description: "\u66B4\u51FB\u7387+5%\n\u95EA\u907F\u7387+5%\nBoss\u95EA\u907F\u7387+2%\nBoss\u653B\u51FB\u9891\u7387+5%"
+    BallType: 0
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u52C7\u6562\u5FC3\u810F"
+    CardInvokeName: BraveHeart
+    Description: "\u6700\u5927\u751F\u547D\u503C+1\n\u653B\u51FB\u529B+10%\n\u66B4\u51FB\u7387+5%\n\u66B4\u51FB\u4F24\u5BB3+10%\n\u79FB\u901F+5%\nBoss\u653B\u51FB\u529B+1\nBoss\u6BCF\u79D2\u751F\u547D\u56DE\u590D+0.5\nBoss\u653B\u51FB\u9891\u7387+5%"
+    BallType: 0
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u5DE8\u7269\u5BF9\u5CD9"
+    CardInvokeName: GiantConfrontation
+    Description: "\u653B\u51FB\u529B+20%\n\u95EA\u907F\u7387-5%\n\u653B\u901F+5%\n\u66B4\u51FB\u4F24\u5BB3+20%\nBoss\u6700\u5927\u751F\u547D\u503C+20%\nBoss\u653B\u51FB\u529B+1\nBoss\u653B\u51FB\u9891\u7387+5%"
+    BallType: 0
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u884C\u52A8\u7EB9\u7AE0"
+    CardInvokeName: ActionEmblem
+    Description: "\u6700\u5927\u751F\u547D\u503C+2\n\u6B66\u5668\u6570\u91CF+1\n\u653B\u51FB\u529B+25%\n\u66B4\u51FB\u7387+10%\n\u66B4\u51FB\u4F24\u5BB3+10%\n\u79FB\u901F+5%\n\u653B\u901F+10%\n\u6E05\u573A\u751F\u547D\u56DE\u590D+1\nBoss\u6700\u5927\u751F\u547D\u503C+10%\nBoss\u653B\u51FB\u529B+1\nBoss\u653B\u51FB\u9891\u7387+10%\nBoss\u95EA\u907F\u7387+5%\nBoss\u968F\u673A\u6280\u80FD\u7B49\u7EA7+1"
+    BallType: 0
+    Quality: 3
+    IsOpen: 1
+  - CardName: "\u5BC6\u6797\u8BE1\u98CE"
+    CardInvokeName: EerieWindForest
+    Description: "\u79FB\u901F+10%\n\u66B4\u51FB\u7387+5%\n\u653B\u901F+10%\n\u6E05\u573A\u751F\u547D\u56DE\u590D-1\nBoss\u653B\u51FB\u9891\u7387+5%\nBoss\u968F\u673A\u6280\u80FD\u7B49\u7EA7+1"
+    BallType: 0
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u65E0\u6240\u9041\u5F62"
+    CardInvokeName: NowhereHide
+    Description: "\u6700\u5927\u751F\u547D\u503C-1\n\u5F53\u524D\u751F\u547D\u503C-1\n\u653B\u51FB\u529B+20%\n\u66B4\u51FB\u7387+5%\n\u66B4\u51FB\u4F24\u5BB3+20%\n\u95EA\u907F\u7387-5%\nBoss\u653B\u51FB\u529B+1\nBoss\u653B\u51FB\u9891\u7387+10%"
+    BallType: 0
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u9057\u7269\u5B9D\u85CF"
+    CardInvokeName: RelicTreasure
+    Description: "\u6700\u5927\u751F\u547D\u503C+3\n\u653B\u51FB\u529B+15%\n\u6B66\u5668\u6570\u91CF+1\n\u653B\u901F+10%\n\u66B4\u51FB\u4F24\u5BB3+20%\nBoss\u6700\u5927\u751F\u547D\u503C+15%\nBoss\u653B\u51FB\u529B+1\nBoss\u6BCF\u79D2\u751F\u547D\u56DE\u590D+0.5"
+    BallType: 0
+    Quality: 2
+    IsOpen: 1
+  - CardName: "\u5FC3\u7075\u9707\u64BC"
+    CardInvokeName: EmotionalShock
+    Description: "\u6700\u5927\u751F\u547D\u503C+3\n\u653B\u51FB\u529B-10%\n\u653B\u901F+10%\n\u66B4\u51FB\u7387-5%\n\u6E05\u573A\u751F\u547D\u56DE\u590D+1\nBoss\u6700\u5927\u751F\u547D\u503C+15%\nBoss\u653B\u51FB\u9891\u7387-5%\nBoss\u968F\u673A\u6280\u80FD\u7B49\u7EA7+1"
+    BallType: 0
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u6B66\u88C5\u6212\u5907"
+    CardInvokeName: ArmedAlert
+    Description: "\u653B\u51FB\u529B+20%\n\u66B4\u51FB\u7387+5%\n\u66B4\u51FB\u4F24\u5BB3+20%\n\u95EA\u907F\u7387+5%\nBoss\u653B\u51FB\u529B+1\nBoss\u653B\u51FB\u9891\u7387+5%\nBoss\u968F\u673A\u6280\u80FD\u7B49\u7EA7+1"
+    BallType: 0
+    Quality: 2
+    IsOpen: 1
+  - CardName: "\u6797\u95F4\u5723\u6CC9"
+    CardInvokeName: ForestHoly
+    Description: "\u56DE\u590D50%\u6700\u5927\u751F\u547D\u503C\nBoss\u6700\u5927\u751F\u547D\u503C+10%"
+    BallType: 0
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u4F3C\u66FE\u76F8\u8BC6"
+    CardInvokeName: DejaVu
+    Description: "\u6700\u5927\u751F\u547D\u503C+1\n\u653B\u51FB\u529B-10%\n\u95EA\u907F\u7387-5%\nBoss\u6700\u5927\u751F\u547D\u503C-5%\nBoss\u653B\u51FB\u529B-1\nBoss\u653B\u51FB\u9891\u7387-5%"
+    BallType: 0
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u7B49\u5DEE\u4EA4\u6613"
+    CardInvokeName: EqualDifferenceTrading
+    Description: "\u6B66\u5668\u6570\u91CF+1\n\u5F53\u524D\u751F\u547D\u503C-1\nBoss\u653B\u51FB\u529B+1\nBoss\u6700\u5927\u751F\u547D\u503C+10%"
+    BallType: 0
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u5C0F\u5FC3\u7FFC\u7FFC"
+    CardInvokeName: Cautious
+    Description: "\u6700\u5927\u751F\u547D\u503C+2\n\u95EA\u907F\u7387+5%\n\u653B\u51FB\u529B+5%\nBoss\u751F\u547D\u503C+10%\nBoss\u95EA\u907F\u7387+2%"
+    BallType: 0
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u548C\u5E73\u548C\u89E3"
+    CardInvokeName: PeaceReconciliation
+    Description: "\u56DE\u590D30%\u6700\u5927\u751F\u547D\u503C\n\u653B\u51FB\u529B-10%\n\u653B\u901F+5%\n\u6E05\u573A\u751F\u547D\u56DE\u590D+1\nBoss\u6700\u5927\u751F\u547D\u503C+10%\nBoss\u653B\u51FB\u529B-1\nBoss\u653B\u51FB\u9891\u7387-5%\nBoss\u6BCF\u79D2\u751F\u547D\u56DE\u590D+0.5"
+    BallType: 0
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u602A\u7269\u5FC3\u810F"
+    CardInvokeName: MonsterHeart
+    Description: "\u653B\u51FB\u529B+50%\n\u6700\u5927\u751F\u547D\u503C-50%\n\u66B4\u51FB\u7387+20%\n\u66B4\u51FB\u4F24\u5BB3+25%\n\u653B\u901F+15%\n\u6E05\u573A\u751F\u547D\u56DE\u590D+1\nBoss\u653B\u51FB\u529B+2\nBoss\u653B\u51FB\u9891\u7387+20%\nBoss\u6BCF\u79D2\u751F\u547D\u56DE\u590D+1"
+    BallType: 0
+    Quality: 3
+    IsOpen: 1
+  - CardName: "\u7B2C\u4E09\u53EA\u624B"
+    CardInvokeName: 'ThirdHand '
+    Description: "\u6B66\u5668\u6570\u91CF+1\n\u653B\u51FB\u529B+10%\nBoss\u653B\u51FB\u529B+1\nBoss\u653B\u51FB\u9891\u7387+10%"
+    BallType: 0
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u72B9\u8C6B\u5BF9\u51B3"
+    CardInvokeName: HesitationDuel
+    Description: "\u6700\u5927\u751F\u547D\u503C+3\n\u653B\u51FB\u529B-10%\n\u66B4\u51FB\u7387-5%\n\u66B4\u51FB\u4F24\u5BB3-15%\nBoss\u653B\u51FB\u529B-1\nBoss\u653B\u51FB\u9891\u7387-5%\nBoss\u6BCF\u79D2\u751F\u547D\u56DE\u590D-0.5"
+    BallType: 0
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u7A81\u7136\u88AD\u51FB"
+    CardInvokeName: SurpriseAttack
+    Description: "\u653B\u51FB\u529B+10%\n\u653B\u901F+5%\n\u79FB\u901F+5%\nBoss\u653B\u51FB\u9891\u7387+10%\nBoss\u6BCF\u79D2\u751F\u547D\u56DE\u590D+0.5\nBoss\u968F\u673A\u6280\u80FD\u7B49\u7EA7+1"
+    BallType: 0
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u548C\u5E73\u534F\u8BAE"
+    CardInvokeName: PeaceAgreement
+    Description: "\u6B66\u5668\u6570\u91CF-1\n\u6E05\u573A\u751F\u547D\u56DE\u590D+1\nBoss\u653B\u51FB\u529B-2\nBoss\u653B\u51FB\u9891\u7387-10%"
+    BallType: 0
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u5E73\u7B49\u4EA4\u6613"
+    CardInvokeName: EqualExchange
+    Description: "\u653B\u51FB\u529B+10%\n\u653B\u901F+5%\nBoss\u653B\u51FB\u529B+1\nBoss\u653B\u51FB\u9891\u7387+5%"
+    BallType: 0
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u6797\u95F4\u7AA5\u63A2"
+    CardInvokeName: PeekingWood
+    Description: "\u6700\u5927\u751F\u547D\u503C+2\n\u79FB\u901F+5%\n\u653B\u901F+5%\nBoss\u6700\u5927\u751F\u547D\u503C+10%\nBoss\u653B\u51FB\u9891\u7387+10%"
+    BallType: 0
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u606A\u5B88\u610F\u5FD7"
+    CardInvokeName: AdhereWill
+    Description: "\u6700\u5927\u751F\u547D\u503C+3\n\u653B\u51FB\u529B+20%\n\u66B4\u51FB\u7387+5%\n\u66B4\u51FB\u4F24\u5BB3+20%\n\u95EA\u907F\u7387+5%\n\u6E05\u573A\u751F\u547D\u56DE\u590D+1\nBoss\u6700\u5927\u751F\u547D\u503C+25%\nBoss\u653B\u51FB\u529B+1\nBoss\u95EA\u907F\u7387+5%\nBoss\u6BCF\u79D2\u751F\u547D\u56DE\u590D+0.5\nBoss\u968F\u673A\u6280\u80FD\u7B49\u7EA7+1"
+    BallType: 0
+    Quality: 2
+    IsOpen: 1
+  - CardName: "\u54E5\u57FA\u62C9\u63A7"
+    CardInvokeName: GoguryeoFan
+    Description: "\u653B\u51FB\u529B+20%\n\u66B4\u51FB\u7387+5%\nBoss\u6700\u5927\u751F\u547D\u503C+10%\nBoss\u653B\u51FB\u529B+1"
+    BallType: 0
+    Quality: 1
+    IsOpen: 1

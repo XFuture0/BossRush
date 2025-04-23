@@ -7,13 +7,15 @@ public class CharacterData : ScriptableObject
 {
     public float MaxHealth;//总生命值
     public float NowHealth;//当前生命值
+    public float HealthRate;//生命值加成
     public float Speed;//移速
     public float SpeedRate;//移速加成
     public float AttackPower;//攻击力
     public float WeaponAttackPower;//枪械攻击力
+    public int WeaponCount;//枪械数量
+    public float AttackBonus;//攻击加成
     public float InvincibleTime;//无敌时间
     public float HealCount;//治疗量
-    public float AutoHealTime;//自动回复时间
     public float AutoHealCount;//自动回复量
     public float CriticalDamageRate;//暴击率
     public float CriticalDamageBonus;//暴击加成
