@@ -14,11 +14,6 @@ public enum BossState
     Flying,
     Dead,
 }
-public enum BallType
-{
-    Attack,
-    Speed,
-}
 public enum Quality
 {
     Common,

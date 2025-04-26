@@ -7,6 +7,7 @@ public class GameManager : SingleTons<GameManager>
 {
     public GameObject PlayerSlot;
     public GameObject CardPaper;
+    public GameObject AngerPanel;
     public PlayerData PlayerData;
     public CharacterStats PlayerStats;
     public CharacterStats BossStats;
@@ -16,6 +17,7 @@ public class GameManager : SingleTons<GameManager>
     public int BossSkillNameList_Count;
     private float CriticalDamageBonus;
     private float BossHealth;
+    private int BulletCount = 0;//记录保底头奖的子弹数量
     [Header("广播")]
     public VoidEventSO ImpulseEvent;
     public BoundEventSO BoundEvent;
@@ -34,18 +36,54 @@ public class GameManager : SingleTons<GameManager>
     }
     public void Attack(CharacterStats Attacker,CharacterStats Defender)
     {
+        if (Defender.CharacterData_Temp.ShengqiCore)
+        {
+            if(Defender.CharacterData_Temp.AngerValue >= Defender.CharacterData_Temp.FullAnger)
+            {
+                Defender.CharacterData_Temp.AngerValue = 0;
+                return;
+            }
+        }
         if (!Defender.Invincible)
         {
             var Dodge = UnityEngine.Random.Range(0f, 1f);
             if (Dodge < Defender.CharacterData_Temp.DodgeRate)
             {
-                return;
+                if (Defender.CharacterData_Temp.BouncyJelly)
+                {
+                    var TrueDodge = UnityEngine.Random.Range(0f, 1f);
+                    if(TrueDodge > 0.1f)
+                    {
+                        if (Player().DodgeBackstab && Defender.gameObject.tag == "Player")
+                        {
+                            Attack(PlayerStats,BossStats);
+                        }
+                        return;
+                    }
+                }
+                if (!Defender.CharacterData_Temp.BouncyJelly)
+                {
+                    if (Player().DodgeBackstab && Defender.gameObject.tag == "Player")
+                    {
+                        Attack(PlayerStats, BossStats);
+                    }
+                    return;
+                }
             }
             var Critical = UnityEngine.Random.Range(0f, 1f);
             CriticalDamageBonus = 1;
-            if (Critical < Attacker.CharacterData_Temp.CriticalDamageRate)
+            if (Critical < Attacker.CharacterData_Temp.CriticalDamageRate || BulletCount >= 15)
             {
+                BulletCount = 0;
                 CriticalDamageBonus += Attacker.CharacterData_Temp.CriticalDamageBonus;
+            }
+            if (Attacker.CharacterData_Temp.MucousRage)
+            {
+                CriticalDamageBonus += 0.5f * Player().AngerValue;
+            }
+            if(Attacker.gameObject.tag == "Player" && Attacker.CharacterData_Temp.SpeedEmblem)
+            {
+                CriticalDamageBonus += (1 - Player().AttackRate) * 0.4f + (Player().SpeedRate - 1) * 0.4f + Player().DodgeRate * 0.2f;
             }
             Defender.CharacterData_Temp.NowHealth -= (Attacker.CharacterData_Temp.AttackPower + Attacker.CharacterData_Temp.WeaponAttackPower) * CriticalDamageBonus * Attacker.CharacterData_Temp.AttackBonus;
             Defender.Invincible = true;
@@ -57,10 +95,25 @@ public class GameManager : SingleTons<GameManager>
             switch (Defender.gameObject.tag)
             {
                 case "Player":
+                    Player().AngerValue += 0.2f;
+                    if (Player().LrritableSlime)
+                    {
+                        Player().AngerValue += 0.1f;
+                    }
                     UseImpulse();
                     StartCoroutine(FrameDrop());
+                    StartCoroutine(CheckElasticGel());
                     break;
                 case "Boss":
+                    if (Player().GuaranteedFirstPrize)
+                    {
+                        BulletCount++;
+                    }
+                    Player().AngerValue += 0.01f;
+                    if (Player().LrritableSlime)
+                    {
+                        Player().AngerValue += 0.02f;
+                    }
                     break;
                 default:
                     break;
@@ -69,6 +122,14 @@ public class GameManager : SingleTons<GameManager>
     }
     public void Attack(CharacterStats Defender,int Count)
     {
+        if (Defender.CharacterData_Temp.ShengqiCore)
+        {
+            if (Defender.CharacterData_Temp.AngerValue >= Defender.CharacterData_Temp.FullAnger)
+            {
+                Defender.CharacterData_Temp.AngerValue = 0;
+                return;
+            }
+        }
         if (!Defender.Invincible)
         {
             Defender.CharacterData_Temp.NowHealth -= Count;
@@ -79,8 +140,10 @@ public class GameManager : SingleTons<GameManager>
             switch (Defender.gameObject.tag)
             {
                 case "Player":
+                    Player().AngerValue += 0.2f;
                     UseImpulse();
                     StartCoroutine(FrameDrop());
+                    StartCoroutine(CheckElasticGel());
                     break;
                 case "Boss":
                     break;
@@ -90,6 +153,16 @@ public class GameManager : SingleTons<GameManager>
             Defender.Invincible = true;
             Defender.InvincibleTime_Count = Defender.CharacterData.InvincibleTime;
         }
+    }
+    private IEnumerator CheckElasticGel()
+    {
+        var BaseSpeed = Player().SpeedRate;
+        if (Player().ElasticGel)
+        {
+            Player().SpeedRate *= 1.5f;
+        }
+        yield return new WaitForSeconds(1.5f);
+        Player().SpeedRate *= BaseSpeed;
     }
     public void UseImpulse()
     {
@@ -103,18 +176,25 @@ public class GameManager : SingleTons<GameManager>
     }
     public void RefreshBossSkill()
     {
-        foreach (var skill in BossSkillList.BossSkills)
+        if(BossSkillNameList_Count < 6)
         {
-            if(BossSkillNameList.BossSkillNames[BossSkillNameList_Count].Name == skill.SkillName)
+            foreach (var skill in BossSkillList.BossSkills)
             {
-                skill.IsOpen = true;
-                if(BossSkillNameList_Count + 1< BossSkillNameList.BossSkillNames.Count)
+                if (BossSkillNameList.BossSkillNames[BossSkillNameList_Count].Name == skill.SkillName)
                 {
-                    skill.SkillLevel = 1;
-                    BossSkillNameList_Count++;
+                    skill.IsOpen = true;
+                    if (BossSkillNameList_Count + 1 < BossSkillNameList.BossSkillNames.Count)
+                    {
+                        skill.SkillLevel = 1;
+                        BossSkillNameList_Count++;
+                    }
+                    break;
                 }
-                break;
             }
+        }
+        else
+        {
+            AddBossSkillLevel();
         }
     }
     public void AddBossSkillLevel()
@@ -162,7 +242,9 @@ public class GameManager : SingleTons<GameManager>
     {
         PlayerStats.CharacterData_Temp = Instantiate(PlayerStats.CharacterData);
         PlayerStats.CharacterData_Temp.NowHealth = PlayerStats.CharacterData_Temp.MaxHealth;//回复血量
+        AngerPanel.SetActive(true);
         PlayerStats.gameObject.GetComponent<PlayerController>().Isdead = false;
+        PlayerStats.gameObject.GetComponent<PlayerController>().angerskill = PlayerStats.gameObject.GetComponent<PlayerController>().BaseAngerSkill;
         PlayerStats.gameObject.transform.position = new Vector3(-20.64f, -0.44f, 0);
     }
     public void OnBoundEvent(Collider2D collider2D) 

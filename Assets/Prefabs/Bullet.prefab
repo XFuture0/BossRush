@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6555429722445140546}
   - component: {fileID: 867157472339030727}
   - component: {fileID: 8790141246710576347}
+  - component: {fileID: 428832955682369496}
   m_Layer: 3
   m_Name: Bullet
   m_TagString: Untagged
@@ -99,7 +100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4330a5cc4cb8cfa409a0fab1eb489880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ReturnPoolEvent: {fileID: 11400000, guid: e56646a3afe8f2e4ab2677a997cf8c04, type: 2}
   BulletRotation: {x: 0, y: 0}
   BulletSpeed: 20
 --- !u!50 &867157472339030727
@@ -174,3 +174,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3125, y: 0.1875}
   m_EdgeRadius: 0
+--- !u!95 &428832955682369496
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7344695805096574825}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ad6d7160b7031934e899894cf44f4413, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

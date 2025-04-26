@@ -11,13 +11,14 @@ public class Weapon : MonoBehaviour
     private float ResRotation;
     public GameObject NewWeapon;
     private int WeaponCount;
+    private int RealWeaponCount;
     private void Update()
     {
         if (!SceneChangeManager.Instance.EndCanvs.activeSelf)
         {
             ChangeRotation();
         }
-        if(WeaponCount != GameManager.Instance.Player().WeaponCount)
+        if (WeaponCount != GameManager.Instance.Player().WeaponCount)
         {
             WeaponCount = GameManager.Instance.Player().WeaponCount;
             RefreshWeapon();

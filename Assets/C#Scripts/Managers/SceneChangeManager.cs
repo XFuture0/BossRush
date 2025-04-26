@@ -78,6 +78,10 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         KeyBoardManager.Instance.StopMoveKey = false;
         Boss.GetComponent<BossController>().IsStopBoss = false;
     }
+    public void LoadGame()
+    {
+        Startcanvs.SetActive(true);
+    }
     public void ShowRoomCount(int count)
     {
         RoomCount = count;

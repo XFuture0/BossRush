@@ -14,7 +14,7 @@ public class DifficultSlot : MonoBehaviour
     }
     private Button LeftChange;
     private Button RightChange;
-    private int ThisIndex = 0;
+    public int ThisIndex = 0;
     public List<DifficultData> DifficultList = new List<DifficultData>();
     private void Awake()
     {

@@ -11,431 +11,365 @@ public class UseCardManager : SingleTons<UseCardManager>
         Invoke(CardName, 0);
     }
     //³¡¾°1
-    private void HighSpirited()
+    private void MucusDeathRage()
     {
-        GameManager.Instance.Player().AttackBonus += 0.2f;
-        GameManager.Instance.Player().CriticalDamageRate += 0.05f;
-        GameManager.Instance.Player().SpeedRate += 0.05f;
-        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        GameManager.Instance.Player().NowHealth -= 2;
+        GameManager.Instance.Player().AttackBonus += 0.3f;
+        GameManager.Instance.Player().AngerValue += 0.25f;
+        GameManager.Instance.Player().MucusDeathRage = true;
         GameManager.Instance.Boss().HealthRate += 0.1f;
-        CancelInvoke();
-    }
-    private void PrideVolition()
-    {
-        GameManager.Instance.Player().AttackBonus += 0.2f;
-        GameManager.Instance.Player().CriticalDamageRate += 0.05f;
-        GameManager.Instance.Player().AttackRate -= 0.05f;
-        GameManager.Instance.Boss().AttackPower += 1;
         GameManager.Instance.Boss().AttackRate -= 0.1f;
         CancelInvoke();
     }
-    private void StandBy()
+    private void SlimeCharge()
     {
-        GameManager.Instance.Player().MaxHealth += 3;
-        GameManager.Instance.Player().NowHealth += 3;
-        GameManager.Instance.Boss().HealthRate += 0.1f; 
-        CancelInvoke();
-    }
-    private void FearlessCore()
-    {
-        GameManager.Instance.Player().MaxHealth += 3;
-        GameManager.Instance.Player().NowHealth += 3;
-        GameManager.Instance.Player().AttackBonus += 0.1f;
-        GameManager.Instance.Player().DodgeRate += 0.05f;
-        GameManager.Instance.Player().CriticalDamageRate += 0.05f;
+        GameManager.Instance.Player().NowHealth -= 1;
+        GameManager.Instance.Player().AttackBonus += 0.2f;
+        GameManager.Instance.Player().AngerValue += 0.2f;
         GameManager.Instance.Boss().AttackPower += 1;
         CancelInvoke();
     }
-    private void BigHeart()
+    private void FearlessFury()
     {
-        GameManager.Instance.Player().MaxHealth += 5;
-        GameManager.Instance.Player().NowHealth += 5;
-        GameManager.Instance.Player().AutoHealCount += 1;
-        GameManager.Instance.Boss().HealthRate += 0.1f;
-        GameManager.Instance.Boss().AutoHealCount += 0.5f;
-        CancelInvoke();
-    }
-    private void EvolutionTime()
-    {
-        GameManager.Instance.Player().AttackBonus += 0.2f;
-        GameManager.Instance.Player().WeaponCount += 1;
-        GameManager.Instance.AddBossSkillLevel();
-        CancelInvoke();
-    }
-    private void Truce()
-    {
-        GameManager.Instance.Player().NowHealth += (int)GameManager.Instance.Player().MaxHealth * 0.5f;
-        GameManager.Instance.Boss().HealthRate += 0.2f;
-        CancelInvoke();
-    }
-    private void CombatManiac()
-    {
-        GameManager.Instance.Player().AttackBonus += 0.2f;
-        GameManager.Instance.Player().WeaponCount += 1;
-        GameManager.Instance.Player().CriticalDamageRate += 0.05f;
-        GameManager.Instance.Player().CriticalDamageBonus += 0.2f;
+        GameManager.Instance.Player().NowHealth -= 1;
+        GameManager.Instance.Player().FearlessFury = true;
         GameManager.Instance.Boss().AttackPower += 1;
         GameManager.Instance.Boss().AttackRate -= 0.1f;
-        CancelInvoke();
-    }
-    private void TenaciousWill()
-    {
-        GameManager.Instance.Player().MaxHealth += 2;
-        GameManager.Instance.Player().NowHealth += 2;
-        GameManager.Instance.Player().AutoHealCount += 1;
-        GameManager.Instance.Player().CriticalDamageRate -= 0.05f;
-        GameManager.Instance.Boss().HealthRate += 0.1f;
-        GameManager.Instance.Boss().AutoHealCount += 0.5f;
         CancelInvoke();
     }
     private void EmergencyEvacuation()
     {
-        GameManager.Instance.Player().NowHealth -= 2;
-        GameManager.Instance.Player().MaxHealth -= 2;
-        GameManager.Instance.Player().AttackBonus -= 0.3f;
-        GameManager.Instance.Player().DodgeRate += 0.15f;
-        GameManager.Instance.Player().AutoHealCount += 1;
-        GameManager.Instance.Boss().HealthRate -= 0.2f;
-        GameManager.Instance.Boss().AttackRate += 0.15f;
-        CancelInvoke();
-    }
-    private void RhythmJitter()
-    {
-        GameManager.Instance.Player().SpeedRate += 0.05f;
-        GameManager.Instance.Player().AttackRate -= 0.05f;
-        GameManager.Instance.Player().DodgeRate += 0.05f;
-        GameManager.Instance.Boss().AttackRate -= 0.05f;
-        GameManager.Instance.Boss().DodgeRate += 0.02f;
-        CancelInvoke();
-    }
-    private void HeroEmblems()
-    {
-        GameManager.Instance.Player().MaxHealth += 3;
-        GameManager.Instance.Player().NowHealth += 3;
-        GameManager.Instance.Player().AttackBonus += 0.2f;
-        GameManager.Instance.Player().AttackRate -= 0.05f;
-        GameManager.Instance.Player().CriticalDamageRate += 0.05f;
-        GameManager.Instance.Player().CriticalDamageBonus += 0.25f;
-        GameManager.Instance.Player().DodgeRate += 0.05f;
-        GameManager.Instance.Boss().AttackPower += 1;
-        GameManager.Instance.Boss().AttackRate -= 0.1f;
-        GameManager.Instance.Boss().AutoHealCount += 0.5f;
-        CancelInvoke();
-    }
-    private void LeadCharge()
-    {
-        GameManager.Instance.Player().AttackBonus += 0.05f;
-        GameManager.Instance.Player().SpeedRate += 0.05f;
-        GameManager.Instance.Player().CriticalDamageBonus += 0.1f;
-        GameManager.Instance.Boss().AttackRate -= 0.05f;
-        GameManager.Instance.AddBossSkillLevel();
-        CancelInvoke();
-    }
-    private void GiantFear()
-    {
-        GameManager.Instance.Player().MaxHealth += 4;
-        GameManager.Instance.Player().NowHealth += 4;
-        GameManager.Instance.Player().AttackBonus -= 0.1f;
-        GameManager.Instance.Player().AutoHealCount += 1;
-        GameManager.Instance.Player().SpeedRate += 0.05f;
-        GameManager.Instance.Boss().HealthRate += 0.2f;
-        GameManager.Instance.Boss().AttackPower += 1;
-        CancelInvoke();
-    }
-    private void BattlePassion()
-    {
-        GameManager.Instance.Player().AttackBonus += 0.2f;
-        GameManager.Instance.Player().CriticalDamageRate += 0.05f;
-        GameManager.Instance.Player().CriticalDamageBonus += 0.2f;
-        GameManager.Instance.Boss().AttackPower += 1;
-        GameManager.Instance.Boss().AutoHealCount += 0.5f;
-        CancelInvoke();
-    }
-    private void FlexibleVersatile()
-    {
-        GameManager.Instance.Player().SpeedRate += 0.05f;
-        GameManager.Instance.Player().DodgeRate += 0.05f;
-        GameManager.Instance.Boss().DodgeRate += 0.02f;
-        GameManager.Instance.Boss().AttackRate -= 0.05f;
-        CancelInvoke();
-    }
-    private void Raid()
-    {
-        GameManager.Instance.Player().AttackBonus += 0.1f;
-        GameManager.Instance.Boss().HealthRate += 0.1f;
-        CancelInvoke();
-    }
-    private void HotBloodedHeart()
-    {
-        GameManager.Instance.Player().MaxHealth += 5;
-        GameManager.Instance.Player().NowHealth += 5;
-        GameManager.Instance.Player().AutoHealCount += 2;
-        GameManager.Instance.Player().AttackBonus += 0.2f;
-        GameManager.Instance.Player().CriticalDamageRate += 0.05f;
-        GameManager.Instance.Player().CriticalDamageBonus += 0.2f;
-        GameManager.Instance.Boss().HealthRate += 0.1f;
-        GameManager.Instance.Boss().AttackPower += 1;
-        GameManager.Instance.Boss().AutoHealCount += 0.5f;
-        GameManager.Instance.Boss().AttackRate -= 0.1f;
-        CancelInvoke();
-    }
-    //³¡¾°2
-    private void WideAwake()
-    {
-        GameManager.Instance.Player().MaxHealth += 1;
-        GameManager.Instance.Player().NowHealth += 1;
-        GameManager.Instance.Player().DodgeRate += 0.05f;
-        GameManager.Instance.Boss().HealthRate += 0.05f;
-        GameManager.Instance.Boss().DodgeRate += 0.02f;
-        CancelInvoke();
-    }
-    private void EagleEyeVision()
-    {
-        GameManager.Instance.Player().CriticalDamageRate += 0.05f;
-        GameManager.Instance.Player().DodgeRate += 0.05f;
-        GameManager.Instance.Boss().DodgeRate += 0.02f;
-        GameManager.Instance.Boss().AttackRate -= 0.05f;
-        CancelInvoke();
-    }
-    private void BraveHeart()
-    {
-        GameManager.Instance.Player().MaxHealth += 1;
-        GameManager.Instance.Player().NowHealth += 1;
-        GameManager.Instance.Player().AttackBonus += 0.1f;
-        GameManager.Instance.Player().CriticalDamageRate += 0.05f;
-        GameManager.Instance.Player().CriticalDamageBonus += 0.1f;
-        GameManager.Instance.Player().SpeedRate += 0.05f;
-        GameManager.Instance.Boss().AttackPower += 1;
-        GameManager.Instance.Boss().AutoHealCount += 0.5f;
-        GameManager.Instance.Boss().AttackRate -= 0.05f;
-        CancelInvoke();
-    }
-    private void GiantConfrontation()
-    {
-        GameManager.Instance.Player().AttackBonus += 0.2f;
-        GameManager.Instance.Player().DodgeRate -= 0.05f;
-        GameManager.Instance.Player().AttackRate -= 0.05f;
-        GameManager.Instance.Player().CriticalDamageBonus += 0.2f;
-        GameManager.Instance.Boss().HealthRate += 0.2f;
-        GameManager.Instance.Boss().AttackPower += 1;
-        GameManager.Instance.Boss().AttackRate -= 0.05f;
-        CancelInvoke();
-    }
-    private void ActionEmblem()
-    {
         GameManager.Instance.Player().MaxHealth += 2;
-        GameManager.Instance.Player().NowHealth += 2;
-        GameManager.Instance.Player().WeaponCount += 1;
+        GameManager.Instance.Player().NowHealth += 3;
+        GameManager.Instance.Player().SpeedRate += 0.1f;
+        GameManager.Instance.Player().DodgeRate += 0.05f;
+        GameManager.Instance.Player().AngerValue -= 0.2f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AttackRate += 0.05f;
+        CancelInvoke();
+    }
+    private void MucousRage()
+    {
+        GameManager.Instance.Player().MaxHealth += 1;
+        GameManager.Instance.Player().NowHealth += 1;
         GameManager.Instance.Player().AttackBonus += 0.25f;
         GameManager.Instance.Player().CriticalDamageRate += 0.1f;
-        GameManager.Instance.Player().CriticalDamageBonus += 0.1f;
-        GameManager.Instance.Player().SpeedRate += 0.05f;
-        GameManager.Instance.Player().AttackRate -= 0.1f;
-        GameManager.Instance.Player().AutoHealCount += 1;
+        GameManager.Instance.Player().MucousRage = true;
         GameManager.Instance.Boss().AttackPower += 1;
-        GameManager.Instance.Boss().HealthRate += 0.1f;
         GameManager.Instance.Boss().AttackRate -= 0.1f;
-        GameManager.Instance.Boss().DodgeRate += 0.05f;
         GameManager.Instance.AddBossSkillLevel();
         CancelInvoke();
     }
-    private void EerieWindForest()
+    private void ConfidentCampaign()
     {
-        GameManager.Instance.Player().SpeedRate += 0.1f;
-        GameManager.Instance.Player().CriticalDamageRate += 0.05f;
-        GameManager.Instance.Player().AttackRate -= 0.1f;
-        GameManager.Instance.Player().AutoHealCount -= 1;
-        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        GameManager.Instance.Player().MaxHealth += 1;
+        GameManager.Instance.Player().NowHealth += 1;
+        GameManager.Instance.Player().AngerValue += 0.2f;
         GameManager.Instance.AddBossSkillLevel();
         CancelInvoke();
     }
-    private void NowhereHide()
+    private void SlimeRareSepsis()
     {
         GameManager.Instance.Player().NowHealth -= 1;
         GameManager.Instance.Player().MaxHealth -= 1;
-        GameManager.Instance.Player().AttackBonus += 0.2f;
-        GameManager.Instance.Player().CriticalDamageRate += 0.05f;
-        GameManager.Instance.Player().CriticalDamageBonus += 0.2f;
-        GameManager.Instance.Player().DodgeRate -= 0.05f;
-        GameManager.Instance.Boss().AttackPower += 1;
+        GameManager.Instance.Player().AttackRate -= 0.1f;
+        GameManager.Instance.Player().CriticalDamageRate += 0.1f;
+        GameManager.Instance.Boss().HealthRate -= 0.1f;
         GameManager.Instance.Boss().AttackRate -= 0.1f;
         CancelInvoke();
     }
-    private void RelicTreasure()
+    private void SevenPointCookedSmokedSlime()
     {
-        GameManager.Instance.Player().MaxHealth += 3;
-        GameManager.Instance.Player().NowHealth += 3;
-        GameManager.Instance.Player().AttackBonus += 0.15f;
+        GameManager.Instance.Player().NowHealth -= 1;
+        GameManager.Instance.Player().AngerValue += 0.7f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void ArmedPreparation()
+    {
         GameManager.Instance.Player().WeaponCount += 1;
-        GameManager.Instance.Player().AttackRate -= 0.1f;
-        GameManager.Instance.Player().CriticalDamageBonus += 0.2f;
-        GameManager.Instance.Boss().HealthRate += 0.15f;
+        GameManager.Instance.Player().SpeedRate -= 0.1f;
+        GameManager.Instance.Player().AngerValue += 0.1f;
         GameManager.Instance.Boss().AttackPower += 1;
-        GameManager.Instance.Boss().AutoHealCount += 0.5f;
-        CancelInvoke();
-    }
-    private void EmotionalShock()
-    {
-        GameManager.Instance.Player().MaxHealth += 3;
-        GameManager.Instance.Player().NowHealth += 3;
-        GameManager.Instance.Player().AttackBonus -= 0.1f;
-        GameManager.Instance.Player().AttackRate -= 0.1f;
-        GameManager.Instance.Player().CriticalDamageRate -= 0.05f;
-        GameManager.Instance.Player().AutoHealCount += 1;
-        GameManager.Instance.Boss().HealthRate += 0.15f;
-        GameManager.Instance.Boss().AttackRate += 0.05f;
         GameManager.Instance.AddBossSkillLevel();
         CancelInvoke();
     }
-    private void ArmedAlert()
+    private void MucousPeristalsis()
     {
-        GameManager.Instance.Player().AttackBonus += 0.2f;
-        GameManager.Instance.Player().CriticalDamageRate += 0.05f;
-        GameManager.Instance.Player().CriticalDamageBonus += 0.2f;
-        GameManager.Instance.Player().DodgeRate += 0.05f;
-        GameManager.Instance.Boss().AttackPower += 1;
-        GameManager.Instance.Boss().AttackRate -= 0.05f;
-        GameManager.Instance.AddBossSkillLevel();
-        CancelInvoke();
-    }
-    private void ForestHoly()
-    {
-        GameManager.Instance.Player().NowHealth += (int)GameManager.Instance.Player().MaxHealth * 0.5f;
+        GameManager.Instance.Player().NowHealth += 2;
+        GameManager.Instance.Player().SpeedRate -= 0.1f;
         GameManager.Instance.Boss().HealthRate += 0.1f;
         CancelInvoke();
     }
-    private void DejaVu()
+    private void PreciseShot()
+    {
+        GameManager.Instance.Player().CriticalDamageRate += 0.1f;
+        GameManager.Instance.Player().CriticalDamageBonus += 0.25f;
+        GameManager.Instance.Player().AngerValue += 0.2f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void LrritableSlime()
+    {
+        GameManager.Instance.Player().LrritableSlime = true;
+        GameManager.Instance.Player().AngerValue += 0.2f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        GameManager.Instance.Boss().AttackRate -= 0.15f;
+        CancelInvoke();
+    }
+    private void SmoothMucus()
+    {
+        GameManager.Instance.Player().SpeedRate += 0.15f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void BreathHoldingExpert()
+    {
+        GameManager.Instance.Player().AngerTime += 1;
+        GameManager.Instance.Player().AngerValue += 0.2f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void ThreeMinuteHeat()
+    {
+        GameManager.Instance.Player().AngerTime -= 1;
+        GameManager.Instance.Player().ThreeMinuteHeat = true;
+        GameManager.Instance.Player().FullAnger = 0.5f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void MucusRegeneration()
+    {
+        GameManager.Instance.Player().AutoHealCount += 1;
+        GameManager.Instance.Boss().AutoHealCount += 0.5f;
+        CancelInvoke();
+    }
+    private void MucousLevelVisualColor()
+    {
+        GameManager.Instance.Player().DodgeRate += 0.1f;
+        GameManager.Instance.Player().AngerValue += 0.2f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void SlimeStaredBlankly()
+    {
+        GameManager.Instance.Player().CriticalDamageRate += 0.15f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void FuriousGatling()
+    {
+        GameManager.Instance.Player().FuriousGatling = true;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void ShengqiCore()
     {
         GameManager.Instance.Player().MaxHealth += 1;
         GameManager.Instance.Player().NowHealth += 1;
-        GameManager.Instance.Player().AttackBonus -= 0.1f;
-        GameManager.Instance.Player().DodgeRate -= 0.05f;
-        GameManager.Instance.Boss().HealthRate -= 0.05f;
-        GameManager.Instance.Boss().AttackPower -= 1;
-        GameManager.Instance.Boss().AttackRate += 0.05f;
-        CancelInvoke();
-    }
-    private void EqualDifferenceTrading()
-    {
-        GameManager.Instance.Player().WeaponCount += 1;
-        GameManager.Instance.Player().NowHealth -= 1;
-        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Player().ShengqiCore = true;
         GameManager.Instance.Boss().AttackPower += 1;
         CancelInvoke();
     }
-    private void Cautious()
+    //³¡¾°2
+    private void SprintBuffer()
     {
-        GameManager.Instance.Player().MaxHealth += 2;
-        GameManager.Instance.Player().NowHealth += 2;
-        GameManager.Instance.Player().AttackBonus += 0.05f;
-        GameManager.Instance.Player().DodgeRate += 0.05f;
-        GameManager.Instance.Boss().HealthRate += 0.1f;
-        GameManager.Instance.Boss().DodgeRate += 0.02f;
-        CancelInvoke();
-    }
-    private void PeaceReconciliation()
-    {
-        GameManager.Instance.Player().NowHealth += (int)GameManager.Instance.Player().MaxHealth * 0.3f;
-        GameManager.Instance.Player().AttackBonus -= 0.1f;
-        GameManager.Instance.Player().AttackRate -= 0.05f;
-        GameManager.Instance.Player().AutoHealCount += 1;
-        GameManager.Instance.Boss().HealthRate += 0.1f;
-        GameManager.Instance.Boss().AttackPower -= 1;
-        GameManager.Instance.Boss().AttackRate += 0.05f;
-        GameManager.Instance.Boss().AutoHealCount += 0.5f;
-        CancelInvoke();
-    }
-    private void MonsterHeart()
-    {
-        GameManager.Instance.Player().MaxHealth -= (int)GameManager.Instance.Player().MaxHealth * 0.5f;
-        GameManager.Instance.Player().AttackBonus += 0.5f;
-        GameManager.Instance.Player().CriticalDamageRate += 0.2f;
-        GameManager.Instance.Player().CriticalDamageBonus += 0.25f;
-        GameManager.Instance.Player().AttackRate -= 0.15f;
-        GameManager.Instance.Player().AutoHealCount += 1;
-        GameManager.Instance.Boss().AttackPower += 2;
-        GameManager.Instance.Boss().AttackRate -= 0.2f;
-        GameManager.Instance.Boss().AutoHealCount += 1;
-        CancelInvoke();
-    }
-    private void ThirdHand()
-    {
-        GameManager.Instance.Player().WeaponCount += 1;
-        GameManager.Instance.Player().AttackBonus += 0.1f;
-        GameManager.Instance.Boss().AttackPower += 1;
+        GameManager.Instance.Player().SpeedRate += 0.1f;
+        GameManager.Instance.Player().SprintBuffer = true;
         GameManager.Instance.Boss().AttackRate -= 0.1f;
         CancelInvoke();
     }
-    private void HesitationDuel()
+    private void SlimeRunningChampion()
     {
-        GameManager.Instance.Player().MaxHealth += 3;
-        GameManager.Instance.Player().NowHealth += 3;
-        GameManager.Instance.Player().AttackBonus -= 0.1f;
-        GameManager.Instance.Player().CriticalDamageRate -= 0.05f;
-        GameManager.Instance.Player().CriticalDamageBonus -= 0.15f;
-        GameManager.Instance.Boss().AttackPower -= 1;
-        GameManager.Instance.Boss().AttackRate += 0.05f;
-        GameManager.Instance.Boss().AutoHealCount -= 0.5f;
+        GameManager.Instance.Player().SpeedRate += 0.1f;
+        GameManager.Instance.Player().AttackRate -= 0.05f;
+        GameManager.Instance.Player().SlimeRunningChampion = true;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
         CancelInvoke();
     }
-    private void SurpriseAttack()
+    private void SprintPreparation()
     {
-        GameManager.Instance.Player().AttackBonus += 0.1f;
+        GameManager.Instance.Player().SpeedRate += 0.1f;
         GameManager.Instance.Player().AttackRate -= 0.05f;
-        GameManager.Instance.Player().SpeedRate += 0.05f;
+        GameManager.Instance.Player().DashCount += 1;
         GameManager.Instance.Boss().AttackRate -= 0.1f;
-        GameManager.Instance.Boss().AutoHealCount += 0.5f;
         GameManager.Instance.AddBossSkillLevel();
         CancelInvoke();
     }
-    private void PeaceAgreement()
+    private void ADHDSlime()
     {
-        GameManager.Instance.Player().WeaponCount -= 1;
-        GameManager.Instance.Player().AutoHealCount += 1;
-        GameManager.Instance.Boss().AttackPower -= 2;
-        GameManager.Instance.Boss().AttackRate += 0.1f;
+        GameManager.Instance.Player().NowHealth -= 1;
+        GameManager.Instance.Player().SpeedRate += 0.05f;
+        GameManager.Instance.Player().AttackRate -= 0.05f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
         CancelInvoke();
     }
-    private void EqualExchange()
+    private void JungleEscapeInstinct()
     {
-        GameManager.Instance.Player().AttackBonus += 0.1f;
-        GameManager.Instance.Player().AttackRate -= 0.05f;
-        GameManager.Instance.Boss().AttackPower += 1;
+        GameManager.Instance.Player().SpeedRate += 0.15f;
+        GameManager.Instance.Player().AttackRate += 0.15f;
+        GameManager.Instance.Player().DodgeRate += 0.05f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void JungleCombatManual()
+    {
+        GameManager.Instance.Player().SpeedRate -= 0.15f;
+        GameManager.Instance.Player().AttackRate -= 0.15f;
+        GameManager.Instance.Player().DodgeRate += 0.05f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void NetworkLag()
+    {
+        GameManager.Instance.Player().MaxHealth += 1;
+        GameManager.Instance.Player().NowHealth += 1;
+        GameManager.Instance.Player().NetworkLag = true;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void AdhesiveExoskeleton()
+    {
+        GameManager.Instance.Player().MaxHealth += 1;
+        GameManager.Instance.Player().NowHealth += 1;
+        GameManager.Instance.Player().AdhesiveExoskeleton = true;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void SpeedEmblem()
+    {
+        GameManager.Instance.Player().SpeedRate += 0.1f;
+        GameManager.Instance.Player().AttackRate -= 0.1f;
+        GameManager.Instance.Player().DodgeRate += 0.05f;
+        GameManager.Instance.Player().SpeedEmblem = true;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        GameManager.Instance.Boss().DodgeRate += 0.1f;
+        CancelInvoke();
+    }
+    private void QuickAngerGel()
+    {
+        GameManager.Instance.Player().SpeedRate += 0.05f;
+        GameManager.Instance.Player().QuickAngerGel = true;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
         GameManager.Instance.Boss().AttackRate -= 0.05f;
         CancelInvoke();
     }
-    private void PeekingWood()
+    private void HavePrepared()
     {
-        GameManager.Instance.Player().MaxHealth += 2;
-        GameManager.Instance.Player().NowHealth += 2;
-        GameManager.Instance.Player().AttackRate -= 0.05f;
-        GameManager.Instance.Player().SpeedRate += 0.05f;
-        GameManager.Instance.Boss().HealthRate += 0.1f;
-        GameManager.Instance.Boss().AttackRate -= 0.1f;
-        CancelInvoke();
-    }
-    private void AdhereWill()
-    {
-        GameManager.Instance.Player().MaxHealth += 3;
-        GameManager.Instance.Player().NowHealth += 3;
-        GameManager.Instance.Player().AttackBonus += 0.2f;
-        GameManager.Instance.Player().CriticalDamageRate += 0.05f;
-        GameManager.Instance.Player().CriticalDamageBonus += 0.2f;
-        GameManager.Instance.Player().DodgeRate += 0.05f;
-        GameManager.Instance.Player().AutoHealCount += 1;
-        GameManager.Instance.Boss().HealthRate += 0.25f;
+        GameManager.Instance.Player().MaxHealth += 1;
+        GameManager.Instance.Player().NowHealth += 1;
+        GameManager.Instance.Player().WeaponCount += 1;
         GameManager.Instance.Boss().AttackPower += 1;
-        GameManager.Instance.Boss().DodgeRate += 0.05f;
-        GameManager.Instance.Boss().AutoHealCount += 0.5f;
         GameManager.Instance.AddBossSkillLevel();
         CancelInvoke();
     }
-    private void GoguryeoFan()
+    private void SyndromeSlime()
     {
-        GameManager.Instance.Player().AttackBonus += 0.2f;
-        GameManager.Instance.Player().CriticalDamageRate += 0.05f;
+        GameManager.Instance.Player().SpeedRate += 0.05f;
+        GameManager.Instance.Player().AttackRate -= 0.05f;
+        GameManager.Instance.Player().DodgeRate -= 0.05f;
+        GameManager.Instance.Player().CriticalDamageRate += 0.1f;
+        GameManager.Instance.Player().AngerValue += 0.2f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void SacredAnger()
+    {
+        GameManager.Instance.Player().SacredAnger = true;
         GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void ElasticGel()
+    {
+        GameManager.Instance.Player().NowHealth += 1;
+        GameManager.Instance.Player().SpeedRate += 0.05f;
+        GameManager.Instance.Player().ElasticGel = true;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void UrgentEngine()
+    {
+        GameManager.Instance.Player().UrgentEngine = true;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void HolySpringForest()
+    {
+        GameManager.Instance.Player().MaxHealth += 3;
+        GameManager.Instance.Player().NowHealth += 3;
+        GameManager.Instance.Boss().HealthRate += 0.2f;
+        CancelInvoke();
+    }
+    private void SelfProliferativeSlime()
+    {
+        GameManager.Instance.Player().NowHealth += 1;
+        GameManager.Instance.Player().AutoHealCount += 1;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AutoHealCount += 0.5f;
+        CancelInvoke();
+    }
+    private void GuaranteedFirstPrize()
+    {
+        GameManager.Instance.Player().AttackRate -= 0.05f;
+        GameManager.Instance.Player().CriticalDamageRate += 0.05f;
+        GameManager.Instance.Player().GuaranteedFirstPrize = true;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void BouncyJelly()
+    {
+        GameManager.Instance.Player().DodgeRate += 0.25f;
+        GameManager.Instance.Player().BouncyJelly = true;
+        GameManager.Instance.Boss().DodgeRate += 0.05f;
+        CancelInvoke();
+    }
+    private void ImperialWeapons()
+    {
+        GameManager.Instance.Player().SpeedRate += 0.1f;
+        GameManager.Instance.Player().ImperialWeapons = true;
         GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void HormoneGel()
+    {
+        GameManager.Instance.Player().CanDash = false;
+        GameManager.Instance.Player().HormoneGel = true;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void PowerHotSprings()
+    {
+        GameManager.Instance.Player().MaxHealth += 1;
+        GameManager.Instance.Player().NowHealth += 1;
+        GameManager.Instance.Player().AttackBonus += 0.2f;
+        GameManager.Instance.Player().SpeedRate -= 0.1f;
+        GameManager.Instance.Player().AttackRate += 0.1f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        GameManager.Instance.Boss().AttackRate += 0.1f;
+        CancelInvoke();
+    }
+    private void GoutySlime()
+    {
+        GameManager.Instance.Player().SpeedRate -= 0.1f;
+        GameManager.Instance.Player().AngerValue += 0.5f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void DodgeBackstab()
+    {
+        GameManager.Instance.Player().DodgeRate += 0.1f;
+        GameManager.Instance.Player().DodgeBackstab = true;
+        GameManager.Instance.Boss().DodgeRate += 0.05f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void CowardlySlime()
+    {
+        GameManager.Instance.Player().DodgeRate += 0.1f;
+        GameManager.Instance.Player().AttackRate += 0.05f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
         CancelInvoke();
     }
 }

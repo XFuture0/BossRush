@@ -19,6 +19,14 @@ public class BulletBox : MonoBehaviour
         if (KeyBoardManager.Instance.GetKey_Mouse0() && AttackSpeedTime_Count < 0)
         {
             AttackSpeedTime_Count = BaseAttackSpeedTime * GameManager.Instance.PlayerStats.CharacterData_Temp.AttackRate;
+            if (GameManager.Instance.Player().MucusDeathRage)
+            {
+                AttackSpeedTime_Count *= 0.5f + ((GameManager.Instance.Player().NowHealth / GameManager.Instance.Player().MaxHealth) / 2);
+            }
+            if (GameManager.Instance.Player().SlimeRunningChampion)
+            {
+                AttackSpeedTime_Count *=  1 - (GameManager.Instance.Player().SpeedRate - 1);
+            }
             SetBullet();
         }
     }

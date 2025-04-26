@@ -13,111 +13,103 @@ MonoBehaviour:
   m_Name: Scene1
   m_EditorClassIdentifier: 
   CardLists:
-  - CardName: "\u6597\u5FD7\u6602\u626C"
-    CardInvokeName: HighSpirited
-    Description: "\u653B\u51FB\u529B+20%\n\u66B4\u51FB\u7387+5%\n\u901F\u5EA6+5%\nBoss\u653B\u51FB\u9891\u7387+10%\nBoss\u8840\u91CF+10%"
-    BallType: 0
-    Quality: 1
-    IsOpen: 1
-  - CardName: "\u9A84\u50B2\u610F\u5FD7"
-    CardInvokeName: PrideVolition
-    Description: "\u653B\u51FB\u529B+20%\n\u653B\u901F+5%\n\u66B4\u51FB\u7387+5%\nBoss\u653B\u51FB\u529B+1\nBoss\u653B\u51FB\u9891\u7387+10%\n"
-    BallType: 0
-    Quality: 1
-    IsOpen: 1
-  - CardName: "\u6218\u6597\u51C6\u5907"
-    CardInvokeName: StandBy
-    Description: "\u6700\u5927\u751F\u547D\u503C+3\nBoss\u6700\u5927\u751F\u547D\u503C+10%"
-    BallType: 0
-    Quality: 0
-    IsOpen: 1
-  - CardName: "\u65E0\u754F\u6838\u5FC3"
-    CardInvokeName: FearlessCore
-    Description: "\u6700\u5927\u751F\u547D\u503C+3\n\u653B\u51FB\u529B+10%\n\u95EA\u907F\u7387+5%\n\u66B4\u51FB\u7387+5%\nBoss\u653B\u51FB\u529B+1"
-    BallType: 0
-    Quality: 1
-    IsOpen: 1
-  - CardName: "\u5927\u5FC3\u810F"
-    CardInvokeName: BigHeart
-    Description: "\u6700\u5927\u751F\u547D\u503C+5\n\u6E05\u573A\u751F\u547D\u56DE\u590D+1\nBoss\u6700\u5927\u751F\u547D\u503C+10%\nBoss\u6BCF\u79D2\u751F\u547D\u56DE\u590D+0.5"
-    BallType: 0
-    Quality: 0
-    IsOpen: 1
-  - CardName: "\u65F6\u4EE3\u8FDB\u5316"
-    CardInvokeName: EvolutionTime
-    Description: "\u653B\u51FB\u529B+20%\n\u6B66\u5668\u6570\u91CF+1\nBoss\u968F\u673A\u6280\u80FD\u7B49\u7EA7+1"
-    BallType: 0
-    Quality: 1
-    IsOpen: 1
-  - CardName: "\u4F11\u6218\u534F\u8BAE"
-    CardInvokeName: Truce
-    Description: "\u56DE\u590D50%\u6700\u5927\u751F\u547D\u503C\nBoss\u6700\u5927\u751F\u547D\u503C+20%"
-    BallType: 0
-    Quality: 0
-    IsOpen: 1
-  - CardName: "\u6218\u6597\u72C2"
-    CardInvokeName: CombatManiac
-    Description: "\u653B\u51FB\u529B+20%\n\u6B66\u5668\u6570\u91CF+1\n\u66B4\u51FB\u7387+5%\n\u66B4\u51FB\u4F24\u5BB3+20%\nBoss\u653B\u51FB\u529B+1\nBoss\u653B\u51FB\u9891\u7387+10%"
-    BallType: 0
+  - CardName: "\u7C98\u6DB2\u4EA1\u6012"
+    CardInvokeName: MucusDeathRage
+    Description: "\u5F53\u524D\u751F\u547D\u503C-2\n\u653B\u51FB\u529B+30%\n\u6012\u6C14\u503C+25%\n\u5F53\u4F60\u751F\u547D\u503C\u8D8A\u4F4E\u65F6\uFF0C\u4F60\u7684\u653B\u901F\u8D8A\u5FEB\u3002\nBoss\u6700\u5927\u751F\u547D\u503C+10%\nBoss\u653B\u51FB\u9891\u7387+10%"
     Quality: 2
     IsOpen: 1
-  - CardName: "\u987D\u5F3A\u610F\u5FD7"
-    CardInvokeName: TenaciousWill
-    Description: "\u6700\u5927\u751F\u547D\u503C+2\n\u6E05\u573A\u751F\u547D\u56DE\u590D+1\n\u66B4\u51FB\u7387-5%\nBoss\u6700\u5927\u751F\u547D\u503C+10%\nBoss\u6BCF\u79D2\u751F\u547D\u56DE\u590D+0.5"
-    BallType: 0
+  - CardName: "\u53F2\u83B1\u59C6\u51B2\u950B"
+    CardInvokeName: SlimeCharge
+    Description: "\u5F53\u524D\u751F\u547D\u503C-1\n\u653B\u51FB\u529B+20%\n\u6012\u6C14\u503C+20%\nBoss\u653B\u51FB\u529B+1"
     Quality: 0
+    IsOpen: 1
+  - CardName: "\u65E0\u754F\u72C2\u6012"
+    CardInvokeName: FearlessFury
+    Description: "\u5F53\u524D\u751F\u547D\u503C-1\n\u6012\u6C14\u503C\u4F1A\u81EA\u52A8\u56DE\u590D+2%/\u79D2\nBoss\u653B\u51FB\u529B+1\nBoss\u653B\u51FB\u9891\u7387+10%"
+    Quality: 3
     IsOpen: 1
   - CardName: "\u7D27\u6025\u64A4\u9000"
     CardInvokeName: EmergencyEvacuation
-    Description: "\u6700\u5927\u751F\u547D\u503C-2\n\u5F53\u524D\u751F\u547D\u503C-2\n\u653B\u51FB\u529B-30%\n\u95EA\u907F\u7387+15%\n\u6E05\u573A\u751F\u547D\u56DE\u590D+1\nBoss\u6700\u5927\u751F\u547D\u503C-20%\nBoss\u653B\u51FB\u9891\u7387-15%"
-    BallType: 0
+    Description: "\u6700\u5927\u751F\u547D\u503C+2\n\u5F53\u524D\u751F\u547D\u503C+3\n\u79FB\u901F+10%\n\u95EA\u907F\u7387+5%\n\u6012\u6C14\u503C-20%\nBoss\u6700\u5927\u751F\u547D\u503C+10%\nBoss\u653B\u51FB\u9891\u7387-5%"
     Quality: 1
     IsOpen: 1
-  - CardName: "\u8282\u594F\u6296\u52A8"
-    CardInvokeName: RhythmJitter
-    Description: "\u79FB\u901F+5%\n\u653B\u901F+5%\n\u95EA\u907F\u7387+5%\nBoss\u653B\u51FB\u9891\u7387+5%\nBoss\u95EA\u907F\u7387+2%"
-    BallType: 0
+  - CardName: "\u7C98\u6DB2\u76DB\u6012"
+    CardInvokeName: MucousRage
+    Description: "\u6700\u5927\u751F\u547D\u503C+1\n\u5F53\u524D\u751F\u547D\u503C+1\n\u653B\u51FB\u529B+25%\n\u66B4\u51FB\u7387+10%\n\u5F53\u4F60\u7684\u6012\u6C14\u503C\u8D8A\u9AD8\u65F6\uFF0C\u4F60\u7684\u653B\u51FB\u529B\u4F1A\u968F\u4E4B\u63D0\u5347\nBoss\u653B\u51FB\u529B+1\nBoss\u653B\u51FB\u9891\u7387+10%\nBoss\u968F\u673A\u6280\u80FD\u7B49\u7EA7+1"
+    Quality: 2
+    IsOpen: 1
+  - CardName: "\u81EA\u4FE1\u51FA\u5F81"
+    CardInvokeName: ConfidentCampaign
+    Description: "\u6700\u5927\u751F\u547D\u503C+1\n\u5F53\u524D\u751F\u547D\u503C+1\n\u6012\u6C14\u503C+20%\nBoss\u968F\u673A\u6280\u80FD\u7B49\u7EA7+1"
     Quality: 0
     IsOpen: 1
-  - CardName: "\u82F1\u96C4\u7EB9\u7AE0"
-    CardInvokeName: 'HeroEmblems '
-    Description: "\u6700\u5927\u751F\u547D\u503C+3\n\u653B\u51FB\u529B+20%\n\u653B\u901F+5%\n\u66B4\u51FB\u7387+5%\n\u66B4\u51FB\u4F24\u5BB3+25%\n\u95EA\u907F\u7387+5%\nBoss\u653B\u51FB\u529B+1\nBoss\u653B\u51FB\u9891\u7387+10%\nBoss\u6BCF\u79D2\u751F\u547D\u56DE\u590D+0.5"
-    BallType: 0
+  - CardName: "\u53F2\u83B1\u59C6\u7F55\u89C1\u8D25\u8840\u75C7"
+    CardInvokeName: SlimeRareSepsis
+    Description: "\u6700\u5927\u751F\u547D\u503C-1\n\u5F53\u524D\u751F\u547D\u503C-1\n\u653B\u901F+10%\n\u66B4\u51FB\u7387+10%\nBoss\u6700\u5927\u751F\u547D\u503C-10%\nBoss\u653B\u51FB\u9891\u7387+10%"
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u4E03\u5206\u719F\u70DF\u718F\u53F2\u83B1\u59C6"
+    CardInvokeName: SevenPointCookedSmokedSlime
+    Description: "\u5F53\u524D\u751F\u547D\u503C-1\n\u6012\u6C14\u503C+70%\nBoss\u653B\u51FB\u9891\u7387+10%"
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u6B66\u88C5\u6574\u5907"
+    CardInvokeName: ArmedPreparation
+    Description: "\u6B66\u5668\u6570\u91CF+1\n\u79FB\u901F-10%\n\u6012\u6C14\u503C+10%\nBoss\u653B\u51FB\u529B+1\nBoss\u968F\u673A\u6280\u80FD\u7B49\u7EA7+1"
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u7C98\u6DB2\u8815\u52A8"
+    CardInvokeName: MucousPeristalsis
+    Description: "\u5F53\u524D\u751F\u547D\u503C+2\n\u79FB\u901F-5%\nBoss\u6700\u5927\u751F\u547D\u503C+10%"
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u7CBE\u51C6\u5C04\u51FB"
+    CardInvokeName: PreciseShot
+    Description: "\u66B4\u51FB\u7387+10%\n\u66B4\u51FB\u4F24\u5BB3+25%\n\u6012\u6C14\u503C+20%\nBoss\u653B\u51FB\u529B+1"
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u6613\u6012\u75C7\u53F2\u83B1\u59C6"
+    CardInvokeName: LrritableSlime
+    Description: "\u653B\u51FB\u6240\u9020\u6210\u7684\u6012\u6C14\u56DE\u590D\u589E\u52A0\n\u53D7\u4F24\u6240\u9020\u6210\u7684\u6012\u6C14\u56DE\u590D\u589E\u52A0\n\u6012\u6C14+20%\nBoss\u653B\u51FB\u529B+1\nBoss\u653B\u51FB\u9891\u7387+15%"
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u5E73\u6ED1\u7C98\u6DB2"
+    CardInvokeName: SmoothMucus
+    Description: "\u79FB\u901F+15%\nBoss\u653B\u51FB\u9891\u7387+10%"
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u53F2\u83B1\u59C6\u618B\u6C14\u80FD\u624B"
+    CardInvokeName: BreathHoldingExpert
+    Description: "\u6012\u6C14\u65F6\u95F4+1\u79D2\n\u6012\u6C14\u503C+20%\nBoss\u653B\u51FB\u9891\u7387+10%"
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u4E09\u5206\u949F\u70ED\u5EA6\u578B\u53F2\u83B1\u59C6"
+    CardInvokeName: ThreeMinuteHeat
+    Description: "\u6012\u6C14\u65F6\u95F4-1\u79D2\n\u6012\u6C14\u69FD-50%\nBoss\u968F\u673A\u6280\u80FD\u7B49\u7EA7+1"
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u7C98\u6DB2\u518D\u751F"
+    CardInvokeName: MucusRegeneration
+    Description: "\u6E05\u573A\u751F\u547D\u56DE\u590D+1\nBoss\u6BCF\u79D2\u751F\u547D\u56DE\u590D+0.5"
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u7C98\u6DB2\u7EA7\u89C1\u95FB\u8272"
+    CardInvokeName: MucousLevelVisualColor
+    Description: "\u95EA\u907F\u7387+10%\n\u6012\u6C14\u503C+20%\nBoss\u653B\u51FB\u9891\u7387+10%"
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u53F2\u83B1\u59C6\u77AA\u773C"
+    CardInvokeName: SlimeStaredBlankly
+    Description: "\u66B4\u51FB\u7387+15%\nBoss\u6700\u5927\u751F\u547D\u503C+10%\nBoss\u653B\u51FB\u9891\u7387+10%"
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u72C2\u6012\u52A0\u7279\u6797"
+    CardInvokeName: FuriousGatling
+    Description: "\u4F60\u4E0D\u518D\u9700\u8981\u79EF\u6512\u6012\u6C14\uFF0C\u4F46\u662F\u4F7F\u7528\u6B66\u5668\u5F3A\u5927\u7684\u540E\u5750\u529B\u4F7F\u5F97\u4F60\u65E0\u6CD5\u79FB\u52A8\nBoss\u653B\u51FB\u529B+1"
     Quality: 3
     IsOpen: 1
-  - CardName: "\u5E26\u5934\u51B2\u950B"
-    CardInvokeName: LeadCharge
-    Description: "\u653B\u51FB\u529B+5%\n\u79FB\u901F+5%\n\u66B4\u51FB\u4F24\u5BB3+10%\nBoss\u653B\u51FB\u9891\u7387+5%\nBoss\u968F\u673A\u6280\u80FD\u7B49\u7EA7+1"
-    BallType: 0
-    Quality: 0
-    IsOpen: 1
-  - CardName: "\u5DE8\u578B\u6050\u60E7"
-    CardInvokeName: GiantFear
-    Description: "\u6700\u5927\u751F\u547D\u503C+4\n\u6E05\u573A\u751F\u547D\u56DE\u590D+1\n\u653B\u51FB\u529B-10%\n\u79FB\u901F+5%\nBoss\u6700\u5927\u751F\u547D\u503C+20%\nBoss\u653B\u51FB\u529B+1"
-    BallType: 0
-    Quality: 0
-    IsOpen: 1
-  - CardName: "\u6218\u6597\u6FC0\u60C5"
-    CardInvokeName: BattlePassion
-    Description: "\u653B\u51FB\u529B+20%\n\u66B4\u51FB\u7387+5%\n\u66B4\u51FB\u4F24\u5BB3+20%\nBoss\u653B\u51FB\u529B+1\nBoss\u6BCF\u79D2\u751F\u547D\u56DE\u590D+0.5"
-    BallType: 0
-    Quality: 1
-    IsOpen: 1
-  - CardName: "\u7075\u6D3B\u591A\u53D8"
-    CardInvokeName: FlexibleVersatile
-    Description: "\u79FB\u901F+5%\n\u95EA\u907F\u7387+5%\nBoss\u95EA\u907F\u7387+2%\nBoss\u653B\u51FB\u9891\u7387+5%"
-    BallType: 0
-    Quality: 0
-    IsOpen: 1
-  - CardName: "\u7A81\u51FB\u68C0\u67E5"
-    CardInvokeName: Raid
-    Description: "\u653B\u51FB\u529B+10%\nBoss\u6700\u5927\u751F\u547D\u503C+10%"
-    BallType: 0
-    Quality: 0
-    IsOpen: 1
-  - CardName: "\u70ED\u8840\u5FC3\u810F"
-    CardInvokeName: HotBloodedHeart
-    Description: "\u6700\u5927\u751F\u547D\u503C+5\n\u6E05\u573A\u751F\u547D\u56DE\u590D+2\n\u653B\u51FB\u529B+20%\n\u66B4\u51FB\u7387+5%\n\u66B4\u51FB\u4F24\u5BB3+20%\nBoss\u6700\u5927\u751F\u547D\u503C+10%\nBoss\u653B\u51FB\u529B+1\nBoss\u653B\u51FB\u9891\u7387+10%\nBoss\u6BCF\u79D2\u751F\u547D\u56DE\u590D+0.5"
-    BallType: 0
+  - CardName: "\u76DB\u6C14\u6838\u5FC3"
+    CardInvokeName: ShengqiCore
+    Description: "\u6700\u5927\u751F\u547D\u503C+1\n\u5F53\u524D\u751F\u547D\u503C+1\n\u5F53\u4F60\u7684\u6012\u6C14\u503C\u6EE1\u65F6\uFF0C\u53EF\u4EE5\u62B5\u6321\u4E00\u6B21\u4F24\u5BB3\u5E76\u4E14\u6E05\u7A7A\u6012\u6C14\u503C\nBoss\u653B\u51FB\u529B+1"
     Quality: 2
     IsOpen: 1

@@ -9,9 +9,17 @@ public class PlayerController : MonoBehaviour
     private PlayerCheck Check;
     private float InputX;
     public bool Isdead;
+    private bool IsJumpDown;
+    private bool IsAddWeapon;
+    private bool IsHormoneGel;
+    private float HormoneGelBaseSpeed;
     public PlayerData PlayerData;
     private CharacterStats Player;
     public GameObject EndCanvs;
+    public Bullet bullet;
+    private float AngerTime = 1;
+    public delegate void AngerSkill();
+    public AngerSkill angerskill;
     [Header("临时属性")]
     private float JumpForce;
     private float JumpDownSpeed_Max;
@@ -27,6 +35,12 @@ public class PlayerController : MonoBehaviour
     private bool IsDash;
     public float CanDashTime;
     private float CanDashTime_Count;
+    [Header("怒气计时器")]
+    private bool IsAnger;
+    private float AngerTime_Count = -2;
+    private float BaseSpeed;
+    private float BaseAttackRate;
+    private float BaseBulletSpeed;
     [Header("事件监听")]
     public VoidEventSO BossDeadEvent;
     private void Awake()
@@ -35,6 +49,7 @@ public class PlayerController : MonoBehaviour
         Check = rb.GetComponent<PlayerCheck>();
         Player = GetComponent<CharacterStats>();
         PlayerDashPool = new ObjectPool<PlayerDashTemp>(DashTemp);
+        angerskill = BaseAngerSkill;
     }
     private void Start()
     {
@@ -49,6 +64,17 @@ public class PlayerController : MonoBehaviour
         Jump();
         PlayerDead();
         CheckDash();
+        OnImperialWeapons();
+        if (!Player.CharacterData_Temp.FuriousGatling)
+        {
+            PlayerAnger();
+            AddAnger();
+        }
+        else if (Player.CharacterData_Temp.FuriousGatling)
+        {
+            UseGatling();
+        }
+        PlayerData.PlayerPosition = transform.position;
     }
     private void FixedUpdate()
     {
@@ -75,6 +101,7 @@ public class PlayerController : MonoBehaviour
     {
         if (KeyBoardManager.Instance.GetKeyDown_Space()&& CurJumpCount > 0)
         {
+            IsJumpDown = false;
             CurJumpCount--;
             rb.velocity = Vector2.zero;
             rb.velocity = new Vector2(rb.velocity.x, JumpForce);
@@ -86,10 +113,22 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, JumpDownSpeed_Max);
             }
         }
-        if (Check.IsGround && rb.velocity.y <= 0)
+        if (Check.IsGround && rb.velocity.y <= 0 && !IsJumpDown)
         {
+            IsJumpDown = true;
             CurJumpCount = Player.CharacterData_Temp.JumpCount;
+            if (Player.CharacterData_Temp.UrgentEngine)
+            {
+                StartCoroutine(OnUrgentEngine());
+            }
         }
+    }
+    private IEnumerator OnUrgentEngine()
+    {
+        var Basespeed = Player.CharacterData_Temp.SpeedRate;
+        Player.CharacterData_Temp.SpeedRate *= 1.5f;
+        yield return new WaitForSeconds(0.2f);
+        Player.CharacterData_Temp.SpeedRate = Basespeed;
     }
     private void CheckDash()
     {
@@ -124,6 +163,28 @@ public class PlayerController : MonoBehaviour
             rb.gravityScale = 0;
             KeyBoardManager.Instance.StopMoveKey = true;
             InvokeRepeating("AddPlayerDashTemp", 0, 0.02f);
+            if (Player.CharacterData_Temp.QuickAngerGel)
+            {
+                Player.CharacterData_Temp.AngerValue += 0.02f;
+            }
+            if (Player.CharacterData_Temp.NetworkLag)
+            {
+                StartCoroutine(OnNetworkLag());
+            }
+        }
+        if (Player.CharacterData_Temp.HormoneGel)
+        {
+            if (KeyBoardManager.Instance.GetKey_Shift() && !IsHormoneGel)
+            {
+                IsHormoneGel = true;
+                HormoneGelBaseSpeed = Player.CharacterData_Temp.SpeedRate;
+                Player.CharacterData_Temp.SpeedRate = 1.5f;
+            }
+            else if(!KeyBoardManager.Instance.GetKey_Shift() && IsHormoneGel)
+            {
+                IsHormoneGel = false;
+                Player.CharacterData_Temp.SpeedRate = HormoneGelBaseSpeed;
+            }
         }
     }
     private void Dash()
@@ -141,6 +202,23 @@ public class PlayerController : MonoBehaviour
         rb.velocity = Vector2.zero;
         KeyBoardManager.Instance.StopMoveKey = false;
         rb.gravityScale = Settings.PlayerGravity;
+        if (Player.CharacterData_Temp.SprintBuffer)
+        {
+            StartCoroutine(OnSprintBuffer());
+        }
+    }
+    private IEnumerator OnSprintBuffer()
+    {
+        var BaseSpeed = Player.CharacterData_Temp.SpeedRate;
+        Player.CharacterData_Temp.SpeedRate = 1.8f;
+        yield return new WaitForSeconds(0.5f);
+        Player.CharacterData_Temp.SpeedRate = BaseSpeed;
+    }
+    private IEnumerator OnNetworkLag()
+    {
+        var BacePosition = transform.position;
+        yield return new WaitForSeconds(1);
+        transform.position = BacePosition;
     }
     private void RefreshData()
     {
@@ -163,6 +241,102 @@ public class PlayerController : MonoBehaviour
             EndCanvs.SetActive(true);
         }
     }
+    private void PlayerAnger()
+    {
+        if (Player.CharacterData_Temp.SacredAnger)
+        {
+            angerskill = SacredAnger;
+        }
+        angerskill();
+    }
+    public void BaseAngerSkill()
+    {
+        if (Player.CharacterData_Temp.AngerValue >= GameManager.Instance.Player().FullAnger && KeyBoardManager.Instance.GetKeyDown_F() && !IsAnger)
+        {
+            IsAnger = true;
+            BaseAttackRate = Player.CharacterData_Temp.AttackRate;
+            BaseBulletSpeed = bullet.BulletSpeed;
+            Player.CharacterData_Temp.AttackRate = 0.2f;
+            bullet.BulletSpeed = 30;
+            AngerTime_Count = Player.CharacterData_Temp.AngerTime;
+        }
+        if (AngerTime_Count >= -1 && IsAnger)
+        {
+            Player.CharacterData_Temp.AngerValue = (AngerTime_Count / Player.CharacterData_Temp.AngerTime) * GameManager.Instance.Player().FullAnger;
+            AngerTime_Count -= Time.deltaTime;
+        }
+        if (AngerTime_Count < 0 && IsAnger)
+        {
+            IsAnger = false;
+            Player.CharacterData_Temp.AttackRate = BaseAttackRate;
+            bullet.BulletSpeed = BaseBulletSpeed;
+            Player.CharacterData_Temp.AngerValue = 0;
+        }
+    }
+    private void SacredAnger()
+    {
+        if (Player.CharacterData_Temp.AngerValue >= GameManager.Instance.Player().FullAnger && KeyBoardManager.Instance.GetKeyDown_F() && !IsAnger)
+        {
+            IsAnger = true;
+            Player.Invincible = true;
+            Player.InvincibleTime_Count = Player.CharacterData_Temp.AngerTime;
+            BaseSpeed = Player.CharacterData_Temp.SpeedRate;
+            BaseAttackRate = Player.CharacterData_Temp.AttackRate;
+            Player.CharacterData_Temp.AttackRate = BaseAttackRate * 0.5f;
+            Player.CharacterData_Temp.SpeedRate = BaseSpeed * 1.5f;
+            AngerTime_Count = Player.CharacterData_Temp.AngerTime;
+        }
+        if (AngerTime_Count >= -1 && IsAnger)
+        {
+            Player.CharacterData_Temp.AngerValue = (AngerTime_Count / Player.CharacterData_Temp.AngerTime) * GameManager.Instance.Player().FullAnger;
+            AngerTime_Count -= Time.deltaTime;
+        }
+        if (AngerTime_Count < 0 && IsAnger)
+        {
+            IsAnger = false;
+            Player.CharacterData_Temp.AttackRate = BaseAttackRate;
+            Player.CharacterData_Temp.SpeedRate = BaseSpeed;
+            Player.CharacterData_Temp.AngerValue = 0;
+        }
+    }
+    private void AddAnger()
+    {
+        if (Player.CharacterData_Temp.FearlessFury && GameManager.Instance.BossStats.gameObject.activeSelf && Player.CharacterData_Temp.AngerValue <= 1.1f)
+        {
+            if (AngerTime >= 0)
+            {
+                AngerTime -= Time.deltaTime;
+            }
+            else
+            {
+                AngerTime = 1;
+                Player.CharacterData_Temp.AngerValue += 0.02f;
+            }
+        }
+    }
+    private void UseGatling()
+    {
+        if(KeyBoardManager.Instance.GetKeyDown_F() && !IsAnger)
+        {
+            IsAnger = true;
+            BaseAttackRate = Player.CharacterData_Temp.AttackRate;
+            BaseBulletSpeed = bullet.BulletSpeed;
+        }
+        if (KeyBoardManager.Instance.GetKey_F() && IsAnger)
+        {
+            KeyBoardManager.Instance.StopMoveKey = true;
+            Player.CharacterData_Temp.AttackRate = 0.2f;
+            bullet.BulletSpeed = 30;
+            rb.velocity = new Vector2(0,rb.velocity.y);
+        }
+        else if (!KeyBoardManager.Instance.GetKey_F() && IsAnger)
+        {
+            IsAnger = false;
+            KeyBoardManager.Instance.StopMoveKey = false;
+            Player.CharacterData_Temp.AttackRate = BaseAttackRate;
+            bullet.BulletSpeed = BaseBulletSpeed;
+        }
+    }
     private void OnEnable()
     {
         BossDeadEvent.OnEventRaised += OnBossDead;
@@ -174,5 +348,21 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         BossDeadEvent.OnEventRaised -= OnBossDead;
+    }
+    private void OnImperialWeapons()
+    {
+        if (Player.CharacterData_Temp.ImperialWeapons)
+        {
+            if(Player.CharacterData_Temp.SpeedRate >= 1.5f && !IsAddWeapon)
+            {
+                IsAddWeapon = true;
+                Player.CharacterData_Temp.WeaponCount += 1; 
+            }
+            if(Player.CharacterData_Temp.SpeedRate < 1.5f && IsAddWeapon)
+            {
+                IsAddWeapon = false;
+                Player.CharacterData_Temp.WeaponCount -= 1;
+            }
+        }
     }
 }

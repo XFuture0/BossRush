@@ -15,7 +15,7 @@ public class PlayerCanvs : MonoBehaviour
     private void UpdataHeart()
     {
         var HeartCount = GameManager.Instance.PlayerStats.CharacterData_Temp.NowHealth;
-        if(PlayerHeart_Count > HeartCount)
+        if(PlayerHeart_Count > HeartCount && PlayerHearts.Count > 0)
         {
             Destroy(PlayerHearts[PlayerHearts.Count - 1]);
             PlayerHearts.Remove(PlayerHearts[PlayerHearts.Count - 1]);

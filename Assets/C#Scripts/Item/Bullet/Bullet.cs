@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Bullet : MonoBehaviour
 {
+    private Animator anim;
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;
     public Vector2 BulletRotation;
     public float BulletSpeed;
+    private bool IsHit;
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
-    }
-    private void OnEnable()
-    {
-        Invoke("ReturnPool", 3f);
+        anim = GetComponent<Animator>();
     }
     private void Update()
     {
@@ -25,7 +24,10 @@ public class Bullet : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        BulletFly();
+        if (!IsHit)
+        {
+            BulletFly();
+        }
     }
     private void BulletFly()
     {
@@ -39,17 +41,27 @@ public class Bullet : MonoBehaviour
     {
         if(other.tag == "Boss")
         {
+            IsHit = true;
+            rb.velocity = Vector2.zero;
+            anim.SetTrigger("Hit");
             GameManager.Instance.Attack(GameManager.Instance.PlayerStats,GameManager.Instance.BossStats);
-            Destroy(gameObject);
         }
         if(other.tag == "BossArmy")
         {
+            IsHit = true;
+            rb.velocity = Vector2.zero;
+            anim.SetTrigger("Hit");
             GameManager.Instance.Attack(GameManager.Instance.PlayerStats,other.GetComponent<CharacterStats>());
-            Destroy(gameObject);
         }
         if(other.tag == "Ground")
         {
-            Destroy(gameObject);
+            IsHit = true;
+            rb.velocity = Vector2.zero;
+            anim.SetTrigger("Hit");
         }
+    }
+    private void Destorying()
+    {
+        Destroy(gameObject);
     }
 }

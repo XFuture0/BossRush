@@ -12,7 +12,6 @@ public class ChooseCardList : ScriptableObject
         public string CardInvokeName;
         [TextArea]
         public string Description;
-        public BallType BallType;
         public Quality Quality;
         public bool IsOpen;
     }
