@@ -15,5 +15,9 @@ public class BossCanvs : MonoBehaviour
     {
         HealthLevel = GameManager.Instance.BossStats.CharacterData_Temp.NowHealth / GameManager.Instance.BossStats.CharacterData_Temp.MaxHealth;
         BossHealth.gameObject.transform.localScale = new Vector3(HealthLevel, 1, 1);
+        if(GameManager.Instance.BossStats.CharacterData_Temp.NowHealth <= 0)
+        {
+            BossHealth.gameObject.transform.localScale = new Vector3(0, 1, 1);
+        }
     }
 }

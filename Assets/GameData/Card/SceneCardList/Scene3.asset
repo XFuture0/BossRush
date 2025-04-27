@@ -1,0 +1,165 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180e3e011d5731644b695b77d311bee2, type: 3}
+  m_Name: Scene3
+  m_EditorClassIdentifier: 
+  CardLists:
+  - CardName: "\u6BD2\u7CFB\u5B50\u5F39"
+    CardInvokeName: PoisonBullet
+    Description: "\u6B66\u5668\u5177\u6709\u5267\u6BD2\u6548\u679C\n\u5267\u6BD2\u4F24\u5BB3+10%\nBoss\u6700\u5927\u751F\u547D\u503C+10%"
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u836F\u5242\u5E08\u53F2\u83B1\u59C6"
+    CardInvokeName: PharmacistSlime
+    Description: "\u6B66\u5668\u5177\u6709\u5267\u6BD2\u6548\u679C\n\u5267\u6BD2\u4F24\u5BB3+10%\nBoss\u968F\u673A\u6280\u80FD\u7B49\u7EA7+1"
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u4E9A\u514B\u5267\u6BD2"
+    CardInvokeName: YakPoizon
+    Description: "\u6B66\u5668\u5177\u6709\u5267\u6BD2\u6548\u679C\n\u653B\u901F-50%\n\u5267\u6BD2\u4F24\u5BB3+20%\nBoss\u653B\u51FB\u529B+1"
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u5267\u6BD2\u6E29\u6CC9"
+    CardInvokeName: PoisonousHotSprings
+    Description: "\u5F53\u524D\u751F\u547D\u503C-1\n\u5267\u6BD2\u4F24\u5BB3+10%\n\u653B\u901F+5%\nBoss\u6700\u5927\u751F\u547D\u503C+10%\nBoss\u968F\u673A\u6280\u80FD\u7B49\u7EA7+1"
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u6BD2\u7206\u51DD\u80F6"
+    CardInvokeName: PoisonExplosionGel
+    Description: "\u5F53Boss\u7684\u4E2D\u6BD2\u79EF\u7D2F\u523010\u5C42\u65F6\uFF0C\u4F1A\u6D88\u8017\u6240\u6709\u6BD2\u7D20\u9020\u6210\u4E00\u6B21\u9AD8\u989D\u4F24\u5BB3\n\u653B\u901F+10%\nBoss\u653B\u51FB\u9891\u7387+20%"
+    Quality: 2
+    IsOpen: 1
+  - CardName: "\u9152\u763E\u578B\u53F2\u83B1\u59C6"
+    CardInvokeName: AlcoholAddictedSlime
+    Description: "\u91CA\u653E\u6012\u6C14\u6280\u65F6\uFF0C\u5267\u6BD2\u4F24\u5BB3\u52A0\u500D\uFF0C\u653B\u901F\u5927\u5E45\u63D0\u5347\n\u5267\u6BD2\u4F24\u5BB3+10%\nBoss\u6700\u5927\u751F\u547D\u503C+10%\nBoss\u968F\u673A\u6280\u80FD\u7B49\u7EA7+1"
+    Quality: 3
+    IsOpen: 1
+  - CardName: "\u9152\u7CBE\u51DD\u80F6"
+    CardInvokeName: AlcoholicGel
+    Description: "\u6E05\u573A\u751F\u547D\u56DE\u590D+1\n\u6012\u6C14\u503C+50%\nBoss\u6BCF\u79D2\u751F\u547D\u56DE\u590D+0.5"
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u5267\u6BD2\u7CFB\u6B66\u5668"
+    CardInvokeName: PoizonWeapons
+    Description: "\u5F53\u5267\u6BD2\u4F24\u5BB3\u8FBE\u523050%\u7684\u65F6\u5019\uFF0C\u6B66\u5668\u6570\u91CF\u4E34\u65F6+1\nBoss\u6700\u5927\u751F\u547D\u503C+10%\nBoss\u653B\u51FB\u529B+1"
+    Quality: 2
+    IsOpen: 1
+  - CardName: "\u6297\u6BD2\u51DD\u80F6"
+    CardInvokeName: AntitoxicGel
+    Description: "\u6700\u5927\u751F\u547D\u503C+1\n\u5F53\u524D\u751F\u547D\u503C+2\n\u5267\u6BD2\u4F24\u5BB3-10%\n\u653B\u901F+10%\nBoss\u6700\u5927\u751F\u547D\u503C+10%\nBoss\u653B\u51FB\u9891\u7387+10%"
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u6BD2\u6012\u75C7\u53F2\u83B1\u59C6"
+    CardInvokeName: ToxicWrathSlime
+    Description: "\u5BF9Boss\u65BD\u52A0\u4E2D\u6BD2\u6548\u679C\u80FD\u56DE\u590D\u989D\u5916\u7684\u6012\u6C14\u503C\nBoss\u653B\u51FB\u9891\u7387+15%"
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u7C98\u6ED1\u6BD2\u6DB2"
+    CardInvokeName: StickySlipperyVenom
+    Description: "\u79FB\u901F+10%\n\u5267\u6BD2\u4F24\u5BB3+5%\nBoss\u653B\u51FB\u9891\u7387+10%"
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u5267\u6BD2\u7EB9\u7AE0"
+    CardInvokeName: PoisonEmblem
+    Description: "\u4E2D\u6BD2\u6301\u7EED\u65F6\u95F4+50%\n\u5267\u6BD2\u4F24\u5BB3+10%\n\u653B\u901F+10%\nBoss\u6700\u5927\u751F\u547D\u503C+25%\nBoss\u653B\u51FB\u9891\u7387+10%"
+    Quality: 3
+    IsOpen: 1
+  - CardName: "\u81F4\u5E7B\u75C7\u53F2\u83B1\u59C6"
+    CardInvokeName: HallucinogenicSlime
+    Description: "\u5F53\u524D\u751F\u547D\u503C-1\n\u67AA\u68B0\u6570\u91CF+1\n\u653B\u51FB\u529B-25%\nBoss\u95EA\u907F\u7387+10%\nBoss\u653B\u51FB\u9891\u7387+5%"
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u9E21\u8089\u5473\u5927\u8611\u83C7"
+    CardInvokeName: ChickenFlavoredMushroom
+    Description: "\u5F53\u524D\u751F\u547D\u503C+3\nBoss\u6700\u5927\u751F\u547D\u503C+15%"
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u5267\u6BD2\u5FC3\u810F"
+    CardInvokeName: ToxicHeart
+    Description: "\u5F53Boss\u7684\u4E2D\u6BD2\u7D2F\u8BA1\u523015\u5C42\u65F6\uFF0C\u6D88\u8017\u6240\u6709\u5267\u6BD2\u56DE\u590D\u4E00\u70B9\u751F\u547D\u503C\nBoss\u6700\u5927\u751F\u547D\u503C+10%\nBoss\u968F\u673A\u6280\u80FD\u7B49\u7EA7+1"
+    Quality: 2
+    IsOpen: 1
+  - CardName: "999%\u7EAF\u51C0\u53F2\u83B1\u59C6"
+    CardInvokeName: PureSlime
+    Description: "\u5F53\u5C06\u5F53\u524D\u6240\u6709\u7684\u5267\u6BD2\u4F24\u5BB3\u7B49\u6BD4\u8F6C\u5316\u4E3A\u653B\u901F(2:1)\nBoss\u968F\u673A\u6280\u80FD\u7B49\u7EA7+1"
+    Quality: 2
+    IsOpen: 1
+  - CardName: "\u6012\u6C14\u8D85\u8F7D"
+    CardInvokeName: AngerOverload
+    Description: "\u5267\u6BD2\u4F24\u5BB3-10%\n\u6012\u6C14+100%\nBoss\u653B\u51FB\u529B+1"
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u5267\u6BD2\u51B2\u523A"
+    CardInvokeName: PoisonousSprint
+    Description: "\u51B2\u523A\u65F6\u78B0\u5230Boss\u9020\u6210\u4E2D\u6BD2\u4F24\u5BB3\n\u79FB\u901F+5%\nBoss\u653B\u51FB\u9891\u7387+5%"
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u975E\u5E78\u8FD0\u578B\u53F2\u83B1\u59C6"
+    CardInvokeName: NonLuckySlime
+    Description: "\u5F53\u524D\u751F\u547D\u503C-1\n\u5267\u6BD2\u4F24\u5BB3+5%\nBoss\u95EA\u907F\u7387+5%"
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u75C5\u6001\u578B\u53F2\u83B1\u59C6"
+    CardInvokeName: PathologicalSlime
+    Description: "\u5267\u6BD2\u4F24\u5BB3+5%\n\u653B\u901F+5%\n\u79FB\u901F+5%\n\u66B4\u51FB\u7387+5%\nBoss\u968F\u673A\u6280\u80FD\u7B49\u7EA7+1"
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u5267\u6BD2\u731B\u51FB"
+    CardInvokeName: PoisonousStrike
+    Description: "\u4E2D\u6BD2\u6548\u679C\u4E5F\u80FD\u9020\u6210\u66B4\u51FB\u6548\u679C\n\u66B4\u51FB\u7387+10%\nBoss\u653B\u51FB\u529B+1"
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u6301\u4E45\u578B\u5267\u6BD2"
+    CardInvokeName: PersistentToxic
+    Description: "\u653B\u901F\u8D8A\u4F4E\uFF0C\u9020\u6210\u7684\u5267\u6BD2\u4F24\u5BB3\u8D8A\u9AD8\n\u5267\u6BD2\u65F6\u95F4+0.6\u79D2\nBoss\u6700\u5927\u8840\u91CF+10%\nBoss\u653B\u51FB\u9891\u7387+10%"
+    Quality: 2
+    IsOpen: 1
+  - CardName: "\u9189\u9152\u5931\u8861"
+    CardInvokeName: ImbalanceDrunkenness
+    Description: "\u653B\u901F\u7684\u52A0\u6210\u6B63\u8D1F\u503C\u66FF\u6362\nBoss\u653B\u51FB\u9891\u7387+10%\nBoss\u95EA\u907F\u7387+5%"
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u521D\u7EA7\u836F\u5242\u5E08\u8BC1\u4E66"
+    CardInvokeName: JuniorPharmacistCertificate
+    Description: "\u5267\u6BD2\u65F6\u95F4+0.4\u79D2\n\u5267\u6BD2\u4F24\u5BB3+5%\nBoss\u968F\u673A\u6280\u80FD\u7B49\u7EA7+1"
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u529B\u91CF\u836F\u8349"
+    CardInvokeName: 'PowerHerb '
+    Description: "\u5F53\u524D\u751F\u547D\u503C+1\n\u653B\u51FB\u529B+20%\n\u5267\u6BD2\u4F24\u5BB3-10%\nBoss\u6700\u5927\u751F\u547D\u503C+10%\nBoss\u653B\u51FB\u529B+1"
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u7518\u9732\uFF1F\u5C6F\u5C6F\u5C6F"
+    CardInvokeName: Manna
+    Description: "\u5267\u6BD2\u65F6\u95F4+0.2\u79D2\n\u5267\u6BD2\u4F24\u5BB3+5%\nBoss\u653B\u51FB\u9891\u7387+5%"
+    Quality: 0
+    IsOpen: 1
+  - CardName: "X\u5267\u6BD2\u9488"
+    CardInvokeName: XPoisonNeedle
+    Description: "\u6B66\u5668\u5177\u6709\u5267\u6BD2\u6548\u679C\n\u5267\u6BD2\u4F24\u5BB3+5%\n\u5267\u6BD2\u65F6\u95F4+0.4\u79D2\nBoss\u6700\u5927\u751F\u547D\u503C+20%"
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u5165\u6BD2\u4E09\u5206"
+    CardInvokeName: ThreePartsPoisoning
+    Description: "\u4E2D\u6BD2\u6548\u679C\u4F1A\u968F\u7740\u4E2D\u6BD2\u65F6\u95F4\u7684\u5EF6\u957F\u800C\u4E0D\u65AD\u63D0\u5347\u4F24\u5BB3\n\u5267\u6BD2\u4F24\u5BB3+10%\nBoss\u968F\u673A\u6280\u80FD\u7B49\u7EA7+1"
+    Quality: 3
+    IsOpen: 1
+  - CardName: "\u517B\u86CA\u578B\u53F2\u83B1\u59C6"
+    CardInvokeName: RaisingGuSlime
+    Description: "\u6700\u5927\u751F\u547D\u503C+3\n\u5F53\u524D\u751F\u547D\u503C-1\nBoss\u6700\u5927\u751F\u547D\u503C+10%"
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u6025\u901F\u51DD\u80F6"
+    CardInvokeName: RapidGel
+    Description: "\u79FB\u901F+5%\n\u653B\u901F+5%\n\u95EA\u907F\u7387+5%\nBoss\u95EA\u907F\u7387+5%"
+    Quality: 1
+    IsOpen: 1

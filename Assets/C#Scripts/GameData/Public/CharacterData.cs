@@ -28,6 +28,8 @@ public class CharacterData : ScriptableObject
     public float AngerValue;//怒气值
     public float FullAnger;//怒气满值
     public float AngerTime;//怒气时间
+    public float PoizonDamage;//剧毒伤害
+    public float PoizonTime;//剧毒时间
     [Header("特殊技能效果")]
     public bool MucusDeathRage;//粘液亡怒
     public bool FearlessFury;//无畏狂怒
@@ -42,7 +44,6 @@ public class CharacterData : ScriptableObject
     public bool AdhesiveExoskeleton;//粘性外骨骼
     public bool SpeedEmblem;//速度纹章
     public bool QuickAngerGel;//速怒凝胶
-    public bool SacredAnger;//神圣怒气
     public bool ElasticGel;//弹性凝胶
     public bool UrgentEngine;//急行引擎
     public bool GuaranteedFirstPrize;//保底头奖
@@ -50,4 +51,13 @@ public class CharacterData : ScriptableObject
     public bool ImperialWeapons;//御风系武器
     public bool HormoneGel;//激素凝胶
     public bool DodgeBackstab;//闪避背刺
+    public bool PoisonBullet;//剧毒子弹
+    public bool PoisonExplosionGel;//毒爆凝胶
+    public bool PoizonWeapons;//剧毒系武器
+    public bool ToxicWrathSlime;//毒怒症史莱姆
+    public bool ToxicHeart;//剧毒心脏
+    public bool PoisonousSprint;//剧毒冲刺
+    public bool PoisonousStrike;//剧毒猛击
+    public bool PersistentToxic;//持久型剧毒
+    public bool ThreePartsPoisoning;//入毒三分
 }

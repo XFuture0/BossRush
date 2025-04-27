@@ -276,7 +276,7 @@ public class UseCardManager : SingleTons<UseCardManager>
     }
     private void SacredAnger()
     {
-        GameManager.Instance.Player().SacredAnger = true;
+        GameManager.Instance.ChangePlayerAngerSkill(2);
         GameManager.Instance.Boss().HealthRate += 0.1f;
         GameManager.Instance.AddBossSkillLevel();
         CancelInvoke();
@@ -370,6 +370,234 @@ public class UseCardManager : SingleTons<UseCardManager>
         GameManager.Instance.Player().DodgeRate += 0.1f;
         GameManager.Instance.Player().AttackRate += 0.05f;
         GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    //场景3
+    private void PoisonBullet()
+    {
+        GameManager.Instance.Player().PoisonBullet = true;
+        GameManager.Instance.Player().PoizonDamage += 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        CancelInvoke();
+    }
+    private void PharmacistSlime()
+    {
+        GameManager.Instance.Player().PoisonBullet = true;
+        GameManager.Instance.Player().PoizonDamage += 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void YakPoizon()
+    {
+        GameManager.Instance.Player().PoisonBullet = true;
+        GameManager.Instance.Player().AttackRate += 0.5f;
+        GameManager.Instance.Player().PoizonDamage += 0.2f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void PoisonousHotSprings()
+    {
+        GameManager.Instance.Player().NowHealth -= 1;
+        GameManager.Instance.Player().AttackRate -= 0.05f;
+        GameManager.Instance.Player().PoizonDamage += 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void PoisonExplosionGel()
+    {
+        GameManager.Instance.Player().PoisonExplosionGel = true;
+        GameManager.Instance.Player().AttackRate -= 0.1f;
+        GameManager.Instance.Boss().AttackRate -= 0.2f;
+        CancelInvoke();
+    }
+    private void AlcoholAddictedSlime()
+    {
+        GameManager.Instance.ChangePlayerAngerSkill(3);
+        GameManager.Instance.Player().PoizonDamage += 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void AlcoholicGel()
+    {
+        GameManager.Instance.Player().AngerValue += 0.5f;
+        GameManager.Instance.Player().AutoHealCount += 1;
+        GameManager.Instance.Boss().AutoHealCount += 0.5f;
+        CancelInvoke();
+    }
+    private void PoizonWeapons()
+    {
+        GameManager.Instance.Player().PoizonWeapons = true;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void AntitoxicGel()
+    {
+        GameManager.Instance.Player().MaxHealth += 1;
+        GameManager.Instance.Player().NowHealth += 2;
+        GameManager.Instance.Player().PoizonDamage -= 0.1f;
+        GameManager.Instance.Player().AttackRate -= 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void ToxicWrathSlime()
+    {
+        GameManager.Instance.Player().ToxicWrathSlime = true;
+        GameManager.Instance.Boss().AttackRate -= 0.15f;
+        CancelInvoke();
+    }
+    private void StickySlipperyVenom()
+    {
+        GameManager.Instance.Player().SpeedRate += 0.1f;
+        GameManager.Instance.Player().PoizonDamage += 0.05f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void PoisonEmblem()
+    {
+        GameManager.Instance.Player().PoizonTime += (int)(GameManager.Instance.Player().PoizonTime * 0.5f);
+        GameManager.Instance.Player().PoizonDamage += 0.1f;
+        GameManager.Instance.Player().AttackRate -= 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.25f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void HallucinogenicSlime()
+    {
+        GameManager.Instance.Player().NowHealth -= 1;
+        GameManager.Instance.Player().WeaponCount += 1;
+        GameManager.Instance.Player().AttackBonus -= 0.25f;
+        GameManager.Instance.Boss().DodgeRate += 0.1f;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void ChickenFlavoredMushroom()
+    {
+        GameManager.Instance.Player().NowHealth += 3;
+        GameManager.Instance.Boss().HealthRate += 0.15f;
+        CancelInvoke();
+    }
+    private void ToxicHeart()
+    {
+        GameManager.Instance.Player().ToxicHeart = true;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void PureSlime()
+    {
+        var PoizonCount = GameManager.Instance.Player().PoizonDamage;
+        GameManager.Instance.Player().PoizonDamage = 0;
+        GameManager.Instance.Player().AttackRate -= PoizonCount * 0.5f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void AngerOverload()
+    {
+        GameManager.Instance.Player().PoizonDamage -= 0.1f;
+        GameManager.Instance.Player().AngerValue = 1;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void PoisonousSprint()
+    {
+        GameManager.Instance.Player().PoisonousSprint = true;//TODO:之后做冲刺伤害时添加
+        GameManager.Instance.Player().SpeedRate += 0.05f;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void NonLuckySlime()
+    {
+        GameManager.Instance.Player().NowHealth -= 1;
+        GameManager.Instance.Player().PoizonDamage += 0.05f;
+        GameManager.Instance.Boss().DodgeRate += 0.05f;
+        CancelInvoke();
+    }
+    private void PathologicalSlime()
+    {
+        GameManager.Instance.Player().PoizonDamage += 0.05f;
+        GameManager.Instance.Player().AttackRate -= 0.05f;
+        GameManager.Instance.Player().SpeedRate += 0.05f;
+        GameManager.Instance.Player().CriticalDamageRate += 0.05f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void PoisonousStrike()
+    {
+        GameManager.Instance.Player().PoisonousStrike = true;
+        GameManager.Instance.Player().CriticalDamageRate += 0.1f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void PersistentToxic()
+    {
+        GameManager.Instance.Player().PersistentToxic = true;
+        GameManager.Instance.Player().PoizonTime += 3;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void ImbalanceDrunkenness()
+    {
+        GameManager.Instance.Player().AttackRate = 2 - GameManager.Instance.Player().AttackRate;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        GameManager.Instance.Boss().DodgeRate += 0.05f;
+        CancelInvoke();
+    }
+    private void JuniorPharmacistCertificate()
+    {
+        GameManager.Instance.Player().PoizonTime += 2;
+        GameManager.Instance.Player().PoizonDamage += 0.05f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void PowerHerb()
+    {
+        GameManager.Instance.Player().NowHealth += 1;
+        GameManager.Instance.Player().AttackBonus += 0.2f;
+        GameManager.Instance.Player().PoizonDamage -= 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void Manna()
+    {
+        GameManager.Instance.Player().PoizonTime += 1;
+        GameManager.Instance.Player().PoizonDamage += 0.05f;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void XPoisonNeedle()
+    {
+        GameManager.Instance.Player().PoisonBullet = true;
+        GameManager.Instance.Player().PoizonDamage += 0.05f;
+        GameManager.Instance.Player().PoizonTime += 2;
+        GameManager.Instance.Boss().HealthRate += 0.2f;
+        CancelInvoke();
+    }
+    private void ThreePartsPoisoning()
+    {
+        GameManager.Instance.Player().ThreePartsPoisoning = true;
+        GameManager.Instance.Player().PoizonDamage += 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void RaisingGuSlime()
+    {
+        GameManager.Instance.Player().MaxHealth += 3;
+        GameManager.Instance.Player().NowHealth -= 1;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        CancelInvoke();
+    }
+    private void RapidGel()
+    {
+        GameManager.Instance.Player().SpeedRate += 0.05f;
+        GameManager.Instance.Player().AttackRate -= 0.05f;
+        GameManager.Instance.Player().DodgeRate += 0.05f;
+        GameManager.Instance.Boss().DodgeRate += 0.05f;
         CancelInvoke();
     }
 }

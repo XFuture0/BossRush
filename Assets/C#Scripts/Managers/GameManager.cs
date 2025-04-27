@@ -85,6 +85,10 @@ public class GameManager : SingleTons<GameManager>
             {
                 CriticalDamageBonus += (1 - Player().AttackRate) * 0.4f + (Player().SpeedRate - 1) * 0.4f + Player().DodgeRate * 0.2f;
             }
+            if (Attacker.CharacterData_Temp.PoisonBullet)
+            {
+                Defender.gameObject.GetComponent<Poizon>().SetPosizon(Attacker);
+            }
             Defender.CharacterData_Temp.NowHealth -= (Attacker.CharacterData_Temp.AttackPower + Attacker.CharacterData_Temp.WeaponAttackPower) * CriticalDamageBonus * Attacker.CharacterData_Temp.AttackBonus;
             Defender.Invincible = true;
             Defender.InvincibleTime_Count = Defender.CharacterData.InvincibleTime;
@@ -244,8 +248,12 @@ public class GameManager : SingleTons<GameManager>
         PlayerStats.CharacterData_Temp.NowHealth = PlayerStats.CharacterData_Temp.MaxHealth;//»Ø¸´ÑªÁ¿
         AngerPanel.SetActive(true);
         PlayerStats.gameObject.GetComponent<PlayerController>().Isdead = false;
-        PlayerStats.gameObject.GetComponent<PlayerController>().angerskill = PlayerStats.gameObject.GetComponent<PlayerController>().BaseAngerSkill;
+        ChangePlayerAngerSkill(1);
         PlayerStats.gameObject.transform.position = new Vector3(-20.64f, -0.44f, 0);
+    }
+    public void ChangePlayerAngerSkill(int Index)
+    {
+        PlayerStats.gameObject.GetComponent<PlayerController>().ChangeAngerSkill(Index);
     }
     public void OnBoundEvent(Collider2D collider2D) 
     {

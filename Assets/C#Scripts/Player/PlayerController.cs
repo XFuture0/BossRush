@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public bool Isdead;
     private bool IsJumpDown;
     private bool IsAddWeapon;
+    private bool IsAddPoizonWeapon;
     private bool IsHormoneGel;
     private float HormoneGelBaseSpeed;
     public PlayerData PlayerData;
@@ -41,6 +42,7 @@ public class PlayerController : MonoBehaviour
     private float BaseSpeed;
     private float BaseAttackRate;
     private float BaseBulletSpeed;
+    private float BasePoizonDamage;
     [Header("ÊÂ¼þ¼àÌý")]
     public VoidEventSO BossDeadEvent;
     private void Awake()
@@ -65,6 +67,7 @@ public class PlayerController : MonoBehaviour
         PlayerDead();
         CheckDash();
         OnImperialWeapons();
+        OnPoizonWeapons();
         if (!Player.CharacterData_Temp.FuriousGatling)
         {
             PlayerAnger();
@@ -241,15 +244,26 @@ public class PlayerController : MonoBehaviour
             EndCanvs.SetActive(true);
         }
     }
+    public void ChangeAngerSkill(int Index)
+    {
+        switch (Index)
+        {
+            case 1:
+                angerskill = BaseAngerSkill;
+                break;
+            case 2:
+                angerskill = SacredAnger;
+                break;
+            case 3:
+                angerskill = AlcoholAddictedSlime;
+                break;
+        }
+    }
     private void PlayerAnger()
     {
-        if (Player.CharacterData_Temp.SacredAnger)
-        {
-            angerskill = SacredAnger;
-        }
         angerskill();
     }
-    public void BaseAngerSkill()
+    private void BaseAngerSkill()
     {
         if (Player.CharacterData_Temp.AngerValue >= GameManager.Instance.Player().FullAnger && KeyBoardManager.Instance.GetKeyDown_F() && !IsAnger)
         {
@@ -296,6 +310,32 @@ public class PlayerController : MonoBehaviour
             IsAnger = false;
             Player.CharacterData_Temp.AttackRate = BaseAttackRate;
             Player.CharacterData_Temp.SpeedRate = BaseSpeed;
+            Player.CharacterData_Temp.AngerValue = 0;
+        }
+    }
+    private void AlcoholAddictedSlime()
+    {
+        if (Player.CharacterData_Temp.AngerValue >= GameManager.Instance.Player().FullAnger && KeyBoardManager.Instance.GetKeyDown_F() && !IsAnger)
+        {
+            IsAnger = true;
+            Player.Invincible = true;
+            Player.InvincibleTime_Count = Player.CharacterData_Temp.AngerTime;
+            BasePoizonDamage = Player.CharacterData_Temp.PoizonDamage;
+            BaseAttackRate = Player.CharacterData_Temp.AttackRate;
+            Player.CharacterData_Temp.AttackRate = 0.2f;
+            Player.CharacterData_Temp.PoizonDamage = BasePoizonDamage * 2;
+            AngerTime_Count = Player.CharacterData_Temp.AngerTime;
+        }
+        if (AngerTime_Count >= -1 && IsAnger)
+        {
+            Player.CharacterData_Temp.AngerValue = (AngerTime_Count / Player.CharacterData_Temp.AngerTime) * GameManager.Instance.Player().FullAnger;
+            AngerTime_Count -= Time.deltaTime;
+        }
+        if (AngerTime_Count < 0 && IsAnger)
+        {
+            IsAnger = false;
+            Player.CharacterData_Temp.AttackRate = BaseAttackRate;
+            Player.CharacterData_Temp.PoizonDamage = BasePoizonDamage;
             Player.CharacterData_Temp.AngerValue = 0;
         }
     }
@@ -361,6 +401,22 @@ public class PlayerController : MonoBehaviour
             if(Player.CharacterData_Temp.SpeedRate < 1.5f && IsAddWeapon)
             {
                 IsAddWeapon = false;
+                Player.CharacterData_Temp.WeaponCount -= 1;
+            }
+        }
+    }
+    private void OnPoizonWeapons()
+    {
+        if (Player.CharacterData_Temp.PoizonWeapons)
+        {
+            if (Player.CharacterData_Temp.PoizonDamage >= 0.5f && !IsAddPoizonWeapon)
+            {
+                IsAddPoizonWeapon = true;
+                Player.CharacterData_Temp.WeaponCount += 1;
+            }
+            if (Player.CharacterData_Temp.PoizonDamage < 0.5f && IsAddPoizonWeapon)
+            {
+                IsAddPoizonWeapon = false;
                 Player.CharacterData_Temp.WeaponCount -= 1;
             }
         }
