@@ -23,6 +23,7 @@ public class CharacterData : ScriptableObject
     public float AttackRate;//攻击频率
     public bool CanDash;//是否可以冲刺
     public bool DashInvincibleFrame;//冲刺无敌帧
+    public bool DashDamage;//冲刺可伤害
     public int DashCount;//冲刺次数
     public int JumpCount;//跳跃次数
     public float AngerValue;//怒气值

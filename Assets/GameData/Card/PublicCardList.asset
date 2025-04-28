@@ -12,4 +12,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 180e3e011d5731644b695b77d311bee2, type: 3}
   m_Name: PublicCardList
   m_EditorClassIdentifier: 
-  CardLists: []
+  CardLists:
+  - CardName: "\u9AD8\u901F\u79FB\u52A8"
+    CardInvokeName: Mobility
+    Description: "\u53EF\u51B2\u523A\u6B21\u6570+1"
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u98DE\u7FD4\u53F2\u83B1\u59C6"
+    CardInvokeName: FlyingSlime
+    Description: "\u53EF\u8DF3\u8DC3\u6B21\u6570+1"
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u6781\u81F4\u79FB\u52A8"
+    CardInvokeName: UltimateMobility
+    Description: "\u51B2\u523A\u5177\u6709\u65E0\u654C\u5E27"
+    Quality: 2
+    IsOpen: 1
+  - CardName: "\u5F71\u95F4\u6495\u88C2"
+    CardInvokeName: TearShadows
+    Description: "\u51B2\u523A\u53EF\u9020\u6210\u4E00\u6B21\u4F24\u5BB3"
+    Quality: 3
+    IsOpen: 0
+  - CardName: "\u5927\u8840\u74F6"
+    CardInvokeName: HPBottle
+    Description: "\u56DE\u590D80%\u5F53\u524D\u751F\u547D\u503C"
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u91D1\u5C5E\u5B50\u5F39"
+    CardInvokeName: MetalBullets
+    Description: "\u653B\u51FB\u529B+20%"
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u5F31\u70B9\u51FB\u7834"
+    CardInvokeName: WeaknessBreakdown
+    Description: "\u66B4\u51FB\u7387+5%"
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u54C7\u560E\u560E\u5927\u8611\u83C7"
+    CardInvokeName: WowMushroom
+    Description: "\u6B66\u5668\u6570\u91CF+1"
+    Quality: 2
+    IsOpen: 1
+  - CardName: "\u80BE\u4E0A\u817A\u7D20"
+    CardInvokeName: Adrenaline
+    Description: "\u653B\u901F+10%"
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u65F6\u95F4\u52A0\u901F"
+    CardInvokeName: ClockUp
+    Description: "\u95EA\u907F\u7387+5%"
+    Quality: 0
+    IsOpen: 1
+  - CardName: "\u6012\u6C14\u74F6\u6EE1\u74F6"
+    CardInvokeName: AngerBottleFull
+    Description: "\u6012\u6C14\u503C+100%"
+    Quality: 1
+    IsOpen: 1
+  - CardName: "\u556A\u55D2\u556A\u55D2"
+    CardInvokeName: Padam
+    Description: "\u79FB\u901F+5%"
+    Quality: 0
+    IsOpen: 1

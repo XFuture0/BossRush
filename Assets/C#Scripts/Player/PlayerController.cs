@@ -237,6 +237,10 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.Instance.Attack(gameObject.GetComponent<CharacterStats>(), other.GetComponent<CharacterStats>());
         }
+        if(other.tag == "Boss" && IsDash && Player.CharacterData_Temp.DashDamage)
+        {
+            GameManager.Instance.Attack(gameObject.GetComponent<CharacterStats>(), other.GetComponent<CharacterStats>());
+        }
     }
     private void PlayerDead()
     {

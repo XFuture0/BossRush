@@ -6,6 +6,7 @@ using UnityEngine;
 public class CardManager : SingleTons<CardManager>
 {
     private ChooseCardList CardList;
+    public ChooseCardList PublicCardList;
     public GameObject CardCanvs;
     private List<ChooseCardList.Card> CardList_Choose = new List<ChooseCardList.Card>();
     [Header("ÊÂ¼þ¼àÌý")]
@@ -68,16 +69,14 @@ public class CardManager : SingleTons<CardManager>
         }
         return CardList_Choose;
     }
+    protected override void Awake()
+    {
+        base.Awake();
+        CardList = Instantiate(PublicCardList);
+    }
     private void OnEnable()
     {
         OpenCardCanvsEvent.OnEventRaised += OpenCardCanvs;
-    }
-    public void RefreshCard()
-    {
-        foreach (var card in CardList.CardLists)
-        {
-            card.IsOpen = true;
-        }
     }
     private void OpenCardCanvs()
     {
@@ -90,6 +89,19 @@ public class CardManager : SingleTons<CardManager>
     }
     public void SetCardList(ChooseCardList cardList)
     {
-        CardList = cardList;
+        CardList.CardLists.Clear();
+        var NewCard = Instantiate(cardList);
+        CardList = Instantiate(PublicCardList);
+        CardList.CardLists.AddRange(NewCard.CardLists);
+    }
+    public void FindCard_Open(string CardName)
+    {
+        foreach (var card in CardList.CardLists)
+        {
+            if (card.CardInvokeName == CardName)
+            {
+                card.IsOpen = true;
+            }
+        }
     }
 }

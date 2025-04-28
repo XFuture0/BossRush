@@ -10,6 +10,56 @@ public class UseCardManager : SingleTons<UseCardManager>
     {
         Invoke(CardName, 0);
     }
+    //Õ®”√ø®≈∆
+    private void Mobility()
+    {
+        GameManager.Instance.Player().DashCount += 1;
+    }
+    private void FlyingSlime()
+    {
+        GameManager.Instance.Player().JumpCount += 1;
+    }
+    private void UltimateMobility()
+    {
+        CardManager.Instance.FindCard_Open("TearShadows");
+        GameManager.Instance.Player().DashInvincibleFrame = true;
+    }
+    private void TearShadows()
+    {
+        GameManager.Instance.Player().DashDamage = true;
+    }
+    private void HPBottle()
+    {
+        GameManager.Instance.Player().NowHealth += (int)(GameManager.Instance.Player().MaxHealth * 0.8f);
+    }
+    private void MetalBullets()
+    {
+        GameManager.Instance.Player().AttackBonus += 0.2f;
+    }
+    private void WeaknessBreakdown()
+    {
+        GameManager.Instance.Player().CriticalDamageRate += 0.05f;
+    }
+    private void WowMushroom()
+    {
+        GameManager.Instance.Player().WeaponCount += 1;
+    }
+    private void Adrenaline()
+    {
+        GameManager.Instance.Player().AttackRate -= 0.1f;
+    }
+    private void ClockUp()
+    {
+        GameManager.Instance.Player().DodgeRate += 0.05f;
+    }
+    private void AngerBottleFull()
+    {
+        GameManager.Instance.Player().AngerValue = 1;
+    }
+    private void Padam()
+    {
+        GameManager.Instance.Player().SpeedRate += 0.05f;
+    }
     //≥°æ∞1
     private void MucusDeathRage()
     {
