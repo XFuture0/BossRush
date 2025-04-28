@@ -41,16 +41,22 @@ public class Bullet : MonoBehaviour
     {
         if(other.tag == "Boss")
         {
-            IsHit = true;
-            rb.velocity = Vector2.zero;
-            anim.SetTrigger("Hit");
+            if (!GameManager.Instance.Player().ElectricBullets)
+            {
+                IsHit = true;
+                rb.velocity = Vector2.zero;
+                anim.SetTrigger("Hit");
+            }
             GameManager.Instance.Attack(GameManager.Instance.PlayerStats,GameManager.Instance.BossStats);
         }
         if(other.tag == "BossArmy")
         {
-            IsHit = true;
-            rb.velocity = Vector2.zero;
-            anim.SetTrigger("Hit");
+            if (!GameManager.Instance.Player().ElectricBullets)
+            {
+                IsHit = true;
+                rb.velocity = Vector2.zero;
+                anim.SetTrigger("Hit");
+            }
             GameManager.Instance.Attack(GameManager.Instance.PlayerStats,other.GetComponent<CharacterStats>());
         }
         if(other.tag == "Ground")

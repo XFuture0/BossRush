@@ -113,6 +113,11 @@ public class GameManager : SingleTons<GameManager>
                     {
                         BulletCount++;
                     }
+                    if (Player().ElectricStorageSlime)
+                    {
+                        Defender.gameObject.GetComponent<Thunder>().Thunder_Count++;
+                    }
+                    Defender.gameObject.GetComponent<Thunder>().SetThunder(Attacker);
                     Player().AngerValue += 0.01f;
                     if (Player().LrritableSlime)
                     {

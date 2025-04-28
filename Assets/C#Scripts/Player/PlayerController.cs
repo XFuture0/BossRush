@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private bool IsJumpDown;
     private bool IsAddWeapon;
     private bool IsAddPoizonWeapon;
+    private bool IsAddThunderWeapon;
     private bool IsHormoneGel;
     private float HormoneGelBaseSpeed;
     public PlayerData PlayerData;
@@ -43,6 +44,7 @@ public class PlayerController : MonoBehaviour
     private float BaseAttackRate;
     private float BaseBulletSpeed;
     private float BasePoizonDamage;
+    private float BaseThunderRate;
     [Header("ÊÂ¼þ¼àÌý")]
     public VoidEventSO BossDeadEvent;
     private void Awake()
@@ -68,6 +70,7 @@ public class PlayerController : MonoBehaviour
         CheckDash();
         OnImperialWeapons();
         OnPoizonWeapons();
+        OnThunderWeapon();
         if (!Player.CharacterData_Temp.FuriousGatling)
         {
             PlayerAnger();
@@ -257,6 +260,9 @@ public class PlayerController : MonoBehaviour
             case 3:
                 angerskill = AlcoholAddictedSlime;
                 break;
+            case 4:
+                angerskill = ThunderGodWrath;
+                break;
         }
     }
     private void PlayerAnger()
@@ -339,6 +345,28 @@ public class PlayerController : MonoBehaviour
             Player.CharacterData_Temp.AngerValue = 0;
         }
     }
+    private void ThunderGodWrath()
+    {
+        if (Player.CharacterData_Temp.AngerValue >= GameManager.Instance.Player().FullAnger && KeyBoardManager.Instance.GetKeyDown_F() && !IsAnger)
+        {
+            IsAnger = true;
+            Player.Invincible = true;
+            Player.InvincibleTime_Count = Player.CharacterData_Temp.AngerTime;
+            BaseThunderRate = Player.CharacterData_Temp.ThunderRate;
+            AngerTime_Count = Player.CharacterData_Temp.AngerTime;
+        }
+        if (AngerTime_Count >= -1 && IsAnger)
+        {
+            Player.CharacterData_Temp.AngerValue = (AngerTime_Count / Player.CharacterData_Temp.AngerTime) * GameManager.Instance.Player().FullAnger;
+            AngerTime_Count -= Time.deltaTime;
+        }
+        if (AngerTime_Count < 0 && IsAnger)
+        {
+            IsAnger = false;
+            Player.CharacterData_Temp.ThunderRate = BaseThunderRate;
+            Player.CharacterData_Temp.AngerValue = 0;
+        }
+    }
     private void AddAnger()
     {
         if (Player.CharacterData_Temp.FearlessFury && GameManager.Instance.BossStats.gameObject.activeSelf && Player.CharacterData_Temp.AngerValue <= 1.1f)
@@ -417,6 +445,22 @@ public class PlayerController : MonoBehaviour
             if (Player.CharacterData_Temp.PoizonDamage < 0.5f && IsAddPoizonWeapon)
             {
                 IsAddPoizonWeapon = false;
+                Player.CharacterData_Temp.WeaponCount -= 1;
+            }
+        }
+    }
+    private void OnThunderWeapon()
+    {
+        if (Player.CharacterData_Temp.ThunderWeapon)
+        {
+            if (Player.CharacterData_Temp.ThunderBonus >= 1.5f && !IsAddThunderWeapon)
+            {
+                IsAddThunderWeapon = true;
+                Player.CharacterData_Temp.WeaponCount += 1;
+            }
+            if (Player.CharacterData_Temp.ThunderBonus < 1.5f && IsAddThunderWeapon)
+            {
+                IsAddThunderWeapon = false;
                 Player.CharacterData_Temp.WeaponCount -= 1;
             }
         }

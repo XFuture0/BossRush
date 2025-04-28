@@ -600,4 +600,278 @@ public class UseCardManager : SingleTons<UseCardManager>
         GameManager.Instance.Boss().DodgeRate += 0.05f;
         CancelInvoke();
     }
+    //³¡¾°4
+    private void TraineeThunderboltMage()
+    {
+        GameManager.Instance.Player().ThunderBonus += 0.05f;
+        GameManager.Instance.Player().ThunderRate += 0.05f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void ThunderstormEmblem()
+    {
+        GameManager.Instance.Player().ThunderstormEmblem = true;
+        GameManager.Instance.Player().ThunderBonus += 0.2f;
+        GameManager.Instance.Player().ThunderRate += 0.1f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void ThunderGodWrath()
+    {
+        GameManager.Instance.ChangePlayerAngerSkill(4);
+        GameManager.Instance.Player().ThunderBonus += 0.2f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void ConductiveSlime()
+    {
+        GameManager.Instance.Player().ThunderRate += 0.05f;
+        GameManager.Instance.Player().ThunderBonus += 0.1f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void SonThunderGod()
+    {
+        GameManager.Instance.Player().ThunderBonus += 0.25f;
+        GameManager.Instance.Player().SpeedRate += 0.1f;
+        GameManager.Instance.Player().AttackRate -= 0.15f;
+        GameManager.Instance.Boss().AttackRate -= 0.15f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void InsulatedSlime()
+    {
+        GameManager.Instance.Player().MaxHealth += 2;
+        GameManager.Instance.Player().NowHealth += 2;
+        GameManager.Instance.Player().AutoHealCount += 1;
+        GameManager.Instance.Boss().HealthRate += 0.2f;
+        CancelInvoke();
+    }
+    private void BreakdownVoltage()
+    {
+        GameManager.Instance.Player().AttackBonus += 0.1f;
+        GameManager.Instance.Player().ThunderBonus += 0.1f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void ElectricShockResuscitation()
+    {
+        GameManager.Instance.Player().MaxHealth += 2;
+        GameManager.Instance.Player().NowHealth += 2;
+        GameManager.Instance.Player().ThunderBonus -= 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AutoHealCount += 0.5f;
+        CancelInvoke();
+    }
+    private void LightningFlash()
+    {
+        GameManager.Instance.Player().ThunderRate += 0.05f;
+        GameManager.Instance.Player().AttackRate -= 0.1f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void ElectricBullets()
+    {
+        GameManager.Instance.Player().ElectricBullets = true;
+        GameManager.Instance.Player().ThunderBonus += 0.1f;
+        GameManager.Instance.Player().AttackRate -= 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void VigorousResolute()
+    {
+        GameManager.Instance.Player().ThunderRate -= 0.05f;
+        GameManager.Instance.Player().SpeedRate += 0.1f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void ThunderBreathIllusion()
+    {
+        GameManager.Instance.Player().ThunderBreathIllusion  = true;
+        GameManager.Instance.Player().ThunderRate += 0.05f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AutoHealCount += 0.5f;
+        CancelInvoke();
+    }
+    private void ThunderWeapon()
+    {
+        GameManager.Instance.Player().ThunderWeapon = true;
+        GameManager.Instance.Player().ThunderBonus += 0.1f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void LightningParalyze()
+    {
+        GameManager.Instance.Player().ThunderRate += 0.1f;
+        GameManager.Instance.Player().SpeedRate -= 0.1f;
+        GameManager.Instance.Player().DodgeRate -= 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.15f;
+        CancelInvoke();
+    }
+    private void LightningFighting()
+    {
+        GameManager.Instance.Player().ThunderBonus += 0.05f;
+        GameManager.Instance.Player().AngerValue += 0.5f;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void ThunderFury()
+    {
+        GameManager.Instance.Player().ThunderFury = true;
+        GameManager.Instance.Player().ThunderRate += 0.05f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void ThunderMountainFountain()
+    {
+        GameManager.Instance.Player().NowHealth += (int)(GameManager.Instance.Player().MaxHealth * 0.5f);
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        CancelInvoke();
+    }
+    private void ProficientElectricGuns()
+    {
+        GameManager.Instance.Player().ThunderRate += 0.1f;
+        GameManager.Instance.Player().ThunderBonus += 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void LeakageGel()
+    {
+        GameManager.Instance.Player().NowHealth -= 1;
+        GameManager.Instance.Player().ThunderBonus += 0.2f;
+        GameManager.Instance.Boss().HealthRate += 0.2f;
+        CancelInvoke();
+    }
+    private void StorageGel()
+    {
+        GameManager.Instance.Player().NowHealth += 1;
+        GameManager.Instance.Player().AttackBonus += 0.1f;
+        GameManager.Instance.Player().ThunderBonus += 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void ElectricStorageSlime()
+    {
+        GameManager.Instance.Player().ElectricStorageSlime = true;
+        GameManager.Instance.Player().ThunderRate += 0.05f;
+        GameManager.Instance.Boss().HealthRate += 0.15f;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void ThunderstormDamage()
+    {
+        GameManager.Instance.Player().ThunderstormDamage = true;
+        GameManager.Instance.Player().CriticalDamageRate += 0.1f;
+        GameManager.Instance.Player().CriticalDamageBonus += 0.2f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void TianXuanFallingThunder()
+    {
+        GameManager.Instance.Player().CriticalDamageRate += 0.05f;
+        GameManager.Instance.Player().CriticalDamageBonus += 0.1f;
+        GameManager.Instance.Player().ThunderRate += 0.05f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void AngrySlime()
+    {
+        GameManager.Instance.Player().CriticalDamageRate -= 0.05f;
+        GameManager.Instance.Player().AngerValue += 0.5f;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void PoisonThunderSlime()
+    {
+        GameManager.Instance.Player().CriticalDamageBonus += 0.1f;
+        GameManager.Instance.Player().PoizonDamage += 0.1f;
+        GameManager.Instance.Player().AttackRate -= 0.05f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void PoisonousBacklash()
+    {
+        GameManager.Instance.Player().ThunderBonus -= 0.1f;
+        GameManager.Instance.Player().PoizonDamage += 0.05f;
+        GameManager.Instance.Player().PoizonTime += 1;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void LightningElementization()
+    {
+        GameManager.Instance.Player().SpeedRate += 0.05f;
+        GameManager.Instance.Player().DodgeRate += 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().DodgeRate += 0.02f;
+        CancelInvoke();
+    }
+    private void RKeyReload()
+    {
+        GameManager.Instance.Player().WeaponCount += 1;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void ThunderAlchemy()
+    {
+        GameManager.Instance.Player().WeaponCount += 1;
+        GameManager.Instance.Player().ThunderRate -= 0.1f;
+        GameManager.Instance.Player().ThunderBonus -= 0.2f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void ThunderTiming()
+    {
+        GameManager.Instance.Player().ThunderTiming = true;
+        GameManager.Instance.Player().AttackRate -= 0.05f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void ThunderboltRobbery()
+    {
+        GameManager.Instance.Player().NowHealth -= 1;
+        GameManager.Instance.Player().ThunderBonus += 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void ThunderInducingGel()
+    {
+        GameManager.Instance.Player().NowHealth -= 1;
+        GameManager.Instance.Player().ThunderRate += 0.05f;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void LuckyStarSlime()
+    {
+        GameManager.Instance.Player().CriticalDamageRate += 0.1f;
+        GameManager.Instance.Player().DodgeRate += 0.1f;
+        GameManager.Instance.Player().ThunderRate += 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.2f;
+        GameManager.Instance.Boss().DodgeRate += 0.05f;
+        CancelInvoke();
+    }
+    private void ThunderInducedStress()
+    {
+        GameManager.Instance.Player().NowHealth -= 1;
+        GameManager.Instance.Player().ThunderBonus += 0.05f;
+        GameManager.Instance.Player().AttackRate -= 0.05f;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void JuniorThunderSummoning()
+    {
+        GameManager.Instance.Player().ThunderBonus += 0.05f;
+        GameManager.Instance.Player().ThunderRate += 0.05f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
 }

@@ -24579,6 +24579,7 @@ GameObject:
   - component: {fileID: 1940352746}
   - component: {fileID: 1940352751}
   - component: {fileID: 1940352752}
+  - component: {fileID: 1940352753}
   m_Layer: 7
   m_Name: Boss
   m_TagString: Boss
@@ -24863,6 +24864,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 1940352747}
+--- !u!114 &1940352753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940352743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e46f1632cbdc8c94e85f8016887df8ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 1940352747}
+  Thunder_Count: 0
 --- !u!1 &1952514462
 GameObject:
   m_ObjectHideFlags: 0
@@ -29101,8 +29116,8 @@ MonoBehaviour:
     RoomCount: 20
     CardList: {fileID: 11400000, guid: 495275d3b4208df449c63a69fd928474, type: 2}
   - Index: 4
-    RoomCount: 20
-    CardList: {fileID: 0}
+    RoomCount: 25
+    CardList: {fileID: 11400000, guid: 6d0dbb4bbda2ace4097e6ecf3f62995e, type: 2}
 --- !u!114 &8344205762371398846
 MonoBehaviour:
   m_ObjectHideFlags: 0

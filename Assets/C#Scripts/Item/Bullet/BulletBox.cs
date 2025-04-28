@@ -36,5 +36,21 @@ public class BulletBox : MonoBehaviour
         var bulletRotation = ((Vector2)transform.GetChild(0).position - (Vector2)transform.position).normalized;
         NewBullet.GetComponent<Bullet>().BulletRotation = bulletRotation;
         NewBullet.transform.SetParent(bulletBox);
+        if (GameManager.Instance.Player().ThunderBreathIllusion)
+        {
+            var ThunderCount = UnityEngine.Random.Range(0f, 1f);
+            if(ThunderCount < 0.2f)
+            {
+                Invoke("ExtraBullet", 0.05f);
+            }
+        }
     }
+    private void ExtraBullet()
+    {
+        var NewBullet = Instantiate(bullet, transform.GetChild(0));
+        var bulletRotation = ((Vector2)transform.GetChild(0).position - (Vector2)transform.position).normalized;
+        NewBullet.GetComponent<Bullet>().BulletRotation = bulletRotation;
+        NewBullet.transform.SetParent(bulletBox);
+        CancelInvoke("ExtraBullet");
+    } 
 }

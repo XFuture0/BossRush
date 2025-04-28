@@ -30,6 +30,8 @@ public class CharacterData : ScriptableObject
     public float AngerTime;//怒气时间
     public float PoizonDamage;//剧毒伤害
     public float PoizonTime;//剧毒时间
+    public float ThunderBonus;//雷击加成
+    public float ThunderRate;//雷击率
     [Header("特殊技能效果")]
     public bool MucusDeathRage;//粘液亡怒
     public bool FearlessFury;//无畏狂怒
@@ -60,4 +62,12 @@ public class CharacterData : ScriptableObject
     public bool PoisonousStrike;//剧毒猛击
     public bool PersistentToxic;//持久型剧毒
     public bool ThreePartsPoisoning;//入毒三分
+    public bool ThunderstormEmblem;//暴雷纹章
+    public bool ElectricBullets;//电系子弹
+    public bool ThunderBreathIllusion;//雷息幻象
+    public bool ThunderWeapon;//惊雷型武器
+    public bool ThunderFury;//惊天雷怒
+    public bool ElectricStorageSlime;//蓄电型史莱姆
+    public bool ThunderstormDamage;//暴雷击破
+    public bool ThunderTiming;//落雷Timing
 }
