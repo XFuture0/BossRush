@@ -85,10 +85,6 @@ public class GameManager : SingleTons<GameManager>
             {
                 CriticalDamageBonus += (1 - Player().AttackRate) * 0.4f + (Player().SpeedRate - 1) * 0.4f + Player().DodgeRate * 0.2f;
             }
-            if (Attacker.CharacterData_Temp.PoisonBullet)
-            {
-                Defender.gameObject.GetComponent<Poizon>().SetPosizon(Attacker);
-            }
             Defender.CharacterData_Temp.NowHealth -= (Attacker.CharacterData_Temp.AttackPower + Attacker.CharacterData_Temp.WeaponAttackPower) * CriticalDamageBonus * Attacker.CharacterData_Temp.AttackBonus;
             Defender.Invincible = true;
             Defender.InvincibleTime_Count = Defender.CharacterData.InvincibleTime;
@@ -109,6 +105,10 @@ public class GameManager : SingleTons<GameManager>
                     StartCoroutine(CheckElasticGel());
                     break;
                 case "Boss":
+                    if (Attacker.CharacterData_Temp.PoisonBullet)
+                    {
+                        Defender.gameObject.GetComponent<Poizon>().SetPosizon(Attacker);
+                    }
                     if (Player().GuaranteedFirstPrize)
                     {
                         BulletCount++;
@@ -118,6 +118,18 @@ public class GameManager : SingleTons<GameManager>
                         Defender.gameObject.GetComponent<Thunder>().Thunder_Count++;
                     }
                     Defender.gameObject.GetComponent<Thunder>().SetThunder(Attacker);
+                    if (Player().Vulnerability)
+                    {
+                        var MaxVulnerabilityRate = UnityEngine.Random.Range(0f, 1f);
+                        if (MaxVulnerabilityRate < Player().MaxVulnerabilityRate)
+                        {
+                           Defender.gameObject.GetComponent<MaxVulnerability>().SetVulnerability(Attacker);
+                        }
+                        else
+                        {
+                           Defender.gameObject.GetComponent<Vulnerability>().SetVulnerability(Attacker);
+                        }
+                    }
                     Player().AngerValue += 0.01f;
                     if (Player().LrritableSlime)
                     {

@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
     private float BaseBulletSpeed;
     private float BasePoizonDamage;
     private float BaseThunderRate;
+    private float BaseMaxVulnerabilityRate;
     [Header("ÊÂ¼þ¼àÌý")]
     public VoidEventSO BossDeadEvent;
     private void Awake()
@@ -267,6 +268,9 @@ public class PlayerController : MonoBehaviour
             case 4:
                 angerskill = ThunderGodWrath;
                 break;
+            case 5:
+                angerskill = PassionBloodAnger;
+                break;
         }
     }
     private void PlayerAnger()
@@ -280,8 +284,8 @@ public class PlayerController : MonoBehaviour
             IsAnger = true;
             BaseAttackRate = Player.CharacterData_Temp.AttackRate;
             BaseBulletSpeed = bullet.BulletSpeed;
-            Player.CharacterData_Temp.AttackRate = 0.2f;
             bullet.BulletSpeed = 30;
+            Player.CharacterData_Temp.AttackRate = 0.2f;
             AngerTime_Count = Player.CharacterData_Temp.AngerTime;
         }
         if (AngerTime_Count >= -1 && IsAnger)
@@ -304,6 +308,8 @@ public class PlayerController : MonoBehaviour
             IsAnger = true;
             Player.Invincible = true;
             Player.InvincibleTime_Count = Player.CharacterData_Temp.AngerTime;
+            BaseBulletSpeed = bullet.BulletSpeed;
+            bullet.BulletSpeed = 30;
             BaseSpeed = Player.CharacterData_Temp.SpeedRate;
             BaseAttackRate = Player.CharacterData_Temp.AttackRate;
             Player.CharacterData_Temp.AttackRate = BaseAttackRate * 0.5f;
@@ -318,6 +324,7 @@ public class PlayerController : MonoBehaviour
         if (AngerTime_Count < 0 && IsAnger)
         {
             IsAnger = false;
+            bullet.BulletSpeed = BaseBulletSpeed;
             Player.CharacterData_Temp.AttackRate = BaseAttackRate;
             Player.CharacterData_Temp.SpeedRate = BaseSpeed;
             Player.CharacterData_Temp.AngerValue = 0;
@@ -328,8 +335,8 @@ public class PlayerController : MonoBehaviour
         if (Player.CharacterData_Temp.AngerValue >= GameManager.Instance.Player().FullAnger && KeyBoardManager.Instance.GetKeyDown_F() && !IsAnger)
         {
             IsAnger = true;
-            Player.Invincible = true;
-            Player.InvincibleTime_Count = Player.CharacterData_Temp.AngerTime;
+            BaseBulletSpeed = bullet.BulletSpeed;
+            bullet.BulletSpeed = 30;
             BasePoizonDamage = Player.CharacterData_Temp.PoizonDamage;
             BaseAttackRate = Player.CharacterData_Temp.AttackRate;
             Player.CharacterData_Temp.AttackRate = 0.2f;
@@ -344,6 +351,7 @@ public class PlayerController : MonoBehaviour
         if (AngerTime_Count < 0 && IsAnger)
         {
             IsAnger = false;
+            bullet.BulletSpeed = BaseBulletSpeed;
             Player.CharacterData_Temp.AttackRate = BaseAttackRate;
             Player.CharacterData_Temp.PoizonDamage = BasePoizonDamage;
             Player.CharacterData_Temp.AngerValue = 0;
@@ -354,9 +362,10 @@ public class PlayerController : MonoBehaviour
         if (Player.CharacterData_Temp.AngerValue >= GameManager.Instance.Player().FullAnger && KeyBoardManager.Instance.GetKeyDown_F() && !IsAnger)
         {
             IsAnger = true;
-            Player.Invincible = true;
-            Player.InvincibleTime_Count = Player.CharacterData_Temp.AngerTime;
+            BaseBulletSpeed = bullet.BulletSpeed;
+            bullet.BulletSpeed = 30;
             BaseThunderRate = Player.CharacterData_Temp.ThunderRate;
+            Player.CharacterData_Temp.ThunderRate = 1;
             AngerTime_Count = Player.CharacterData_Temp.AngerTime;
         }
         if (AngerTime_Count >= -1 && IsAnger)
@@ -367,7 +376,32 @@ public class PlayerController : MonoBehaviour
         if (AngerTime_Count < 0 && IsAnger)
         {
             IsAnger = false;
+            bullet.BulletSpeed = BaseBulletSpeed;
             Player.CharacterData_Temp.ThunderRate = BaseThunderRate;
+            Player.CharacterData_Temp.AngerValue = 0;
+        }
+    }
+    private void PassionBloodAnger()
+    {
+        if (Player.CharacterData_Temp.AngerValue >= GameManager.Instance.Player().FullAnger && KeyBoardManager.Instance.GetKeyDown_F() && !IsAnger)
+        {
+            IsAnger = true;
+            BaseBulletSpeed = bullet.BulletSpeed;
+            bullet.BulletSpeed = 30;
+            BaseMaxVulnerabilityRate = Player.CharacterData_Temp.MaxVulnerabilityRate;
+            Player.CharacterData_Temp.MaxVulnerabilityRate = 1;
+            AngerTime_Count = Player.CharacterData_Temp.AngerTime;
+        }
+        if (AngerTime_Count >= -1 && IsAnger)
+        {
+            Player.CharacterData_Temp.AngerValue = (AngerTime_Count / Player.CharacterData_Temp.AngerTime) * GameManager.Instance.Player().FullAnger;
+            AngerTime_Count -= Time.deltaTime;
+        }
+        if (AngerTime_Count < 0 && IsAnger)
+        {
+            IsAnger = false;
+            bullet.BulletSpeed = BaseBulletSpeed;
+            Player.CharacterData_Temp.MaxVulnerabilityRate = BaseMaxVulnerabilityRate;
             Player.CharacterData_Temp.AngerValue = 0;
         }
     }

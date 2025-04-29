@@ -35,7 +35,11 @@ public class Thunder : MonoBehaviour
     private IEnumerator OnThunder(CharacterStats Attacker)
     {
         var ThunderCount = UnityEngine.Random.Range(0f, 1f);
-        if(Thunder_Count >= 5)
+        if (GameManager.Instance.Player().ConductiveWound && gameObject.GetComponent<Vulnerability>().VulnerabilityCount > 0)
+        {
+            ThunderCount -= 0.1f;
+        }
+        if (Thunder_Count >= 5)
         {
             ThunderCount = 0;
             Thunder_Count = 0;

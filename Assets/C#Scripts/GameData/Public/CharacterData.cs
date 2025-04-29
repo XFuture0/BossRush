@@ -33,6 +33,11 @@ public class CharacterData : ScriptableObject
     public float PoizonTime;//剧毒时间
     public float ThunderBonus;//雷击加成
     public float ThunderRate;//雷击率
+    public bool Vulnerability;//易伤子弹
+    public float VulnerabilityTime;//易伤时间
+    public float Vulnerability_AttackBonus;//易伤攻击加成
+    public float Vulnerability_CriticalRate;//易伤暴击率加成
+    public float MaxVulnerabilityRate;//极致易伤率
     [Header("特殊技能效果")]
     public bool MucusDeathRage;//粘液亡怒
     public bool FearlessFury;//无畏狂怒
@@ -71,4 +76,13 @@ public class CharacterData : ScriptableObject
     public bool ElectricStorageSlime;//蓄电型史莱姆
     public bool ThunderstormDamage;//暴雷击破
     public bool ThunderTiming;//落雷Timing
+    public bool WoundTearing;//伤口撕裂
+    public bool BloodyBomb;//流血炸弹
+    public bool SlowBloodthirsty;//缓慢嗜血
+    public bool BloodthirstyEmblem;//嗜血纹章
+    public bool BloodthirstyWeapon;//嗜血型武器
+    public bool BloodthirstyIncreasesAnger;//嗜血增怒
+    public bool ToxinImmersionInjury;//毒素浸伤
+    public bool ConductiveWound;//导电伤口
+    public bool ChasingThroughInjuries;//乘伤追击
 }

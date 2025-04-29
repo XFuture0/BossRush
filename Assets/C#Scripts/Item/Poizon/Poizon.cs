@@ -44,6 +44,7 @@ public class Poizon : MonoBehaviour
     private IEnumerator OnPosizon(CharacterStats Attacker)
     {
         float ExtraDamage = 0;
+        float VulnerabilityDamage = 0;
         if (Attacker.CharacterData_Temp.ToxicWrathSlime)
         {
             Attacker.CharacterData_Temp.AngerValue += 0.02f;
@@ -52,7 +53,11 @@ public class Poizon : MonoBehaviour
         {
             PoizonCount++;
         }
-        for(int i = 0;i < GameManager.Instance.Player().PoizonTime; i++)
+        if (GameManager.Instance.Player().ToxinImmersionInjury && gameObject.GetComponent<Vulnerability>().VulnerabilityCount > 0)
+        {
+            VulnerabilityDamage = GameManager.Instance.Player().WeaponAttackPower * 0.1f;
+        }
+        for (int i = 0;i < GameManager.Instance.Player().PoizonTime; i++)
         {
             if(ExtraDamage >= Attacker.CharacterData_Temp.WeaponAttackPower * 0.1f)
             {
@@ -65,12 +70,12 @@ public class Poizon : MonoBehaviour
                     var Critical = UnityEngine.Random.Range(0f, 1f);
                     if (Critical < Attacker.CharacterData_Temp.CriticalDamageRate)
                     {
-                        Target.CharacterData_Temp.NowHealth -= Attacker.CharacterData_Temp.PoizonDamage * Attacker.CharacterData_Temp.WeaponAttackPower * 0.2f * 2 * AttackRate_PoizonDamage + ExtraDamage;
+                        Target.CharacterData_Temp.NowHealth -= Attacker.CharacterData_Temp.PoizonDamage * Attacker.CharacterData_Temp.WeaponAttackPower * 0.2f * 2 * AttackRate_PoizonDamage + ExtraDamage + VulnerabilityDamage;
                     }
                 }
                 else
                 {
-                    Target.CharacterData_Temp.NowHealth -= Attacker.CharacterData_Temp.PoizonDamage * Attacker.CharacterData_Temp.WeaponAttackPower * 0.2f * AttackRate_PoizonDamage + ExtraDamage;
+                    Target.CharacterData_Temp.NowHealth -= Attacker.CharacterData_Temp.PoizonDamage * Attacker.CharacterData_Temp.WeaponAttackPower * 0.2f * AttackRate_PoizonDamage + ExtraDamage + VulnerabilityDamage;
                 }
                 if (Attacker.CharacterData_Temp.ThreePartsPoisoning)
                 {

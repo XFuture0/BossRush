@@ -24581,6 +24581,8 @@ GameObject:
   - component: {fileID: 1940352751}
   - component: {fileID: 1940352752}
   - component: {fileID: 1940352753}
+  - component: {fileID: 1940352754}
+  - component: {fileID: 1940352755}
   m_Layer: 7
   m_Name: Boss
   m_TagString: Boss
@@ -24879,6 +24881,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Target: {fileID: 1940352747}
   Thunder_Count: 0
+--- !u!114 &1940352754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940352743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c990014cfaec8d49bb460ac2098e0f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AllVulnerabilityCount: 0
+  VulnerabilityCount: 0
+--- !u!114 &1940352755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940352743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77cf599854db7c8498e83943c9380bfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxVulnerabilityCount: 0
 --- !u!1 &1952514462
 GameObject:
   m_ObjectHideFlags: 0
@@ -29119,6 +29148,9 @@ MonoBehaviour:
   - Index: 4
     RoomCount: 25
     CardList: {fileID: 11400000, guid: 6d0dbb4bbda2ace4097e6ecf3f62995e, type: 2}
+  - Index: 5
+    RoomCount: 30
+    CardList: {fileID: 11400000, guid: 2b5a494ee9ae6814f99c6d17526ae8ae, type: 2}
 --- !u!114 &8344205762371398846
 MonoBehaviour:
   m_ObjectHideFlags: 0

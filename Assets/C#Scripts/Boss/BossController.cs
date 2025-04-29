@@ -84,6 +84,7 @@ public class BossController : MonoBehaviour
         {
             Alltrident.SetActive(false);
         }
+        StopAllCoroutines();
     }
     private void DestoryIng()
     {
@@ -200,6 +201,10 @@ public class BossController : MonoBehaviour
     }
     private void Walk()
     {
+        if (GameManager.Instance.Player().WoundTearing)
+        {
+            Boss.CharacterData_Temp.NowHealth -= gameObject.GetComponent<Vulnerability>().VulnerabilityCount * 1;
+        }
         var ForceRotation = new Vector2(0, 0);
         var RealSpeed = Boss.CharacterData_Temp.Speed * Boss.CharacterData_Temp.SpeedRate;
         var Walkspeed = UnityEngine.Random.Range(RealSpeed * 0.8f, RealSpeed * 1.5f);

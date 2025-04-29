@@ -14,51 +14,63 @@ public class UseCardManager : SingleTons<UseCardManager>
     private void Mobility()
     {
         GameManager.Instance.Player().DashCount += 1;
+        CancelInvoke();
     }
     private void FlyingSlime()
     {
         GameManager.Instance.Player().JumpCount += 1;
+        CancelInvoke();
     }
     private void UltimateMobility()
     {
         CardManager.Instance.FindCard_Open("TearShadows");
         GameManager.Instance.Player().DashInvincibleFrame = true;
+        CancelInvoke();
     }
     private void TearShadows()
     {
         GameManager.Instance.Player().DashDamage = true;
+        CancelInvoke();
     }
     private void HPBottle()
     {
         GameManager.Instance.Player().NowHealth += (int)(GameManager.Instance.Player().MaxHealth * 0.8f);
+        CancelInvoke();
     }
     private void MetalBullets()
     {
         GameManager.Instance.Player().AttackBonus += 0.2f;
+        CancelInvoke();
     }
     private void WeaknessBreakdown()
     {
         GameManager.Instance.Player().CriticalDamageRate += 0.05f;
+        CancelInvoke();
     }
     private void WowMushroom()
     {
         GameManager.Instance.Player().WeaponCount += 1;
+        CancelInvoke();
     }
     private void Adrenaline()
     {
         GameManager.Instance.Player().AttackRate -= 0.1f;
+        CancelInvoke();
     }
     private void ClockUp()
     {
         GameManager.Instance.Player().DodgeRate += 0.05f;
+        CancelInvoke();
     }
     private void AngerBottleFull()
     {
         GameManager.Instance.Player().AngerValue = 1;
+        CancelInvoke();
     }
     private void Padam()
     {
         GameManager.Instance.Player().SpeedRate += 0.05f;
+        CancelInvoke();
     }
     //³¡¾°1
     private void MucusDeathRage()
@@ -921,6 +933,331 @@ public class UseCardManager : SingleTons<UseCardManager>
     {
         GameManager.Instance.Player().ThunderBonus += 0.05f;
         GameManager.Instance.Player().ThunderRate += 0.05f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    //³¡¾°5
+    private void CrownPrinceBullet()
+    {
+        GameManager.Instance.Player().Vulnerability = true;
+        GameManager.Instance.Player().Vulnerability_AttackBonus += 0.02f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void BleedingGel()
+    {
+        GameManager.Instance.Player().Vulnerability = true;
+        GameManager.Instance.Player().Vulnerability_AttackBonus += 0.02f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        CancelInvoke();
+    }
+    private void FragileSlime()
+    {
+        GameManager.Instance.Player().Vulnerability = true;
+        GameManager.Instance.Player().Vulnerability_AttackBonus += 0.02f;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void WeaknessTelescope()
+    {
+        GameManager.Instance.Player().Vulnerability = true;
+        GameManager.Instance.Player().Vulnerability_CriticalRate += 0.01f;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void HurtInsight()
+    {
+        GameManager.Instance.Player().Vulnerability = true;
+        GameManager.Instance.Player().Vulnerability_AttackBonus += 0.01f;
+        GameManager.Instance.Player().VulnerabilityTime += 0.5f;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void WoundTearing()
+    {
+        GameManager.Instance.Player().WoundTearing = true;
+        GameManager.Instance.Player().VulnerabilityTime += 0.5f;
+        GameManager.Instance.Boss().HealthRate += 1;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void BloodyBomb()
+    {
+        GameManager.Instance.Player().BloodyBomb = true;
+        GameManager.Instance.Player().Vulnerability_AttackBonus += 0.02f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void SacrificeOneselfResist()
+    {
+        GameManager.Instance.Player().NowHealth -= 1;
+        GameManager.Instance.Player().Vulnerability_AttackBonus += 0.04f;
+        GameManager.Instance.Boss().HealthRate += 0.2f;
+        CancelInvoke();
+    }
+    private void RaisePlagPreview()
+    {
+        GameManager.Instance.Player().Vulnerability_CriticalRate += 0.02f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void PassionBloodAnger()
+    {
+        GameManager.Instance.ChangePlayerAngerSkill(5);
+        GameManager.Instance.Player().Vulnerability_AttackBonus += 0.04f;
+        GameManager.Instance.Player().Vulnerability_CriticalRate += 0.02f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void ClumsyDoctorSlime()
+    {
+        GameManager.Instance.Player().Vulnerability_AttackBonus += 0.04f;
+        GameManager.Instance.Player().VulnerabilityTime += 0.5f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void SevereOpenWounds()
+    {
+        GameManager.Instance.Player().NowHealth -= 1;
+        GameManager.Instance.Player().VulnerabilityTime += 1;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void ExecutionerSlime()
+    {
+        GameManager.Instance.Player().MaxVulnerabilityRate = 0.25f;
+        GameManager.Instance.Player().Vulnerability_AttackBonus += 0.04f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void ApprenticeAssassin()
+    {
+        GameManager.Instance.Player().MaxVulnerabilityRate = 0.1f;
+        GameManager.Instance.Player().Vulnerability_AttackBonus += 0.02f;
+        GameManager.Instance.AddBossSkillLevel();
+        CardManager.Instance.FindCard_Open("ExecutionerSlime");
+        CancelInvoke();
+    }
+    private void SlowBloodthirsty()
+    {
+        GameManager.Instance.Player().MaxHealth -= 1;
+        GameManager.Instance.Player().NowHealth -= 1;
+        GameManager.Instance.Player().SlowBloodthirsty = true;
+        GameManager.Instance.Boss().HealthRate += 0.2f;
+        CancelInvoke();
+    }
+    private void BloodthirstyEmblem()
+    {
+        GameManager.Instance.Player().BloodthirstyEmblem = true;
+        GameManager.Instance.Player().Vulnerability_AttackBonus += 0.04f;
+        GameManager.Instance.Player().Vulnerability_CriticalRate += 0.02f;
+        GameManager.Instance.Player().VulnerabilityTime += 1;
+        GameManager.Instance.Boss().HealthRate += 0.2f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void ShuraGel()
+    {
+        GameManager.Instance.Player().MaxHealth += 3;
+        GameManager.Instance.Player().NowHealth -= 1;
+        GameManager.Instance.Player().Vulnerability_AttackBonus += 0.04f;
+        GameManager.Instance.Player().AttackBonus += 0.2f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void BloodthirstyWeapon()
+    {
+        GameManager.Instance.Player().BloodthirstyWeapon = true;
+        GameManager.Instance.Player().AttackBonus += 0.2f;
+        GameManager.Instance.Player().Vulnerability_AttackBonus += 0.02f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        CancelInvoke();
+    }
+    private void EmergencyGel()
+    {
+        GameManager.Instance.Player().NowHealth += 2;
+        GameManager.Instance.Player().AttackRate -= 0.1f;
+        GameManager.Instance.Player().Vulnerability_AttackBonus -= 0.02f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void StrongWill()
+    {
+        GameManager.Instance.Player().MaxHealth += 1;
+        GameManager.Instance.Player().NowHealth += 1;
+        GameManager.Instance.Player().Vulnerability_AttackBonus += 0.02f;
+        GameManager.Instance.Player().Vulnerability_CriticalRate += 0.01f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void BloodBath()
+    {
+        GameManager.Instance.Player().NowHealth += (int)(GameManager.Instance.Player().MaxHealth * 0.5f);
+        GameManager.Instance.Player().Vulnerability_AttackBonus -= 0.02f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        CancelInvoke();
+    }
+    private void VeteranBattle()
+    {
+        GameManager.Instance.Player().WeaponCount += 1;
+        GameManager.Instance.Player().AttackBonus += 0.1f;
+        GameManager.Instance.Player().AttackRate -= 0.05f;
+        GameManager.Instance.Player().Vulnerability_AttackBonus += 0.02f;
+        GameManager.Instance.Player().Vulnerability_CriticalRate += 0.01f;
+        GameManager.Instance.Boss().HealthRate += 0.2f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void BloodLossAnger()
+    {
+        GameManager.Instance.Player().Vulnerability_AttackBonus -= 0.02f;
+        GameManager.Instance.Player().Vulnerability_CriticalRate -= 0.01f;
+        GameManager.Instance.Player().AngerValue += 0.5f;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void BloodthirstyIncreasesAnger()
+    {
+        GameManager.Instance.Player().BloodthirstyIncreasesAnger = true;
+        GameManager.Instance.Player().Vulnerability_AttackBonus += 0.04f;
+        GameManager.Instance.Boss().AttackRate -= 0.15f;
+        CancelInvoke();
+    }
+    private void InjuredFleeing()
+    {
+        GameManager.Instance.Player().Vulnerability_AttackBonus -= 0.02f;
+        GameManager.Instance.Player().SpeedRate += 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        CancelInvoke();
+    }
+    private void BloodPhantom()
+    {
+        GameManager.Instance.Player().Vulnerability_AttackBonus -= 0.02f;
+        GameManager.Instance.Player().Vulnerability_CriticalRate -= 0.01f;
+        GameManager.Instance.Player().DodgeRate += 0.05f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void ToxinImmersionInjury()
+    {
+        GameManager.Instance.Player().ToxinImmersionInjury = true;
+        GameManager.Instance.Player().PoizonDamage += 0.05f;
+        GameManager.Instance.Player().Vulnerability_AttackBonus += 0.02f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void ToxicotherapyGel()
+    {
+        GameManager.Instance.Player().NowHealth += 1;
+        GameManager.Instance.Player().Vulnerability_AttackBonus -= 0.04f;
+        GameManager.Instance.Player().PoizonDamage += 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void ConductiveWound()
+    {
+        GameManager.Instance.Player().ConductiveWound = true;
+        GameManager.Instance.Player().ThunderBonus += 0.1f;
+        GameManager.Instance.Player().Vulnerability_AttackBonus += 0.02f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void ElectrotherapyGel()
+    {
+        GameManager.Instance.Player().NowHealth += 1;
+        GameManager.Instance.Player().Vulnerability_AttackBonus -= 0.04f;
+        GameManager.Instance.Player().ThunderBonus += 0.2f;
+        GameManager.Instance.Boss().HealthRate += 0.2f;
+        CancelInvoke();
+    }
+    private void ChargeForward()
+    {
+        GameManager.Instance.Player().AttackRate -= 0.1f;
+        GameManager.Instance.Player().Vulnerability_AttackBonus += 0.02f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void HonestSlime()
+    {
+        GameManager.Instance.Player().AttackBonus += 0.2f;
+        GameManager.Instance.Player().Vulnerability_CriticalRate += 0.01f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void SelfHarmingSlime()
+    {
+        GameManager.Instance.Player().WeaponCount -= 1;
+        GameManager.Instance.Player().NowHealth -= 1;
+        GameManager.Instance.Player().Vulnerability_AttackBonus -= 0.02f;
+        GameManager.Instance.Player().Vulnerability_CriticalRate -= 0.01f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void HerbGel()
+    {
+        GameManager.Instance.Player().NowHealth += 2;
+        GameManager.Instance.Player().VulnerabilityTime -= 0.5f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        CancelInvoke();
+    }
+    private void UnilateralInjury()
+    {
+        GameManager.Instance.Player().Vulnerability_AttackBonus += 0.06f;
+        GameManager.Instance.Player().Vulnerability_CriticalRate -= 0.02f;
+        GameManager.Instance.Player().HealthRate += 0.05f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void EqualExchange_Attack()
+    {
+        var VulnerabilityAttackBonus = GameManager.Instance.Player().Vulnerability_AttackBonus;
+        GameManager.Instance.Player().Vulnerability_AttackBonus = 0;
+        GameManager.Instance.Player().AttackBonus += VulnerabilityAttackBonus * 10;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void EqualExchange_Critical()
+    {
+        var VulnerabilityCriticalRate = GameManager.Instance.Player().Vulnerability_CriticalRate;
+        GameManager.Instance.Player().Vulnerability_CriticalRate = 0;
+        GameManager.Instance.Player().CriticalDamageRate += VulnerabilityCriticalRate * 5;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void ChasingThroughInjuries()
+    {
+        GameManager.Instance.Player().ChasingThroughInjuries = true;
+        GameManager.Instance.Player().Vulnerability_CriticalRate += 0.01f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void BarbedGel()
+    {
+        GameManager.Instance.Player().Vulnerability_AttackBonus += 0.02f;
+        GameManager.Instance.Player().Vulnerability_CriticalRate += 0.01f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AttackRate += 0.1f;
+        GameManager.Instance.Boss().AutoHealCount += 0.5f;
+        CancelInvoke();
+    }
+    private void MedicalSlime()
+    {
+        GameManager.Instance.Player().MaxHealth += 2;
+        GameManager.Instance.Player().NowHealth += 2;
+        GameManager.Instance.Player().AutoHealCount += 1;
+        GameManager.Instance.Boss().HealthRate += 0.15f;
         GameManager.Instance.AddBossSkillLevel();
         CancelInvoke();
     }

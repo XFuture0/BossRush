@@ -30,6 +30,7 @@ MonoBehaviour:
   AttackRate: 1
   CanDash: 1
   DashInvincibleFrame: 0
+  DashDamage: 0
   DashCount: 1
   JumpCount: 1
   AngerValue: 0
@@ -39,6 +40,10 @@ MonoBehaviour:
   PoizonTime: 20
   ThunderBonus: 1
   ThunderRate: 0
+  Vulnerability: 0
+  VulnerabilityTime: 5
+  Vulnerability_AttackBonus: 0
+  Vulnerability_CriticalRate: 0
   MucusDeathRage: 0
   FearlessFury: 0
   MucousRage: 0
