@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     private bool IsAddWeapon;
     private bool IsAddPoizonWeapon;
     private bool IsAddThunderWeapon;
+    private bool IsWeaponsSeaGod;
+    private bool IsGlidingWaterSurface;
     private bool IsHormoneGel;
     private float HormoneGelBaseSpeed;
     public PlayerData PlayerData;
@@ -46,6 +48,7 @@ public class PlayerController : MonoBehaviour
     private float BasePoizonDamage;
     private float BaseThunderRate;
     private float BaseMaxVulnerabilityRate;
+    private float BaseWaterElementBonus;
     [Header("ÊÂ¼þ¼àÌý")]
     public VoidEventSO BossDeadEvent;
     private void Awake()
@@ -72,6 +75,8 @@ public class PlayerController : MonoBehaviour
         OnImperialWeapons();
         OnPoizonWeapons();
         OnThunderWeapon();
+        OnWeaponsSeaGod();
+        OnGlidingWaterSurface();
         if (!Player.CharacterData_Temp.FuriousGatling)
         {
             PlayerAnger();
@@ -271,6 +276,9 @@ public class PlayerController : MonoBehaviour
             case 5:
                 angerskill = PassionBloodAnger;
                 break;
+            case 6:
+                angerskill = DragonEnraged;
+                break;
         }
     }
     private void PlayerAnger()
@@ -405,6 +413,33 @@ public class PlayerController : MonoBehaviour
             Player.CharacterData_Temp.AngerValue = 0;
         }
     }
+    private void DragonEnraged()
+    {
+        if (Player.CharacterData_Temp.AngerValue >= GameManager.Instance.Player().FullAnger && KeyBoardManager.Instance.GetKeyDown_F() && !IsAnger)
+        {
+            IsAnger = true;
+            BaseBulletSpeed = bullet.BulletSpeed;
+            bullet.BulletSpeed = 30;
+            BaseWaterElementBonus = Player.CharacterData_Temp.WaterElementBonus;
+            BaseAttackRate = Player.CharacterData_Temp.AttackRate;
+            Player.CharacterData_Temp.WaterElementBonus += 1;
+            Player.CharacterData_Temp.AttackRate = 0.4f;
+            AngerTime_Count = Player.CharacterData_Temp.AngerTime;
+        }
+        if (AngerTime_Count >= -1 && IsAnger)
+        {
+            Player.CharacterData_Temp.AngerValue = (AngerTime_Count / Player.CharacterData_Temp.AngerTime) * GameManager.Instance.Player().FullAnger;
+            AngerTime_Count -= Time.deltaTime;
+        }
+        if (AngerTime_Count < 0 && IsAnger)
+        {
+            IsAnger = false;
+            bullet.BulletSpeed = BaseBulletSpeed;
+            Player.CharacterData_Temp.WaterElementBonus = BaseWaterElementBonus;
+            Player.CharacterData_Temp.AttackRate = BaseAttackRate;
+            Player.CharacterData_Temp.AngerValue = 0;
+        }
+    }
     private void AddAnger()
     {
         if (Player.CharacterData_Temp.FearlessFury && GameManager.Instance.BossStats.gameObject.activeSelf && Player.CharacterData_Temp.AngerValue <= 1.1f)
@@ -500,6 +535,38 @@ public class PlayerController : MonoBehaviour
             {
                 IsAddThunderWeapon = false;
                 Player.CharacterData_Temp.WeaponCount -= 1;
+            }
+        }
+    }
+    private void OnWeaponsSeaGod()
+    {
+        if (Player.CharacterData_Temp.WeaponsSeaGod)
+        {
+            if (Player.CharacterData_Temp.WaterElementBonus >= 0.6f && !IsWeaponsSeaGod)
+            {
+                IsWeaponsSeaGod = true;
+                Player.CharacterData_Temp.WeaponCount += 1;
+            }
+            if (Player.CharacterData_Temp.WaterElementBonus < 0.6f && IsWeaponsSeaGod)
+            {
+                IsWeaponsSeaGod = false;
+                Player.CharacterData_Temp.WeaponCount -= 1;
+            }
+        }
+    }
+    private void OnGlidingWaterSurface()
+    {
+        if (Player.CharacterData_Temp.GlidingWaterSurface)
+        {
+            if (Player.CharacterData_Temp.WaterElementBonus >= 0.3f && !IsGlidingWaterSurface)
+            {
+                IsGlidingWaterSurface = true;
+                Player.CharacterData_Temp.SpeedRate += 0.1f;
+            }
+            if (Player.CharacterData_Temp.WaterElementBonus < 0.3f && IsGlidingWaterSurface)
+            {
+                IsGlidingWaterSurface = false;
+                Player.CharacterData_Temp.SpeedRate -= 0.1f;
             }
         }
     }

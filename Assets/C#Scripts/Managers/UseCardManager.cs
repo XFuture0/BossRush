@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class UseCardManager : SingleTons<UseCardManager>
 {
@@ -1259,6 +1260,316 @@ public class UseCardManager : SingleTons<UseCardManager>
         GameManager.Instance.Player().AutoHealCount += 1;
         GameManager.Instance.Boss().HealthRate += 0.15f;
         GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    //³¡¾°6
+    private void TraineeWaterSystemMaster()
+    {
+        GameManager.Instance.Player().WaterElementBullet = true;
+        GameManager.Instance.Player().WaterElementBonus += 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        CancelInvoke();
+    }
+    private void WaterBullets()
+    {
+        GameManager.Instance.Player().WaterElementBullet = true;
+        GameManager.Instance.Player().WaterElementBonus += 0.05f;
+        GameManager.Instance.Player().AttackRate -= 0.05f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void FlowingGel()
+    {
+        GameManager.Instance.Player().WaterElementBullet = true;
+        GameManager.Instance.Player().WaterElementBonus += 0.05f;
+        GameManager.Instance.Player().AttackBonus += 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void WaterElementSlime()
+    {
+        GameManager.Instance.Player().WaterElementBullet = true;
+        GameManager.Instance.Player().CriticalDamageRate += 0.05f;
+        GameManager.Instance.Player().WaterElementBonus += 0.05f;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void ColdSlime()
+    {
+        GameManager.Instance.Player().MaxHealth += 1;
+        GameManager.Instance.Player().NowHealth += 1;
+        GameManager.Instance.Player().WaterElementBullet = true;
+        GameManager.Instance.Player().WaterElementBonus += 0.05f;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void WaterAccumulationIllness()
+    {
+        GameManager.Instance.Player().EasyWater = true;
+        GameManager.Instance.BossStats.gameObject.GetComponent<EasyWater>().SetEasyWater(1);
+        GameManager.Instance.Player().WaterElementBonus += 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CardManager.Instance.FindCard_Open("WaterCondensesCold");
+        CancelInvoke();
+    }
+    private void WaterCondensesCold()
+    {
+        CardManager.Instance.FindCard_Open("ExtremelyColdPiercing");
+        GameManager.Instance.PlayerStats.gameObject.GetComponent<EasyWater>().SetEasyWater(2);
+        GameManager.Instance.Player().WaterElementBonus += 0.2f;
+        GameManager.Instance.Player().HealthRate += 0.1f;
+        GameManager.Instance.Player().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void ExtremelyColdPiercing()
+    {
+        GameManager.Instance.PlayerStats.gameObject.GetComponent<EasyWater>().SetEasyWater(3);
+        GameManager.Instance.Player().WaterElementBonus += 0.2f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void ElementalMystery()
+    {
+        GameManager.Instance.Player().WaterElementBonus += 0.1f;
+        GameManager.Instance.Player().AttackRate -= 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void WaterEmblem()
+    {
+        GameManager.Instance.Player().WaterEmblem = true;
+        GameManager.Instance.Player().WaterElementBonus += 0.2f;
+        GameManager.Instance.Player().AttackRate -= 0.05f;
+        GameManager.Instance.Player().CriticalDamageRate += 0.1f;
+        GameManager.Instance.Player().HealthRate += 0.2f;
+        GameManager.Instance.Player().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void SolidificationWater()
+    {
+        GameManager.Instance.Player().EasyWaterTime += 1;
+        GameManager.Instance.Player().WaterElementBonus += 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void SevereCold()
+    {
+        GameManager.Instance.Player().NowHealth -= 1;
+        GameManager.Instance.Player().WaterElementBonus += 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        CancelInvoke();
+    }
+    private void CondensingColdPuncture()
+    {
+        GameManager.Instance.Player().CondensingColdPuncture = true;
+        GameManager.Instance.Player().EasyWaterTime += 1;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void DragonEnraged()
+    {
+        GameManager.Instance.ChangePlayerAngerSkill(6);
+        GameManager.Instance.Player().WaterElementBonus += 0.2f;
+        GameManager.Instance.Player().CriticalDamageRate += 0.05f;
+        GameManager.Instance.Boss().HealthRate += 0.2f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void FlowingFountain()
+    {
+        GameManager.Instance.Player().MaxHealth += 2;
+        GameManager.Instance.Player().NowHealth += 2;
+        GameManager.Instance.Player().WaterElementBonus += 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.15f;
+        GameManager.Instance.Boss().AutoHealCount += 0.5f;
+        CancelInvoke();
+    }
+    private void WalkWater()
+    {
+        GameManager.Instance.Player().WaterElementBonus += 0.1f;
+        GameManager.Instance.Player().SpeedRate += 0.1f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void WaterInsight()
+    {
+        GameManager.Instance.Player().WaterElementBonus += 0.1f;
+        GameManager.Instance.Player().CriticalDamageRate += 0.05f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void Mirage()
+    {
+        GameManager.Instance.Player().EasyWaterTime += 0.5f;
+        GameManager.Instance.Player().DodgeRate += 0.5f;
+        GameManager.Instance.Boss().DodgeRate += 0.02f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void Dishuichou()
+    {
+        GameManager.Instance.Player().EasyWaterTime -= 1f;
+        GameManager.Instance.Player().WaterElementBonus += 0.15f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void SeaGodMessenger()
+    {
+        GameManager.Instance.Player().SeaGodMessenger = true;
+        GameManager.Instance.Player().AttackRate -= 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void SeaGodGrace()
+    {
+        GameManager.Instance.Player().NowHealth += (int)(GameManager.Instance.Player().MaxHealth * 0.5f);
+        GameManager.Instance.Player().WaterElementBonus += 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void WaterPhantom()
+    {
+        GameManager.Instance.Player().DashCount += 1;
+        GameManager.Instance.Player().SpeedRate += 0.05f;
+        GameManager.Instance.Player().WaterElementBonus += 0.05f;
+        GameManager.Instance.Boss().DodgeRate += 0.02f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void WeaponsSeaGod()
+    {
+        GameManager.Instance.Player().WeaponsSeaGod = true;
+        GameManager.Instance.Player().WaterElementBonus += 0.1f;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void WaterVortex()
+    {
+        GameManager.Instance.Player().SpeedRate -= 0.05f;
+        GameManager.Instance.Player().WaterElementBonus += 0.05f;
+        GameManager.Instance.Boss().AttackRate += 0.05f;
+        CancelInvoke();
+    }
+    private void WaterFlowProtectionBody()
+    {
+        GameManager.Instance.Player().MaxHealth += 1;
+        GameManager.Instance.Player().NowHealth += 1;
+        GameManager.Instance.Player().InvincibleTime += 0.5f;
+        GameManager.Instance.Player().EasyWaterTime += 0.5f;
+        GameManager.Instance.Boss().DodgeRate += 0.02f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void TurbulentRadiation()
+    {
+        GameManager.Instance.Player().TurbulentRadiation = true;
+        GameManager.Instance.Player().AttackRate -= 0.1f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void ExchangeSeaGod()
+    {
+        GameManager.Instance.Player().WeaponCount += 1;
+        GameManager.Instance.Player().WaterElementBonus -= 0.1f;
+        GameManager.Instance.Player().EasyWaterTime -= 0.5f;
+        GameManager.Instance.Boss().HealthRate += 0.2f;
+        GameManager.Instance.Boss().AttackRate += 0.1f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void UnderwaterTreasure()
+    {
+        GameManager.Instance.Player().MaxHealth += 1;
+        GameManager.Instance.Player().NowHealth += 1;
+        GameManager.Instance.Player().WeaponCount += 1;
+        GameManager.Instance.Boss().HealthRate += 0.3f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void Hydrogel()
+    {
+        GameManager.Instance.Player().WaterElementBonus += 0.15f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void DrinkenChickenSlime()
+    {
+        GameManager.Instance.Player().WaterElementBonus -= 0.05f;
+        GameManager.Instance.Player().AngerValue += 0.5f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        CancelInvoke();
+    }
+    private void AngerSeaGod()
+    {
+        GameManager.Instance.Player().AngerSeaGod = true;
+        GameManager.Instance.Player().WaterElementBonus += 0.05f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void GlidingWaterSurface()
+    {
+        GameManager.Instance.Player().GlidingWaterSurface = true;
+        GameManager.Instance.Player().SpeedRate += 0.05f;
+        GameManager.Instance.Boss().DodgeRate += 0.02f;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void RainforestTrails()
+    {
+        GameManager.Instance.Player().WaterElementBonus += 0.1f;
+        GameManager.Instance.Player().DodgeRate += 0.05f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().DodgeRate += 0.04f;
+        CancelInvoke();
+    }
+    private void VenomCoagulation()
+    {
+        GameManager.Instance.Player().VenomCoagulation = true;
+        GameManager.Instance.Player().WaterElementBonus += 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void HighlyToxicInfection()
+    {
+        GameManager.Instance.Player().WaterElementBonus -= 0.2f;
+        GameManager.Instance.Player().PoizonDamage += 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void ConductiveWaterFlow()
+    {
+        GameManager.Instance.Player().ConductiveWaterFlow = true;
+        GameManager.Instance.Player().WaterElementBonus += 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void TorpedoStrike()
+    {
+        GameManager.Instance.Player().WaterElementBonus += 0.1f;
+        GameManager.Instance.Player().ThunderBonus += 0.1f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void WaterCoagulation()
+    {
+        GameManager.Instance.Player().Vulnerability_AttackBonus -= 0.02f;
+        GameManager.Instance.Player().AutoHealCount += 1;
+        GameManager.Instance.Boss().AutoHealCount += 0.5f;
+        CancelInvoke();
+    }
+    private void RapidsPiercingInjury()
+    {
+        GameManager.Instance.Player().WaterElementBonus -= 0.1f;
+        GameManager.Instance.Player().Vulnerability_AttackBonus += 0.02f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
         CancelInvoke();
     }
 }

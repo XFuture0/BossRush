@@ -38,6 +38,10 @@ public class CharacterData : ScriptableObject
     public float Vulnerability_AttackBonus;//易伤攻击加成
     public float Vulnerability_CriticalRate;//易伤暴击率加成
     public float MaxVulnerabilityRate;//极致易伤率
+    public bool WaterElementBullet;//水元素子弹
+    public float WaterElementBonus;//水元素伤害加成
+    public bool EasyWater;//易水效果
+    public float EasyWaterTime;//易水时间
     [Header("特殊技能效果")]
     public bool MucusDeathRage;//粘液亡怒
     public bool FearlessFury;//无畏狂怒
@@ -85,4 +89,13 @@ public class CharacterData : ScriptableObject
     public bool ToxinImmersionInjury;//毒素浸伤
     public bool ConductiveWound;//导电伤口
     public bool ChasingThroughInjuries;//乘伤追击
+    public bool WaterEmblem;//水系纹章
+    public bool CondensingColdPuncture;//凝寒穿刺
+    public bool SeaGodMessenger;//海神使者
+    public bool WeaponsSeaGod;//海神的武器
+    public bool TurbulentRadiation;//湍流射线
+    public bool AngerSeaGod;//海神的怒气
+    public bool GlidingWaterSurface;//水面滑翔
+    public bool VenomCoagulation;//剧毒凝结
+    public bool ConductiveWaterFlow;//导电水流
 }

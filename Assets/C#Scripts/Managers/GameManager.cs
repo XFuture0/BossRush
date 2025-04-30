@@ -76,6 +76,10 @@ public class GameManager : SingleTons<GameManager>
             {
                 BulletCount = 0;
                 CriticalDamageBonus += Attacker.CharacterData_Temp.CriticalDamageBonus;
+                if (Attacker.CharacterData_Temp.WaterEmblem)
+                {
+                    CriticalDamageBonus += 0.5f;
+                }
             }
             if (Attacker.CharacterData_Temp.MucousRage)
             {
@@ -84,6 +88,18 @@ public class GameManager : SingleTons<GameManager>
             if(Attacker.gameObject.tag == "Player" && Attacker.CharacterData_Temp.SpeedEmblem)
             {
                 CriticalDamageBonus += (1 - Player().AttackRate) * 0.4f + (Player().SpeedRate - 1) * 0.4f + Player().DodgeRate * 0.2f;
+            }
+            if (Attacker.CharacterData_Temp.WaterElementBullet)
+            {
+                CriticalDamageBonus += Attacker.CharacterData_Temp.WaterElementBonus;
+                if (Attacker.CharacterData_Temp.AngerSeaGod)
+                {
+                    Attacker.CharacterData_Temp.AngerValue += 0.02f;
+                }
+            }
+            if (Attacker.CharacterData_Temp.SeaGodMessenger)
+            {
+                CriticalDamageBonus += 0.2f;
             }
             Defender.CharacterData_Temp.NowHealth -= (Attacker.CharacterData_Temp.AttackPower + Attacker.CharacterData_Temp.WeaponAttackPower) * CriticalDamageBonus * Attacker.CharacterData_Temp.AttackBonus;
             Defender.Invincible = true;
@@ -130,6 +146,7 @@ public class GameManager : SingleTons<GameManager>
                            Defender.gameObject.GetComponent<Vulnerability>().SetVulnerability(Attacker);
                         }
                     }
+                    Defender.gameObject.GetComponent<EasyWater>().OnEasyWater(Attacker);
                     Player().AngerValue += 0.01f;
                     if (Player().LrritableSlime)
                     {

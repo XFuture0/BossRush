@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Timeline;
 using UnityEngine;
 [CreateAssetMenu(fileName = "New CardList",menuName ="List/CardList")]
 public class ChooseCardList : ScriptableObject
