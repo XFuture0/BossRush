@@ -1572,4 +1572,319 @@ public class UseCardManager : SingleTons<UseCardManager>
         GameManager.Instance.Boss().AttackRate -= 0.1f;
         CancelInvoke();
     }
+    //³¡¾°7
+    private void OldDangerousTrigger()
+    {
+        GameManager.Instance.Player().DangerousBullet = true;
+        GameManager.Instance.Player().DangerousBulletBonus += 0.5f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void NewDangerousTrigger()
+    {
+        GameManager.Instance.Player().DangerousBulletCount = 5;
+        GameManager.Instance.Player().DangerousBulletBonus += 0.5f;
+        GameManager.Instance.Player().AttackRate -= 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void EvilFunSlime()
+    {
+        GameManager.Instance.Player().DangerousBullet = true;
+        GameManager.Instance.Player().DangerousBulletBonus += 0.5f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void DangerousBullets()
+    {
+        GameManager.Instance.Player().DangerousBullet = true;
+        GameManager.Instance.Player().DangerousBulletBonus += 0.5f;
+        GameManager.Instance.Boss().HealthRate += 0.2f;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void DangerousGel()
+    {
+        GameManager.Instance.Player().DangerousBullet = true;
+        GameManager.Instance.Player().DangerousBulletBonus += 0.8f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void DeepDangerous()
+    {
+        GameManager.Instance.Player().DeepDangerous = true;
+        GameManager.Instance.Player().DangerousBulletBonus += 0.5f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void ExplosiveFrenzySlime()
+    {
+        GameManager.Instance.Player().NowHealth -= 1;
+        GameManager.Instance.Player().DangerousBulletBonus += 0.5f;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void DangerousWeapons()
+    {
+        GameManager.Instance.Player().DangerousWeapons = true;
+        GameManager.Instance.Player().DangerousBulletBonus += 0.5f;
+        GameManager.Instance.Player().AttackBonus += 0.2f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void DangerousSprint()
+    {
+        GameManager.Instance.Player().DangerousSprint = true;
+        GameManager.Instance.Player().DashCount += 1;
+        GameManager.Instance.Boss().HealthRate += 0.2f;
+        GameManager.Instance.Boss().DodgeRate += 0.05f;
+        CancelInvoke();
+    }
+    private void SlowHeatingSlime()
+    {
+        GameManager.Instance.Player().MaxHealth += 2;
+        GameManager.Instance.Player().NowHealth += 2;
+        GameManager.Instance.Player().DangerousBulletBonus += 0.25f;
+        GameManager.Instance.Boss().HealthRate += 0.2f;
+        GameManager.Instance.Boss().AutoHealCount += 0.5f;
+        CancelInvoke();
+    }
+    private void SpiderSense()
+    {
+        GameManager.Instance.Player().SpiderSense = true;
+        GameManager.Instance.Player().DangerousBulletBonus += 0.25f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void HeatwaveFountain()
+    {
+        GameManager.Instance.Player().NowHealth += (int)(GameManager.Instance.Player().MaxHealth * 0.5f);
+        GameManager.Instance.Player().DangerousBulletBonus += 0.25f;
+        GameManager.Instance.Boss().HealthRate += 0.15f;
+        CancelInvoke();
+    }
+    private void DangerousVision()
+    {
+        GameManager.Instance.Player().AttackBonus += 0.2f;
+        GameManager.Instance.Player().DangerousBulletBonus += 0.25f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void CowardlyMushroomSlime()
+    {
+        GameManager.Instance.Player().MaxHealth += 2;
+        GameManager.Instance.Player().NowHealth += 3;
+        GameManager.Instance.Player().DangerousBulletBonus -= 0.25f;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void CrazyShooting()
+    {
+        GameManager.Instance.Player().WeaponCount += 1;
+        GameManager.Instance.Player().AttackRate -= 0.1f;
+        GameManager.Instance.Player().DangerousBulletBonus += 0.25f;
+        GameManager.Instance.Boss().AttackRate -= 0.15f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void SavedFromDeath()
+    {
+        GameManager.Instance.Player().NowHealth -= 2;
+        GameManager.Instance.Player().MaxHealth -= 2;
+        GameManager.Instance.Player().WeaponCount += 1;
+        GameManager.Instance.Player().DangerousBulletBonus += 0.25f;
+        GameManager.Instance.Boss().HealthRate += 0.2f;
+        CancelInvoke();
+    }
+    private void DangerousSedative()
+    {
+        GameManager.Instance.Player().DangerousBulletBonus -= 0.5f;
+        GameManager.Instance.Player().AttackBonus += 0.2f;
+        GameManager.Instance.Player().CriticalDamageRate += 0.1f;
+        GameManager.Instance.Player().CriticalDamageBonus += 0.25f;
+        GameManager.Instance.Boss().HealthRate += 0.2f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void DangerousMastery()
+    {
+        GameManager.Instance.Player().DangerousBulletCount -= 1;
+        GameManager.Instance.Player().DangerousBulletBonus += 0.25f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void DangerAvoidance()
+    {
+        GameManager.Instance.Player().DangerousBulletBonus -= 0.25f;
+        GameManager.Instance.Player().SpeedRate -= 0.1f;
+        GameManager.Instance.Player().DodgeRate += 0.05f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().DodgeRate += 0.02f;
+        CancelInvoke();
+    }
+    private void DangerousNuclearBomb()
+    {
+        GameManager.Instance.Player().DangerousNuclearBomb = true;
+        GameManager.Instance.Player().DangerousBulletBonus += 0.5f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void DangerAnger()
+    {
+        GameManager.Instance.Player().DangerAnger = true;
+        GameManager.Instance.Player().DangerousBulletBonus += 0.5f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void AngerDisorder()
+    {
+        GameManager.Instance.Player().DangerousBulletBonus -= 0.25f;
+        GameManager.Instance.Player().AngerValue += 0.75f;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void DangerousShooting()
+    {
+        GameManager.Instance.Player().DangerousBulletBonus += 0.25f;
+        GameManager.Instance.Player().AttackRate -= 0.1f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void DangerousPoison()
+    {
+        GameManager.Instance.Player().DangerousBulletBonus += 0.25f;
+        GameManager.Instance.Player().PoizonDamage += 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void UndergroundToxicGel()
+    {
+        GameManager.Instance.Player().UndergroundToxicGel = true;
+        GameManager.Instance.Player().DangerousBulletBonus += 0.25f;
+        GameManager.Instance.Player().PoizonTime += 0.5f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void BrutalLightningStrikes()
+    {
+        GameManager.Instance.Player().DangerousBulletBonus += 0.25f;
+        GameManager.Instance.Player().ThunderBonus += 0.15f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void TurnDangerThunder()
+    {
+        GameManager.Instance.Player().DangerousBulletBonus -= 0.5f;
+        GameManager.Instance.Player().ThunderRate += 0.1f;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void DangerousInjury()
+    {
+        GameManager.Instance.Player().DangerousBulletBonus += 0.25f;
+        GameManager.Instance.Player().Vulnerability_AttackBonus += 0.02f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void ExtremelyDangerous()
+    {
+        GameManager.Instance.Player().DangerousBulletBonus -= 0.25f;
+        GameManager.Instance.Player().MaxVulnerabilityRate += 0.1f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void ColdWaterBrainwash()
+    {
+        GameManager.Instance.Player().DangerousBulletBonus -= 0.25f;
+        GameManager.Instance.Player().WaterElementBonus += 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        CancelInvoke();
+    }
+    private void FierceImmersionWater()
+    {
+        GameManager.Instance.Player().DangerousBulletBonus += 0.25f;
+        GameManager.Instance.Player().EasyWaterTime += 0.5f;
+        GameManager.Instance.Boss().HealthRate += 0.15f;
+        CancelInvoke();
+    }
+    private void DangerousAttack()
+    {
+        GameManager.Instance.Player().AttackBonus += GameManager.Instance.Player().DangerousBulletBonus * 0.1f;
+        GameManager.Instance.Player().AttackRate += GameManager.Instance.Player().DangerousBulletBonus * 0.05f;
+        GameManager.Instance.Player().DangerousBulletBonus += 0.5f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void DangerousConfrontation()
+    {
+        GameManager.Instance.Player().AttackBonus += 0.5f;
+        GameManager.Instance.Player().AttackRate -= 0.15f;
+        GameManager.Instance.Player().DangerousBulletBonus += 1.5f;
+        GameManager.Instance.Boss().AttackRate -= 0.5f;
+        GameManager.Instance.Boss().AttackPower += 1;
+        CancelInvoke();
+    }
+    private void BasicCombatGel()
+    {
+        GameManager.Instance.Player().AttackBonus += 0.1f;
+        GameManager.Instance.Player().DangerousBulletBonus += 0.25f;
+        GameManager.Instance.Boss().AttackRate -= 0.05f;
+        CancelInvoke();
+    }
+    private void BattleMasteryGel()
+    {
+        GameManager.Instance.Player().AttackBonus += 0.1f;
+        GameManager.Instance.Player().DangerousBulletCount -= 1;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void DangerousTransaction()
+    {
+        GameManager.Instance.Player().DangerousBulletBonus -= 0.25f;
+        GameManager.Instance.Player().CriticalDamageRate += 0.1f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        CancelInvoke();
+    }
+    private void Furious()
+    {
+        GameManager.Instance.Player().MaxHealth -= 1;
+        GameManager.Instance.Player().NowHealth += 1;
+        GameManager.Instance.Player().DangerousBulletBonus += 0.5f;
+        GameManager.Instance.Player().AngerValue += 0.25f;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AttackRate -= 0.1f;
+        CancelInvoke();
+    }
+    private void DangerousLife()
+    {
+        GameManager.Instance.Player().DangerousLife = true;
+        GameManager.Instance.Player().NowHealth += 2;
+        GameManager.Instance.Boss().HealthRate += 0.15f;
+        GameManager.Instance.AddBossSkillLevel();
+        CancelInvoke();
+    }
+    private void DangerousNothingness()
+    {
+        GameManager.Instance.Player().DangerousBulletBonus += 0.25f;
+        GameManager.Instance.Player().DodgeRate += 0.1f;
+        GameManager.Instance.Boss().DodgeRate += 0.03f;
+        CancelInvoke();
+    }
+    private void DangerousBloodthirsty()
+    {
+        GameManager.Instance.Player().DangerousBulletBonus += 0.5f;
+        GameManager.Instance.Player().AutoHealCount += 1;
+        GameManager.Instance.Boss().HealthRate += 0.1f;
+        GameManager.Instance.Boss().AutoHealCount += 0.5f;
+        CancelInvoke();
+    }
 }

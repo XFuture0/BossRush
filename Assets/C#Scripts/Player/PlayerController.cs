@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Windows;
 
@@ -14,7 +15,9 @@ public class PlayerController : MonoBehaviour
     private bool IsAddPoizonWeapon;
     private bool IsAddThunderWeapon;
     private bool IsWeaponsSeaGod;
+    private bool IsDangerousWeapons;
     private bool IsGlidingWaterSurface;
+    private bool IsSpiderSense;
     private bool IsHormoneGel;
     private float HormoneGelBaseSpeed;
     public PlayerData PlayerData;
@@ -76,7 +79,9 @@ public class PlayerController : MonoBehaviour
         OnPoizonWeapons();
         OnThunderWeapon();
         OnWeaponsSeaGod();
+        OnDangerousWeapons();
         OnGlidingWaterSurface();
+        OnSpiderSense();
         if (!Player.CharacterData_Temp.FuriousGatling)
         {
             PlayerAnger();
@@ -246,6 +251,10 @@ public class PlayerController : MonoBehaviour
         if(other.tag == "Boss" && IsDash && Player.CharacterData_Temp.DashDamage)
         {
             GameManager.Instance.Attack(gameObject.GetComponent<CharacterStats>(), other.GetComponent<CharacterStats>());
+            if (Player.CharacterData_Temp.DangerousSprint)
+            {
+                GameManager.Instance.BossStats.gameObject.GetComponent<Dangerous>().SetDangerous(Player);
+            }
         }
     }
     private void PlayerDead()
@@ -554,6 +563,22 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    private void OnDangerousWeapons()
+    {
+        if (Player.CharacterData_Temp.DangerousWeapons)
+        {
+            if (Player.CharacterData_Temp.DangerousBulletBonus >= 4f && !IsDangerousWeapons)
+            {
+                IsDangerousWeapons = true;
+                Player.CharacterData_Temp.WeaponCount += 1;
+            }
+            if (Player.CharacterData_Temp.DangerousBulletBonus < 4f && IsDangerousWeapons)
+            {
+                IsDangerousWeapons = false;
+                Player.CharacterData_Temp.WeaponCount -= 1;
+            }
+        }
+    }
     private void OnGlidingWaterSurface()
     {
         if (Player.CharacterData_Temp.GlidingWaterSurface)
@@ -567,6 +592,26 @@ public class PlayerController : MonoBehaviour
             {
                 IsGlidingWaterSurface = false;
                 Player.CharacterData_Temp.SpeedRate -= 0.1f;
+            }
+        }
+    }
+    private void OnSpiderSense()
+    {
+        if (Player.CharacterData_Temp.SpiderSense)
+        {
+            if (GameManager.Instance.BossStats.gameObject.GetComponent<Dangerous>().CurrentDangerousCount > 0 && !IsSpiderSense)
+            {
+                IsSpiderSense = true;
+                Player.CharacterData_Temp.AttackBonus += 0.2f;
+                Player.CharacterData_Temp.CriticalDamageRate += 0.1f;
+                Player.CharacterData_Temp.AttackRate -= 0.1f;
+            }
+            if (GameManager.Instance.BossStats.gameObject.GetComponent<Dangerous>().CurrentDangerousCount == 0 && IsSpiderSense)
+            {
+                IsSpiderSense = false;
+                Player.CharacterData_Temp.AttackBonus -= 0.2f;
+                Player.CharacterData_Temp.CriticalDamageRate -= 0.1f;
+                Player.CharacterData_Temp.AttackRate += 0.1f;
             }
         }
     }

@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
-[CreateAssetMenu(fileName ="New CharacterData",menuName ="Data/CharacterData")]
+using UnityEngine.Rendering;
+[CreateAssetMenu(fileName = "New CharacterData", menuName = "Data/CharacterData")]
 public class CharacterData : ScriptableObject
 {
     public float MaxHealth;//总生命值
@@ -42,6 +43,9 @@ public class CharacterData : ScriptableObject
     public float WaterElementBonus;//水元素伤害加成
     public bool EasyWater;//易水效果
     public float EasyWaterTime;//易水时间
+    public bool DangerousBullet;//凶险子弹
+    public int DangerousBulletCount;//凶险子弹数量
+    public float DangerousBulletBonus;//凶险子弹加成
     [Header("特殊技能效果")]
     public bool MucusDeathRage;//粘液亡怒
     public bool FearlessFury;//无畏狂怒
@@ -98,4 +102,12 @@ public class CharacterData : ScriptableObject
     public bool GlidingWaterSurface;//水面滑翔
     public bool VenomCoagulation;//剧毒凝结
     public bool ConductiveWaterFlow;//导电水流
+    public bool DeepDangerous;//深度凶险
+    public bool DangerousWeapons;//凶险型武器
+    public bool DangerousSprint;//凶险冲刺
+    public bool SpiderSense;//蜘蛛感应
+    public bool DangerousNuclearBomb;//凶险核爆
+    public bool DangerAnger;//凶险增怒
+    public bool UndergroundToxicGel;//地下剧毒凝胶
+    public bool DangerousLife;//危险生命
 }

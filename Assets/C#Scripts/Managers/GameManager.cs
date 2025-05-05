@@ -147,6 +147,10 @@ public class GameManager : SingleTons<GameManager>
                         }
                     }
                     Defender.gameObject.GetComponent<EasyWater>().OnEasyWater(Attacker);
+                    if (Attacker.CharacterData_Temp.DangerousBullet)
+                    {
+                        Defender.gameObject.GetComponent<Dangerous>().SetDangerous(Attacker);
+                    }
                     Player().AngerValue += 0.01f;
                     if (Player().LrritableSlime)
                     {
