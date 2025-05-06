@@ -80,7 +80,7 @@ public class BossController : MonoBehaviour
         {
             FissueBox.transform.GetChild(i).gameObject.SetActive(false);
         }
-        if (Alltrident.activeSelf)
+        if (Alltrident.activeSelf == true)
         {
             Alltrident.SetActive(false);
         }

@@ -21,3 +21,8 @@ public enum Quality
     Epic,
     Legendary,
 }
+public enum CharacterType
+{
+    Player,
+    Boss,
+}

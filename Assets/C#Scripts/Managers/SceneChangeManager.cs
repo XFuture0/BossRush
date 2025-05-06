@@ -49,6 +49,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         yield return new WaitForSeconds(0.5f);
         KeyBoardManager.Instance.StopAnyKey = false;
         Boss.GetComponent<BossController>().IsStopBoss = false;
+        PlotManager.Instance.SetRoomPlotText();
     }
     public void StartGame()
     {
@@ -76,6 +77,8 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         KeyBoardManager.Instance.StopAnyKey = false;
         KeyBoardManager.Instance.StopMoveKey = false;
         Boss.GetComponent<BossController>().IsStopBoss = false;
+        PlotManager.Instance.ThisRoomPlot.CurrentIndex = 0;
+        PlotManager.Instance.SetRoomPlotText();
     }
     public void LoadGame()
     {
