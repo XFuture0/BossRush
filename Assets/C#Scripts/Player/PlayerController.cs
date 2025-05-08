@@ -87,7 +87,6 @@ public class PlayerController : MonoBehaviour
         {
             UseGatling();
         }
-        PlayerData.PlayerPosition = transform.position;
     }
     private void FixedUpdate()
     {

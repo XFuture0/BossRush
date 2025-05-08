@@ -14,5 +14,6 @@ public class BossSkillList : ScriptableObject
         public int SkillLevel;
         public bool IsOpen;
     }
+    public int BossSkillNameList_Count;
     public List<BossSkill> BossSkills = new List<BossSkill>();
 }

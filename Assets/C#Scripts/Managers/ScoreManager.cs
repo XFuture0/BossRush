@@ -7,21 +7,28 @@ public class ScoreManager : SingleTons<ScoreManager>
 {
     public Text ScoreText;
     private int LastScore;
-    public int Score;
     private int[] ScoreCount = new int[8];
     public void StartGetScore()
     {
-        Score = 0;
+        GameManager.Instance.PlayerData.ScoreCount = 0;
         InvokeRepeating("SecondAddScore",0,1);
+    }
+    public void GetScore()
+    {
+        InvokeRepeating("SecondAddScore", 0, 1);
+    }
+    public void EndGetScore()
+    {
+        CancelInvoke();
     }
     public void AddScore(int score)
     {
-        Score += score;
+        GameManager.Instance.PlayerData.ScoreCount += score;
     }
     private void SecondAddScore()
     {
-        LastScore = Score;
-        Score += 1;
+        LastScore = GameManager.Instance.PlayerData.ScoreCount;
+        GameManager.Instance.PlayerData.ScoreCount += 1;
     }
     private void Update()
     {
@@ -29,7 +36,7 @@ public class ScoreManager : SingleTons<ScoreManager>
         {
             ScoreText.color = ColorManager.Instance.UpdateColor(1);
         }
-        if(LastScore != Score)
+        if(LastScore != GameManager.Instance.PlayerData.ScoreCount)
         {
             RefreshScore();
         }
@@ -38,7 +45,7 @@ public class ScoreManager : SingleTons<ScoreManager>
     {
         ScoreText.text = "";
         var Temp = 10000000;
-        var TempScore = Score;
+        var TempScore = GameManager.Instance.PlayerData.ScoreCount;
         for(int i = 0; i < 8; i++)
         {
             var newCount = TempScore / Temp;

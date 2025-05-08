@@ -14,9 +14,7 @@ public class GameManager : SingleTons<GameManager>
     public bool BossActive = true;
     public BossSkillNameList BossSkillNameList;
     public BossSkillList BossSkillList;
-    public int BossSkillNameList_Count;
     private float CriticalDamageBonus;
-    private float BossHealth;
     private int BulletCount = 0;//记录保底头奖的子弹数量
     [Header("广播")]
     public VoidEventSO ImpulseEvent;
@@ -25,7 +23,7 @@ public class GameManager : SingleTons<GameManager>
     protected override void Awake()
     {
         base.Awake();
-        BossSkillNameList_Count = 0;
+        BossSkillList.BossSkillNameList_Count = 0;
     }
     private void Update()
     {
@@ -218,17 +216,17 @@ public class GameManager : SingleTons<GameManager>
     }
     public void RefreshBossSkill()
     {
-        if(BossSkillNameList_Count < 6)
+        if(BossSkillList.BossSkillNameList_Count < 6)
         {
             foreach (var skill in BossSkillList.BossSkills)
             {
-                if (BossSkillNameList.BossSkillNames[BossSkillNameList_Count].Name == skill.SkillName)
+                if (BossSkillNameList.BossSkillNames[BossSkillList.BossSkillNameList_Count].Name == skill.SkillName)
                 {
                     skill.IsOpen = true;
-                    if (BossSkillNameList_Count + 1 < BossSkillNameList.BossSkillNames.Count)
+                    if (BossSkillList.BossSkillNameList_Count + 1 < BossSkillNameList.BossSkillNames.Count)
                     {
                         skill.SkillLevel = 1;
-                        BossSkillNameList_Count++;
+                        BossSkillList.BossSkillNameList_Count++;
                     }
                     break;
                 }
@@ -253,9 +251,7 @@ public class GameManager : SingleTons<GameManager>
     }
     public void AddBossHealth()
     {
-        BossStats.CharacterData_Temp.MaxHealth = BossHealth;//恢复最大生命值
-        BossStats.CharacterData_Temp.MaxHealth += BossStats.CharacterData_Temp.HealCount;//增加最大生命值
-        BossHealth = BossStats.CharacterData_Temp.MaxHealth;
+        BossStats.CharacterData_Temp.MaxHealth = 100 + (PlayerData.CurrentRoomCount - 1) * 50;//恢复最大生命值
         BossStats.CharacterData_Temp.MaxHealth *= BossStats.CharacterData_Temp.HealthRate;//调整最大生命值
         BossStats.CharacterData_Temp.NowHealth = BossStats.CharacterData_Temp.MaxHealth;
     }
@@ -267,10 +263,9 @@ public class GameManager : SingleTons<GameManager>
             skill.IsOpen = false;
             skill.SkillLevel = 0;
         }
-        BossSkillNameList_Count = 0;
+        BossSkillList.BossSkillNameList_Count = 0;
         BossStats.CharacterData_Temp = Instantiate(BossStats.CharacterData);
         BossStats.gameObject.transform.position = new Vector3(-15f, 0.97f, 0);
-        BossHealth = BossStats.CharacterData_Temp.MaxHealth;
     }
     private void BossDead()
     {
@@ -278,6 +273,7 @@ public class GameManager : SingleTons<GameManager>
         BossStats.gameObject.SetActive(false);
         Instantiate(CardPaper, BossStats.transform.position, Quaternion.identity);
         SceneChangeManager.Instance.Door.SetActive(true);
+        ScoreManager.Instance.EndGetScore();
         BossDeadEvent.RaiseEvent();
     }
     public void RefreshPlayer()

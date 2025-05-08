@@ -128,7 +128,7 @@ public class BossController : MonoBehaviour
             if (SkillList.BossSkills[i].IsOpen)
             {
                 SkillProbability = UnityEngine.Random.Range(0f, 1f);
-                if (SkillProbability < SkillList.BossSkills[i].SkillProbability && (SkillList.BossSkills[i].State == State || SkillList.BossSkills[i].State == BossState.ALL) && (SkillList.BossSkills[i].Type != LastSkill || SceneChangeManager.Instance.CurrentRoomCount == 1))
+                if (SkillProbability < SkillList.BossSkills[i].SkillProbability && (SkillList.BossSkills[i].State == State || SkillList.BossSkills[i].State == BossState.ALL) && (SkillList.BossSkills[i].Type != LastSkill || GameManager.Instance.PlayerData.CurrentRoomCount == 1))
                 {
                     Skill = SkillList.BossSkills[i].Type;
                     SkillLevel = SkillList.BossSkills[i].SkillLevel;

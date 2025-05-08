@@ -28,7 +28,7 @@ public class DifficultSlot : MonoBehaviour
     {
         SceneChangeManager.Instance.ShowRoomCount(DifficultList[ThisIndex].RoomCount);
         CardManager.Instance.SetCardList(DifficultList[ThisIndex].CardList);
-        PlotManager.Instance.ThisRoomPlot = DifficultList[ThisIndex].RoomPlot;
+        PlotManager.Instance.ThisRoomPlot = Instantiate(DifficultList[ThisIndex].RoomPlot);
     }
     private void OnLeftChange()
     {
@@ -38,7 +38,7 @@ public class DifficultSlot : MonoBehaviour
             transform.GetChild(2).GetComponent<Text>().text = DifficultList[ThisIndex].Index.ToString();
             SceneChangeManager.Instance.ShowRoomCount(DifficultList[ThisIndex].RoomCount);
             CardManager.Instance.SetCardList(DifficultList[ThisIndex].CardList);
-            PlotManager.Instance.ThisRoomPlot = DifficultList[ThisIndex].RoomPlot;
+            PlotManager.Instance.ThisRoomPlot = Instantiate(DifficultList[ThisIndex].RoomPlot);
         }
     }
     private void OnRightChange()
@@ -49,7 +49,7 @@ public class DifficultSlot : MonoBehaviour
             transform.GetChild(2).GetComponent<Text>().text = DifficultList[ThisIndex].Index.ToString();
             SceneChangeManager.Instance.ShowRoomCount(DifficultList[ThisIndex].RoomCount);
             CardManager.Instance.SetCardList(DifficultList[ThisIndex].CardList);
-            PlotManager.Instance.ThisRoomPlot = DifficultList[ThisIndex].RoomPlot;
+            PlotManager.Instance.ThisRoomPlot = Instantiate(DifficultList[ThisIndex].RoomPlot);
         }
     }
 }

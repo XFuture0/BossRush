@@ -13,23 +13,23 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     public FadeCanvs Fadecanvs;
     public GameObject EndCanvs;
     public int HatIndex;
-    [Header("·¿¼äÊý")]
-    public int CurrentRoomCount;
-    public int RoomCount;
     public void ChangeScene()
     {
         StartCoroutine(OnChangeScene());
     }
     private IEnumerator OnChangeScene()
     {
+        GameManager.Instance.Boss().NowHealth = GameManager.Instance.Boss().MaxHealth;
+        DataManager.Instance.Save(DataManager.Instance.Index);//´æµµ
         KeyBoardManager.Instance.StopAnyKey = true;
-        if (CurrentRoomCount < RoomCount)
+        if (GameManager.Instance.PlayerData.CurrentRoomCount < GameManager.Instance.PlayerData.RoomCount)
         {
-            CurrentRoomCount++;
+            GameManager.Instance.PlayerData.CurrentRoomCount++;
         }
         else
         {
             EndCanvs.SetActive(true);
+            GameManager.Instance.PlayerData.CurrentRoomCount = 0;
             yield break;
         }
         Fadecanvs.FadeIn();
@@ -46,8 +46,10 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         Fadecanvs.FadeOut();
         Door.SetActive(true);
         Door.GetComponent<Door>().SetDoor();
+        ScoreManager.Instance.GetScore();
         yield return new WaitForSeconds(0.5f);
         KeyBoardManager.Instance.StopAnyKey = false;
+        KeyBoardManager.Instance.StopMoveKey = false;
         Boss.GetComponent<BossController>().IsStopBoss = false;
         PlotManager.Instance.SetRoomPlotText();
     }
@@ -57,9 +59,10 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     }
     private IEnumerator OnStartGame()
     {
+        GameManager.Instance.Boss().NowHealth = GameManager.Instance.Boss().MaxHealth;
+        DataManager.Instance.Save(DataManager.Instance.Index);//´æµµ
         KeyBoardManager.Instance.StopAnyKey = true;
-        ScoreManager.Instance.StartGetScore();
-        CurrentRoomCount = 1;
+        GameManager.Instance.PlayerData.CurrentRoomCount = 1;
         Fadecanvs.FadeIn();
         yield return new WaitForSeconds(0.1f);
         ColorManager.Instance.ChangeColor();
@@ -73,6 +76,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         Fadecanvs.FadeOut();
         Door.SetActive(true);
         Door.GetComponent<Door>().SetDoor();
+        ScoreManager.Instance.StartGetScore();
         yield return new WaitForSeconds(0.5f);
         KeyBoardManager.Instance.StopAnyKey = false;
         KeyBoardManager.Instance.StopMoveKey = false;
@@ -82,11 +86,18 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     }
     public void LoadGame()
     {
-        Startcanvs.SetActive(true);
+        if(GameManager.Instance.PlayerData.CurrentRoomCount == 0)
+        {
+            Startcanvs.SetActive(true);
+        }
+        else
+        {
+            StartCoroutine(OnChangeScene());
+        }
     }
     public void ShowRoomCount(int count)
     {
-        RoomCount = count;
+        GameManager.Instance.PlayerData.RoomCount = count;
     }
     public void EndGame()
     {

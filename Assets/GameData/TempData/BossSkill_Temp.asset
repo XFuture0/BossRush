@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc22f4014594d0a49af8028308bf323e, type: 3}
-  m_Name: PlayerData
+  m_Script: {fileID: 11500000, guid: 3e87602f768ee574d998cfcf1ecb0d4c, type: 3}
+  m_Name: BossSkill_Temp
   m_EditorClassIdentifier: 
-  RoomCount: 10
-  CurrentRoomCount: 0
-  JumpForce: 18
-  JumpDownSpeed_Max: -18
-  CoinCount: 0
+  BossSkills: []

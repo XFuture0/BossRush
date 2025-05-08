@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CardManager : SingleTons<CardManager>
 {
-    private ChooseCardList CardList;
+    public ChooseCardList CardList;
     public ChooseCardList PublicCardList;
     public GameObject CardCanvs;
     private List<ChooseCardList.Card> CardList_Choose = new List<ChooseCardList.Card>();
