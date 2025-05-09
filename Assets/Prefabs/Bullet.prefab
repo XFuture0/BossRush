@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletRotation: {x: 0, y: 0}
-  BulletSpeed: 20
+  BulletSpeed: 30
 --- !u!50 &867157472339030727
 Rigidbody2D:
   serializedVersion: 4
@@ -144,7 +144,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

@@ -160,7 +160,7 @@ public class UseCardManager : SingleTons<UseCardManager>
     private void MucousPeristalsis()
     {
         GameManager.Instance.Player().NowHealth += 2;
-        GameManager.Instance.Player().SpeedRate -= 0.1f;
+        GameManager.Instance.Player().SpeedRate -= 0.05f;
         GameManager.Instance.Boss().HealthRate += 0.1f;
         CancelInvoke();
     }

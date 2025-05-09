@@ -15,20 +15,11 @@ public class PlayerAnim : MonoBehaviour
     private void Update()
     {
         PlayerRun();
-        PlayerAttack();
+        anim.SetBool("Attack", KeyBoardManager.Instance.GetKey_Mouse0());
     }
     private void PlayerRun()
     {
         anim.SetFloat("Speed", math.abs(rb.velocity.x));
-    }
-    private void PlayerAttack()
-    {
-        if (KeyBoardManager.Instance.GetKeyDown_J())
-        {
-            anim.SetTrigger("Attack");
-            KeyBoardManager.Instance.StopMoveKey = true;
-            StartCoroutine(AttackTimer());
-        }
     }
     private IEnumerator AttackTimer()
     {

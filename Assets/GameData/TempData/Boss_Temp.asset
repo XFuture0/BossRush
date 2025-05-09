@@ -12,22 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b96ce6a610dde2458f9208d2447d5cd, type: 3}
   m_Name: Boss_Temp
   m_EditorClassIdentifier: 
-  MaxHealth: 0
-  NowHealth: 0
-  HealthRate: 0
-  Speed: 0
-  SpeedRate: 0
-  AttackPower: 0
+  MaxHealth: 495
+  NowHealth: -1.701412e+38
+  HealthRate: 1.1
+  Speed: 10
+  SpeedRate: 1
+  AttackPower: 2
   WeaponAttackPower: 0
   WeaponCount: 0
-  AttackBonus: 0
+  AttackBonus: 1
   InvincibleTime: 0
-  HealCount: 0
+  HealCount: 50
   AutoHealCount: 0
   CriticalDamageRate: 0
   CriticalDamageBonus: 0
-  DodgeRate: 0
-  AttackRate: 0
+  DodgeRate: 0.05
+  AttackRate: 0.95000005
   CanDash: 0
   DashInvincibleFrame: 0
   DashDamage: 0

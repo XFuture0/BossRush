@@ -14,7 +14,7 @@ public class EndCanvs : MonoBehaviour
     }
     private void OnEnable()
     {
-        KeyBoardManager.Instance.StopMoveKey = true;
+        KeyBoardManager.Instance.StopAnyKey = true;
         SceneChangeManager.Instance.Boss.GetComponent<BossController>().IsStopBoss = true;
     }
     private void EndGame()

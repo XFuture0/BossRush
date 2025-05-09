@@ -10,6 +10,7 @@ public class WeaponList : ScriptableObject
         public string WeaponName;
         public Sprite WeaponSprite;
         public Sprite BulletSprite;
+        
         public int AttackPower;
         [TextArea]
         public string Description;

@@ -189,13 +189,12 @@ public class PlayerController : MonoBehaviour
             if (KeyBoardManager.Instance.GetKey_Shift() && !IsHormoneGel)
             {
                 IsHormoneGel = true;
-                HormoneGelBaseSpeed = Player.CharacterData_Temp.SpeedRate;
-                Player.CharacterData_Temp.SpeedRate = 1.5f;
+                Player.CharacterData_Temp.SpeedRate += 0.5f;
             }
             else if(!KeyBoardManager.Instance.GetKey_Shift() && IsHormoneGel)
             {
                 IsHormoneGel = false;
-                Player.CharacterData_Temp.SpeedRate = HormoneGelBaseSpeed;
+                Player.CharacterData_Temp.SpeedRate -= 0.5f;
             }
         }
     }
@@ -207,6 +206,7 @@ public class PlayerController : MonoBehaviour
     {
         var NewTemp = PlayerDashPool.GetObject(DashPool);
         NewTemp.transform.position = transform.position;
+        NewTemp.transform.GetComponent<SpriteRenderer>().sprite = gameObject.GetComponent<SpriteRenderer>().sprite;
     }
     private void EndDash()
     {

@@ -21,6 +21,10 @@ public class Bullet : MonoBehaviour
         {
             spriteRenderer.color = ColorManager.Instance.UpdateColor(2);
         }
+        if (!IsHit)
+        {
+            BulletRotate();
+        }
     }
     private void FixedUpdate()
     {
@@ -65,6 +69,10 @@ public class Bullet : MonoBehaviour
             rb.velocity = Vector2.zero;
             anim.SetTrigger("Hit");
         }
+    }
+    private void BulletRotate()
+    {
+        transform.localEulerAngles += new Vector3(0, 0, 3);
     }
     private void Destorying()
     {

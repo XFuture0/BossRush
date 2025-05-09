@@ -8,6 +8,8 @@ public class GameManager : SingleTons<GameManager>
     public GameObject PlayerSlot;
     public GameObject CardPaper;
     public GameObject AngerPanel;
+    public GameObject HurtText;
+    public GameObject BossCanvs;
     public PlayerData PlayerData;
     public CharacterStats PlayerStats;
     public CharacterStats BossStats;
@@ -119,6 +121,7 @@ public class GameManager : SingleTons<GameManager>
                     StartCoroutine(CheckElasticGel());
                     break;
                 case "Boss":
+                    HurtText.GetComponent<HurtText>().SetHurtText();
                     if (Attacker.CharacterData_Temp.PoisonBullet)
                     {
                         Defender.gameObject.GetComponent<Poizon>().SetPosizon(Attacker);
@@ -154,6 +157,7 @@ public class GameManager : SingleTons<GameManager>
                     {
                         Player().AngerValue += 0.02f;
                     }
+                    BossCanvs.GetComponent<BossCanvs>().SetDeleteHealth(ColorManager.Instance.UpdateColor(2));
                     break;
                 default:
                     break;
@@ -196,13 +200,12 @@ public class GameManager : SingleTons<GameManager>
     }
     private IEnumerator CheckElasticGel()
     {
-        var BaseSpeed = Player().SpeedRate;
         if (Player().ElasticGel)
         {
-            Player().SpeedRate *= 1.5f;
+            Player().SpeedRate += 0.5f;
+            yield return new WaitForSeconds(1.5f);
+            Player().SpeedRate -= 0.5f;
         }
-        yield return new WaitForSeconds(1.5f);
-        Player().SpeedRate *= BaseSpeed;
     }
     public void UseImpulse()
     {
@@ -223,11 +226,8 @@ public class GameManager : SingleTons<GameManager>
                 if (BossSkillNameList.BossSkillNames[BossSkillList.BossSkillNameList_Count].Name == skill.SkillName)
                 {
                     skill.IsOpen = true;
-                    if (BossSkillList.BossSkillNameList_Count + 1 < BossSkillNameList.BossSkillNames.Count)
-                    {
-                        skill.SkillLevel = 1;
-                        BossSkillList.BossSkillNameList_Count++;
-                    }
+                    skill.SkillLevel = 1;
+                    BossSkillList.BossSkillNameList_Count++;
                     break;
                 }
             }

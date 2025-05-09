@@ -7,11 +7,17 @@ public class BulletBox : MonoBehaviour
 {
     public Transform bulletBox;
     public Bullet bullet;
+    private Animator anim;
     [Header("¹¥ËÙ¼ÆÊ±Æ÷")]
     public float BaseAttackSpeedTime;
     private float AttackSpeedTime_Count;
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
     private void Update()
     {
+        anim.SetBool("Shoot", KeyBoardManager.Instance.GetKey_Mouse0());
         if (AttackSpeedTime_Count >= -1)
         {
             AttackSpeedTime_Count -= Time.deltaTime;
