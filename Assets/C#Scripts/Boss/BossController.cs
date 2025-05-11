@@ -26,7 +26,7 @@ public class BossController : MonoBehaviour
     [Header("技能物品")]
     public GameObject Shootball;
     public GameObject laser;
-    public GameObject laser2;
+    public Transform LaserBox;
     public GameObject CollideForward;
     public GameObject FissueBox;
     public GameObject PlatformBox;
@@ -44,9 +44,6 @@ public class BossController : MonoBehaviour
     public bool SummonArmy;
     public bool Trident;
     [Header("技能效果")]
-    private bool StartLaser;
-    private float LaserSpeed;
-    private float LaserZ;
     private bool IsGroundFissue;
     private bool IsCollide5;
     private int TridentCount;
@@ -80,7 +77,6 @@ public class BossController : MonoBehaviour
     }
     private void OnDisable()
     {
-        laser.SetActive(false);
         for(int i = 0; i < FissueBox.transform.childCount; i++)
         {
             FissueBox.transform.GetChild(i).gameObject.SetActive(false);
@@ -98,14 +94,13 @@ public class BossController : MonoBehaviour
         {
             SkillTime_Count -= Time.deltaTime;
         }
-        if (SkillTime_Count < 0 && !IsSkill && !IsStopBoss && (Check.IsGround || NoMove))
+        if (SkillTime_Count < 0 && !IsSkill && !IsStopBoss && NoMove)
         {
             IsSkill = true;
             ChangeSkill();
         }
         PlayerPosition = GameManager.Instance.PlayerStats.gameObject.transform.position;
         Reborn();
-        LaserRotation();
         if (IsGroundFissue)
         {
             CheckGroundFissue();
@@ -222,6 +217,7 @@ public class BossController : MonoBehaviour
         if (!IsJump)
         {
             IsJump = true;
+            NoMove = false;
             anim.OnJumpUp();
         }
         rb.AddForce(ForceRotation, ForceMode2D.Impulse);
@@ -245,6 +241,7 @@ public class BossController : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         anim.OnJumpEnd();
         rb.gravityScale = Settings.BossGravity;
+        NoMove = true;
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -416,7 +413,7 @@ public class BossController : MonoBehaviour
         var SetShootBall = transform.position + new Vector3(0, 2.5f, 0);
         var NewBall = Instantiate(Shootball, SetShootBall, Quaternion.identity);
         NewBall.GetComponent<ShootBall>().IsLevel1 = true;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
         ShootBall = false;
         IsSkill = false;
         SkillTime_Count = BaseSkillTime * Boss.CharacterData_Temp.AttackRate;
@@ -426,7 +423,7 @@ public class BossController : MonoBehaviour
         var SetShootBall = transform.position + new Vector3(0, 2.5f, 0);
         var NewBall = Instantiate(Shootball, SetShootBall, Quaternion.identity);
         NewBall.GetComponent<ShootBall>().IsLevel2 = true;
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(1f);
         ShootBall = false;
         IsSkill = false;
         SkillTime_Count = BaseSkillTime * Boss.CharacterData_Temp.AttackRate;
@@ -440,7 +437,7 @@ public class BossController : MonoBehaviour
             NewBall.GetComponent<ShootBall>().IsLevel2 = true;
             yield return new WaitForSeconds(0.5f);
         }
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         ShootBall = false;
         IsSkill = false;
         SkillTime_Count = BaseSkillTime * Boss.CharacterData_Temp.AttackRate;
@@ -454,7 +451,7 @@ public class BossController : MonoBehaviour
             NewBall.GetComponent<ShootBall>().IsLevel4 = true;
             yield return new WaitForSeconds(0.5f);
         }
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         ShootBall = false;
         IsSkill = false;
         SkillTime_Count = BaseSkillTime * Boss.CharacterData_Temp.AttackRate;
@@ -468,7 +465,7 @@ public class BossController : MonoBehaviour
             NewBall.GetComponent<ShootBall>().IsLevel4 = true;
             yield return new WaitForSeconds(0.5f);
         }
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         ShootBall = false;
         IsSkill = false;
         SkillTime_Count = BaseSkillTime * Boss.CharacterData_Temp.AttackRate;
@@ -478,17 +475,12 @@ public class BossController : MonoBehaviour
         if(rb.gravityScale != 0)
         {
             BossFly();
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
         }
-        yield return new WaitForSeconds(1);
-        LaserZ = 0;
-        LaserSpeed = 0.2f;
-        laser.transform.eulerAngles = new Vector3(0, 0, 0);
-        laser.SetActive(true);
-        StartLaser = true;
-        yield return new WaitForSeconds(5);
-        laser.SetActive(false);
-        StartLaser = false;
+        yield return new WaitForSeconds(0.5f);
+        var NewLaser = Instantiate(laser, LaserBox);
+        NewLaser.GetComponent<Laser>().LaserSpeed = 0.2f;
+        yield return new WaitForSeconds(1f);
         Laser = false;
         IsSkill = false;
         SkillTime_Count = BaseSkillTime * Boss.CharacterData_Temp.AttackRate;
@@ -498,17 +490,12 @@ public class BossController : MonoBehaviour
         if (rb.gravityScale != 0)
         {
             BossFly();
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
         }
+        yield return new WaitForSeconds(0.5f);
+        var NewLaser = Instantiate(laser, LaserBox);
+        NewLaser.GetComponent<Laser>().LaserSpeed = 0.4f;
         yield return new WaitForSeconds(1);
-        LaserZ = 0;
-        LaserSpeed = 0.4f;
-        laser.transform.eulerAngles = new Vector3(0, 0, 0);
-        laser.SetActive(true);
-        StartLaser = true;
-        yield return new WaitForSeconds(5);
-        laser.SetActive(false);
-        StartLaser = false;
         Laser = false;
         IsSkill = false;
         SkillTime_Count = BaseSkillTime * Boss.CharacterData_Temp.AttackRate;
@@ -518,20 +505,15 @@ public class BossController : MonoBehaviour
         if (rb.gravityScale != 0)
         {
             BossFly();
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
         }
+        yield return new WaitForSeconds(0.5f);
+        var NewLaser1 = Instantiate(laser, LaserBox);
+        NewLaser1.GetComponent<Laser>().LaserSpeed = 0.4f;
+        var NewLaser2 = Instantiate(laser, LaserBox);
+        NewLaser2.transform.localScale = new Vector3(-2, 2, 1);
+        NewLaser2.GetComponent<Laser>().LaserSpeed = 0.4f;
         yield return new WaitForSeconds(1);
-        LaserZ = 0;
-        LaserSpeed = 0.4f;
-        laser.transform.eulerAngles = new Vector3(0, 0, 0);
-        laser2.transform.eulerAngles = new Vector3(0, 0, 0);
-        laser.SetActive(true);
-        laser2.SetActive(true);
-        StartLaser = true;
-        yield return new WaitForSeconds(5);
-        laser.SetActive(false);
-        laser2.SetActive(false);
-        StartLaser = false;
         Laser = false;
         IsSkill = false;
         SkillTime_Count = BaseSkillTime * Boss.CharacterData_Temp.AttackRate;
@@ -541,22 +523,17 @@ public class BossController : MonoBehaviour
         if (rb.gravityScale != 0)
         {
             BossFly();
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
         }
+        yield return new WaitForSeconds(0.5f);
+        var NewLaser1 = Instantiate(laser, LaserBox);
+        NewLaser1.GetComponent<Laser>().LaserSpeed = 0.4f;
+        var NewLaser2 = Instantiate(laser, LaserBox);
+        NewLaser2.transform.localScale = new Vector3(-2, 2, 1);
+        NewLaser2.GetComponent<Laser>().LaserSpeed = 0.4f;
+        NewLaser1.GetComponent<LineRenderer>().startWidth = 2f;
+        NewLaser2.GetComponent<LineRenderer>().startWidth = 2f;
         yield return new WaitForSeconds(1);
-        LaserZ = 0;
-        LaserSpeed = 0.4f;
-        laser.transform.eulerAngles = new Vector3(0, 0, 0);
-        laser2.transform.eulerAngles = new Vector3(0, 0, 0);
-        laser.GetComponent<LineRenderer>().startWidth = 2f;
-        laser2.GetComponent<LineRenderer>().startWidth = 2f;
-        laser.SetActive(true);
-        laser2.SetActive(true);
-        StartLaser = true;
-        yield return new WaitForSeconds(5);
-        laser.SetActive(false);
-        laser2.SetActive(false);
-        StartLaser = false;
         Laser = false;
         IsSkill = false;
         SkillTime_Count = BaseSkillTime * Boss.CharacterData_Temp.AttackRate;
@@ -566,42 +543,22 @@ public class BossController : MonoBehaviour
         if (rb.gravityScale != 0)
         {
             BossFly();
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
         }
+        yield return new WaitForSeconds(0.5f);
+        var NewLaser1 = Instantiate(laser, LaserBox);
+        NewLaser1.GetComponent<Laser>().LaserSpeed = 0.4f;
+        var NewLaser2 = Instantiate(laser, LaserBox);
+        NewLaser2.transform.localScale = new Vector3(-2, 2, 1);
+        NewLaser2.GetComponent<Laser>().LaserSpeed = 0.4f;
+        NewLaser1.GetComponent<LineRenderer>().startWidth = 2f;
+        NewLaser2.GetComponent<LineRenderer>().startWidth = 2f;
+        NewLaser1.GetComponent<Laser>().IsLevel5 = true;
+        NewLaser2.GetComponent<Laser>().IsLevel5 = true;
         yield return new WaitForSeconds(1);
-        LaserZ = 0;
-        LaserSpeed = 0.4f;
-        laser.transform.eulerAngles = new Vector3(0, 0, 0);
-        laser2.transform.eulerAngles = new Vector3(0, 0, 0);
-        laser.GetComponent<LineRenderer>().startWidth = 2f;
-        laser2.GetComponent<LineRenderer>().startWidth = 2f;
-        laser.GetComponent<Laser>().IsLevel5 = true;
-        laser2.GetComponent<Laser>().IsLevel5 = true;
-        laser.SetActive(true);
-        laser2.SetActive(true);
-        StartLaser = true;
-        yield return new WaitForSeconds(5);
-        laser.SetActive(false);
-        laser2.SetActive(false);
-        StartLaser = false;
         Laser = false;
         IsSkill = false;
         SkillTime_Count = BaseSkillTime * Boss.CharacterData_Temp.AttackRate;
-    }
-    private void LaserRotation()
-    {
-        if (StartLaser)
-        {
-            LaserZ = Mathf.Lerp(LaserZ, 200, LaserSpeed * Time.deltaTime);
-            if (laser.activeSelf)
-            {
-                laser.transform.eulerAngles = new Vector3(0, 0, LaserZ);
-            }
-            if (laser2.activeSelf)
-            {
-                laser2.transform.eulerAngles = new Vector3(0, 0, -LaserZ);
-            }
-        }
     }
     private IEnumerator UseGroundFissue()
     {
@@ -697,7 +654,7 @@ public class BossController : MonoBehaviour
             IsCollideLeft = true;
             CollideForward.transform.localScale = new Vector3(-1,1, 1);
         }
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.8f);
         CollideForward.transform.GetChild(0).gameObject.SetActive(true);
         if(!IsCollideLeft)//右
         {
@@ -707,11 +664,11 @@ public class BossController : MonoBehaviour
         {
             rb.AddForce(Vector2.left * 20, ForceMode2D.Impulse);
         }
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.2f);
         rb.velocity = Vector2.zero;
         CollideForward.transform.GetChild(0).gameObject.SetActive(false);
         CollideForward.SetActive(false);
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.2f);
         rb.gravityScale = Settings.BossGravity;
         Collide = false;
         IsSkill = false;
@@ -743,7 +700,7 @@ public class BossController : MonoBehaviour
                 IsCollideLeft = true;
                 CollideForward.transform.localScale = new Vector3(-1, 1, 1);
             }
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.8f);
             if (!IsCollideLeft)//右
             {
                 rb.AddForce(Vector2.right * 30, ForceMode2D.Impulse);
@@ -753,7 +710,7 @@ public class BossController : MonoBehaviour
                 rb.AddForce(Vector2.left * 30, ForceMode2D.Impulse);
             }
             CollideForward.transform.GetChild(0).gameObject.SetActive(true);
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.2f);
             rb.velocity = Vector2.zero;
             CollideForward.transform.GetChild(0).gameObject.SetActive(false);
             CollideForward.SetActive(false);
@@ -790,7 +747,7 @@ public class BossController : MonoBehaviour
                 IsCollideLeft = true;
                 CollideForward.transform.localScale = new Vector3(-1, 1, 1);
             }
-            yield return new WaitForSeconds(0.7f);
+            yield return new WaitForSeconds(0.6f);
             if (!IsCollideLeft)//右
             {
                 rb.AddForce(Vector2.right * 30, ForceMode2D.Impulse);
@@ -800,7 +757,7 @@ public class BossController : MonoBehaviour
                 rb.AddForce(Vector2.left * 30, ForceMode2D.Impulse);
             }
             CollideForward.transform.GetChild(0).gameObject.SetActive(true);
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.2f);
             rb.velocity = Vector2.zero;
             CollideForward.transform.GetChild(0).gameObject.SetActive(false);
             CollideForward.SetActive(false);
@@ -838,7 +795,7 @@ public class BossController : MonoBehaviour
                 IsCollideLeft = true;
                 CollideForward.transform.localScale = new Vector3(-1, 1, 1);
             }
-            yield return new WaitForSeconds(0.7f);
+            yield return new WaitForSeconds(0.6f);
             if (!IsCollideLeft)//右
             {
                 rb.AddForce(Vector2.right * 30, ForceMode2D.Impulse);
@@ -848,7 +805,7 @@ public class BossController : MonoBehaviour
                 rb.AddForce(Vector2.left * 30, ForceMode2D.Impulse);
             }
             CollideForward.transform.GetChild(0).gameObject.SetActive(true);
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.2f);
             rb.velocity = Vector2.zero;
             CollideForward.transform.GetChild(0).gameObject.SetActive(false);
             CollideForward.SetActive(false);
@@ -887,7 +844,7 @@ public class BossController : MonoBehaviour
                 IsCollideLeft = true;
                 CollideForward.transform.localScale = new Vector3(-1, 1, 1);
             }
-            yield return new WaitForSeconds(0.7f);
+            yield return new WaitForSeconds(0.6f);
             if (!IsCollideLeft)//右
             {
                 rb.AddForce(Vector2.right * 30, ForceMode2D.Impulse);
@@ -897,7 +854,7 @@ public class BossController : MonoBehaviour
                 rb.AddForce(Vector2.left * 30, ForceMode2D.Impulse);
             }
             CollideForward.transform.GetChild(0).gameObject.SetActive(true);
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.2f);
             rb.velocity = Vector2.zero;
             CollideForward.transform.GetChild(0).gameObject.SetActive(false);
             CollideForward.SetActive(false);
@@ -912,7 +869,6 @@ public class BossController : MonoBehaviour
     }
     private IEnumerator UseSummonArmy_1()
     {
-        yield return new WaitForSeconds(0.3f);
         if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(-3,0), Check.RightDownPo + (Vector2)transform.position + new Vector2(-3, 0), Check.Ground))
         {
             var NewArmy = Instantiate(BossArmy,transform.position + new Vector3(-3,0,0),Quaternion.identity);
@@ -923,14 +879,13 @@ public class BossController : MonoBehaviour
             var NewArmy = Instantiate(BossArmy, transform.position + new Vector3(3, 0, 0), Quaternion.identity);
             NewArmy.GetComponent<SpriteRenderer>().color = ColorManager.Instance.UpdateColor(2);
         }
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.1f);
         SummonArmy = false;
         IsSkill = false;
         SkillTime_Count = BaseSkillTime * Boss.CharacterData_Temp.AttackRate;
     }
     private IEnumerator UseSummonArmy_2()
     {
-        yield return new WaitForSeconds(0.3f);
         for(int i = 0; i < 3; i++)
         {
             if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(-3, 0), Check.RightDownPo + (Vector2)transform.position + new Vector2(-3, 0), Check.Ground))
@@ -951,7 +906,6 @@ public class BossController : MonoBehaviour
     }
     private IEnumerator UseSummonArmy_3()
     {
-        yield return new WaitForSeconds(0.3f);
         for (int i = 0; i < 3; i++)
         {
             if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(-3, 0), Check.RightDownPo + (Vector2)transform.position + new Vector2(-3, 0), Check.Ground))
@@ -974,7 +928,6 @@ public class BossController : MonoBehaviour
     }
     private IEnumerator UseSummonArmy_4()
     {
-        yield return new WaitForSeconds(0.3f);
         for (int i = 0; i < 3; i++)
         {
             if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(-3, 0), Check.RightDownPo + (Vector2)transform.position + new Vector2(-3, 0), Check.Ground))
@@ -999,7 +952,6 @@ public class BossController : MonoBehaviour
     }
     private IEnumerator UseSummonArmy_5()
     {
-        yield return new WaitForSeconds(0.3f);
         for (int i = 0; i < 3; i++)
         {
             if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(-3, 0), Check.RightDownPo + (Vector2)transform.position + new Vector2(-3, 0), Check.Ground))

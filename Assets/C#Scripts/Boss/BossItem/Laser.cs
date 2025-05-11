@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Laser : MonoBehaviour
 {
@@ -10,11 +11,18 @@ public class Laser : MonoBehaviour
     public LayerMask Ground2;
     private LineRenderer line;
     public bool IsLevel5;
+    private float LaserZ;
+    public float LaserSpeed;
     [Header(" ‹…Àº∆ ±∆˜")]
     private float HurtTime_Count;
     private void Awake()
     {
         line = GetComponent<LineRenderer>();
+    }
+    private void OnEnable()
+    {
+        LaserZ = 0;
+        Invoke("DestorySelf", 5);
     }
     private void Update()
     {
@@ -35,6 +43,7 @@ public class Laser : MonoBehaviour
         {
             LaserLayerMask = Ground1;
         }
+        LaserRotation();
     }
     private void UpdateLongth()
     {
@@ -51,8 +60,21 @@ public class Laser : MonoBehaviour
             }
         }
     }
-    private void OnDisable()
+    private void LaserRotation()
     {
-        IsLevel5 = false;
+        if(transform.localScale.x == 2)
+        {
+            LaserZ = Mathf.Lerp(LaserZ, 200, LaserSpeed * Time.deltaTime);
+            transform.eulerAngles = new Vector3(0, 0, LaserZ);
+        }
+        if(transform.localScale.x == -2)
+        {
+            LaserZ = Mathf.Lerp(LaserZ, -200, LaserSpeed * Time.deltaTime);
+            transform.eulerAngles = new Vector3(0, 0, LaserZ);
+        }
+    }
+    private void DestorySelf()
+    {
+        Destroy(gameObject);
     }
 }
