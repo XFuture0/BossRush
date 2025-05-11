@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     private float AngerTime = 1;
     public delegate void AngerSkill();
     public AngerSkill angerskill;
+    public GameObject AngerRing;
     [Header("¡Ÿ ± Ù–‘")]
     private float JumpForce;
     private float JumpDownSpeed_Max;
@@ -294,6 +295,8 @@ public class PlayerController : MonoBehaviour
         if (Player.CharacterData_Temp.AngerValue >= GameManager.Instance.Player().FullAnger && KeyBoardManager.Instance.GetKeyDown_F() && !IsAnger)
         {
             IsAnger = true;
+            AngerRing.SetActive(true);
+            GameManager.Instance.UseFrameDrop();//∂Ÿ÷°
             BaseAttackRate = Player.CharacterData_Temp.AttackRate;
             BaseBulletSpeed = bullet.BulletSpeed;
             bullet.BulletSpeed = 30;
@@ -308,6 +311,7 @@ public class PlayerController : MonoBehaviour
         if (AngerTime_Count < 0 && IsAnger)
         {
             IsAnger = false;
+            AngerRing.SetActive(false);
             Player.CharacterData_Temp.AttackRate = BaseAttackRate;
             bullet.BulletSpeed = BaseBulletSpeed;
             Player.CharacterData_Temp.AngerValue = 0;
@@ -318,6 +322,8 @@ public class PlayerController : MonoBehaviour
         if (Player.CharacterData_Temp.AngerValue >= GameManager.Instance.Player().FullAnger && KeyBoardManager.Instance.GetKeyDown_F() && !IsAnger)
         {
             IsAnger = true;
+            AngerRing.SetActive(true);
+            GameManager.Instance.UseFrameDrop();//∂Ÿ÷°
             Player.Invincible = true;
             Player.InvincibleTime_Count = Player.CharacterData_Temp.AngerTime;
             BaseBulletSpeed = bullet.BulletSpeed;
@@ -336,6 +342,7 @@ public class PlayerController : MonoBehaviour
         if (AngerTime_Count < 0 && IsAnger)
         {
             IsAnger = false;
+            AngerRing.SetActive(false);
             bullet.BulletSpeed = BaseBulletSpeed;
             Player.CharacterData_Temp.AttackRate = BaseAttackRate;
             Player.CharacterData_Temp.SpeedRate = BaseSpeed;
@@ -347,6 +354,8 @@ public class PlayerController : MonoBehaviour
         if (Player.CharacterData_Temp.AngerValue >= GameManager.Instance.Player().FullAnger && KeyBoardManager.Instance.GetKeyDown_F() && !IsAnger)
         {
             IsAnger = true;
+            AngerRing.SetActive(true);
+            GameManager.Instance.UseFrameDrop();//∂Ÿ÷°
             BaseBulletSpeed = bullet.BulletSpeed;
             bullet.BulletSpeed = 30;
             BasePoizonDamage = Player.CharacterData_Temp.PoizonDamage;
@@ -363,6 +372,7 @@ public class PlayerController : MonoBehaviour
         if (AngerTime_Count < 0 && IsAnger)
         {
             IsAnger = false;
+            AngerRing.SetActive(false);
             bullet.BulletSpeed = BaseBulletSpeed;
             Player.CharacterData_Temp.AttackRate = BaseAttackRate;
             Player.CharacterData_Temp.PoizonDamage = BasePoizonDamage;
@@ -374,6 +384,8 @@ public class PlayerController : MonoBehaviour
         if (Player.CharacterData_Temp.AngerValue >= GameManager.Instance.Player().FullAnger && KeyBoardManager.Instance.GetKeyDown_F() && !IsAnger)
         {
             IsAnger = true;
+            AngerRing.SetActive(true);
+            GameManager.Instance.UseFrameDrop();//∂Ÿ÷°
             BaseBulletSpeed = bullet.BulletSpeed;
             bullet.BulletSpeed = 30;
             BaseThunderRate = Player.CharacterData_Temp.ThunderRate;
@@ -388,6 +400,7 @@ public class PlayerController : MonoBehaviour
         if (AngerTime_Count < 0 && IsAnger)
         {
             IsAnger = false;
+            AngerRing.SetActive(false);
             bullet.BulletSpeed = BaseBulletSpeed;
             Player.CharacterData_Temp.ThunderRate = BaseThunderRate;
             Player.CharacterData_Temp.AngerValue = 0;
@@ -398,6 +411,8 @@ public class PlayerController : MonoBehaviour
         if (Player.CharacterData_Temp.AngerValue >= GameManager.Instance.Player().FullAnger && KeyBoardManager.Instance.GetKeyDown_F() && !IsAnger)
         {
             IsAnger = true;
+            AngerRing.SetActive(true);
+            GameManager.Instance.UseFrameDrop();//∂Ÿ÷°
             BaseBulletSpeed = bullet.BulletSpeed;
             bullet.BulletSpeed = 30;
             BaseMaxVulnerabilityRate = Player.CharacterData_Temp.MaxVulnerabilityRate;
@@ -412,6 +427,7 @@ public class PlayerController : MonoBehaviour
         if (AngerTime_Count < 0 && IsAnger)
         {
             IsAnger = false;
+            AngerRing.SetActive(false);
             bullet.BulletSpeed = BaseBulletSpeed;
             Player.CharacterData_Temp.MaxVulnerabilityRate = BaseMaxVulnerabilityRate;
             Player.CharacterData_Temp.AngerValue = 0;
@@ -422,6 +438,8 @@ public class PlayerController : MonoBehaviour
         if (Player.CharacterData_Temp.AngerValue >= GameManager.Instance.Player().FullAnger && KeyBoardManager.Instance.GetKeyDown_F() && !IsAnger)
         {
             IsAnger = true;
+            AngerRing.SetActive(true);
+            GameManager.Instance.UseFrameDrop();//∂Ÿ÷°
             BaseBulletSpeed = bullet.BulletSpeed;
             bullet.BulletSpeed = 30;
             BaseWaterElementBonus = Player.CharacterData_Temp.WaterElementBonus;
@@ -438,6 +456,7 @@ public class PlayerController : MonoBehaviour
         if (AngerTime_Count < 0 && IsAnger)
         {
             IsAnger = false;
+            AngerRing.SetActive(false);
             bullet.BulletSpeed = BaseBulletSpeed;
             Player.CharacterData_Temp.WaterElementBonus = BaseWaterElementBonus;
             Player.CharacterData_Temp.AttackRate = BaseAttackRate;

@@ -7,9 +7,12 @@ public class BossController : MonoBehaviour
 {
     private Rigidbody2D rb;
     private BossCheck Check;
+    private BossAnim anim;
     private bool IsSkill;
     public bool IsStopBoss;
     private bool NoMove;
+    public bool IsJump;
+    private bool IsCollideLeft;
     private float SkillProbability;
     private SkillType Skill;
     private int SkillLevel;
@@ -24,6 +27,7 @@ public class BossController : MonoBehaviour
     public GameObject Shootball;
     public GameObject laser;
     public GameObject laser2;
+    public GameObject CollideForward;
     public GameObject FissueBox;
     public GameObject PlatformBox;
     public GameObject BossArmy;
@@ -59,6 +63,7 @@ public class BossController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         Check = GetComponent<BossCheck>();
         Boss = GetComponent<CharacterStats>();
+        anim = GetComponent<BossAnim>();
     }
     private void Start()
     {
@@ -80,10 +85,7 @@ public class BossController : MonoBehaviour
         {
             FissueBox.transform.GetChild(i).gameObject.SetActive(false);
         }
-        if (Alltrident.activeSelf == true)
-        {
-            Alltrident.SetActive(false);
-        }
+        Alltrident.SetActive(false);
         StopAllCoroutines();
     }
     private void DestoryIng()
@@ -108,6 +110,7 @@ public class BossController : MonoBehaviour
         {
             CheckGroundFissue();
         }
+        OnJump();
     }
     private void Reborn()
     {
@@ -189,11 +192,11 @@ public class BossController : MonoBehaviour
     }
     private void CanWalk()
     {
-        if(WalkTime_Count > -1 && !IsStopBoss && !IsSkill && !NoMove)
+        if(WalkTime_Count > -1 && !IsStopBoss && !IsSkill && !NoMove && !IsJump)
         {
             WalkTime_Count -= Time.deltaTime;
         }
-        if(WalkTime_Count <= 0 && !IsStopBoss && !IsSkill && !NoMove)
+        if(WalkTime_Count <= 0 && !IsStopBoss && !IsSkill && !NoMove && !IsJump)
         {
             WalkTime_Count = UnityEngine.Random.Range(1f, 3f);
             Walk();
@@ -207,7 +210,7 @@ public class BossController : MonoBehaviour
         }
         var ForceRotation = new Vector2(0, 0);
         var RealSpeed = Boss.CharacterData_Temp.Speed * Boss.CharacterData_Temp.SpeedRate;
-        var Walkspeed = UnityEngine.Random.Range(RealSpeed * 0.8f, RealSpeed * 1.5f);
+        var Walkspeed = UnityEngine.Random.Range(RealSpeed * 1.2f, RealSpeed * 1.7f);
         if (GameManager.Instance.PlayerStats.gameObject.transform.position.x >= transform.position.x)//‘⁄”“±ﬂ
         {
             ForceRotation = new Vector2(1 * Walkspeed, 1 * Walkspeed * 2f);
@@ -216,7 +219,32 @@ public class BossController : MonoBehaviour
         {
             ForceRotation = new Vector2(-1 * Walkspeed, 1 * Walkspeed * 2f);
         }
+        if (!IsJump)
+        {
+            IsJump = true;
+            anim.OnJumpUp();
+        }
         rb.AddForce(ForceRotation, ForceMode2D.Impulse);
+    }
+    private void OnJump()
+    {
+        if(IsJump && rb.velocity.y <= 0)
+        {
+            anim.OnJumpDown();
+            rb.gravityScale = 15f;
+            if (rb.velocity == Vector2.zero)
+            {
+                IsJump = false;
+                StartCoroutine(OnJumpEnd());
+            }
+        }
+    }
+    private IEnumerator OnJumpEnd()
+    {
+        anim.OnJumpOnGround();
+        yield return new WaitForSeconds(0.3f);
+        anim.OnJumpEnd();
+        rb.gravityScale = Settings.BossGravity;
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -658,17 +686,31 @@ public class BossController : MonoBehaviour
         {
             transform.position = NewPosition + new Vector2(9.06f, 0);
         }
+        CollideForward.SetActive(true);
+        if (PlayerPosition.x - transform.position.x >= 0)//”“
+        {
+            IsCollideLeft = false;
+            CollideForward.transform.localScale = new Vector3(1, 1, 1);
+        }
+        else if (PlayerPosition.x - transform.position.x < 0)//◊Û
+        {
+            IsCollideLeft = true;
+            CollideForward.transform.localScale = new Vector3(-1,1, 1);
+        }
         yield return new WaitForSeconds(1);
-        if(PlayerPosition.x - transform.position.x >= 0)//”“
+        CollideForward.transform.GetChild(0).gameObject.SetActive(true);
+        if(!IsCollideLeft)//”“
         {
             rb.AddForce(Vector2.right * 20, ForceMode2D.Impulse);
         }
-        else if (PlayerPosition.x - transform.position.x < 0)//◊Û
+        else if (IsCollideLeft)//◊Û
         {
             rb.AddForce(Vector2.left * 20, ForceMode2D.Impulse);
         }
         yield return new WaitForSeconds(0.3f);
         rb.velocity = Vector2.zero;
+        CollideForward.transform.GetChild(0).gameObject.SetActive(false);
+        CollideForward.SetActive(false);
         yield return new WaitForSeconds(0.3f);
         rb.gravityScale = Settings.BossGravity;
         Collide = false;
@@ -690,17 +732,31 @@ public class BossController : MonoBehaviour
             {
                 transform.position = NewPosition + new Vector2(9.06f, 0);
             }
-            yield return new WaitForSeconds(1);
+            CollideForward.SetActive(true);
             if (PlayerPosition.x - transform.position.x >= 0)//”“
             {
-                rb.AddForce(Vector2.right * 30, ForceMode2D.Impulse);
+                IsCollideLeft = false;
+                CollideForward.transform.localScale = new Vector3(1, 1, 1);
             }
             else if (PlayerPosition.x - transform.position.x < 0)//◊Û
             {
+                IsCollideLeft = true;
+                CollideForward.transform.localScale = new Vector3(-1, 1, 1);
+            }
+            yield return new WaitForSeconds(1);
+            if (!IsCollideLeft)//”“
+            {
+                rb.AddForce(Vector2.right * 30, ForceMode2D.Impulse);
+            }
+            else if (IsCollideLeft)//◊Û
+            {
                 rb.AddForce(Vector2.left * 30, ForceMode2D.Impulse);
             }
+            CollideForward.transform.GetChild(0).gameObject.SetActive(true);
             yield return new WaitForSeconds(0.3f);
             rb.velocity = Vector2.zero;
+            CollideForward.transform.GetChild(0).gameObject.SetActive(false);
+            CollideForward.SetActive(false);
             yield return new WaitForSeconds(0.2f);
         }
         rb.gravityScale = Settings.BossGravity;
@@ -723,17 +779,32 @@ public class BossController : MonoBehaviour
             {
                 transform.position = NewPosition + new Vector2(9.06f, 0);
             }
-            yield return new WaitForSeconds(0.7f);
+            CollideForward.SetActive(true);
             if (PlayerPosition.x - transform.position.x >= 0)//”“
             {
-                rb.AddForce(Vector2.right * 30, ForceMode2D.Impulse);
+                IsCollideLeft = false;
+                CollideForward.transform.localScale = new Vector3(1, 1, 1);
             }
             else if (PlayerPosition.x - transform.position.x < 0)//◊Û
             {
+                IsCollideLeft = true;
+                CollideForward.transform.localScale = new Vector3(-1, 1, 1);
+            }
+            yield return new WaitForSeconds(0.7f);
+            if (!IsCollideLeft)//”“
+            {
+                rb.AddForce(Vector2.right * 30, ForceMode2D.Impulse);
+            }
+            else if (IsCollideLeft)//◊Û
+            {
                 rb.AddForce(Vector2.left * 30, ForceMode2D.Impulse);
             }
+            CollideForward.transform.GetChild(0).gameObject.SetActive(true);
             yield return new WaitForSeconds(0.3f);
             rb.velocity = Vector2.zero;
+            CollideForward.transform.GetChild(0).gameObject.SetActive(false);
+            CollideForward.SetActive(false);
+            yield return new WaitForSeconds(0.1f);
         }
         yield return new WaitForSeconds(0.1f);
         rb.gravityScale = Settings.BossGravity;
@@ -756,17 +827,32 @@ public class BossController : MonoBehaviour
             {
                 transform.position = NewPosition + new Vector2(9.06f, 0);
             }
-            yield return new WaitForSeconds(0.7f);
+            CollideForward.SetActive(true);
             if (PlayerPosition.x - transform.position.x >= 0)//”“
             {
-                rb.AddForce(Vector2.right * 30, ForceMode2D.Impulse);
+                IsCollideLeft = false;
+                CollideForward.transform.localScale = new Vector3(1, 1, 1);
             }
             else if (PlayerPosition.x - transform.position.x < 0)//◊Û
             {
+                IsCollideLeft = true;
+                CollideForward.transform.localScale = new Vector3(-1, 1, 1);
+            }
+            yield return new WaitForSeconds(0.7f);
+            if (!IsCollideLeft)//”“
+            {
+                rb.AddForce(Vector2.right * 30, ForceMode2D.Impulse);
+            }
+            else if (IsCollideLeft)//◊Û
+            {
                 rb.AddForce(Vector2.left * 30, ForceMode2D.Impulse);
             }
+            CollideForward.transform.GetChild(0).gameObject.SetActive(true);
             yield return new WaitForSeconds(0.3f);
             rb.velocity = Vector2.zero;
+            CollideForward.transform.GetChild(0).gameObject.SetActive(false);
+            CollideForward.SetActive(false);
+            yield return new WaitForSeconds(0.1f);
         }
         yield return new WaitForSeconds(0.1f);
         rb.gravityScale = Settings.BossGravity;
@@ -790,17 +876,32 @@ public class BossController : MonoBehaviour
             {
                 transform.position = NewPosition + new Vector2(9.06f, 0);
             }
-            yield return new WaitForSeconds(0.7f);
+            CollideForward.SetActive(true);
             if (PlayerPosition.x - transform.position.x >= 0)//”“
             {
-                rb.AddForce(Vector2.right * 30, ForceMode2D.Impulse);
+                IsCollideLeft = false;
+                CollideForward.transform.localScale = new Vector3(1, 1, 1);
             }
             else if (PlayerPosition.x - transform.position.x < 0)//◊Û
             {
+                IsCollideLeft = true;
+                CollideForward.transform.localScale = new Vector3(-1, 1, 1);
+            }
+            yield return new WaitForSeconds(0.7f);
+            if (!IsCollideLeft)//”“
+            {
+                rb.AddForce(Vector2.right * 30, ForceMode2D.Impulse);
+            }
+            else if (IsCollideLeft)//◊Û
+            {
                 rb.AddForce(Vector2.left * 30, ForceMode2D.Impulse);
             }
+            CollideForward.transform.GetChild(0).gameObject.SetActive(true);
             yield return new WaitForSeconds(0.3f);
             rb.velocity = Vector2.zero;
+            CollideForward.transform.GetChild(0).gameObject.SetActive(false);
+            CollideForward.SetActive(false);
+            yield return new WaitForSeconds(0.1f);
         }
         yield return new WaitForSeconds(0.1f);
         rb.gravityScale = Settings.BossGravity;

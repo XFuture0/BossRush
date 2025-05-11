@@ -38,7 +38,6 @@ public class ColorManager : SingleTons<ColorManager>
         BossHealthBox.transform.GetChild(0).GetComponent<Image>().color = ColorData.ColorLists[ColorIndex].Color2;
         BossHealthBox.transform.GetChild(1).GetComponent<Image>().color = ColorData.ColorLists[ColorIndex].Color2;
         Back.GetComponent<Tilemap>().color = ColorData.ColorLists[ColorIndex].Color2;
-        HurtText.GetComponent<Text>().color = new Color(ColorData.ColorLists[ColorIndex].Color2.r, ColorData.ColorLists[ColorIndex].Color2.g, ColorData.ColorLists[ColorIndex].Color2.b, HurtText.GetComponent<Text>().color.a);
     }
     public Color UpdateColor(int Index)
     {

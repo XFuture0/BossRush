@@ -26,3 +26,9 @@ public enum CharacterType
     Player,
     Boss,
 }
+public enum AttackType 
+{ 
+    HitBoss,
+    HitBoss_Critical
+}
+

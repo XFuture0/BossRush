@@ -46,7 +46,6 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         Fadecanvs.FadeOut();
         Door.SetActive(true);
         Door.GetComponent<Door>().SetDoor();
-        ScoreManager.Instance.GetScore();
         yield return new WaitForSeconds(0.5f);
         KeyBoardManager.Instance.StopAnyKey = false;
         KeyBoardManager.Instance.StopMoveKey = false;

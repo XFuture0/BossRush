@@ -8,7 +8,6 @@ public class BossCanvs : MonoBehaviour
     public Image BossHealth;
     public GameObject DeleteHealth;
     public Transform DeleteHealthTemp;
-    public Transform DeleteHealthBox;
     private float HealthLevel = 1;
     private void Update()
     {
@@ -16,9 +15,13 @@ public class BossCanvs : MonoBehaviour
     }
     private void UpdateHealth()
     {
-        if(GameManager.Instance.BossStats.CharacterData_Temp.NowHealth <= 0)
+        if(GameManager.Instance.Boss().NowHealth <= 0)
         {
             BossHealth.gameObject.transform.localScale = new Vector3(0, 1, 1);
+        }
+        if(GameManager.Instance.Boss().NowHealth == GameManager.Instance.Boss().MaxHealth)
+        {
+            BossHealth.gameObject.transform.localScale = new Vector3(1, 1, 1);
         }
     }
     public void SetDeleteHealth(Color color)//记得传其他类型的颜色

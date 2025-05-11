@@ -10,7 +10,7 @@ public class ShootBall : MonoBehaviour
     private Vector3 PlayerPosition;
     public float Speed;
     private float NowSpeed;
-    private float WaitTime;
+    private bool IsShoot;
     private bool IsHit;
     public bool IsLevel1;
     public bool IsLevel2;
@@ -23,9 +23,7 @@ public class ShootBall : MonoBehaviour
     private void OnEnable()
     {
         IsHit = false;
-        WaitTime = 1;
         NowSpeed = Speed;
-        InvokeRepeating("SpeedUp", 1, 0.2f);
     }
     private void Update()
     {
@@ -37,11 +35,15 @@ public class ShootBall : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        WaitTime -= Time.deltaTime;
-        if (WaitTime <= 0 && !IsHit)
+        if (IsShoot && !IsHit)
         {
             TrackPlayer();
         }
+    }
+    private void OnTrack()
+    {
+        IsShoot = true;
+        InvokeRepeating("SpeedUp", 0, 0.2f);
     }
     private void TrackPlayer()
     {

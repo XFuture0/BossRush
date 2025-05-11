@@ -36,6 +36,13 @@ public class GameManager : SingleTons<GameManager>
     }
     public void Attack(CharacterStats Attacker,CharacterStats Defender)
     {
+        AttackType attackType = AttackType.HitBoss;
+        int attackScore = 20;
+        if(Defender.gameObject.tag == "Boss")
+        {
+            attackType = AttackType.HitBoss;
+            attackScore = 20;
+        }
         if (Defender.CharacterData_Temp.ShengqiCore)
         {
             if(Defender.CharacterData_Temp.AngerValue >= Defender.CharacterData_Temp.FullAnger)
@@ -58,6 +65,7 @@ public class GameManager : SingleTons<GameManager>
                         {
                             Attack(PlayerStats,BossStats);
                         }
+                        Defender.gameObject.GetComponent<SetDodge>().OnSetDodge();
                         return;
                     }
                 }
@@ -67,6 +75,7 @@ public class GameManager : SingleTons<GameManager>
                     {
                         Attack(PlayerStats, BossStats);
                     }
+                    Defender.gameObject.GetComponent<SetDodge>().OnSetDodge();
                     return;
                 }
             }
@@ -76,6 +85,8 @@ public class GameManager : SingleTons<GameManager>
             {
                 BulletCount = 0;
                 CriticalDamageBonus += Attacker.CharacterData_Temp.CriticalDamageBonus;
+                attackType = AttackType.HitBoss_Critical;
+                attackScore = 40;
                 if (Attacker.CharacterData_Temp.WaterEmblem)
                 {
                     CriticalDamageBonus += 0.5f;
@@ -121,6 +132,7 @@ public class GameManager : SingleTons<GameManager>
                     StartCoroutine(CheckElasticGel());
                     break;
                 case "Boss":
+                    ScoreManager.Instance.AddScore(attackScore,attackType);
                     HurtText.GetComponent<HurtText>().SetHurtText();
                     if (Attacker.CharacterData_Temp.PoisonBullet)
                     {
@@ -210,6 +222,10 @@ public class GameManager : SingleTons<GameManager>
     public void UseImpulse()
     {
         ImpulseEvent.RaiseEvent();
+    }
+    public void UseFrameDrop()
+    {
+        StartCoroutine(FrameDrop());
     }
     private IEnumerator FrameDrop()
     {

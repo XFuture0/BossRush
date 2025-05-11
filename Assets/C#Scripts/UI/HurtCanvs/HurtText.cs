@@ -24,10 +24,7 @@ public class HurtText : MonoBehaviour
     {
         Hurttext.transform.localScale = BaseTextScale + ExtraTextScale;
         Hurttext.text = HurtCount.ToString() + " Hit";
-        if(Hurttext.color != ColorManager.Instance.UpdateColor(2))
-        {
-            Hurttext.color = ColorManager.Instance.UpdateColor(2);
-        }
+        Hurttext.color = new Color(ColorManager.Instance.UpdateColor(2).r, ColorManager.Instance.UpdateColor(2).g, ColorManager.Instance.UpdateColor(2).b, AlphaColor);
         if (HurtTextXY > 0)
         {
             HurtTextXY = math.lerp(HurtTextXY, 0,HurtTextSpeed);
@@ -46,7 +43,7 @@ public class HurtText : MonoBehaviour
         HurtTextXY = 0.5f;
         AlphaColor = 1;
         Hurttext.color = new Color(Hurttext.color.r, Hurttext.color.g, Hurttext.color.b, 1);
-        OpenTime_Count = 5;
+        OpenTime_Count = 3;
     }
     private void CheckHitType()
     {
@@ -56,15 +53,15 @@ public class HurtText : MonoBehaviour
         }
         if(HurtCount >= 5 && HurtCount < 10)
         {
-            BaseTextScale = new Vector3(0.9f, 0.9f, 1);
+            BaseTextScale = new Vector3(0.8f, 0.8f, 1);
         }
         if(HurtCount >= 10 && HurtCount < 20)
         {
-            BaseTextScale = new Vector3(1.3f, 1.3f, 11);
+            BaseTextScale = new Vector3(1.1f, 1.1f, 11);
         }
         if(HurtCount >= 20)
         {
-            BaseTextScale = new Vector3(1.7f, 1.7f, 1);
+            BaseTextScale = new Vector3(1.4f, 1.4f, 1);
         }
     }
     private void CheckOpenTime()

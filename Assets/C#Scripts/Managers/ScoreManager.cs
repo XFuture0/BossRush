@@ -1,34 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class ScoreManager : SingleTons<ScoreManager>
 {
     public Text ScoreText;
+    public GameObject GetScoreImage;
+    public Transform GetScoreBox;
     private int LastScore;
     private int[] ScoreCount = new int[8];
     public void StartGetScore()
     {
         GameManager.Instance.PlayerData.ScoreCount = 0;
-        InvokeRepeating("SecondAddScore",0,1);
-    }
-    public void GetScore()
-    {
-        InvokeRepeating("SecondAddScore", 0, 1);
+        RefreshScore();
     }
     public void EndGetScore()
     {
         CancelInvoke();
     }
-    public void AddScore(int score)
-    {
-        GameManager.Instance.PlayerData.ScoreCount += score;
-    }
-    private void SecondAddScore()
+    public void AddScore(int score,AttackType type)
     {
         LastScore = GameManager.Instance.PlayerData.ScoreCount;
-        GameManager.Instance.PlayerData.ScoreCount += 1;
+        var NewGetScore = Instantiate(GetScoreImage, GetScoreBox);
+        NewGetScore.GetComponent<RectTransform>().anchoredPosition = new Vector2(-173f, 100f);
+        AddScoreText(type,NewGetScore.gameObject.GetComponent<Text>(),score);
+        StartCoroutine(OnAddScore(score));
+    }
+    private IEnumerator OnAddScore(int Score)
+    {
+        for(int i = 0;i < Score; i++)
+        {
+            GameManager.Instance.PlayerData.ScoreCount += 1;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+    private void AddScoreText(AttackType type,Text NewGetScoreText,int Score)
+    {
+        switch (type)
+        {
+            case AttackType.HitBoss:
+                NewGetScoreText.text = "Уќжа + " + Score.ToString();
+                break;
+            case AttackType.HitBoss_Critical:
+                NewGetScoreText.text = "БЉЛї + " + Score.ToString();
+                break;
+        }
     }
     private void Update()
     {
