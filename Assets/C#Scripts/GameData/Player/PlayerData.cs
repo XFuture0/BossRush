@@ -10,4 +10,6 @@ public class PlayerData : ScriptableObject
     public float JumpDownSpeed_Max;
     public int CoinCount;//金币数
     public int ScoreCount;//得分数
+    public Vector3 PlayerPosition;//玩家位置
+    public SceneData CurrentScene;//当前场景
 }

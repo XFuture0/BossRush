@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class SceneChangeManager : SingleTons<SceneChangeManager>
@@ -13,11 +14,11 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     public FadeCanvs Fadecanvs;
     public GameObject EndCanvs;
     public int HatIndex;
-    public void ChangeScene()
+    public void ChangeRoom()
     {
-        StartCoroutine(OnChangeScene());
+        StartCoroutine(OnChangeRoom());
     }
-    private IEnumerator OnChangeScene()
+    private IEnumerator OnChangeRoom()
     {
         GameManager.Instance.Boss().NowHealth = GameManager.Instance.Boss().MaxHealth;
         DataManager.Instance.Save(DataManager.Instance.Index);//´æµµ
@@ -85,13 +86,41 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     }
     public void LoadGame()
     {
-        if(GameManager.Instance.PlayerData.CurrentRoomCount == 0)
+        StartCoroutine(OnChangeScene(GameManager.Instance.PlayerData.CurrentScene));
+    }
+    public void ChangeScene(SceneData CurrentScene,SceneData NextScene)
+    {
+        StartCoroutine(OnChangeScene(CurrentScene,NextScene));
+    }
+    private IEnumerator OnChangeScene(SceneData CurrentScene, SceneData NextScene)
+    {
+        GameManager.Instance.PlayerStats.gameObject.GetComponent<PlayerController>().StopPlayer();
+        Fadecanvs.FadeIn();
+        yield return new WaitForSeconds(0.1f);
+        SceneManager.UnloadSceneAsync(CurrentScene.SceneName);
+        SceneManager.LoadSceneAsync(NextScene.SceneName, LoadSceneMode.Additive);
+        GameManager.Instance.PlayerData.CurrentScene = NextScene;
+        DataManager.Instance.Save(DataManager.Instance.Index);//´æµµ
+        yield return new WaitForSeconds(0.2f);
+        Fadecanvs.FadeOut();
+        yield return new WaitForSeconds(0.5f);
+        GameManager.Instance.PlayerStats.gameObject.GetComponent<PlayerController>().ContinuePlayer();
+    }
+    private IEnumerator OnChangeScene(SceneData CurrentScene)
+    {
+        KeyBoardManager.Instance.StopAnyKey = true;
+        GameManager.Instance.PlayerStats.gameObject.GetComponent<PlayerController>().StopPlayer();
+        Fadecanvs.FadeIn();
+        yield return new WaitForSeconds(0.1f);
+        SceneManager.LoadSceneAsync(CurrentScene.SceneName, LoadSceneMode.Additive);
+        yield return new WaitForSeconds(0.2f);
+        Fadecanvs.FadeOut();
+        yield return new WaitForSeconds(0.5f);
+        GameManager.Instance.PlayerStats.gameObject.GetComponent<PlayerController>().ContinuePlayer();
+        KeyBoardManager.Instance.StopAnyKey = false;
+        if(GameManager.Instance.PlayerData.CurrentRoomCount != 0)
         {
-            Startcanvs.SetActive(true);
-        }
-        else
-        {
-            StartCoroutine(OnChangeScene());
+            StartCoroutine(OnChangeRoom());
         }
     }
     public void ShowRoomCount(int count)

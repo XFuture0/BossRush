@@ -305,9 +305,9 @@ public class GameManager : SingleTons<GameManager>
     {
         PlayerStats.gameObject.GetComponent<PlayerController>().ChangeAngerSkill(Index);
     }
-    public void OnBoundEvent(Collider2D collider2D) 
+    public void OnBoundEvent(Collider2D collider2D, float Size) 
     {
-        BoundEvent.RaiseBoundEvent(collider2D);
+        BoundEvent.RaiseBoundEvent(collider2D, Size);
     }
     public CharacterData Player()
     {

@@ -23,13 +23,14 @@ public class BossController : MonoBehaviour
     private bool HaveSkill;
     private delegate IEnumerator skill();
     private skill UseSkill;
+    [Header("广播")]
+    public VoidEventSO ClosePlatformBoxEvent;
     [Header("技能物品")]
     public GameObject Shootball;
     public GameObject laser;
     public Transform LaserBox;
     public GameObject CollideForward;
     public GameObject FissueBox;
-    public GameObject PlatformBox;
     public GameObject BossArmy;
     public CharacterData BoostBossArmy;
     public Transform TridentBox;
@@ -611,9 +612,8 @@ public class BossController : MonoBehaviour
     public IEnumerator EndGroundFissue_4()
     {
         FissueBox.transform.GetChild(1).gameObject.SetActive(true);
-        PlatformBox.SetActive(false);
+        ClosePlatformBoxEvent.RaiseEvent();
         yield return new WaitForSeconds(1.5f);
-        PlatformBox.SetActive(true);
         FissueBox.transform.GetChild(1).gameObject.SetActive(false);
         GroundFissue = false;
         IsSkill = false;
@@ -622,9 +622,8 @@ public class BossController : MonoBehaviour
     public IEnumerator EndGroundFissue_5()
     {
         FissueBox.transform.GetChild(2).gameObject.SetActive(true);
-        PlatformBox.SetActive(false);
+        ClosePlatformBoxEvent.RaiseEvent();
         yield return new WaitForSeconds(1.5f);
-        PlatformBox.SetActive(true);
         FissueBox.transform.GetChild(2).gameObject.SetActive(false);
         GroundFissue = false;
         IsSkill = false;

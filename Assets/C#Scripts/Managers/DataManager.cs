@@ -4,6 +4,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System;
 public class DataManager : SingleTons<DataManager>
 {
+    public SceneData BaseScene;//初始场景
     public int Index;
     private BinaryFormatter formatter;
     private FileStream PlayerDataFile;//玩家基本数据文件
@@ -136,6 +137,7 @@ public class DataManager : SingleTons<DataManager>
         if (!Directory.Exists(Application.persistentDataPath + "/SaveData" + "/Save" + index))
         {
             GameManager.Instance.PlayerData.CurrentRoomCount = 0;
+            GameManager.Instance.PlayerData.CurrentScene = BaseScene;
             //恢复数据初始化(判定当前存档为空时使用)
         }
         SceneChangeManager.Instance.LoadGame();

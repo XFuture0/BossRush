@@ -9,7 +9,6 @@ public class ColorManager : SingleTons<ColorManager>
     public GameObject Player;
     public GameObject Boss;
     public GameObject BossHealthBox;
-    public GameObject Back;
     public GameObject HurtText;
     public ColorData ColorData;
     private int ColorIndex;
@@ -37,7 +36,6 @@ public class ColorManager : SingleTons<ColorManager>
         BossHealthBox.GetComponent<Image>().color = ColorData.ColorLists[ColorIndex].Color2;
         BossHealthBox.transform.GetChild(0).GetComponent<Image>().color = ColorData.ColorLists[ColorIndex].Color2;
         BossHealthBox.transform.GetChild(1).GetComponent<Image>().color = ColorData.ColorLists[ColorIndex].Color2;
-        Back.GetComponent<Tilemap>().color = ColorData.ColorLists[ColorIndex].Color2;
     }
     public Color UpdateColor(int Index)
     {

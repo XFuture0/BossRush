@@ -5,5 +5,5 @@ using UnityEngine;
 public class SceneData : ScriptableObject
 {
     public string SceneName;
-    public string SceneIndex;
+    public float Size;//摄影机画面大小
 }

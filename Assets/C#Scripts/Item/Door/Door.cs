@@ -47,7 +47,7 @@ public class Door : MonoBehaviour
     }
     private void NextRoom()//关闭门(动画中使用)
     {
-        SceneChangeManager.Instance.ChangeScene();
+        SceneChangeManager.Instance.ChangeRoom();
         gameObject.SetActive(false);
     }
     private void OnTriggerEnter2D(Collider2D other)

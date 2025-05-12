@@ -65,6 +65,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        PlayerData.PlayerPosition = transform.position;
         if(Player.CharacterData_Temp.NowHealth > Player.CharacterData_Temp.MaxHealth)
         {
             Player.CharacterData_Temp.NowHealth = Player.CharacterData_Temp.MaxHealth;
@@ -508,6 +509,17 @@ public class PlayerController : MonoBehaviour
     private void OnBossDead()
     {
         Player.CharacterData_Temp.NowHealth += Player.CharacterData_Temp.AutoHealCount;
+    }
+    public void StopPlayer()
+    {
+        KeyBoardManager.Instance.StopAnyKey = true;
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = 0;
+    }
+    public void ContinuePlayer()
+    {
+        KeyBoardManager.Instance.StopAnyKey = false;
+        rb.gravityScale = Settings.PlayerGravity;
     }
     private void OnDisable()
     {
