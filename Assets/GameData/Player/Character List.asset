@@ -13,122 +13,386 @@ MonoBehaviour:
   m_Name: Character List
   m_EditorClassIdentifier: 
   CharacterDatas:
-  - CharacterName: "\u51B7\u9759"
+  - Index: 0
+    CharacterName: "\u51B7\u9759"
     BaseHealth: 3
     BaseAttackPower: 1
     BaseSpeed: 300
     Description: "\u57FA\u7840\u8840\u91CF:3\n\u57FA\u7840\u4F24\u5BB3:1\n\u57FA\u7840\u901F\u5EA6:3"
-  - CharacterName: 
+  - Index: 1
+    CharacterName: 
     BaseHealth: 0
     BaseAttackPower: 0
     BaseSpeed: 0
     Description: 
-  - CharacterName: 
+  - Index: 2
+    CharacterName: 
     BaseHealth: 0
     BaseAttackPower: 0
     BaseSpeed: 0
     Description: 
-  - CharacterName: 
+  - Index: 0
+    CharacterName: 
     BaseHealth: 0
     BaseAttackPower: 0
     BaseSpeed: 0
     Description: 
-  - CharacterName: 
+  - Index: 0
+    CharacterName: 
     BaseHealth: 0
     BaseAttackPower: 0
     BaseSpeed: 0
     Description: 
-  - CharacterName: 
+  - Index: 0
+    CharacterName: 
     BaseHealth: 0
     BaseAttackPower: 0
     BaseSpeed: 0
     Description: 
-  - CharacterName: 
+  - Index: 0
+    CharacterName: 
     BaseHealth: 0
     BaseAttackPower: 0
     BaseSpeed: 0
     Description: 
-  - CharacterName: 
+  - Index: 0
+    CharacterName: 
     BaseHealth: 0
     BaseAttackPower: 0
     BaseSpeed: 0
     Description: 
-  - CharacterName: 
+  - Index: 0
+    CharacterName: 
     BaseHealth: 0
     BaseAttackPower: 0
     BaseSpeed: 0
     Description: 
-  - CharacterName: 
+  - Index: 0
+    CharacterName: 
     BaseHealth: 0
     BaseAttackPower: 0
     BaseSpeed: 0
     Description: 
-  - CharacterName: 
+  - Index: 0
+    CharacterName: 
     BaseHealth: 0
     BaseAttackPower: 0
     BaseSpeed: 0
     Description: 
-  - CharacterName: 
+  - Index: 0
+    CharacterName: 
     BaseHealth: 0
     BaseAttackPower: 0
     BaseSpeed: 0
     Description: 
-  - CharacterName: 
+  - Index: 0
+    CharacterName: 
     BaseHealth: 0
     BaseAttackPower: 0
     BaseSpeed: 0
     Description: 
-  - CharacterName: 
+  - Index: 0
+    CharacterName: 
     BaseHealth: 0
     BaseAttackPower: 0
     BaseSpeed: 0
     Description: 
-  - CharacterName: 
+  - Index: 0
+    CharacterName: 
     BaseHealth: 0
     BaseAttackPower: 0
     BaseSpeed: 0
     Description: 
-  - CharacterName: 
+  - Index: 0
+    CharacterName: 
     BaseHealth: 0
     BaseAttackPower: 0
     BaseSpeed: 0
     Description: 
-  - CharacterName: 
+  - Index: 0
+    CharacterName: 
     BaseHealth: 0
     BaseAttackPower: 0
     BaseSpeed: 0
     Description: 
-  - CharacterName: 
+  - Index: 0
+    CharacterName: 
     BaseHealth: 0
     BaseAttackPower: 0
     BaseSpeed: 0
     Description: 
-  - CharacterName: 
+  - Index: 0
+    CharacterName: 
     BaseHealth: 0
     BaseAttackPower: 0
     BaseSpeed: 0
     Description: 
-  - CharacterName: 
+  - Index: 0
+    CharacterName: 
     BaseHealth: 0
     BaseAttackPower: 0
     BaseSpeed: 0
     Description: 
-  - CharacterName: 
+  - Index: 0
+    CharacterName: 
     BaseHealth: 0
     BaseAttackPower: 0
     BaseSpeed: 0
     Description: 
-  - CharacterName: 
+  - Index: 0
+    CharacterName: 
     BaseHealth: 0
     BaseAttackPower: 0
     BaseSpeed: 0
     Description: 
-  - CharacterName: 
+  - Index: 0
+    CharacterName: 
     BaseHealth: 0
     BaseAttackPower: 0
     BaseSpeed: 0
     Description: 
-  - CharacterName: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
+    BaseHealth: 0
+    BaseAttackPower: 0
+    BaseSpeed: 0
+    Description: 
+  - Index: 0
+    CharacterName: 
     BaseHealth: 0
     BaseAttackPower: 0
     BaseSpeed: 0

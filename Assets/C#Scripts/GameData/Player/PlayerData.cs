@@ -12,4 +12,7 @@ public class PlayerData : ScriptableObject
     public int ScoreCount;//得分数
     public Vector3 PlayerPosition;//玩家位置
     public SceneData CurrentScene;//当前场景
+    public HatList.HatData HatData;//帽子数据
+    public CharacterList.CharacterData CharacterData;//特质数据
+    public WeaponList.WeaponData WeaponData;//武器数据
 }

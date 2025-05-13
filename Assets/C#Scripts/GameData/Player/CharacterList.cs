@@ -8,6 +8,7 @@ public class CharacterList : ScriptableObject
     [System.Serializable]
     public class CharacterData
     {
+        public int Index;
         public string CharacterName;
         public float BaseHealth;
         public float BaseAttackPower;

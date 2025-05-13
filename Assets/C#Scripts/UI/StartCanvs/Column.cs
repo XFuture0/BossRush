@@ -13,8 +13,8 @@ public class Column : MonoBehaviour
     {
         for (int i = 0; i < ItemSlots.Count; i++)
         {
-            ItemSlots[i].CheckOpen();
             ItemSlots[i].itemData.Index = i;
+            ItemSlots[i].CheckOpen();
         }
     }
 }

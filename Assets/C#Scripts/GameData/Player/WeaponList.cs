@@ -7,6 +7,7 @@ public class WeaponList : ScriptableObject
     [System.Serializable]
     public class WeaponData
     {
+        public int Index;
         public string WeaponName;
         public Sprite WeaponSprite;
         public Sprite BulletSprite;

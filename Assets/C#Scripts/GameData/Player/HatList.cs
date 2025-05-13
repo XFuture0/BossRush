@@ -7,8 +7,10 @@ public class HatList : ScriptableObject
     [System.Serializable]
     public class HatData
     {
+        public int Index;
         public string HatName;
         public string HatInvokeName;
+        public Sprite HatImage;
         [TextArea]
         public string Description;
     }

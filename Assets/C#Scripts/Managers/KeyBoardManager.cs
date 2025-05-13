@@ -8,7 +8,7 @@ public class KeyBoardManager : SingleTons<KeyBoardManager>
     public bool StopMoveKey;
     private void Start()
     {
-        StopAnyKey = true;
+        //StopAnyKey = true;
     }
     public bool GetKeyDown_Space()
     {

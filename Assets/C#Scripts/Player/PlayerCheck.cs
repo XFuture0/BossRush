@@ -6,6 +6,7 @@ public class PlayerCheck : MonoBehaviour
 {
     public bool IsGround;
     public bool IsEnemy;
+    public GameObject Cap;
     [Header("GroundBoxCast")]
     public Vector2 GroundBoxPoint1;
     public Vector2 GroundBoxPoint2;
@@ -13,6 +14,14 @@ public class PlayerCheck : MonoBehaviour
     private void Update()
     {
         CheckIsGround();
+        CheckCap();
+    }
+    private void CheckCap()
+    {
+        if (true)//Ìõ¼þ
+        {
+
+        }
     }
     private void CheckIsGround()
     {

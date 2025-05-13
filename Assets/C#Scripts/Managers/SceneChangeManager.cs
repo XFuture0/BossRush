@@ -13,7 +13,6 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     public GameObject Startcanvs;
     public FadeCanvs Fadecanvs;
     public GameObject EndCanvs;
-    public int HatIndex;
     public void ChangeRoom()
     {
         StartCoroutine(OnChangeRoom());
@@ -67,7 +66,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         yield return new WaitForSeconds(0.1f);
         ColorManager.Instance.ChangeColor();
         GameManager.Instance.RefreshPlayer();
-        PlayerEquipManager.Instance.ChangeHat(HatIndex);
+        PlayerEquipManager.Instance.UseHat(GameManager.Instance.PlayerData.HatData.Index);
         GameManager.Instance.RefreshBoss();
         GameManager.Instance.RefreshBossSkill();
         GameManager.Instance.BossActive = true;

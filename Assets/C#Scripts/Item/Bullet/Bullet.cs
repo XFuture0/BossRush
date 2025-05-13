@@ -17,6 +17,10 @@ public class Bullet : MonoBehaviour
     }
     private void Update()
     {
+        if (spriteRenderer.sprite != GameManager.Instance.PlayerData.WeaponData.BulletSprite)
+        {
+            spriteRenderer.sprite = GameManager.Instance.PlayerData.WeaponData.BulletSprite;
+        }
         if (spriteRenderer.color != ColorManager.Instance.UpdateColor(2))
         {
             spriteRenderer.color = ColorManager.Instance.UpdateColor(2);

@@ -6,52 +6,42 @@ using UnityEngine.UI;
 
 public class PlayerEquipManager : SingleTons<PlayerEquipManager>
 {
-    public GameObject Bullet;
-    public GameObject Weapon;
+    public GameObject EquipCanvs;
     public WeaponList WeaponList;
     public HatList HatList;
     public CharacterList CharacterList;
-    private int CurrentWeaponIndex;
-    private int CurrentHatIndex;
-    private int CurrentCharacterIndex;
-    private void Start()
+    public void OpenEquipCanvs(int Index)
     {
-        CurrentWeaponIndex = 0;
-        CurrentHatIndex = 0;
-        CurrentCharacterIndex = 0;
-        ChangeWeapon(CurrentWeaponIndex);
-        ChangeHatDescription(CurrentHatIndex);
-        ChangeCharacter(CurrentCharacterIndex);
+        KeyBoardManager.Instance.StopAnyKey = true;
+        EquipCanvs.transform.GetChild(Index).gameObject.SetActive(true);
     }
     public void ChangeWeapon(int Index)
     {
         if (WeaponList.WeaponDatas[Index] != null)
         {
-            CurrentWeaponIndex = Index;
-            GameManager.Instance.PlayerSlot.transform.GetChild(2).GetChild(1).GetComponent<Text>().text = WeaponList.WeaponDatas[Index].Description;
-            Weapon.GetComponent<SpriteRenderer>().sprite = WeaponList.WeaponDatas[Index].WeaponSprite;
+            GameManager.Instance.PlayerData.WeaponData = WeaponList.WeaponDatas[Index];
             GameManager.Instance.PlayerStats.CharacterData.WeaponAttackPower = WeaponList.WeaponDatas[Index].AttackPower;
-            Bullet.GetComponent<SpriteRenderer>().sprite = WeaponList.WeaponDatas[Index].BulletSprite;
         }
     }
     public void ChangeHat(int Index)
     {
-        if (HatList.HatDatas[Index] != null && HatList.HatDatas[Index].HatInvokeName != "")
+        if (HatList.HatDatas[Index] != null)
         {
-            CurrentHatIndex= Index;
-            UseHatManager.Instance.StartInvoke(HatList.HatDatas[Index].HatInvokeName);
+            GameManager.Instance.PlayerData.HatData = HatList.HatDatas[Index];
         }
     }
-    public void ChangeHatDescription(int Index)
+    public void UseHat(int Index)
     {
-        GameManager.Instance.PlayerSlot.transform.GetChild(3).GetChild(1).GetComponent<Text>().text = HatList.HatDatas[Index].Description;
+        if (HatList.HatDatas[Index] != null && HatList.HatDatas[Index].HatInvokeName != "")
+        {
+            UseHatManager.Instance.StartInvoke(HatList.HatDatas[Index].HatInvokeName);
+        }
     }
     public void ChangeCharacter(int Index)
     {
         if (CharacterList.CharacterDatas[Index] != null)
         {
-            CurrentCharacterIndex = Index;
-            GameManager.Instance.PlayerSlot.transform.GetChild(4).GetChild(1).GetComponent<Text>().text = CharacterList.CharacterDatas[Index].Description;
+            GameManager.Instance.PlayerData.CharacterData = CharacterList.CharacterDatas[Index];
             GameManager.Instance.PlayerStats.CharacterData.MaxHealth = CharacterList.CharacterDatas[Index].BaseHealth;
             GameManager.Instance.PlayerStats.CharacterData.AttackPower = CharacterList.CharacterDatas[Index].BaseAttackPower;
             GameManager.Instance.PlayerStats.CharacterData.Speed = CharacterList.CharacterDatas[Index].BaseSpeed;

@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class BulletBox : MonoBehaviour
 {
+    private SpriteRenderer spriteRenderer;
     public Transform bulletBox;
     public Bullet bullet;
     private Animator anim;
@@ -14,9 +15,14 @@ public class BulletBox : MonoBehaviour
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
     private void Update()
     {
+        if(spriteRenderer.sprite != GameManager.Instance.PlayerData.WeaponData.WeaponSprite)
+        {
+           spriteRenderer.sprite = GameManager.Instance.PlayerData.WeaponData.WeaponSprite;
+        }
         anim.SetBool("Shoot", KeyBoardManager.Instance.GetKey_Mouse0());
         if (AttackSpeedTime_Count >= -1)
         {

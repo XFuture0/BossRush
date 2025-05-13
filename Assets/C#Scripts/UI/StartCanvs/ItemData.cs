@@ -8,8 +8,4 @@ public class ItemData : MonoBehaviour
     public Image ItemImage;
     public int Index;
     public bool IsOpen;
-    private void Awake()
-    {
-        ItemImage = GetComponent<Image>();
-    }
 }
