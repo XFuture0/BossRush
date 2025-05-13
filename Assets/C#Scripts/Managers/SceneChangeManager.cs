@@ -52,13 +52,14 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         Boss.GetComponent<BossController>().IsStopBoss = false;
         PlotManager.Instance.SetRoomPlotText();
     }
-    public void StartGame()
+    public void StartGame(SceneData CurrentScene, SceneData NextScene)
     {
-        StartCoroutine(OnStartGame());
+        StartCoroutine(OnChangeScene(CurrentScene, NextScene));
     }
     private IEnumerator OnStartGame()
     {
         GameManager.Instance.Boss().NowHealth = GameManager.Instance.Boss().MaxHealth;
+        GameManager.Instance.PlayerData.StartGame = true;
         DataManager.Instance.Save(DataManager.Instance.Index);//´æµµ
         KeyBoardManager.Instance.StopAnyKey = true;
         GameManager.Instance.PlayerData.CurrentRoomCount = 1;
@@ -79,6 +80,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         yield return new WaitForSeconds(0.5f);
         KeyBoardManager.Instance.StopAnyKey = false;
         KeyBoardManager.Instance.StopMoveKey = false;
+        GameManager.Instance.PlayerStats.gameObject.GetComponent<PlayerController>().ContinuePlayer();
         Boss.GetComponent<BossController>().IsStopBoss = false;
         PlotManager.Instance.ThisRoomPlot.CurrentIndex = 0;
         PlotManager.Instance.SetRoomPlotText();
@@ -93,31 +95,54 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     }
     private IEnumerator OnChangeScene(SceneData CurrentScene, SceneData NextScene)
     {
+        KeyBoardManager.Instance.StopAnyKey = true;
         GameManager.Instance.PlayerStats.gameObject.GetComponent<PlayerController>().StopPlayer();
-        Fadecanvs.FadeIn();
+        if (NextScene.SceneName != "BossMap")
+        {
+            Fadecanvs.FadeIn();
+        }
         yield return new WaitForSeconds(0.1f);
         SceneManager.UnloadSceneAsync(CurrentScene.SceneName);
         SceneManager.LoadSceneAsync(NextScene.SceneName, LoadSceneMode.Additive);
+        GameManager.Instance.PlayerStats.gameObject.transform.position = NextScene.ToPosition;
         GameManager.Instance.PlayerData.CurrentScene = NextScene;
+        if(CurrentScene.SceneName == "BossMap")
+        {
+            GameManager.Instance.PlayerData.StartGame = false;
+        }
         DataManager.Instance.Save(DataManager.Instance.Index);//´æµµ
-        yield return new WaitForSeconds(0.2f);
-        Fadecanvs.FadeOut();
-        yield return new WaitForSeconds(0.5f);
-        GameManager.Instance.PlayerStats.gameObject.GetComponent<PlayerController>().ContinuePlayer();
+        if (NextScene.SceneName == "BossMap")
+        {
+            StartCoroutine(OnStartGame());
+        }
+        else if(NextScene.SceneName != "BossMap")
+        {
+            yield return new WaitForSeconds(0.2f);
+            Fadecanvs.FadeOut();
+            yield return new WaitForSeconds(0.5f);
+            GameManager.Instance.PlayerStats.gameObject.GetComponent<PlayerController>().ContinuePlayer();
+        }
+        KeyBoardManager.Instance.StopAnyKey = false;
     }
     private IEnumerator OnChangeScene(SceneData CurrentScene)
     {
         KeyBoardManager.Instance.StopAnyKey = true;
         GameManager.Instance.PlayerStats.gameObject.GetComponent<PlayerController>().StopPlayer();
-        Fadecanvs.FadeIn();
-        yield return new WaitForSeconds(0.1f);
+        if (!GameManager.Instance.PlayerData.StartGame)
+        {
+            Fadecanvs.FadeIn();
+            yield return new WaitForSeconds(0.1f);
+        }
         SceneManager.LoadSceneAsync(CurrentScene.SceneName, LoadSceneMode.Additive);
-        yield return new WaitForSeconds(0.2f);
-        Fadecanvs.FadeOut();
-        yield return new WaitForSeconds(0.5f);
+        GameManager.Instance.PlayerStats.gameObject.transform.position = CurrentScene.ToPosition;
+        if (!GameManager.Instance.PlayerData.StartGame)
+        {
+            Fadecanvs.FadeOut();
+            yield return new WaitForSeconds(0.5f);
+        }
         GameManager.Instance.PlayerStats.gameObject.GetComponent<PlayerController>().ContinuePlayer();
         KeyBoardManager.Instance.StopAnyKey = false;
-        if(GameManager.Instance.PlayerData.CurrentRoomCount != 0)
+        if(GameManager.Instance.PlayerData.StartGame)
         {
             StartCoroutine(OnChangeRoom());
         }
@@ -126,18 +151,20 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     {
         GameManager.Instance.PlayerData.RoomCount = count;
     }
-    public void EndGame()
+    public void EndGame(SceneData CurrentScene,SceneData NextScene)
     {
+        ChangeScene(CurrentScene,NextScene);
         StartCoroutine(Ending());
     }
     private IEnumerator Ending() 
     {
-        Fadecanvs.FadeIn();
-        Startcanvs.SetActive(true);
         GameManager.Instance.PlayerStats.CharacterData_Temp = Instantiate(GameManager.Instance.PlayerStats.CharacterData);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
         Boss.SetActive(false);
         GameManager.Instance.BossDeadEvent.RaiseEvent();
-        Fadecanvs.FadeOut();
+    }
+    public void OpenStartCanvs()
+    {
+        Startcanvs.SetActive(true);
     }
 }

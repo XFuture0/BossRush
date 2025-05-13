@@ -138,6 +138,10 @@ public class DataManager : SingleTons<DataManager>
         {
             GameManager.Instance.PlayerData.CurrentRoomCount = 0;
             GameManager.Instance.PlayerData.CurrentScene = BaseScene;
+            GameManager.Instance.PlayerData.StartGame = false;
+            PlayerEquipManager.Instance.ChangeWeapon(0);
+            PlayerEquipManager.Instance.ChangeHat(0);
+            PlayerEquipManager.Instance.ChangeCharacter(0);
             //恢复数据初始化(判定当前存档为空时使用)
         }
         SceneChangeManager.Instance.LoadGame();

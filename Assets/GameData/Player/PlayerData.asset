@@ -17,3 +17,27 @@ MonoBehaviour:
   JumpForce: 18
   JumpDownSpeed_Max: -18
   CoinCount: 0
+  ScoreCount: 0
+  StartGame: 0
+  PlayerPosition: {x: -22.119993, y: -2.513012, z: 0}
+  CurrentScene: {fileID: 11400000, guid: efa07ffd72e72e24f97e21e75bf8bc7a, type: 2}
+  HatData:
+    Index: 0
+    HatName: Null
+    HatInvokeName: 
+    HatImage: {fileID: 0}
+    Description: "\u65E0"
+  CharacterData:
+    Index: 0
+    CharacterName: "\u51B7\u9759"
+    BaseHealth: 3
+    BaseAttackPower: 1
+    BaseSpeed: 300
+    Description: "\u57FA\u7840\u8840\u91CF:3\n\u57FA\u7840\u4F24\u5BB3:1\n\u57FA\u7840\u901F\u5EA6:3"
+  WeaponData:
+    Index: 0
+    WeaponName: Bullet
+    WeaponSprite: {fileID: -685506245, guid: b94ea0070439deb47b211eb0dbe9c1ae, type: 3}
+    BulletSprite: {fileID: 2101184385, guid: f8fb58ab41dedec43b5da41d2aa68004, type: 3}
+    AttackPower: 5
+    Description: "\u57FA\u7840\u4F24\u5BB3+5"

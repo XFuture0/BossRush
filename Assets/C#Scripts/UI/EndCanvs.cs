@@ -8,6 +8,8 @@ public class EndCanvs : MonoBehaviour
     public FadeCanvs Fadecanvs;
     public GameObject Startcanvs;
     public Button ReturnButton;
+    public SceneData CurrentScene;
+    public SceneData NextScene;
     private void Awake()
     {
         ReturnButton.onClick.AddListener(EndGame);
@@ -19,7 +21,7 @@ public class EndCanvs : MonoBehaviour
     }
     private void EndGame()
     {
-        SceneChangeManager.Instance.EndGame();
+        SceneChangeManager.Instance.EndGame(CurrentScene,NextScene);
         gameObject.SetActive(false);
     }
 }

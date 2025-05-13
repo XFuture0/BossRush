@@ -25,8 +25,6 @@ public class PlayerController : MonoBehaviour
     public AngerSkill angerskill;
     public GameObject AngerRing;
     [Header("¡Ÿ ± Ù–‘")]
-    private float JumpForce;
-    private float JumpDownSpeed_Max;
     private int CurDashCount;
     private int CurJumpCount;
     [Header("≥Â¥Ã")]
@@ -61,7 +59,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
-        RefreshData();
+        StopPlayer();
     }
     private void Update()
     {
@@ -118,13 +116,13 @@ public class PlayerController : MonoBehaviour
             IsJumpDown = false;
             CurJumpCount--;
             rb.velocity = Vector2.zero;
-            rb.velocity = new Vector2(rb.velocity.x, JumpForce);
+            rb.velocity = new Vector2(rb.velocity.x, PlayerData.JumpForce);
         }
         if (!Check.IsGround && rb.velocity.y < 0)
         {
-            if (rb.velocity.y <= JumpDownSpeed_Max)
+            if (rb.velocity.y <= PlayerData.JumpDownSpeed_Max)
             {
-                rb.velocity = new Vector2(rb.velocity.x, JumpDownSpeed_Max);
+                rb.velocity = new Vector2(rb.velocity.x, PlayerData.JumpDownSpeed_Max);
             }
         }
         if (Check.IsGround && rb.velocity.y <= 0 && !IsJumpDown)
@@ -233,11 +231,6 @@ public class PlayerController : MonoBehaviour
         var BacePosition = transform.position;
         yield return new WaitForSeconds(1);
         transform.position = BacePosition;
-    }
-    private void RefreshData()
-    {
-        JumpForce = PlayerData.JumpForce;
-        JumpDownSpeed_Max = PlayerData.JumpDownSpeed_Max;
     }
     private void OnTriggerEnter2D(Collider2D other)
     {

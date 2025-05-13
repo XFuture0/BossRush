@@ -5,17 +5,24 @@ using UnityEngine.UI;
 
 public class StartCanvs : MonoBehaviour
 {
-    public GameObject PlayerSlot;
+    public SceneData CurrentScene;
+    public SceneData NextScene;
     public Button StartButton;
-    public Vector3 PositionToGo;
+    public Button ReturnButton;
     private void Awake()
     {
         StartButton.onClick.AddListener(OnStartButton);
+        ReturnButton.onClick.AddListener(OnReturnButton);
     }
     private void OnStartButton()
     {
-        KeyBoardManager.Instance.StopMoveKey = false;
-        SceneChangeManager.Instance.StartGame();
+        KeyBoardManager.Instance.StopAnyKey = false;
+        SceneChangeManager.Instance.StartGame(CurrentScene,NextScene);
+        gameObject.SetActive(false);
+    }
+    private void OnReturnButton()
+    {
+        KeyBoardManager.Instance.StopAnyKey = false;
         gameObject.SetActive(false);
     }
 }

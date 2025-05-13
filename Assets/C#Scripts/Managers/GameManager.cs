@@ -5,10 +5,10 @@ using Unity.Mathematics;
 using UnityEngine;
 public class GameManager : SingleTons<GameManager>
 {
-    public GameObject PlayerSlot;
     public GameObject CardPaper;
     public GameObject AngerPanel;
     public GameObject HurtText;
+    public GameObject PlayerCanvs;
     public GameObject BossCanvs;
     public PlayerData PlayerData;
     public CharacterStats PlayerStats;
@@ -29,6 +29,8 @@ public class GameManager : SingleTons<GameManager>
     }
     private void Update()
     {
+        PlayerCanvs.SetActive(PlayerData.StartGame);
+        BossCanvs.SetActive(PlayerData.StartGame);
         if(BossStats.CharacterData_Temp.NowHealth <= 0 && BossActive)
         {
             BossDead();

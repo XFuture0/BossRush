@@ -6,4 +6,5 @@ public class SceneData : ScriptableObject
 {
     public string SceneName;
     public float Size;//摄影机画面大小
+    public Vector3 ToPosition;//传送位置
 }
