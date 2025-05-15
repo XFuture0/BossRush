@@ -39,6 +39,9 @@ public enum RoomType
 }
 public enum DoorType
 {
-
+    LeftUpDoor,
+    LeftDownDoor,
+    RightUpDoor,
+    RightDownDoor,
 }
 

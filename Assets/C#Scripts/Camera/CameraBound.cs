@@ -21,7 +21,7 @@ public class CameraBound : MonoBehaviour
     public void OnChangeBound(Collider2D Bound, float Size)
     {
         VirtualCamera.m_Lens.OrthographicSize = Size;
-        Confiner2D.m_BoundingShape2D = Bound.GetComponent<Collider2D>();
+        Confiner2D.m_BoundingShape2D = Bound;
         Confiner2D.InvalidateCache();
     }
 }

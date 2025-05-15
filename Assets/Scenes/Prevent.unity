@@ -3547,7 +3547,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &157468523
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8989,7 +8989,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.164, y: 7.71, z: -10}
+  m_LocalPosition: {x: -23.2, y: -0.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -35018,6 +35018,8 @@ MonoBehaviour:
   Startcanvs: {fileID: 1789455864}
   Fadecanvs: {fileID: 2040766542}
   EndCanvs: {fileID: 1975173949}
+  OpenDoorEvent: {fileID: 11400000, guid: 6f6ff5fd5b015a94291f84848039b62f, type: 2}
+  CloseDoorEvent: {fileID: 11400000, guid: a6f11a245a2b325438344d3b4c2dd05a, type: 2}
 --- !u!1001 &1903352402
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -275,7 +275,6 @@ public class GameManager : SingleTons<GameManager>
     }
     public void RefreshBoss()
     {
-        BossStats.gameObject.SetActive(true);
         foreach (var skill in BossSkillList.BossSkills)
         {
             skill.IsOpen = false;
@@ -283,7 +282,6 @@ public class GameManager : SingleTons<GameManager>
         }
         BossSkillList.BossSkillNameList_Count = 0;
         BossStats.CharacterData_Temp = Instantiate(BossStats.CharacterData);
-        BossStats.gameObject.transform.position = new Vector3(-15f, 0.97f, 0);
     }
     private void BossDead()
     {

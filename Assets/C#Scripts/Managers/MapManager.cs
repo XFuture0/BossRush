@@ -30,25 +30,29 @@ public class MapManager : SingleTons<MapManager>
     {
         for(int i = 0; i < MapBox.childCount; i++)
         {
-            if(CurrentRoomCount < RandomRoomCount)
+            if(CurrentRoomCount < RoomCount)
             {
                 var NewRoomType = UnityEngine.Random.Range(0, 100) % MapLists.Count;
                 MapBox.GetChild(i).gameObject.GetComponent<MapCharacrter>().BuildNewRoom();
             }
         }
-        if(CurrentRoomCount < RandomRoomCount)
+        if(CurrentRoomCount < RoomCount)
         {
            yield return new WaitForSeconds(1f);
            StartCoroutine(SetNewRoom());//迭代
         }
     }
-    public IEnumerator BuildNewRoom(float Width,float Height,Vector2 RoomCenter,RoomType RoomType,DoorType DoorType)
+    public IEnumerator BuildNewRoom(float Width,float Height,Vector2 RoomCenter)
     {
         var SetRotation = UnityEngine.Random.Range(0, 100) % 6;
         switch (SetRotation) 
         {
             case Settings.WestNorth:
-                var NewRoomType_WestNorth = UnityEngine.Random.Range(0, 100) % MapLists.Count;
+                var NewRoomType_WestNorth = UnityEngine.Random.Range(0, 100) % (MapLists.Count - 1);
+                if(CurrentRoomCount == RoomCount - 1)
+                {
+                    NewRoomType_WestNorth = MapLists.Count - 1;
+                }
                 var NewRoomPositionX_WestNorth = RoomCenter.x - Width * 0.5f - MapLists[NewRoomType_WestNorth].GetComponent<MapCharacrter>().Width * 0.5f;
                 var NewRoomPositionY_WestNorth = RoomCenter.y + Height * 0.5f;
                 var NewRoomPosition_WestNorth = new Vector3(NewRoomPositionX_WestNorth - 15, NewRoomPositionY_WestNorth + 8, 0);//修改生成点
@@ -57,12 +61,27 @@ public class MapManager : SingleTons<MapManager>
                 NewRoomPosition_WestNorth = new Vector3(NewRoomPositionX_WestNorth, NewRoomPositionY_WestNorth, 0);//确定生成点
                 if (!Physics2D.OverlapArea(LeftUpPo_WestNorth, RightDownPo_WestNorth, Room))//是否出现覆盖
                 {
-                    Instantiate(MapLists[NewRoomType_WestNorth], NewRoomPosition_WestNorth, Quaternion.identity,MapBox);//生成新房间
-                    CurrentRoomCount++;//当前房间数量加1
+                    if (NewRoomType_WestNorth == Settings.BossRoom)//是否是boss房
+                    {
+                        if (CheckBossRoom(LeftUpPo_WestNorth, RightDownPo_WestNorth))
+                        {
+                            Instantiate(MapLists[NewRoomType_WestNorth], NewRoomPosition_WestNorth, Quaternion.identity, MapBox);//生成新房间
+                            CurrentRoomCount++;//当前房间数量加1
+                        }
+                    }
+                    if (NewRoomType_WestNorth != Settings.BossRoom)
+                    {
+                        Instantiate(MapLists[NewRoomType_WestNorth], NewRoomPosition_WestNorth, Quaternion.identity, MapBox);//生成新房间
+                        CurrentRoomCount++;//当前房间数量加1
+                    }
                 }
                 break;
             case Settings.WestCenter:
-                var NewRoomType_WestCenter = UnityEngine.Random.Range(0, 100) % MapLists.Count;
+                var NewRoomType_WestCenter = UnityEngine.Random.Range(0, 100) % (MapLists.Count - 1);
+                if (CurrentRoomCount == RoomCount - 1)
+                {
+                    NewRoomType_WestCenter = MapLists.Count - 1;
+                }
                 var NewRoomPositionX_WestCenter = RoomCenter.x - Width * 0.5f - MapLists[NewRoomType_WestCenter].GetComponent<MapCharacrter>().Width * 0.5f;
                 var NewRoomPositionY_WestCenter = RoomCenter.y;
                 var NewRoomPosition_WestCenter = new Vector3(NewRoomPositionX_WestCenter - 15, NewRoomPositionY_WestCenter + 8, 0);//修改生成点
@@ -71,12 +90,27 @@ public class MapManager : SingleTons<MapManager>
                 NewRoomPosition_WestCenter = new Vector3(NewRoomPositionX_WestCenter, NewRoomPositionY_WestCenter, 0);//确定生成点
                 if (!Physics2D.OverlapArea(LeftUpPo_WestCenter, RightDownPo_WestCenter, Room))//是否出现覆盖
                 {
-                    Instantiate(MapLists[NewRoomType_WestCenter], NewRoomPosition_WestCenter, Quaternion.identity, MapBox);//生成新房间
-                    CurrentRoomCount++;//当前房间数量加1
+                    if (NewRoomType_WestCenter == Settings.BossRoom)//是否是boss房
+                    {
+                        if (CheckBossRoom(LeftUpPo_WestCenter, RightDownPo_WestCenter))
+                        {
+                            Instantiate(MapLists[NewRoomType_WestCenter], NewRoomPosition_WestCenter, Quaternion.identity, MapBox);//生成新房间
+                            CurrentRoomCount++;//当前房间数量加1
+                        }
+                    }
+                    if (NewRoomType_WestCenter != Settings.BossRoom)
+                    {
+                        Instantiate(MapLists[NewRoomType_WestCenter], NewRoomPosition_WestCenter, Quaternion.identity, MapBox);//生成新房间
+                        CurrentRoomCount++;//当前房间数量加1
+                    }
                 }
                 break;
             case Settings.WestSouth:
-                var NewRoomType_WestSouth = UnityEngine.Random.Range(0, 100) % MapLists.Count;
+                var NewRoomType_WestSouth = UnityEngine.Random.Range(0, 100) % (MapLists.Count - 1);
+                if (CurrentRoomCount == RoomCount - 1)
+                {
+                    NewRoomType_WestSouth = MapLists.Count - 1;
+                }
                 var NewRoomPositionX_WestSouth = RoomCenter.x - Width * 0.5f - MapLists[NewRoomType_WestSouth].GetComponent<MapCharacrter>().Width * 0.5f;
                 var NewRoomPositionY_WestSouth = RoomCenter.y - Height * 0.5f;
                 var NewRoomPosition_WestSouth = new Vector3(NewRoomPositionX_WestSouth - 15, NewRoomPositionY_WestSouth + 8, 0);//修改生成点
@@ -85,12 +119,27 @@ public class MapManager : SingleTons<MapManager>
                 NewRoomPosition_WestSouth = new Vector3(NewRoomPositionX_WestSouth, NewRoomPositionY_WestSouth, 0);//确定生成点
                 if (!Physics2D.OverlapArea(LeftUpPo_WestSouth, RightDownPo_WestSouth, Room))//是否出现覆盖
                 {
-                    Instantiate(MapLists[NewRoomType_WestSouth], NewRoomPosition_WestSouth, Quaternion.identity, MapBox);//生成新房间
-                    CurrentRoomCount++;//当前房间数量加1
+                    if (NewRoomType_WestSouth == Settings.BossRoom)//是否是boss房
+                    {
+                        if (CheckBossRoom(LeftUpPo_WestSouth, RightDownPo_WestSouth))
+                        {
+                            Instantiate(MapLists[NewRoomType_WestSouth], NewRoomPosition_WestSouth, Quaternion.identity, MapBox);//生成新房间
+                            CurrentRoomCount++;//当前房间数量加1
+                        }
+                    }
+                    if (NewRoomType_WestSouth != Settings.BossRoom)
+                    {
+                        Instantiate(MapLists[NewRoomType_WestSouth], NewRoomPosition_WestSouth, Quaternion.identity, MapBox);//生成新房间
+                        CurrentRoomCount++;//当前房间数量加1
+                    }
                 }
                 break;
             case Settings.EastNorth:
-                var NewRoomType_EastNorth = UnityEngine.Random.Range(0, 100) % MapLists.Count;
+                var NewRoomType_EastNorth = UnityEngine.Random.Range(0, 100) % (MapLists.Count - 1);
+                if (CurrentRoomCount == RoomCount - 1)
+                {
+                    NewRoomType_EastNorth = MapLists.Count - 1;
+                }
                 var NewRoomPositionX_EastNorth = RoomCenter.x + Width * 0.5f + MapLists[NewRoomType_EastNorth].GetComponent<MapCharacrter>().Width * 0.5f;
                 var NewRoomPositionY_EastNorth = RoomCenter.y + Height * 0.5f;
                 var NewRoomPosition_EastNorth = new Vector3(NewRoomPositionX_EastNorth - 15, NewRoomPositionY_EastNorth + 8, 0);//修改生成点
@@ -99,12 +148,27 @@ public class MapManager : SingleTons<MapManager>
                 NewRoomPosition_EastNorth = new Vector3(NewRoomPositionX_EastNorth, NewRoomPositionY_EastNorth, 0);//确定生成点
                 if (!Physics2D.OverlapArea(LeftUpPo_EastNorth, RightDownPo_EastNorth, Room))//是否出现覆盖
                 {
-                    Instantiate(MapLists[NewRoomType_EastNorth], NewRoomPosition_EastNorth, Quaternion.identity, MapBox);//生成新房间
-                    CurrentRoomCount++;//当前房间数量加1
+                    if (NewRoomType_EastNorth == Settings.BossRoom)//是否是boss房
+                    {
+                        if (CheckBossRoom(LeftUpPo_EastNorth, RightDownPo_EastNorth))
+                        {
+                            Instantiate(MapLists[NewRoomType_EastNorth], NewRoomPosition_EastNorth, Quaternion.identity, MapBox);//生成新房间
+                            CurrentRoomCount++;//当前房间数量加1
+                        }
+                    }
+                    if (NewRoomType_EastNorth != Settings.BossRoom)
+                    {
+                        Instantiate(MapLists[NewRoomType_EastNorth], NewRoomPosition_EastNorth, Quaternion.identity, MapBox);//生成新房间
+                        CurrentRoomCount++;//当前房间数量加1
+                    }
                 }
                 break;
             case Settings.EastCenter:
-                var NewRoomType_EastCenter = UnityEngine.Random.Range(0, 100) % MapLists.Count;
+                var NewRoomType_EastCenter = UnityEngine.Random.Range(0, 100) % (MapLists.Count - 1);
+                if (CurrentRoomCount == RoomCount - 1)
+                {
+                    NewRoomType_EastCenter = MapLists.Count - 1;
+                }
                 var NewRoomPositionX_EastCenter = RoomCenter.x + Width * 0.5f + MapLists[NewRoomType_EastCenter].GetComponent<MapCharacrter>().Width * 0.5f;
                 var NewRoomPositionY_EastCenter = RoomCenter.y;
                 var NewRoomPosition_EastCenter = new Vector3(NewRoomPositionX_EastCenter - 15, NewRoomPositionY_EastCenter + 8, 0);//修改生成点
@@ -113,12 +177,27 @@ public class MapManager : SingleTons<MapManager>
                 NewRoomPosition_EastCenter = new Vector3(NewRoomPositionX_EastCenter, NewRoomPositionY_EastCenter, 0);//确定生成点
                 if (!Physics2D.OverlapArea(LeftUpPo_EastCenter, RightDownPo_EastCenter, Room))//是否出现覆盖
                 {
-                    Instantiate(MapLists[NewRoomType_EastCenter], NewRoomPosition_EastCenter, Quaternion.identity, MapBox);//生成新房间
-                    CurrentRoomCount++;//当前房间数量加1
+                    if (NewRoomType_EastCenter == Settings.BossRoom)//是否是boss房
+                    {
+                        if (CheckBossRoom(LeftUpPo_EastCenter, RightDownPo_EastCenter))
+                        {
+                            Instantiate(MapLists[NewRoomType_EastCenter], NewRoomPosition_EastCenter, Quaternion.identity, MapBox);//生成新房间
+                            CurrentRoomCount++;//当前房间数量加1
+                        }
+                    }
+                    if(NewRoomType_EastCenter != Settings.BossRoom)
+                    {
+                        Instantiate(MapLists[NewRoomType_EastCenter], NewRoomPosition_EastCenter, Quaternion.identity, MapBox);//生成新房间
+                        CurrentRoomCount++;//当前房间数量加1
+                    }
                 }
                 break;
             case Settings.EastSouth:
-                var NewRoomType_EastSouth = UnityEngine.Random.Range(0, 100) % MapLists.Count;
+                var NewRoomType_EastSouth = UnityEngine.Random.Range(0, 100) % (MapLists.Count - 1);
+                if (CurrentRoomCount == RoomCount - 1)
+                {
+                    NewRoomType_EastSouth = MapLists.Count - 1;
+                }
                 var NewRoomPositionX_EastSouth = RoomCenter.x + Width * 0.5f + MapLists[NewRoomType_EastSouth].GetComponent<MapCharacrter>().Width * 0.5f;
                 var NewRoomPositionY_EastSouth = RoomCenter.y + Height * 0.5f;
                 var NewRoomPosition_EastSouth = new Vector3(NewRoomPositionX_EastSouth - 15, NewRoomPositionY_EastSouth + 8, 0);//修改生成点
@@ -127,13 +206,35 @@ public class MapManager : SingleTons<MapManager>
                 NewRoomPosition_EastSouth = new Vector3(NewRoomPositionX_EastSouth, NewRoomPositionY_EastSouth, 0);//确定生成点
                 if (!Physics2D.OverlapArea(LeftUpPo_EastSouth, RightDownPo_EastSouth, Room))//是否出现覆盖
                 {
-                    Instantiate(MapLists[NewRoomType_EastSouth], NewRoomPosition_EastSouth, Quaternion.identity, MapBox);//生成新房间
-                    CurrentRoomCount++;//当前房间数量加1
+                    if(NewRoomType_EastSouth == Settings.BossRoom)//是否是boss房
+                    {
+                        if (CheckBossRoom(LeftUpPo_EastSouth, RightDownPo_EastSouth))
+                        {
+                            Instantiate(MapLists[NewRoomType_EastSouth], NewRoomPosition_EastSouth, Quaternion.identity, MapBox);//生成新房间
+                            CurrentRoomCount++;//当前房间数量加1
+                        }
+                    }
+                    else if(NewRoomType_EastSouth != Settings.BossRoom)
+                    {
+                        Instantiate(MapLists[NewRoomType_EastSouth], NewRoomPosition_EastSouth, Quaternion.identity, MapBox);//生成新房间
+                        CurrentRoomCount++;//当前房间数量加1
+                    }
                 }
                 break;
             default:
                 break;
         }
         yield return null;
+    }
+    private bool CheckBossRoom(Vector2 LeftUpPo,Vector2 RightDownPo)
+    {
+        LeftUpPo += new Vector2(-5, 5);
+        RightDownPo += new Vector2(5, -5);
+        var rays = Physics2D.OverlapAreaAll(LeftUpPo, RightDownPo, Room);
+        if(rays.Length == 1)
+        {
+            return true;
+        }
+        return false;
     }
 }
