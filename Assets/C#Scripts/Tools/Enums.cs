@@ -31,4 +31,14 @@ public enum AttackType
     HitBoss,
     HitBoss_Critical
 }
+public enum RoomType
+{
+    NormalRoom,
+    StartRoom,
+    BossRoom,
+}
+public enum DoorType
+{
+
+}
 

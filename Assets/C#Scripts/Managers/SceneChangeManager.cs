@@ -20,6 +20,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     private IEnumerator OnChangeRoom()
     {
         GameManager.Instance.Boss().NowHealth = GameManager.Instance.Boss().MaxHealth;
+        MapManager.Instance.SetNewMap();//创建新地图
         DataManager.Instance.Save(DataManager.Instance.Index);//存档
         KeyBoardManager.Instance.StopAnyKey = true;
         if (GameManager.Instance.PlayerData.CurrentRoomCount < GameManager.Instance.PlayerData.RoomCount)
@@ -60,6 +61,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     {
         GameManager.Instance.Boss().NowHealth = GameManager.Instance.Boss().MaxHealth;
         GameManager.Instance.PlayerData.StartGame = true;
+        MapManager.Instance.SetNewMap();//创建新地图
         DataManager.Instance.Save(DataManager.Instance.Index);//存档
         KeyBoardManager.Instance.StopAnyKey = true;
         GameManager.Instance.PlayerData.CurrentRoomCount = 1;
@@ -113,6 +115,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         DataManager.Instance.Save(DataManager.Instance.Index);//存档
         if (NextScene.SceneName == "BossMap")
         {
+            yield return new WaitForSeconds(0.02f);
             StartCoroutine(OnStartGame());
         }
         else if(NextScene.SceneName != "BossMap")
@@ -144,6 +147,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         KeyBoardManager.Instance.StopAnyKey = false;
         if(GameManager.Instance.PlayerData.StartGame)
         {
+            yield return new WaitForSeconds(0.02f);
             StartCoroutine(OnChangeRoom());
         }
     }
