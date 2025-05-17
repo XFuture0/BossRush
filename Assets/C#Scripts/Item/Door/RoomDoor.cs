@@ -7,7 +7,6 @@ public class RoomDoor : MonoBehaviour
 {
     private Animator anim;
     private BoxCollider2D boxCollider;
-    private bool HaveRoom;
     public DoorType doorType;
     public LayerMask Room;
     [Header("ÊÂ¼þ¼àÌý")]
@@ -32,30 +31,25 @@ public class RoomDoor : MonoBehaviour
                     var ray1 = Physics2D.OverlapCircle((Vector2)transform.position - new Vector2(5,0),0.1f,Room);
                     if(ray1.gameObject.transform.position.y != transform.parent.parent.position.y)
                     {
-                        HaveRoom = true;
                         transform.GetChild(0).gameObject.SetActive(false);
                     }
                     else if(ray1.gameObject.transform.position.y == transform.parent.parent.position.y)
                     {
-                        HaveRoom = false;
                         transform.GetChild(0).gameObject.SetActive(true);
                     }
                 }
                 else if (!Physics2D.OverlapCircle((Vector2)transform.position - new Vector2(5, 0), 0.1f, Room))
                 {
-                    HaveRoom = false;
                     transform.GetChild(0).gameObject.SetActive(true);
                 }
                 break;
             case DoorType.LeftDownDoor:
                 if (Physics2D.OverlapCircle((Vector2)transform.position - new Vector2(5, 0), 0.1f, Room))
                 {
-                    HaveRoom = true;
                     transform.GetChild(0).gameObject.SetActive(false);
                 }
                 else if (!Physics2D.OverlapCircle((Vector2)transform.position - new Vector2(5, 0), 0.1f, Room))
                 {
-                    HaveRoom = false;
                     transform.GetChild(0).gameObject.SetActive(true);
                 }
                 break;
@@ -65,30 +59,25 @@ public class RoomDoor : MonoBehaviour
                     var ray1 = Physics2D.OverlapCircle((Vector2)transform.position + new Vector2(5, 0), 0.1f, Room);
                     if (ray1.gameObject.transform.position.y != transform.parent.parent.position.y)
                     {
-                        HaveRoom = true;
                         transform.GetChild(0).gameObject.SetActive(false);
                     }
                     else if (ray1.gameObject.transform.position.y == transform.parent.parent.position.y)
                     {
-                        HaveRoom = false;
                         transform.GetChild(0).gameObject.SetActive(true);
                     }
                 }
                else if (!Physics2D.OverlapCircle((Vector2)transform.position + new Vector2(5, 0), 0.1f, Room))
                {
-                    HaveRoom = false;
                     transform.GetChild(0).gameObject.SetActive(true);
                }
                break;
             case DoorType.RightDownDoor:
                 if (Physics2D.OverlapCircle((Vector2)transform.position + new Vector2(5, 0), 0.1f, Room))
                 {
-                    HaveRoom = true;
                     transform.GetChild(0).gameObject.SetActive(false);
                 }
                 else if (!Physics2D.OverlapCircle((Vector2)transform.position + new Vector2(5, 0), 0.1f, Room))
                 {
-                    HaveRoom = false;
                     transform.GetChild(0).gameObject.SetActive(true);
                 }
                 break;
@@ -108,19 +97,12 @@ public class RoomDoor : MonoBehaviour
     }
     private void OnCloseDoor()
     {
-        if (HaveRoom)
-        {
-            anim.SetBool("Open", false);
-        }
+        anim.SetBool("Open", false);
     }
     private void OnOpenDoor()
     {
-        if (HaveRoom)
-        {
-            anim.SetBool("Open", true);
-        }
+        anim.SetBool("Open", true);
     }
-
     private void OnDisable()
     {
         OpenDoorEvent.OnEventRaised -= OnOpenDoor;

@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class SceneChangeManager : SingleTons<SceneChangeManager>
 {
+    private bool IsSetRoomData;
+    private bool IsSetPosition;
     public GameObject Door;
     public GameObject Player;
     public GameObject Boss;
@@ -23,11 +25,16 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     private IEnumerator OnChangeMap()
     {
         Fadecanvs.FadeIn();
+        KeyBoardManager.Instance.StopAnyKey = true;
         yield return new WaitForSeconds(0.1f);
         GameManager.Instance.Boss().NowHealth = GameManager.Instance.Boss().MaxHealth;
+        if (!IsSetRoomData)
+        {
+            MapManager.Instance.SetNewMap();//创建新地图
+        }
+        IsSetRoomData = false;
+        yield return new WaitForSeconds(5f);
         DataManager.Instance.Save(DataManager.Instance.Index);//存档
-        MapManager.Instance.SetNewMap();//创建新地图
-        KeyBoardManager.Instance.StopAnyKey = true;
         if (GameManager.Instance.PlayerData.CurrentRoomCount < GameManager.Instance.PlayerData.RoomCount)
         {
             GameManager.Instance.PlayerData.CurrentRoomCount++;
@@ -38,12 +45,15 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
             GameManager.Instance.PlayerData.CurrentRoomCount = 0;
             yield break;
         }
-        yield return new WaitForSeconds(0.1f);
         ColorManager.Instance.ChangeColor();
-        Player.transform.position = new Vector3(-20.64f, -0.44f, 0);
+        if (!IsSetPosition)
+        {
+            Player.transform.position = new Vector3(-20.64f, -0.44f, 0);//地图切换回到初始点
+        }
+        IsSetPosition = false;
       //  Boss.transform.position = new Vector3(-15f, 0.97f, 0);
      //   Boss.SetActive(true);
-        GameManager.Instance.RefreshBossSkill();
+     //   GameManager.Instance.RefreshBossSkill();
         GameManager.Instance.AddBossHealth();
      //   GameManager.Instance.BossActive = true;
      //   Boss.GetComponent<BossController>().IsStopBoss = true;
@@ -64,25 +74,29 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     private IEnumerator OnStartGame()
     {
         Fadecanvs.FadeIn();
+        KeyBoardManager.Instance.StopAnyKey = true;
         yield return new WaitForSeconds(0.1f);
         GameManager.Instance.Boss().NowHealth = GameManager.Instance.Boss().MaxHealth;
         GameManager.Instance.PlayerData.StartGame = true;
-        DataManager.Instance.Save(DataManager.Instance.Index);//存档
-        MapManager.Instance.SetNewMap();//创建新地图
-        KeyBoardManager.Instance.StopAnyKey = true;
-        GameManager.Instance.PlayerData.CurrentRoomCount = 1;
-        yield return new WaitForSeconds(5f);
-        ColorManager.Instance.ChangeColor();
         GameManager.Instance.RefreshPlayer();
         PlayerEquipManager.Instance.UseHat(GameManager.Instance.PlayerData.HatData.Index);
         GameManager.Instance.RefreshBoss();
+        ScoreManager.Instance.StartGetScore();
+        if (!IsSetRoomData)
+        {
+            MapManager.Instance.SetNewMap();//创建新地图
+        }
+        IsSetRoomData = false;
+        yield return new WaitForSeconds(5f);
+        DataManager.Instance.Save(DataManager.Instance.Index);//存档
+        GameManager.Instance.PlayerData.CurrentRoomCount = 1;
+        ColorManager.Instance.ChangeColor();
      //   GameManager.Instance.BossActive = true;
      //   Boss.GetComponent<BossController>().IsStopBoss = true;
         yield return new WaitForSeconds(0.5f);
         Fadecanvs.FadeOut();
         Door.SetActive(true);
         Door.GetComponent<Door>().SetDoor();
-        ScoreManager.Instance.StartGetScore();
         yield return new WaitForSeconds(1f);
         KeyBoardManager.Instance.StopAnyKey = false;
         KeyBoardManager.Instance.StopMoveKey = false;
@@ -90,7 +104,6 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
      //   Boss.GetComponent<BossController>().IsStopBoss = false;
         PlotManager.Instance.ThisRoomPlot.CurrentIndex = 0;
       //  PlotManager.Instance.SetRoomPlotText();
-        OpenDoorEvent.RaiseEvent();
     }
     public void LoadGame()
     {
@@ -143,6 +156,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         }
         SceneManager.LoadSceneAsync(CurrentScene.SceneName, LoadSceneMode.Additive);
         GameManager.Instance.PlayerStats.gameObject.transform.position = CurrentScene.ToPosition;
+        IsSetPosition = true;
         if (!GameManager.Instance.PlayerData.StartGame)
         {
             Fadecanvs.FadeOut();
@@ -152,6 +166,9 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         KeyBoardManager.Instance.StopAnyKey = false;
         if(GameManager.Instance.PlayerData.StartGame)
         {
+            MapManager.Instance.SetRoomData();
+            GameManager.Instance.PlayerStats.gameObject.transform.position = GameManager.Instance.PlayerData.PlayerPosition;
+            IsSetRoomData = true;
             StartCoroutine(OnChangeMap());
         }
         yield return null;
@@ -184,7 +201,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     {
         Fadecanvs.FadeIn();
         KeyBoardManager.Instance.StopAnyKey = true;
-        switch(doorType)
+        switch (doorType)
         {
             case DoorType.LeftUpDoor:
                 GameManager.Instance.PlayerStats.gameObject.transform.position = Position + new Vector3(-6,0,0);
@@ -199,7 +216,9 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
                 GameManager.Instance.PlayerStats.gameObject.transform.position = Position + new Vector3(6, 0, 0);
                 break;
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
+        DataManager.Instance.Save(DataManager.Instance.Index);//存档
+        yield return new WaitForSeconds(0.4f);
         Fadecanvs.FadeOut();
         yield return new WaitForSeconds(0.5f);
         KeyBoardManager.Instance.StopAnyKey = false;

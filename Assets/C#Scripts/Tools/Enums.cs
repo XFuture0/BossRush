@@ -33,8 +33,8 @@ public enum AttackType
 }
 public enum RoomType
 {
-    NormalRoom,
     StartRoom,
+    NormalRoom,
     BossRoom,
 }
 public enum DoorType

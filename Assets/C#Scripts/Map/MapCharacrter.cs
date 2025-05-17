@@ -18,6 +18,7 @@ public class MapCharacrter : MonoBehaviour
       if(other.tag == "Player")
       {
             GameManager.Instance.OnBoundEvent(polygonCollider,Size);
+            SceneChangeManager.Instance.OpenDoorEvent.RaiseEvent();
       }   
     }
 }

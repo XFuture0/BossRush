@@ -18619,6 +18619,60 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 197084ced3799ec46bb0e91722d49090, type: 3}
+--- !u!1 &1145272088
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1145272089}
+  - component: {fileID: 1145272090}
+  m_Layer: 0
+  m_Name: MapManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1145272089
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145272088}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1721625305}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1145272090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145272088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15e22d28fec137641b5eba35ff6ba5bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MapBox: {fileID: 1560974290}
+  MapLists:
+  - {fileID: 2989477715026419991, guid: 416f2ab7349de32429dbfe1cb79c0d4a, type: 3}
+  - {fileID: 3152116586217426697, guid: 366dc4cd384b29645bd3bab502d8020a, type: 3}
+  - {fileID: 108753749178391675, guid: 5c42acce830ca1d4881e7ce226de6927, type: 3}
+  Room:
+    serializedVersion: 2
+    m_Bits: 8192
+  MapData: {fileID: 11400000, guid: f6d03f41c9aba2540836c8a5eaf4fbca, type: 2}
+  RandomRoomCount: 20
 --- !u!1001 &1150574620
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28063,6 +28117,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f261e00c29be2134a87c19949761799f, type: 3}
+--- !u!1 &1560974289
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1560974290}
+  m_Layer: 0
+  m_Name: MapBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1560974290
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560974289}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1574241864 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5523442618145867292, guid: 197084ced3799ec46bb0e91722d49090, type: 3}
@@ -31058,6 +31143,7 @@ Transform:
   - {fileID: 1105976901}
   - {fileID: 338140093}
   - {fileID: 2030449558}
+  - {fileID: 1145272089}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1730841881
@@ -36253,6 +36339,7 @@ MonoBehaviour:
   BossSkillData: {fileID: 11400000, guid: 5cfd512b97021d248b97ae19451a541e, type: 2}
   CardListData: {fileID: 11400000, guid: cbd9e5ce7952ae145953d6aee6706089, type: 2}
   PlotData: {fileID: 11400000, guid: 7cfb5ab74cf88254d87915ada290d87b, type: 2}
+  MapData: {fileID: 11400000, guid: 8ad90e2be439b614284514ea7bfb74b7, type: 2}
 --- !u!1001 &1962776160
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38443,7 +38530,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlotCanvs: {fileID: 1418148460}
-  ThisRoomPlot: {fileID: 0}
+  ThisRoomPlot: {fileID: 11400000, guid: ae1259b278c873d489285585985e0149, type: 2}
 --- !u!1 &2039360150
 GameObject:
   m_ObjectHideFlags: 0
@@ -41760,3 +41847,4 @@ SceneRoots:
   - {fileID: 1113980662}
   - {fileID: 80838227}
   - {fileID: 508012729}
+  - {fileID: 1560974290}
