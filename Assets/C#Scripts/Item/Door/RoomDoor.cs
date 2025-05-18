@@ -8,6 +8,7 @@ public class RoomDoor : MonoBehaviour
     private Animator anim;
     private BoxCollider2D boxCollider;
     public DoorType doorType;
+    private RoomType roomType;
     public LayerMask Room;
     [Header("ÊÂ¼þ¼àÌý")]
     public VoidEventSO OpenDoorEvent;
@@ -16,6 +17,7 @@ public class RoomDoor : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
+        roomType = transform.parent.parent.gameObject.GetComponent<MapCharacrter>().RoomType;
     }
     private void Update()
     {

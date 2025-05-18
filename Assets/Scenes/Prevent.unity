@@ -35104,6 +35104,9 @@ MonoBehaviour:
   Startcanvs: {fileID: 1789455864}
   Fadecanvs: {fileID: 2040766542}
   EndCanvs: {fileID: 1975173949}
+  Room:
+    serializedVersion: 2
+    m_Bits: 8192
   OpenDoorEvent: {fileID: 11400000, guid: 6f6ff5fd5b015a94291f84848039b62f, type: 2}
   CloseDoorEvent: {fileID: 11400000, guid: a6f11a245a2b325438344d3b4c2dd05a, type: 2}
 --- !u!1001 &1903352402

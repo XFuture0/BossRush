@@ -95,7 +95,7 @@ public class BossController : MonoBehaviour
         {
             SkillTime_Count -= Time.deltaTime;
         }
-        if (SkillTime_Count < 0 && !IsSkill && !IsStopBoss && NoMove)
+        if (SkillTime_Count < 0 && !IsSkill && !IsStopBoss && !IsJump)
         {
             IsSkill = true;
             ChangeSkill();
@@ -218,7 +218,6 @@ public class BossController : MonoBehaviour
         if (!IsJump)
         {
             IsJump = true;
-            NoMove = false;
             anim.OnJumpUp();
         }
         rb.AddForce(ForceRotation, ForceMode2D.Impulse);
@@ -242,7 +241,6 @@ public class BossController : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         anim.OnJumpEnd();
         rb.gravityScale = Settings.BossGravity;
-        NoMove = true;
     }
     private void OnTriggerEnter2D(Collider2D other)
     {

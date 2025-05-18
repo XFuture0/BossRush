@@ -12,6 +12,7 @@ public class PlayerData : ScriptableObject
     public int ScoreCount;//得分数
     public bool StartGame;//游戏开始
     public Vector3 PlayerPosition;//玩家位置
+    public RoomType RoomType;//玩家当前房间
     public SceneData CurrentScene;//当前场景
     public HatList.HatData HatData;//帽子数据
     public CharacterList.CharacterData CharacterData;//特质数据

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using static MapData;
 public class GameManager : SingleTons<GameManager>
 {
     public GameObject CardPaper;
@@ -254,6 +255,7 @@ public class GameManager : SingleTons<GameManager>
         {
             AddBossSkillLevel();
         }
+      
     }
     public void AddBossSkillLevel()
     {
@@ -282,15 +284,21 @@ public class GameManager : SingleTons<GameManager>
         }
         BossSkillList.BossSkillNameList_Count = 0;
         BossStats.CharacterData_Temp = Instantiate(BossStats.CharacterData);
+        RefreshBossSkill();
     }
     private void BossDead()
     {
         BossActive = false;
         BossStats.gameObject.SetActive(false);
         Instantiate(CardPaper, BossStats.transform.position, Quaternion.identity);
-        SceneChangeManager.Instance.Door.SetActive(true);
+        if(PlayerData.RoomType == RoomType.BossRoom)
+        {
+            SceneChangeManager.Instance.Door.SetActive(true);
+        }
         ScoreManager.Instance.EndGetScore();
         BossDeadEvent.RaiseEvent();
+        SceneChangeManager.Instance.OpenDoorEvent.RaiseEvent();
+        MapManager.Instance.AccessRoom(Physics2D.OverlapPoint(PlayerStats.gameObject.transform.position,SceneChangeManager.Instance.Room).gameObject.transform.position);
     }
     public void RefreshPlayer()
     {

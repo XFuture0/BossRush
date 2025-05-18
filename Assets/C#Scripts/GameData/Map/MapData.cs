@@ -7,6 +7,7 @@ public class MapData : ScriptableObject
     [System.Serializable]
     public class Room 
     {
+        public bool IsAccess;//是否已通过
         public Vector3 RoomPosition;
         public RoomType RoomType;
     }
