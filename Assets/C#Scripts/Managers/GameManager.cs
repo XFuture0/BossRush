@@ -294,6 +294,8 @@ public class GameManager : SingleTons<GameManager>
         if(PlayerData.RoomType == RoomType.BossRoom)
         {
             SceneChangeManager.Instance.Door.SetActive(true);
+            var DoorPosition = Physics2D.OverlapPoint(PlayerStats.gameObject.transform.position, SceneChangeManager.Instance.Room).gameObject.transform.position + new Vector3(-21,0,0);
+            SceneChangeManager.Instance.Door.transform.position = DoorPosition;
         }
         ScoreManager.Instance.EndGetScore();
         BossDeadEvent.RaiseEvent();

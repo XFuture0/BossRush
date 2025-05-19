@@ -15,6 +15,10 @@ public class Bullet : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
+    private void OnEnable()
+    {
+        Invoke("Destorying",5f);
+    }
     private void Update()
     {
         if (spriteRenderer.sprite != GameManager.Instance.PlayerData.WeaponData.BulletSprite)
@@ -78,7 +82,7 @@ public class Bullet : MonoBehaviour
     {
         transform.localEulerAngles += new Vector3(0, 0, 3);
     }
-    private void Destorying()
+    private void Destorying()//∂Øª≠ π”√
     {
         Destroy(gameObject);
     }

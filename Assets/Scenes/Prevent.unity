@@ -8964,7 +8964,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 10.21
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -35097,6 +35097,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89463b4b866969b40b4f755d4d86a4b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsSetPosition: 0
   Door: {fileID: 1616715118}
   Player: {fileID: 1545711571}
   Boss: {fileID: 1940352743}
@@ -35109,6 +35110,7 @@ MonoBehaviour:
     m_Bits: 8192
   OpenDoorEvent: {fileID: 11400000, guid: 6f6ff5fd5b015a94291f84848039b62f, type: 2}
   CloseDoorEvent: {fileID: 11400000, guid: a6f11a245a2b325438344d3b4c2dd05a, type: 2}
+  ChangeBossSkillEvent: {fileID: 11400000, guid: ff02082a675bb4243a59a19ac32d83f7, type: 2}
 --- !u!1001 &1903352402
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35723,6 +35725,8 @@ MonoBehaviour:
   State: 0
   SkillList: {fileID: 11400000, guid: b843cc835cc2bd44bbf9454c4601b003, type: 2}
   ClosePlatformBoxEvent: {fileID: 11400000, guid: fbae139dcdb83c847a6f90493669fa68, type: 2}
+  ChangeBossSkillPosition: {fileID: 11400000, guid: ff02082a675bb4243a59a19ac32d83f7, type: 2}
+  FlyPosition: {x: 0, y: 0, z: 0}
   Shootball: {fileID: 1953544799177635895, guid: f2524769319c36b4896956b6a194b876, type: 3}
   laser: {fileID: 2533778657820208613, guid: 9fc0e7829c0710243bb013c7cfc6f03b, type: 3}
   LaserBox: {fileID: 201262316}
@@ -37291,7 +37295,7 @@ MonoBehaviour:
   m_Follow: {fileID: 1545711573}
   m_Lens:
     FieldOfView: 34
-    OrthographicSize: 10.21
+    OrthographicSize: 8
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0

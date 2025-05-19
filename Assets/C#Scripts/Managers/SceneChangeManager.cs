@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 public class SceneChangeManager : SingleTons<SceneChangeManager>
 {
     private bool IsSetRoomData;
-    private bool IsSetPosition;
+    public bool IsSetPosition;
     public GameObject Door;
     public GameObject Player;
     public GameObject Boss;
@@ -20,6 +20,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     [Header("广播")]
     public VoidEventSO OpenDoorEvent;
     public VoidEventSO CloseDoorEvent;
+    public Vector3EventSO ChangeBossSkillEvent;
     public void ChangeMap()
     {
         StartCoroutine(OnChangeMap());
@@ -27,6 +28,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     private IEnumerator OnChangeMap()
     {
         Fadecanvs.FadeIn();
+        GameManager.Instance.PlayerStats.gameObject.GetComponent<PlayerController>().StopPlayer();
         KeyBoardManager.Instance.StopAnyKey = true;
         yield return new WaitForSeconds(0.1f);
         GameManager.Instance.Boss().NowHealth = GameManager.Instance.Boss().MaxHealth;
@@ -34,18 +36,21 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         {
             MapManager.Instance.SetNewMap();//创建新地图
         }
-        IsSetRoomData = false;
         yield return new WaitForSeconds(5f);
+        GameManager.Instance.PlayerData.RoomType = RoomType.StartRoom;
         DataManager.Instance.Save(DataManager.Instance.Index);//存档
-        if (GameManager.Instance.PlayerData.CurrentRoomCount < GameManager.Instance.PlayerData.RoomCount)
+        if (!IsSetRoomData)
         {
-            GameManager.Instance.PlayerData.CurrentRoomCount++;
-        }
-        else
-        {
-            EndCanvs.SetActive(true);
-            GameManager.Instance.PlayerData.CurrentRoomCount = 0;
-            yield break;
+            if (GameManager.Instance.PlayerData.CurrentRoomCount < GameManager.Instance.PlayerData.RoomCount)
+            {
+                GameManager.Instance.PlayerData.CurrentRoomCount++;
+            }
+            else
+            {
+                EndCanvs.SetActive(true);
+                GameManager.Instance.PlayerData.CurrentRoomCount = 0;
+                yield break;
+            }
         }
         ColorManager.Instance.ChangeColor();
         if (!IsSetPosition)
@@ -59,10 +64,13 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         {
             MapManager.Instance.AccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);
         }
+        IsSetRoomData = false;
         Door.SetActive(true);
         Door.GetComponent<Door>().SetDoor();
         yield return new WaitForSeconds(1f);
         OpenDoorEvent.RaiseEvent();
+        SetChangeRoom();
+        GameManager.Instance.PlayerStats.gameObject.GetComponent<PlayerController>().ContinuePlayer();
         KeyBoardManager.Instance.StopAnyKey = false;
         KeyBoardManager.Instance.StopMoveKey = false;
     }
@@ -87,6 +95,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         }
         IsSetRoomData = false;
         yield return new WaitForSeconds(5f);
+        GameManager.Instance.PlayerData.RoomType = RoomType.StartRoom;
         DataManager.Instance.Save(DataManager.Instance.Index);//存档
         GameManager.Instance.PlayerData.CurrentRoomCount = 1;
         ColorManager.Instance.ChangeColor();
@@ -153,7 +162,10 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         }
         SceneManager.LoadSceneAsync(CurrentScene.SceneName, LoadSceneMode.Additive);
         GameManager.Instance.PlayerStats.gameObject.transform.position = CurrentScene.ToPosition;
-        IsSetPosition = true;
+        if (GameManager.Instance.PlayerData.StartGame)
+        {
+            IsSetPosition = true;
+        }
         if (!GameManager.Instance.PlayerData.StartGame)
         {
             Fadecanvs.FadeOut();
@@ -199,6 +211,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     {
         Fadecanvs.FadeIn();
         KeyBoardManager.Instance.StopAnyKey = true;
+        GameManager.Instance.Boss().NowHealth = GameManager.Instance.Boss().MaxHealth;
         switch (doorType)
         {
             case DoorType.LeftUpDoor:
@@ -225,9 +238,10 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
             case RoomType.NormalRoom:
                 if (!MapManager.Instance.CheckAccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position))
                 {
-                    FixBossPosition(doorType);
+                    Boss.transform.position = Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position + new Vector3(-15f, 0.97f, 0);
                     GameManager.Instance.AddBossHealth();
                     Boss.SetActive(true);
+                    ChangeBossSkillEvent.RaiseVector3Event(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);
                     GameManager.Instance.BossActive = true;
                     Boss.GetComponent<BossController>().IsStopBoss = true;
                 }
@@ -235,9 +249,10 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
             case RoomType.BossRoom:
                 if (!MapManager.Instance.CheckAccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position))
                 {
-                    FixBossPosition(doorType);
+                    Boss.transform.position = Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position + new Vector3(-15f, 0.97f, 0);
                     GameManager.Instance.AddBossHealth();
                     Boss.SetActive(true);
+                    ChangeBossSkillEvent.RaiseVector3Event(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);
                     GameManager.Instance.BossActive = true;
                     Boss.GetComponent<BossController>().IsStopBoss = true;
                     GameManager.Instance.RefreshBossSkill();
@@ -275,22 +290,53 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         }
         KeyBoardManager.Instance.StopAnyKey = false;
     }
-    private void FixBossPosition(DoorType doorType)
+    private void SetChangeRoom()
     {
-        switch (doorType)
+        KeyBoardManager.Instance.StopAnyKey = true;
+        GameManager.Instance.Boss().NowHealth = GameManager.Instance.Boss().MaxHealth;
+        switch (GameManager.Instance.PlayerData.RoomType)
         {
-            case DoorType.LeftUpDoor:
-                Boss.transform.position = Player.transform.position + new Vector3(-15f, 0.97f, 0);
+            case RoomType.StartRoom:
+                OpenDoorEvent.RaiseEvent();
                 break;
-            case DoorType.LeftDownDoor:
-                Boss.transform.position = Player.transform.position + new Vector3(-15f, 0.97f, 0);
+            case RoomType.NormalRoom:
+                if (!MapManager.Instance.CheckAccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position))
+                {
+                    CloseDoorEvent.RaiseEvent();
+                    Boss.SetActive(true);
+                    Boss.transform.position = Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position + new Vector3(-15f, 0.97f, 0);
+                    ChangeBossSkillEvent.RaiseVector3Event(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);
+                    GameManager.Instance.BossActive = true;
+                    Boss.GetComponent<BossController>().IsStopBoss = true;
+                    PlotManager.Instance.SetRoomPlotText();
+                    Boss.GetComponent<BossController>().IsStopBoss = false;
+                }
+                else if(MapManager.Instance.CheckAccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position))
+                {
+                    OpenDoorEvent.RaiseEvent();
+                }
                 break;
-            case DoorType.RightUpDoor:
-                Boss.transform.position = Player.transform.position + new Vector3(15f, 0.97f, 0);
+            case RoomType.BossRoom:
+                if (!MapManager.Instance.CheckAccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position))
+                {
+                    CloseDoorEvent.RaiseEvent();
+                    Boss.SetActive(true);
+                    Boss.transform.position = Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position + new Vector3(-15f, 0.97f, 0);
+                    ChangeBossSkillEvent.RaiseVector3Event(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);
+                    GameManager.Instance.BossActive = true;
+                    Boss.GetComponent<BossController>().IsStopBoss = true;
+                    PlotManager.Instance.SetRoomPlotText();
+                    Boss.GetComponent<BossController>().IsStopBoss = false;
+                    GameManager.Instance.RefreshBossSkill();
+                }
+                else if (MapManager.Instance.CheckAccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position))
+                {
+                    OpenDoorEvent.RaiseEvent();
+                }
                 break;
-            case DoorType.RightDownDoor:
-                Boss.transform.position = Player.transform.position + new Vector3(15f, 0.97f, 0);
+            default:
                 break;
         }
+        KeyBoardManager.Instance.StopAnyKey = false;
     }
 }

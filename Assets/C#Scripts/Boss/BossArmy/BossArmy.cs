@@ -29,11 +29,9 @@ public class BossArmy : MonoBehaviour
     }
     private void Update()
     {
-        Shoot();
         if (IsLevel4)
         {
-            IsLevel4 = false;
-            
+            Shoot();
         }
         if (IsLevel5)
         {

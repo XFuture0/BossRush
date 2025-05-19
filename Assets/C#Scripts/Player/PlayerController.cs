@@ -252,7 +252,6 @@ public class PlayerController : MonoBehaviour
         if(GameManager.Instance.PlayerStats.CharacterData_Temp.NowHealth <= 0 && !Isdead)
         {
             Isdead = true;
-            KeyBoardManager.Instance.StopMoveKey = true;
             EndCanvs.SetActive(true);
         }
     }

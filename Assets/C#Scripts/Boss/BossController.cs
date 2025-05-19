@@ -25,7 +25,10 @@ public class BossController : MonoBehaviour
     private skill UseSkill;
     [Header("广播")]
     public VoidEventSO ClosePlatformBoxEvent;
+    [Header("事件监听")]
+    public Vector3EventSO ChangeBossSkillPosition;
     [Header("技能物品")]
+    public Vector3 FlyPosition;
     public GameObject Shootball;
     public GameObject laser;
     public Transform LaserBox;
@@ -74,7 +77,9 @@ public class BossController : MonoBehaviour
         SkillTime_Count = 2;
         IsSkill = false;
         NoMove = false;
+        IsJump = false;
         WalkTime_Count = 3;
+        ChangeBossSkillPosition.OnVector3EventRaised += OnChangeBossSkillPosition;
     }
     private void OnDisable()
     {
@@ -83,6 +88,7 @@ public class BossController : MonoBehaviour
             FissueBox.transform.GetChild(i).gameObject.SetActive(false);
         }
         Alltrident.SetActive(false);
+        ChangeBossSkillPosition.OnVector3EventRaised -= OnChangeBossSkillPosition;
         StopAllCoroutines();
     }
     private void DestoryIng()
@@ -242,6 +248,12 @@ public class BossController : MonoBehaviour
         anim.OnJumpEnd();
         rb.gravityScale = Settings.BossGravity;
     }
+    private void OnChangeBossSkillPosition(Vector3 RoomPosition)
+    {
+        LaserBox.transform.position = RoomPosition + new Vector3(-14.88f, 11.75f, 0);
+        FlyPosition = RoomPosition + new Vector3(-14.88f, 11.75f, 0);
+        Alltrident.transform.position = RoomPosition + new Vector3(-14.8f, 1.03f, 0);
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag == "Player")
@@ -264,7 +276,7 @@ public class BossController : MonoBehaviour
     }
     private void BossFly()
     {
-        transform.position = new Vector3(-14.88f, 11.75f, 0);
+        transform.position = FlyPosition;
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0;
         NoMove = true;
