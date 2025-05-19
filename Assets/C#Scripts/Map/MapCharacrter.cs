@@ -9,6 +9,8 @@ public class MapCharacrter : MonoBehaviour
     public RoomType RoomType;//房间类型
     public float Size;//房间视角大小
     public PolygonCollider2D polygonCollider;
+    public GameObject CurPlayer;
+    public GameObject NoFind;
     public void BuildNewRoom()
     {
         StartCoroutine(MapManager.Instance.BuildNewRoom(Width,Height,(Vector2)transform.position,RoomType));
@@ -18,6 +20,19 @@ public class MapCharacrter : MonoBehaviour
       if(other.tag == "Player")
       {
             GameManager.Instance.OnBoundEvent(polygonCollider,Size);
+            CurPlayer.SetActive(true);
+            NoFind.SetActive(false);
       }   
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.tag == "Player")
+        {
+            CurPlayer.SetActive(false);
+        }
+    }
+    public void FindRoom()
+    {
+        NoFind.SetActive(false);
     }
 }

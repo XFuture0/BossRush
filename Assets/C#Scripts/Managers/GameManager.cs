@@ -301,6 +301,7 @@ public class GameManager : SingleTons<GameManager>
         BossDeadEvent.RaiseEvent();
         SceneChangeManager.Instance.OpenDoorEvent.RaiseEvent();
         MapManager.Instance.AccessRoom(Physics2D.OverlapPoint(PlayerStats.gameObject.transform.position,SceneChangeManager.Instance.Room).gameObject.transform.position);
+        DataManager.Instance.Save(DataManager.Instance.Index);//´æµµ
     }
     public void RefreshPlayer()
     {

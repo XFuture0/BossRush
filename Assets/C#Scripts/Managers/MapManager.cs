@@ -381,6 +381,7 @@ public class MapManager : SingleTons<MapManager>
         {
             Instantiate(MapLists[(int)Room.RoomType],Room.RoomPosition, Quaternion.identity, MapBox);
         }//重建地图
+        CheckFindRoom();
     }
     public void ClearMap()
     {
@@ -401,6 +402,16 @@ public class MapManager : SingleTons<MapManager>
             }
         }
     }
+    public void FindRoom(Vector3 RoomPosition)//房间已发现
+    {
+        foreach (var room in MapData.RoomLists)
+        {
+            if (room.RoomPosition == RoomPosition)
+            {
+                room.IsFind = true;
+            }
+        }
+    }
     public bool CheckAccessRoom(Vector3 RoomPosition)//检查房间是否已通过
     {
         foreach (var room in MapData.RoomLists)
@@ -414,5 +425,15 @@ public class MapManager : SingleTons<MapManager>
             }
         }
         return false;
+    }
+    private void CheckFindRoom()//检查房间是否已找到
+    {
+        foreach (var room in MapData.RoomLists)
+        {
+            if (room.IsFind)
+            {
+                Physics2D.OverlapPoint(room.RoomPosition,Room).gameObject.GetComponent<MapCharacrter>().FindRoom();
+            }
+        }
     }
 }

@@ -21,6 +21,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     public VoidEventSO OpenDoorEvent;
     public VoidEventSO CloseDoorEvent;
     public Vector3EventSO ChangeBossSkillEvent;
+    public Vector3EventSO ChangeMiniMapPositionEvent;
     public void ChangeMap()
     {
         StartCoroutine(OnChangeMap());
@@ -35,9 +36,9 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         if (!IsSetRoomData)
         {
             MapManager.Instance.SetNewMap();//创建新地图
+            GameManager.Instance.PlayerData.RoomType = RoomType.StartRoom;
         }
         yield return new WaitForSeconds(5f);
-        GameManager.Instance.PlayerData.RoomType = RoomType.StartRoom;
         DataManager.Instance.Save(DataManager.Instance.Index);//存档
         if (!IsSetRoomData)
         {
@@ -64,9 +65,11 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         {
             MapManager.Instance.AccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);
         }
+        MapManager.Instance.FindRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);
         IsSetRoomData = false;
         Door.SetActive(true);
         Door.GetComponent<Door>().SetDoor();
+        ChangeMiniMapPositionEvent.RaiseVector3Event(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);//改变小地图相机位置
         yield return new WaitForSeconds(1f);
         OpenDoorEvent.RaiseEvent();
         SetChangeRoom();
@@ -92,10 +95,10 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         if (!IsSetRoomData)
         {
             MapManager.Instance.SetNewMap();//创建新地图
+            GameManager.Instance.PlayerData.RoomType = RoomType.StartRoom;
         }
         IsSetRoomData = false;
         yield return new WaitForSeconds(5f);
-        GameManager.Instance.PlayerData.RoomType = RoomType.StartRoom;
         DataManager.Instance.Save(DataManager.Instance.Index);//存档
         GameManager.Instance.PlayerData.CurrentRoomCount = 1;
         ColorManager.Instance.ChangeColor();
@@ -103,9 +106,11 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         Fadecanvs.FadeOut();
         Door.SetActive(true);
         Door.GetComponent<Door>().SetDoor();
+        ChangeMiniMapPositionEvent.RaiseVector3Event(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);//改变小地图相机位置
         yield return new WaitForSeconds(1f);
         OpenDoorEvent.RaiseEvent();
         MapManager.Instance.AccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);
+        MapManager.Instance.FindRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);
         KeyBoardManager.Instance.StopAnyKey = false;
         KeyBoardManager.Instance.StopMoveKey = false;
         GameManager.Instance.PlayerStats.gameObject.GetComponent<PlayerController>().ContinuePlayer();
@@ -231,6 +236,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         GameManager.Instance.PlayerData.RoomType = Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.GetComponent<MapCharacrter>().RoomType;
         DataManager.Instance.Save(DataManager.Instance.Index);//存档
         yield return new WaitForSeconds(0.4f);
+        ChangeMiniMapPositionEvent.RaiseVector3Event(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);//改变小地图相机位置
         switch (GameManager.Instance.PlayerData.RoomType)
         {
             case RoomType.StartRoom:
@@ -262,6 +268,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
                 break;
         }
         Fadecanvs.FadeOut();
+        MapManager.Instance.FindRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);
         yield return new WaitForSeconds(0.5f);
         switch (GameManager.Instance.PlayerData.RoomType)
         {
@@ -297,6 +304,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         switch (GameManager.Instance.PlayerData.RoomType)
         {
             case RoomType.StartRoom:
+                MapManager.Instance.AccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);
                 OpenDoorEvent.RaiseEvent();
                 break;
             case RoomType.NormalRoom:

@@ -8,6 +8,7 @@ public class MapData : ScriptableObject
     public class Room 
     {
         public bool IsAccess;//是否已通过
+        public bool IsFind;//是否已发现
         public Vector3 RoomPosition;
         public RoomType RoomType;
     }
