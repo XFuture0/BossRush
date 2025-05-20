@@ -34,16 +34,17 @@ public class GameManager : SingleTons<GameManager>
         BossCanvs.SetActive(PlayerData.StartGame);
         if(BossStats.CharacterData_Temp.NowHealth <= 0 && BossActive)
         {
-            BossDead();
+            BossActive = false;
+            BossStats.gameObject.GetComponent<BossAnim>().OnBossDead();
         }
     }
     public void Attack(CharacterStats Attacker,CharacterStats Defender)
     {
-        AttackType attackType = AttackType.HitBoss;
+        string attackName = "ÃüÖÐ";
         int attackScore = 20;
         if(Defender.gameObject.tag == "Boss")
         {
-            attackType = AttackType.HitBoss;
+            attackName = "±©»÷";
             attackScore = 20;
         }
         if (Defender.CharacterData_Temp.ShengqiCore)
@@ -88,7 +89,7 @@ public class GameManager : SingleTons<GameManager>
             {
                 BulletCount = 0;
                 CriticalDamageBonus += Attacker.CharacterData_Temp.CriticalDamageBonus;
-                attackType = AttackType.HitBoss_Critical;
+                attackName = "±©»÷";
                 attackScore = 40;
                 if (Attacker.CharacterData_Temp.WaterEmblem)
                 {
@@ -135,7 +136,7 @@ public class GameManager : SingleTons<GameManager>
                     StartCoroutine(CheckElasticGel());
                     break;
                 case "Boss":
-                    ScoreManager.Instance.AddScore(attackScore,attackType);
+                    ScoreManager.Instance.AddScore(attackScore, attackName);
                     HurtText.GetComponent<HurtText>().SetHurtText();
                     if (Attacker.CharacterData_Temp.PoisonBullet)
                     {
@@ -286,9 +287,8 @@ public class GameManager : SingleTons<GameManager>
         BossStats.CharacterData_Temp = Instantiate(BossStats.CharacterData);
         RefreshBossSkill();
     }
-    private void BossDead()
+    public void BossDead()
     {
-        BossActive = false;
         BossStats.gameObject.SetActive(false);
         Instantiate(CardPaper, BossStats.transform.position, Quaternion.identity);
         if(PlayerData.RoomType == RoomType.BossRoom)
@@ -297,6 +297,8 @@ public class GameManager : SingleTons<GameManager>
             var DoorPosition = Physics2D.OverlapPoint(PlayerStats.gameObject.transform.position, SceneChangeManager.Instance.Room).gameObject.transform.position + new Vector3(-21,0,0);
             SceneChangeManager.Instance.Door.transform.position = DoorPosition;
         }
+        var GetCoin = UnityEngine.Random.Range(10, 20);
+        CoinManager.Instance.GiveCoins(BossStats.gameObject.transform.position,GetCoin);
         ScoreManager.Instance.EndGetScore();
         BossDeadEvent.RaiseEvent();
         SceneChangeManager.Instance.OpenDoorEvent.RaiseEvent();

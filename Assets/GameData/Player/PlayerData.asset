@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   RoomCount: 10
-  CurrentRoomCount: 0
+  CurrentRoomCount: 1
   JumpForce: 18
   JumpDownSpeed_Max: -18
   CoinCount: 0
-  ScoreCount: 0
-  StartGame: 0
-  PlayerPosition: {x: -22.119993, y: -2.513012, z: 0}
-  CurrentScene: {fileID: 11400000, guid: efa07ffd72e72e24f97e21e75bf8bc7a, type: 2}
+  ScoreCount: 400
+  StartGame: 1
+  PlayerPosition: {x: 22.824974, y: -12.513172, z: 0}
+  RoomType: 1
+  CurrentScene: {fileID: 11400000, guid: 2e9a28ac1d2d60945a3b351ceced992b, type: 2}
   HatData:
     Index: 0
     HatName: Null

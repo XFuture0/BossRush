@@ -25,4 +25,8 @@ public class BossAnim : MonoBehaviour
     {
         anim.SetTrigger("JumpOnGround");
     }
+    public void OnBossDead()
+    {
+        anim.SetTrigger("Dead");
+    }
 }

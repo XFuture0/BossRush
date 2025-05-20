@@ -6,9 +6,8 @@ using UnityEngine.UI;
 public class MapCanvs : MonoBehaviour
 {
     public GameObject MiniMap;
-    public GameObject AllMiniMap;
     public Camera MiniCamera;
-    public RenderTexture MiniMapRender;
+    public GameObject BagCanvs;
     private void Update()
     {
         if (KeyBoardManager.Instance.GetKeyDown_Tab())
@@ -16,13 +15,13 @@ public class MapCanvs : MonoBehaviour
             if (MiniMap.activeSelf)
             {
                 MiniMap.SetActive(false);
-                AllMiniMap.SetActive(true);
-                MiniCamera.fieldOfView = 168f;
+                BagCanvs.SetActive(true);
+                MiniCamera.fieldOfView = 177f;
             }
             else
             {
                 MiniMap.SetActive(true);
-                AllMiniMap.SetActive(false);
+                BagCanvs.SetActive(false);
                 MiniCamera.fieldOfView = 152f;
             }
         }

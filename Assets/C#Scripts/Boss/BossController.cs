@@ -269,6 +269,10 @@ public class BossController : MonoBehaviour
             }
         }
     }
+    private void BossDead()
+    {
+        GameManager.Instance.BossDead();
+    }
     private IEnumerator RebornGameObject(Collider2D other)
     {
         yield return new WaitForSeconds(1.5f);

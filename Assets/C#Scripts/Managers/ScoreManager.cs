@@ -20,12 +20,12 @@ public class ScoreManager : SingleTons<ScoreManager>
     {
         CancelInvoke();
     }
-    public void AddScore(int score,AttackType type)
+    public void AddScore(int score,string ScoreName)
     {
         LastScore = GameManager.Instance.PlayerData.ScoreCount;
         var NewGetScore = Instantiate(GetScoreImage, GetScoreBox);
         NewGetScore.GetComponent<RectTransform>().anchoredPosition = new Vector2(-173f, 100f);
-        AddScoreText(type,NewGetScore.gameObject.GetComponent<Text>(),score);
+        AddScoreText(ScoreName, NewGetScore.gameObject.GetComponent<Text>(),score);
         StartCoroutine(OnAddScore(score));
     }
     private IEnumerator OnAddScore(int Score)
@@ -36,17 +36,9 @@ public class ScoreManager : SingleTons<ScoreManager>
             yield return new WaitForSeconds(0.1f);
         }
     }
-    private void AddScoreText(AttackType type,Text NewGetScoreText,int Score)
+    private void AddScoreText(string ScoreName, Text NewGetScoreText,int Score)
     {
-        switch (type)
-        {
-            case AttackType.HitBoss:
-                NewGetScoreText.text = "Уќжа + " + Score.ToString();
-                break;
-            case AttackType.HitBoss_Critical:
-                NewGetScoreText.text = "БЉЛї + " + Score.ToString();
-                break;
-        }
+          NewGetScoreText.text = ScoreName.ToString() + " + " + Score.ToString();
     }
     private void Update()
     {
