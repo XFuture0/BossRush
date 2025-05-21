@@ -22,6 +22,22 @@ public class KeyBoardManager : SingleTons<KeyBoardManager>
         }
         return 0f;
     }
+    public float GetHorizontalRaw_MiNi()
+    {
+        if (!StopAnyKey)
+        {
+            return Input.GetAxisRaw("Horizontal");
+        }
+        return 0f;
+    }
+    public float GetVerticalRaw_MiNi()
+    {
+        if (!StopAnyKey)
+        {
+            return Input.GetAxisRaw("Vertical");
+        }
+        return 0f;
+    }
     public bool GetKeyDown_R()
     {
         if (!StopAnyKey && !StopMoveKey)
@@ -56,7 +72,7 @@ public class KeyBoardManager : SingleTons<KeyBoardManager>
     }
     public bool GetKeyDown_F()
     {
-        if (!StopAnyKey)
+        if (!StopAnyKey && !StopMoveKey)
         {
             return Input.GetKeyDown(KeyCode.F);
         }
@@ -64,7 +80,7 @@ public class KeyBoardManager : SingleTons<KeyBoardManager>
     }
     public bool GetKey_F()
     {
-        if (!StopAnyKey)
+        if (!StopAnyKey && !StopMoveKey)
         {
             return Input.GetKey(KeyCode.F);
         }

@@ -264,6 +264,8 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
                     GameManager.Instance.RefreshBossSkill();
                 }
                 break;
+            case RoomType.TransmissionTowerRoom:
+                break;
             default:
                 break;
         }
@@ -291,6 +293,10 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
                     PlotManager.Instance.SetRoomPlotText();
                     Boss.GetComponent<BossController>().IsStopBoss = false;
                 }
+                break;
+            case RoomType.TransmissionTowerRoom:
+                OpenDoorEvent.RaiseEvent();
+                MapManager.Instance.AccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);
                 break;
             default:
                 break;
@@ -341,6 +347,10 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
                 {
                     OpenDoorEvent.RaiseEvent();
                 }
+                break;
+            case RoomType.TransmissionTowerRoom:
+                MapManager.Instance.AccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);
+                OpenDoorEvent.RaiseEvent();
                 break;
             default:
                 break;

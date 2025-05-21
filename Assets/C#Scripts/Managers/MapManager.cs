@@ -8,6 +8,8 @@ public class MapManager : SingleTons<MapManager>
     public List<GameObject> MapLists = new List<GameObject>();
     public LayerMask Room;
     public MapData MapData;
+    public GameObject TransmissionCamera;
+    public GameObject CanvsBox;
     [Header("地图建造属性")]
     public int RandomRoomCount;//大致房间数量
     private int RoomCount;//实际房间数量
@@ -327,6 +329,12 @@ public class MapManager : SingleTons<MapManager>
                 {
                     return true;
                 }
+            case RoomType.TransmissionTowerRoom:
+                if (SetRotation == Settings.WestCenter || SetRotation == Settings.WestSouth || SetRotation == Settings.EastCenter || SetRotation == Settings.EastSouth)
+                {
+                    return true;
+                }
+                break;
             default:
                 break;
         }
@@ -412,6 +420,20 @@ public class MapManager : SingleTons<MapManager>
             }
         }
     }
+    public bool GetRoom(Vector3 RoomPosition)
+    {
+        foreach (var room in MapData.RoomLists)
+        {
+            if (room.RoomPosition == RoomPosition)
+            {
+                if (room.IsFind)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     public bool CheckAccessRoom(Vector3 RoomPosition)//检查房间是否已通过
     {
         foreach (var room in MapData.RoomLists)
@@ -435,5 +457,34 @@ public class MapManager : SingleTons<MapManager>
                 Physics2D.OverlapPoint(room.RoomPosition,Room).gameObject.GetComponent<MapCharacrter>().FindRoom();
             }
         }
+    }
+    public void TransmissionRoom(Vector3 TargetPosition)
+    {
+        StartCoroutine(OnTransmissionRoom(TargetPosition));
+    }
+    private IEnumerator OnTransmissionRoom(Vector3 TargetPosition)
+    {
+        KeyBoardManager.Instance.StopMoveKey = true;
+        CanvsBox.SetActive(true);
+        TransmissionCamera.SetActive(false);
+        SceneChangeManager.Instance.Fadecanvs.FadeIn();
+        SceneChangeManager.Instance.Player.transform.position = TargetPosition;
+        yield return new WaitForSeconds(0.1f);
+        DataManager.Instance.Save(DataManager.Instance.Index);//存档
+        SceneChangeManager.Instance.Fadecanvs.FadeOut();
+        KeyBoardManager.Instance.StopMoveKey = false;
+    }
+    public void OpenTransmission(Vector3 RoomPosition)
+    {
+        KeyBoardManager.Instance.StopMoveKey = true;
+        CanvsBox.SetActive(false);
+        TransmissionCamera.transform.position = new Vector3(RoomPosition.x,RoomPosition.y,TransmissionCamera.transform.position.z);
+        TransmissionCamera.SetActive(true);
+    }
+    public void CloseTransmission()
+    {
+        KeyBoardManager.Instance.StopMoveKey = false;
+        CanvsBox.SetActive(true);
+        TransmissionCamera.SetActive(false);
     }
 }

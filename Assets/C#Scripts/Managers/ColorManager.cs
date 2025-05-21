@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ColorManager : SingleTons<ColorManager>
 {
     public GameObject Camera;
+    public GameObject TransmissionCamera;
     public GameObject Player;
     public GameObject Boss;
     public GameObject BossHealthBox;
@@ -31,6 +32,7 @@ public class ColorManager : SingleTons<ColorManager>
         ColorIndex = UnityEngine.Random.Range(0,ColorData.ColorLists.Count);
         //ColorIndex = ColorData.ColorLists.Count - 1;//锁定到最后的颜色
         Camera.GetComponent<Camera>().backgroundColor = ColorData.ColorLists[ColorIndex].Color1;
+        TransmissionCamera.GetComponent<Camera>().backgroundColor = ColorData.ColorLists[ColorIndex].Color1;
         Player.GetComponent<SpriteRenderer>().color = ColorData.ColorLists[ColorIndex].Color2;
         Boss.GetComponent<SpriteRenderer>().color = ColorData.ColorLists[ColorIndex].Color2;
         BossHealthBox.GetComponent<Image>().color = ColorData.ColorLists[ColorIndex].Color2;

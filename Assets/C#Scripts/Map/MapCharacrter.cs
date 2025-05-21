@@ -11,6 +11,7 @@ public class MapCharacrter : MonoBehaviour
     public PolygonCollider2D polygonCollider;
     public GameObject CurPlayer;
     public GameObject NoFind;
+    public GameObject TransmissionTower;
     public void BuildNewRoom()
     {
         StartCoroutine(MapManager.Instance.BuildNewRoom(Width,Height,(Vector2)transform.position,RoomType));
@@ -22,6 +23,10 @@ public class MapCharacrter : MonoBehaviour
             GameManager.Instance.OnBoundEvent(polygonCollider,Size);
             CurPlayer.SetActive(true);
             NoFind.SetActive(false);
+            if(RoomType == RoomType.TransmissionTowerRoom)
+            {
+                TransmissionTower.SetActive(true);
+            }
       }   
     }
     private void OnTriggerExit2D(Collider2D other)
@@ -34,5 +39,9 @@ public class MapCharacrter : MonoBehaviour
     public void FindRoom()
     {
         NoFind.SetActive(false);
+        if (RoomType == RoomType.TransmissionTowerRoom)
+        {
+            TransmissionTower.SetActive(true);
+        }
     }
 }

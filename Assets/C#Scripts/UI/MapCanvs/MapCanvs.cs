@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,12 +15,14 @@ public class MapCanvs : MonoBehaviour
         {
             if (MiniMap.activeSelf)
             {
+                KeyBoardManager.Instance.StopMoveKey = true;
                 MiniMap.SetActive(false);
                 BagCanvs.SetActive(true);
                 MiniCamera.fieldOfView = 177f;
             }
             else
             {
+                KeyBoardManager.Instance.StopMoveKey = false;
                 MiniMap.SetActive(true);
                 BagCanvs.SetActive(false);
                 MiniCamera.fieldOfView = 152f;
