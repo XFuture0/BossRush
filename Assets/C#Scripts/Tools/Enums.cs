@@ -35,6 +35,7 @@ public enum RoomType
 {
     StartRoom,
     NormalRoom,
+    CardRoom,
     TransmissionTowerRoom,
     BossRoom,
 }

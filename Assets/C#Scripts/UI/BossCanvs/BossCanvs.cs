@@ -18,6 +18,7 @@ public class BossCanvs : MonoBehaviour
         if(GameManager.Instance.Boss().NowHealth <= 0)
         {
             BossHealth.gameObject.transform.localScale = new Vector3(0, 1, 1);
+            gameObject.SetActive(false);
         }
         if(GameManager.Instance.Boss().NowHealth == GameManager.Instance.Boss().MaxHealth)
         {
@@ -34,6 +35,13 @@ public class BossCanvs : MonoBehaviour
             var NewDeleteHealth = Instantiate(DeleteHealth, DeleteHealthTemp);
             NewDeleteHealth.GetComponent<RectTransform>().localScale = new Vector3((BaseHealthLevel - HealthLevel) / BossHealth.gameObject.transform.localScale.x, 1, 1);
             NewDeleteHealth.GetComponent<Image>().color = color;
+        }
+    }
+    private void OnDisable()
+    {
+        for(int i = 0; i < DeleteHealthTemp.childCount; i++)
+        {
+            Destroy(DeleteHealthTemp.GetChild(i).gameObject);
         }
     }
 }

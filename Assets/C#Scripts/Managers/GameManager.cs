@@ -31,7 +31,6 @@ public class GameManager : SingleTons<GameManager>
     private void Update()
     {
         PlayerCanvs.SetActive(PlayerData.StartGame);
-        BossCanvs.SetActive(PlayerData.StartGame);
         if(BossStats.CharacterData_Temp.NowHealth <= 0 && BossActive)
         {
             BossActive = false;
@@ -44,7 +43,6 @@ public class GameManager : SingleTons<GameManager>
         int attackScore = 20;
         if(Defender.gameObject.tag == "Boss")
         {
-            attackName = "±©»÷";
             attackScore = 20;
         }
         if (Defender.CharacterData_Temp.ShengqiCore)
@@ -290,12 +288,12 @@ public class GameManager : SingleTons<GameManager>
     public void BossDead()
     {
         BossStats.gameObject.SetActive(false);
-        Instantiate(CardPaper, BossStats.transform.position, Quaternion.identity);
         if(PlayerData.RoomType == RoomType.BossRoom)
         {
             SceneChangeManager.Instance.Door.SetActive(true);
             var DoorPosition = Physics2D.OverlapPoint(PlayerStats.gameObject.transform.position, SceneChangeManager.Instance.Room).gameObject.transform.position + new Vector3(-21,0,0);
             SceneChangeManager.Instance.Door.transform.position = DoorPosition;
+            Instantiate(CardPaper, BossStats.transform.position, Quaternion.identity);
         }
         var GetCoin = UnityEngine.Random.Range(10, 20);
         CoinManager.Instance.GiveCoins(BossStats.gameObject.transform.position,GetCoin);

@@ -9,8 +9,9 @@ public class Settings : MonoBehaviour
     //房间序号
     public const int StartRoom = 0;
     public const int NormalRoom = 1;
-    public const int TransmissionTowerRoom = 2;
-    public const int BossRoom = 3;
+    public const int CardRoom = 2;
+    public const int TransmissionTowerRoom = 3;
+    public const int BossRoom = 4;
     //方向序号
     public const int WestNorth = 0;
     public const int WestCenter = 1;

@@ -8893,6 +8893,7 @@ Transform:
   - {fileID: 30215686}
   - {fileID: 201262316}
   - {fileID: 2020904598}
+  - {fileID: 941593076}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &508266842
@@ -9196,7 +9197,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 10.21
+  orthographic size: 9.1
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -16377,6 +16378,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b08c790bafec1e4aa46ce85e57a6f85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &941593075
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 941593076}
+  m_Layer: 0
+  m_Name: BossArmyBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &941593076
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941593075}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 508012729}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &954686531
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19725,6 +19757,7 @@ MonoBehaviour:
   MapLists:
   - {fileID: 2989477715026419991, guid: 416f2ab7349de32429dbfe1cb79c0d4a, type: 3}
   - {fileID: 3152116586217426697, guid: 366dc4cd384b29645bd3bab502d8020a, type: 3}
+  - {fileID: 6502699434164386663, guid: 729c858e595c59545be98a1cb8516ecf, type: 3}
   - {fileID: 7925644300328715564, guid: 9bb340324ab9304408fc8224115cc9fd, type: 3}
   - {fileID: 108753749178391675, guid: 5c42acce830ca1d4881e7ce226de6927, type: 3}
   Room:
@@ -19734,6 +19767,7 @@ MonoBehaviour:
   TransmissionCamera: {fileID: 1342952744}
   CanvsBox: {fileID: 1113980661}
   RandomRoomCount: 20
+  BuildTime: 0
 --- !u!1001 &1150574620
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37576,6 +37610,7 @@ MonoBehaviour:
   FissueBox: {fileID: 1535987456}
   BossArmy: {fileID: 8128361358422071358, guid: a45a0ad08fd5bdd4eafe65e8dacc44a6, type: 3}
   BoostBossArmy: {fileID: 11400000, guid: 513d7861614c0f5439ebaa4f6d1bb2a6, type: 2}
+  BossArmyBox: {fileID: 941593075}
   TridentBox: {fileID: 104600407}
   trident: {fileID: 4267886007492373273, guid: 3038844f3d593654b8f6d020c5d0d523, type: 3}
   Alltrident: {fileID: 30215685}
@@ -39245,7 +39280,7 @@ MonoBehaviour:
   m_Follow: {fileID: 1545711573}
   m_Lens:
     FieldOfView: 34
-    OrthographicSize: 10.21
+    OrthographicSize: 9.1
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0

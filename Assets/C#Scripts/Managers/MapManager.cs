@@ -11,11 +11,25 @@ public class MapManager : SingleTons<MapManager>
     public GameObject TransmissionCamera;
     public GameObject CanvsBox;
     [Header("地图建造属性")]
+    private bool IsSetCardRoom;
     public int RandomRoomCount;//大致房间数量
     private int RoomCount;//实际房间数量
     private int CurrentRoomCount;//当前房间数量(建造中)
+    [Header("建造计时器")]
+    public float BuildTime;
+    private bool IsBuild;
+    private void Update()
+    {
+        if (IsBuild)
+        {
+            BuildTime += Time.deltaTime;
+        }
+    }
     public void SetNewMap() 
     {
+        BuildTime = 0;
+        IsBuild = true;
+        IsSetCardRoom = false;
         RoomCount = UnityEngine.Random.Range((int)(RandomRoomCount * 0.8f), (int)(RandomRoomCount * 1.2f));//确定当前房间数量
         CurrentRoomCount = 0;
         ClearMap();
@@ -28,19 +42,26 @@ public class MapManager : SingleTons<MapManager>
     }
     private IEnumerator SetNewRoom()
     {
+        Debug.Log(BuildTime);
         for(int i = 0; i < MapBox.childCount; i++)
         {
             if(CurrentRoomCount < RoomCount)
             {
                 var NewRoomType = UnityEngine.Random.Range(0, 100) % MapLists.Count;
-                MapBox.GetChild(i).gameObject.GetComponent<MapCharacrter>().BuildNewRoom();
-                yield return new WaitForSeconds(0.05f);
+                if (MapBox.GetChild(i).gameObject.GetComponent<MapCharacrter>().CheckCanBuildRoom())
+                {
+                    MapBox.GetChild(i).gameObject.GetComponent<MapCharacrter>().BuildNewRoom();
+                    yield return new WaitForSeconds(0.02f);
+                }
             }
         }
         if(CurrentRoomCount < RoomCount)
         {
-           yield return new WaitForSeconds(0.5f);
            StartCoroutine(SetNewRoom());//迭代
+        }
+        if(CurrentRoomCount >= RoomCount)
+        {
+            IsBuild = false;
         }
     }
     public IEnumerator BuildNewRoom(float Width,float Height,Vector2 RoomCenter,RoomType roomType)
@@ -54,12 +75,12 @@ public class MapManager : SingleTons<MapManager>
         switch (SetRotation) 
         {
             case Settings.WestNorth:
-                var NewRoomType_WestNorth = UnityEngine.Random.Range(0, 100) % (MapLists.Count - 1);
+                var NewRoomType_WestNorth = UnityEngine.Random.Range(1, MapLists.Count - 1);
                 if(CurrentRoomCount == RoomCount - 1)
                 {
                     NewRoomType_WestNorth = MapLists.Count - 1;
                 }
-                if (FixNextRoom(SetRotation, NewRoomType_WestNorth))
+                if (FixNextRoom(SetRotation, NewRoomType_WestNorth) && HadBuild(NewRoomType_WestNorth))
                 {
                     var NewRoomPositionX_WestNorth = RoomCenter.x - Width * 0.5f - MapLists[NewRoomType_WestNorth].GetComponent<MapCharacrter>().Width * 0.5f;
                     var NewRoomPositionY_WestNorth = RoomCenter.y + Height * 0.5f;
@@ -71,7 +92,7 @@ public class MapManager : SingleTons<MapManager>
                     {
                         if (NewRoomType_WestNorth == Settings.BossRoom)//是否是boss房
                         {
-                            if (CheckBossRoom(LeftUpPo_WestNorth, RightDownPo_WestNorth))
+                            if (CheckRoom(LeftUpPo_WestNorth, RightDownPo_WestNorth, NewRoomType_WestNorth))
                             {
                                 var NewRoom = Instantiate(MapLists[NewRoomType_WestNorth], NewRoomPosition_WestNorth, Quaternion.identity, MapBox);//生成新房间
                                 CurrentRoomCount++;//当前房间数量加1
@@ -83,23 +104,26 @@ public class MapManager : SingleTons<MapManager>
                         }
                         if (NewRoomType_WestNorth != Settings.BossRoom)
                         {
-                            var NewRoom = Instantiate(MapLists[NewRoomType_WestNorth], NewRoomPosition_WestNorth, Quaternion.identity, MapBox);//生成新房间
-                            CurrentRoomCount++;//当前房间数量加1
-                            MapData.Room NewRoomPoint = new MapData.Room();
-                            NewRoomPoint.RoomPosition = NewRoom.transform.position;
-                            NewRoomPoint.RoomType = NewRoom.GetComponent<MapCharacrter>().RoomType;
-                            MapData.RoomLists.Add(NewRoomPoint);//添加房间数据
+                            if (CheckRoom(LeftUpPo_WestNorth, RightDownPo_WestNorth, NewRoomType_WestNorth))
+                            {
+                                var NewRoom = Instantiate(MapLists[NewRoomType_WestNorth], NewRoomPosition_WestNorth, Quaternion.identity, MapBox);//生成新房间
+                                CurrentRoomCount++;//当前房间数量加1
+                                MapData.Room NewRoomPoint = new MapData.Room();
+                                NewRoomPoint.RoomPosition = NewRoom.transform.position;
+                                NewRoomPoint.RoomType = NewRoom.GetComponent<MapCharacrter>().RoomType;
+                                MapData.RoomLists.Add(NewRoomPoint);//添加房间数据
+                            }
                         }
                     }
                 }
                 break;
             case Settings.WestCenter:
-                var NewRoomType_WestCenter = UnityEngine.Random.Range(0, 100) % (MapLists.Count - 1);
+                var NewRoomType_WestCenter = UnityEngine.Random.Range(1, MapLists.Count - 1);
                 if (CurrentRoomCount == RoomCount - 1)
                 {
                     NewRoomType_WestCenter = MapLists.Count - 1;
                 }
-                if(FixNextRoom(SetRotation, NewRoomType_WestCenter))
+                if(FixNextRoom(SetRotation, NewRoomType_WestCenter) && HadBuild(NewRoomType_WestCenter))
                 {
                     var NewRoomPositionX_WestCenter = RoomCenter.x - Width * 0.5f - MapLists[NewRoomType_WestCenter].GetComponent<MapCharacrter>().Width * 0.5f;
                     var NewRoomPositionY_WestCenter = RoomCenter.y;
@@ -111,7 +135,7 @@ public class MapManager : SingleTons<MapManager>
                     {
                         if (NewRoomType_WestCenter == Settings.BossRoom)//是否是boss房
                         {
-                            if (CheckBossRoom(LeftUpPo_WestCenter, RightDownPo_WestCenter))
+                            if (CheckRoom(LeftUpPo_WestCenter, RightDownPo_WestCenter, NewRoomType_WestCenter))
                             {
                                 var NewRoom = Instantiate(MapLists[NewRoomType_WestCenter], NewRoomPosition_WestCenter, Quaternion.identity, MapBox);//生成新房间
                                 CurrentRoomCount++;//当前房间数量加1
@@ -123,23 +147,26 @@ public class MapManager : SingleTons<MapManager>
                         }
                         if (NewRoomType_WestCenter != Settings.BossRoom)
                         {
-                            var NewRoom = Instantiate(MapLists[NewRoomType_WestCenter], NewRoomPosition_WestCenter, Quaternion.identity, MapBox);//生成新房间
-                            CurrentRoomCount++;//当前房间数量加1
-                            MapData.Room NewRoomPoint = new MapData.Room();
-                            NewRoomPoint.RoomPosition = NewRoom.transform.position;
-                            NewRoomPoint.RoomType = NewRoom.GetComponent<MapCharacrter>().RoomType;
-                            MapData.RoomLists.Add(NewRoomPoint);//添加房间数据
+                            if (CheckRoom(LeftUpPo_WestCenter, RightDownPo_WestCenter, NewRoomType_WestCenter))
+                            {
+                                var NewRoom = Instantiate(MapLists[NewRoomType_WestCenter], NewRoomPosition_WestCenter, Quaternion.identity, MapBox);//生成新房间
+                                CurrentRoomCount++;//当前房间数量加1
+                                MapData.Room NewRoomPoint = new MapData.Room();
+                                NewRoomPoint.RoomPosition = NewRoom.transform.position;
+                                NewRoomPoint.RoomType = NewRoom.GetComponent<MapCharacrter>().RoomType;
+                                MapData.RoomLists.Add(NewRoomPoint);//添加房间数据
+                            }
                         }
                     }
                 }
                 break;
             case Settings.WestSouth:
-                var NewRoomType_WestSouth = UnityEngine.Random.Range(0, 100) % (MapLists.Count - 1);
+                var NewRoomType_WestSouth = UnityEngine.Random.Range(1, MapLists.Count - 1);
                 if (CurrentRoomCount == RoomCount - 1)
                 {
                     NewRoomType_WestSouth = MapLists.Count - 1;
                 }
-                if(FixNextRoom(SetRotation, NewRoomType_WestSouth))
+                if(FixNextRoom(SetRotation, NewRoomType_WestSouth) && HadBuild(NewRoomType_WestSouth))
                 {
                     var NewRoomPositionX_WestSouth = RoomCenter.x - Width * 0.5f - MapLists[NewRoomType_WestSouth].GetComponent<MapCharacrter>().Width * 0.5f;
                     var NewRoomPositionY_WestSouth = RoomCenter.y - Height * 0.5f;
@@ -151,7 +178,7 @@ public class MapManager : SingleTons<MapManager>
                     {
                         if (NewRoomType_WestSouth == Settings.BossRoom)//是否是boss房
                         {
-                            if (CheckBossRoom(LeftUpPo_WestSouth, RightDownPo_WestSouth))
+                            if (CheckRoom(LeftUpPo_WestSouth, RightDownPo_WestSouth, NewRoomType_WestSouth))
                             {
                                 var NewRoom = Instantiate(MapLists[NewRoomType_WestSouth], NewRoomPosition_WestSouth, Quaternion.identity, MapBox);//生成新房间
                                 CurrentRoomCount++;//当前房间数量加1
@@ -163,23 +190,26 @@ public class MapManager : SingleTons<MapManager>
                         }
                         if (NewRoomType_WestSouth != Settings.BossRoom)
                         {
-                            var NewRoom = Instantiate(MapLists[NewRoomType_WestSouth], NewRoomPosition_WestSouth, Quaternion.identity, MapBox);//生成新房间
-                            CurrentRoomCount++;//当前房间数量加1
-                            MapData.Room NewRoomPoint = new MapData.Room();
-                            NewRoomPoint.RoomPosition = NewRoom.transform.position;
-                            NewRoomPoint.RoomType = NewRoom.GetComponent<MapCharacrter>().RoomType;
-                            MapData.RoomLists.Add(NewRoomPoint);//添加房间数据
+                            if (CheckRoom(LeftUpPo_WestSouth, RightDownPo_WestSouth, NewRoomType_WestSouth))
+                            {
+                                var NewRoom = Instantiate(MapLists[NewRoomType_WestSouth], NewRoomPosition_WestSouth, Quaternion.identity, MapBox);//生成新房间
+                                CurrentRoomCount++;//当前房间数量加1
+                                MapData.Room NewRoomPoint = new MapData.Room();
+                                NewRoomPoint.RoomPosition = NewRoom.transform.position;
+                                NewRoomPoint.RoomType = NewRoom.GetComponent<MapCharacrter>().RoomType;
+                                MapData.RoomLists.Add(NewRoomPoint);//添加房间数据
+                            }
                         }
                     }
                 }
                 break;
             case Settings.EastNorth:
-                var NewRoomType_EastNorth = UnityEngine.Random.Range(0, 100) % (MapLists.Count - 1);
+                var NewRoomType_EastNorth = UnityEngine.Random.Range(1, MapLists.Count - 1);
                 if (CurrentRoomCount == RoomCount - 1)
                 {
                     NewRoomType_EastNorth = MapLists.Count - 1;
                 }
-                if(FixNextRoom(SetRotation, NewRoomType_EastNorth))
+                if(FixNextRoom(SetRotation, NewRoomType_EastNorth) && HadBuild(NewRoomType_EastNorth))
                 {
                     var NewRoomPositionX_EastNorth = RoomCenter.x + Width * 0.5f + MapLists[NewRoomType_EastNorth].GetComponent<MapCharacrter>().Width * 0.5f;
                     var NewRoomPositionY_EastNorth = RoomCenter.y + Height * 0.5f;
@@ -191,7 +221,7 @@ public class MapManager : SingleTons<MapManager>
                     {
                         if (NewRoomType_EastNorth == Settings.BossRoom)//是否是boss房
                         {
-                            if (CheckBossRoom(LeftUpPo_EastNorth, RightDownPo_EastNorth))
+                            if (CheckRoom(LeftUpPo_EastNorth, RightDownPo_EastNorth, NewRoomType_EastNorth))
                             {
                                 var NewRoom = Instantiate(MapLists[NewRoomType_EastNorth], NewRoomPosition_EastNorth, Quaternion.identity, MapBox);//生成新房间
                                 CurrentRoomCount++;//当前房间数量加1
@@ -203,23 +233,26 @@ public class MapManager : SingleTons<MapManager>
                         }
                         if (NewRoomType_EastNorth != Settings.BossRoom)
                         {
-                            var NewRoom = Instantiate(MapLists[NewRoomType_EastNorth], NewRoomPosition_EastNorth, Quaternion.identity, MapBox);//生成新房间
-                            CurrentRoomCount++;//当前房间数量加1
-                            MapData.Room NewRoomPoint = new MapData.Room();
-                            NewRoomPoint.RoomPosition = NewRoom.transform.position;
-                            NewRoomPoint.RoomType = NewRoom.GetComponent<MapCharacrter>().RoomType;
-                            MapData.RoomLists.Add(NewRoomPoint);//添加房间数据
+                            if (CheckRoom(LeftUpPo_EastNorth, RightDownPo_EastNorth, NewRoomType_EastNorth))
+                            {
+                                var NewRoom = Instantiate(MapLists[NewRoomType_EastNorth], NewRoomPosition_EastNorth, Quaternion.identity, MapBox);//生成新房间
+                                CurrentRoomCount++;//当前房间数量加1
+                                MapData.Room NewRoomPoint = new MapData.Room();
+                                NewRoomPoint.RoomPosition = NewRoom.transform.position;
+                                NewRoomPoint.RoomType = NewRoom.GetComponent<MapCharacrter>().RoomType;
+                                MapData.RoomLists.Add(NewRoomPoint);//添加房间数据
+                            }
                         }
                     }
                 }
                 break;
             case Settings.EastCenter:
-                var NewRoomType_EastCenter = UnityEngine.Random.Range(0, 100) % (MapLists.Count - 1);
+                var NewRoomType_EastCenter = UnityEngine.Random.Range(1, MapLists.Count - 1);
                 if (CurrentRoomCount == RoomCount - 1)
                 {
                     NewRoomType_EastCenter = MapLists.Count - 1;
                 }
-                if(FixNextRoom(SetRotation, NewRoomType_EastCenter))
+                if(FixNextRoom(SetRotation, NewRoomType_EastCenter) && HadBuild(NewRoomType_EastCenter))
                 {
                     var NewRoomPositionX_EastCenter = RoomCenter.x + Width * 0.5f + MapLists[NewRoomType_EastCenter].GetComponent<MapCharacrter>().Width * 0.5f;
                     var NewRoomPositionY_EastCenter = RoomCenter.y;
@@ -231,7 +264,7 @@ public class MapManager : SingleTons<MapManager>
                     {
                         if (NewRoomType_EastCenter == Settings.BossRoom)//是否是boss房
                         {
-                            if (CheckBossRoom(LeftUpPo_EastCenter, RightDownPo_EastCenter))
+                            if (CheckRoom(LeftUpPo_EastCenter, RightDownPo_EastCenter, NewRoomType_EastCenter))
                             {
                                 var NewRoom = Instantiate(MapLists[NewRoomType_EastCenter], NewRoomPosition_EastCenter, Quaternion.identity, MapBox);//生成新房间
                                 CurrentRoomCount++;//当前房间数量加1
@@ -243,23 +276,26 @@ public class MapManager : SingleTons<MapManager>
                         }
                         if (NewRoomType_EastCenter != Settings.BossRoom)
                         {
-                            var NewRoom = Instantiate(MapLists[NewRoomType_EastCenter], NewRoomPosition_EastCenter, Quaternion.identity, MapBox);//生成新房间
-                            CurrentRoomCount++;//当前房间数量加1
-                            MapData.Room NewRoomPoint = new MapData.Room();
-                            NewRoomPoint.RoomPosition = NewRoom.transform.position;
-                            NewRoomPoint.RoomType = NewRoom.GetComponent<MapCharacrter>().RoomType;
-                            MapData.RoomLists.Add(NewRoomPoint);//添加房间数据
+                            if (CheckRoom(LeftUpPo_EastCenter, RightDownPo_EastCenter, NewRoomType_EastCenter))
+                            {
+                                var NewRoom = Instantiate(MapLists[NewRoomType_EastCenter], NewRoomPosition_EastCenter, Quaternion.identity, MapBox);//生成新房间
+                                CurrentRoomCount++;//当前房间数量加1
+                                MapData.Room NewRoomPoint = new MapData.Room();
+                                NewRoomPoint.RoomPosition = NewRoom.transform.position;
+                                NewRoomPoint.RoomType = NewRoom.GetComponent<MapCharacrter>().RoomType;
+                                MapData.RoomLists.Add(NewRoomPoint);//添加房间数据
+                            }
                         }
                     }
                 }
                 break;
             case Settings.EastSouth:
-                var NewRoomType_EastSouth = UnityEngine.Random.Range(0, 100) % (MapLists.Count - 1);
+                var NewRoomType_EastSouth = UnityEngine.Random.Range(1, MapLists.Count - 1);
                 if (CurrentRoomCount == RoomCount - 1)
                 {
                     NewRoomType_EastSouth = MapLists.Count - 1;
                 }
-                if(FixNextRoom(SetRotation, NewRoomType_EastSouth))
+                if(FixNextRoom(SetRotation, NewRoomType_EastSouth) &&  HadBuild(NewRoomType_EastSouth))
                 {
                     var NewRoomPositionX_EastSouth = RoomCenter.x + Width * 0.5f + MapLists[NewRoomType_EastSouth].GetComponent<MapCharacrter>().Width * 0.5f;
                     var NewRoomPositionY_EastSouth = RoomCenter.y - Height * 0.5f;
@@ -271,7 +307,7 @@ public class MapManager : SingleTons<MapManager>
                     {
                         if (NewRoomType_EastSouth == Settings.BossRoom)//是否是boss房
                         {
-                            if (CheckBossRoom(LeftUpPo_EastSouth, RightDownPo_EastSouth))
+                            if (CheckRoom(LeftUpPo_EastSouth, RightDownPo_EastSouth, NewRoomType_EastSouth))
                             {
                                 var NewRoom = Instantiate(MapLists[NewRoomType_EastSouth], NewRoomPosition_EastSouth, Quaternion.identity, MapBox);//生成新房间
                                 CurrentRoomCount++;//当前房间数量加1
@@ -283,12 +319,16 @@ public class MapManager : SingleTons<MapManager>
                         }
                         else if (NewRoomType_EastSouth != Settings.BossRoom)
                         {
-                            var NewRoom = Instantiate(MapLists[NewRoomType_EastSouth], NewRoomPosition_EastSouth, Quaternion.identity, MapBox);//生成新房间
-                            CurrentRoomCount++;//当前房间数量加1
-                            MapData.Room NewRoomPoint = new MapData.Room();
-                            NewRoomPoint.RoomPosition = NewRoom.transform.position;
-                            NewRoomPoint.RoomType = NewRoom.GetComponent<MapCharacrter>().RoomType;
-                            MapData.RoomLists.Add(NewRoomPoint);//添加房间数据
+                            if (CheckRoom(LeftUpPo_EastSouth, RightDownPo_EastSouth, NewRoomType_EastSouth))
+                            {
+                                var NewRoom = Instantiate(MapLists[NewRoomType_EastSouth], NewRoomPosition_EastSouth, Quaternion.identity, MapBox);//生成新房间
+                                CurrentRoomCount++;//当前房间数量加1
+                                MapData.Room NewRoomPoint = new MapData.Room();
+                                NewRoomPoint.RoomPosition = NewRoom.transform.position;
+                                NewRoomPoint.RoomType = NewRoom.GetComponent<MapCharacrter>().RoomType;
+                                MapData.RoomLists.Add(NewRoomPoint);//添加房间数据
+                            }
+                           
                         }
                     }
                 }
@@ -298,14 +338,58 @@ public class MapManager : SingleTons<MapManager>
         }
         yield return null;
     }
-    private bool CheckBossRoom(Vector2 LeftUpPo,Vector2 RightDownPo)
+    private bool HadBuild(int roomType)
     {
-        LeftUpPo += new Vector2(-5, 5);
-        RightDownPo += new Vector2(5, -5);
-        var rays = Physics2D.OverlapAreaAll(LeftUpPo, RightDownPo, Room);
-        if(rays.Length == 2)
+        if(roomType == Settings.CardRoom && IsSetCardRoom)
         {
-            return true;
+            return false;
+        }
+        return true;
+    }
+    private bool CheckRoom(Vector2 LeftUpPo,Vector2 RightDownPo,int roomType)
+    {
+        switch (roomType)
+        {
+            case Settings.StartRoom:
+                return true;
+            case Settings.NormalRoom:
+                return true;
+            case Settings.CardRoom:
+                LeftUpPo += new Vector2(-60, 5);
+                RightDownPo += new Vector2(60, -5);
+                var CardRoomRays = Physics2D.OverlapAreaAll(LeftUpPo, RightDownPo, Room);
+                foreach (var room in CardRoomRays)
+                {
+                    if (room.gameObject.GetComponent<MapCharacrter>().RoomType == RoomType.StartRoom)
+                    {
+                        return false;
+                    }
+                }
+                IsSetCardRoom = true;
+                return true;
+            case Settings.TransmissionTowerRoom:
+                LeftUpPo += new Vector2(-60, 5);
+                RightDownPo += new Vector2(60, -5);
+                var TransmissionRays = Physics2D.OverlapAreaAll(LeftUpPo, RightDownPo, Room);
+                foreach  (var room in TransmissionRays)
+                {
+                    if (room.gameObject.GetComponent<MapCharacrter>().RoomType == RoomType.TransmissionTowerRoom || room.gameObject.GetComponent<MapCharacrter>().RoomType == RoomType.StartRoom)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            case Settings.BossRoom:
+                LeftUpPo += new Vector2(-5, 5);
+                RightDownPo += new Vector2(5, -5);
+                var rays = Physics2D.OverlapAreaAll(LeftUpPo, RightDownPo, Room);
+                if (rays.Length == 2)
+                {
+                    return true;
+                }
+                break;
+            default:
+                break;
         }
         return false;
     }
@@ -320,15 +404,11 @@ public class MapManager : SingleTons<MapManager>
                 }
                 break;
             case RoomType.NormalRoom:
-                if (true)
-                {
-                    return true;
-                }
+                return true;
+            case RoomType.CardRoom:
+                return true;
             case RoomType.BossRoom:
-                if (true)
-                {
-                    return true;
-                }
+                return true;
             case RoomType.TransmissionTowerRoom:
                 if (SetRotation == Settings.WestCenter || SetRotation == Settings.WestSouth || SetRotation == Settings.EastCenter || SetRotation == Settings.EastSouth)
                 {
@@ -455,6 +535,10 @@ public class MapManager : SingleTons<MapManager>
             if (room.IsFind)
             {
                 Physics2D.OverlapPoint(room.RoomPosition,Room).gameObject.GetComponent<MapCharacrter>().FindRoom();
+            }
+            if (room.IsAccess)
+            {
+                Physics2D.OverlapPoint(room.RoomPosition, Room).gameObject.GetComponent<MapCharacrter>().AccessRoom();
             }
         }
     }

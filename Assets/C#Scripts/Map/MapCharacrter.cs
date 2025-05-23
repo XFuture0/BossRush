@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MapCharacrter : MonoBehaviour
 {
@@ -11,10 +12,53 @@ public class MapCharacrter : MonoBehaviour
     public PolygonCollider2D polygonCollider;
     public GameObject CurPlayer;
     public GameObject NoFind;
+    private int DoorCount;
+    [Header("房间物品")]
     public GameObject TransmissionTower;
+    public GameObject CardPaper;
+    public Transform DoorBox;
     public void BuildNewRoom()
     {
         StartCoroutine(MapManager.Instance.BuildNewRoom(Width,Height,(Vector2)transform.position,RoomType));
+    }
+    public bool CheckCanBuildRoom()//减少建造时间
+    {
+        DoorCount = 0;
+        for(int i = 0;i < DoorBox.childCount; i++)
+        {
+            switch (DoorBox.GetChild(i).GetComponent<RoomDoor>().doorType)
+            {
+                case DoorType.LeftUpDoor:
+                    if(Physics2D.OverlapPoint(DoorBox.GetChild(i).position + new Vector3(-6, 0, 0), SceneChangeManager.Instance.Room))
+                    {
+                        DoorCount++;
+                    }
+                    break;
+                case DoorType.LeftDownDoor:
+                    if (Physics2D.OverlapPoint(DoorBox.GetChild(i).position + new Vector3(-6, 0, 0), SceneChangeManager.Instance.Room))
+                    {
+                        DoorCount++;
+                    }
+                    break;
+                case DoorType.RightUpDoor:
+                    if (Physics2D.OverlapPoint(DoorBox.GetChild(i).position + new Vector3(6, 0, 0), SceneChangeManager.Instance.Room))
+                    {
+                        DoorCount++;
+                    }
+                    break;
+                case DoorType.RightDownDoor:
+                    if (Physics2D.OverlapPoint(DoorBox.GetChild(i).position + new Vector3(6, 0, 0), SceneChangeManager.Instance.Room))
+                    {
+                        DoorCount++;
+                    }
+                    break;
+            }
+        }
+        if(DoorCount == 4)
+        {
+            return false;
+        }
+        return true;
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -42,6 +86,13 @@ public class MapCharacrter : MonoBehaviour
         if (RoomType == RoomType.TransmissionTowerRoom)
         {
             TransmissionTower.SetActive(true);
+        }
+    }
+    public void AccessRoom()
+    {
+        if (RoomType == RoomType.CardRoom)
+        {
+            Destroy(CardPaper);
         }
     }
 }

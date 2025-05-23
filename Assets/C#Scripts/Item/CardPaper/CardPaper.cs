@@ -21,9 +21,14 @@ public class CardPaper : MonoBehaviour
         if(IsPlayer && KeyBoardManager.Instance.GetKeyDown_R())
         {
             IsPlayer = false;
-            OpenCardCanvsEvent.RaiseEvent();
-            Destroy(gameObject);
+            Invoke("Destorying", 0.02f);
         }
+       
+    }
+    private void Destorying()
+    {
+        OpenCardCanvsEvent.RaiseEvent();
+        Destroy(gameObject);
     }
     private void OnTriggerEnter2D(Collider2D other)
     {

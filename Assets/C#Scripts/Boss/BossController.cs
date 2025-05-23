@@ -36,6 +36,7 @@ public class BossController : MonoBehaviour
     public GameObject FissueBox;
     public GameObject BossArmy;
     public CharacterData BoostBossArmy;
+    public GameObject BossArmyBox;
     public Transform TridentBox;
     public GameObject trident;
     public GameObject Alltrident;
@@ -882,17 +883,23 @@ public class BossController : MonoBehaviour
     }
     private IEnumerator UseSummonArmy_1()
     {
-        if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(-3,0), Check.RightDownPo + (Vector2)transform.position + new Vector2(-3, 0), Check.Ground))
+        for (int i = 0; i < 1; i++)
         {
-            var NewArmy = Instantiate(BossArmy,transform.position + new Vector3(-3,0,0),Quaternion.identity);
-            NewArmy.GetComponent<SpriteRenderer>().color = ColorManager.Instance.UpdateColor(2);
+            if (BossArmyBox.transform.childCount < 5)
+            {
+                if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(-3, 0), Check.RightDownPo + (Vector2)transform.position + new Vector2(-3, 0), Check.Ground))
+                {
+                    var NewArmy = Instantiate(BossArmy, transform.position + new Vector3(-3, 0, 0), Quaternion.identity, BossArmyBox.transform);
+                    NewArmy.GetComponent<SpriteRenderer>().color = ColorManager.Instance.UpdateColor(2);
+                }
+                else if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(3, 0), Check.RightDownPo + (Vector2)transform.position + new Vector2(3, 0), Check.Ground))
+                {
+                    var NewArmy = Instantiate(BossArmy, transform.position + new Vector3(3, 0, 0), Quaternion.identity, BossArmyBox.transform);
+                    NewArmy.GetComponent<SpriteRenderer>().color = ColorManager.Instance.UpdateColor(2);
+                }
+                yield return new WaitForSeconds(0.1f);
+            }
         }
-        else if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(3, 0), Check.RightDownPo + (Vector2)transform.position + new Vector2(3, 0), Check.Ground))
-        {
-            var NewArmy = Instantiate(BossArmy, transform.position + new Vector3(3, 0, 0), Quaternion.identity);
-            NewArmy.GetComponent<SpriteRenderer>().color = ColorManager.Instance.UpdateColor(2);
-        }
-        yield return new WaitForSeconds(0.1f);
         SummonArmy = false;
         IsSkill = false;
         SkillTime_Count = BaseSkillTime * Boss.CharacterData_Temp.AttackRate;
@@ -901,17 +908,20 @@ public class BossController : MonoBehaviour
     {
         for(int i = 0; i < 3; i++)
         {
-            if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(-3, 0), Check.RightDownPo + (Vector2)transform.position + new Vector2(-3, 0), Check.Ground))
+            if (BossArmyBox.transform.childCount < 5)
             {
-                var NewArmy = Instantiate(BossArmy, transform.position + new Vector3(-3, 0, 0), Quaternion.identity);
-                NewArmy.GetComponent<SpriteRenderer>().color = ColorManager.Instance.UpdateColor(2);
+                if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(-3, 0), Check.RightDownPo + (Vector2)transform.position + new Vector2(-3, 0), Check.Ground))
+                {
+                    var NewArmy = Instantiate(BossArmy, transform.position + new Vector3(-3, 0, 0), Quaternion.identity, BossArmyBox.transform);
+                    NewArmy.GetComponent<SpriteRenderer>().color = ColorManager.Instance.UpdateColor(2);
+                }
+                else if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(3, 0), Check.RightDownPo + (Vector2)transform.position + new Vector2(3, 0), Check.Ground))
+                {
+                    var NewArmy = Instantiate(BossArmy, transform.position + new Vector3(3, 0, 0), Quaternion.identity, BossArmyBox.transform);
+                    NewArmy.GetComponent<SpriteRenderer>().color = ColorManager.Instance.UpdateColor(2);
+                }
+                yield return new WaitForSeconds(0.2f);
             }
-            else if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(3, 0), Check.RightDownPo + (Vector2)transform.position + new Vector2(3, 0), Check.Ground))
-            {
-                var NewArmy = Instantiate(BossArmy, transform.position + new Vector3(3, 0, 0), Quaternion.identity);
-                NewArmy.GetComponent<SpriteRenderer>().color = ColorManager.Instance.UpdateColor(2);
-            }
-            yield return new WaitForSeconds(0.2f);
         }
         SummonArmy = false;
         IsSkill = false;
@@ -921,19 +931,22 @@ public class BossController : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(-3, 0), Check.RightDownPo + (Vector2)transform.position + new Vector2(-3, 0), Check.Ground))
+            if (BossArmyBox.transform.childCount < 5)
             {
-                var NewArmy = Instantiate(BossArmy, transform.position + new Vector3(-3, 0, 0), Quaternion.identity);
-                NewArmy.GetComponent<SpriteRenderer>().color = ColorManager.Instance.UpdateColor(2);
-                NewArmy.GetComponent<CharacterStats>().CharacterData_Temp = Instantiate(BoostBossArmy);
+                if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(-3, 0), Check.RightDownPo + (Vector2)transform.position + new Vector2(-3, 0), Check.Ground))
+                {
+                    var NewArmy = Instantiate(BossArmy, transform.position + new Vector3(-3, 0, 0), Quaternion.identity, BossArmyBox.transform);
+                    NewArmy.GetComponent<SpriteRenderer>().color = ColorManager.Instance.UpdateColor(2);
+                    NewArmy.GetComponent<CharacterStats>().CharacterData_Temp = Instantiate(BoostBossArmy);
+                }
+                else if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(3, 0), Check.RightDownPo + (Vector2)transform.position + new Vector2(3, 0), Check.Ground))
+                {
+                    var NewArmy = Instantiate(BossArmy, transform.position + new Vector3(3, 0, 0), Quaternion.identity, BossArmyBox.transform);
+                    NewArmy.GetComponent<SpriteRenderer>().color = ColorManager.Instance.UpdateColor(2);
+                    NewArmy.GetComponent<CharacterStats>().CharacterData_Temp = Instantiate(BoostBossArmy);
+                }
+                yield return new WaitForSeconds(0.2f);
             }
-            else if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(3, 0), Check.RightDownPo + (Vector2)transform.position + new Vector2(3, 0), Check.Ground))
-            {
-                var NewArmy = Instantiate(BossArmy, transform.position + new Vector3(3, 0, 0), Quaternion.identity);
-                NewArmy.GetComponent<SpriteRenderer>().color = ColorManager.Instance.UpdateColor(2);
-                NewArmy.GetComponent<CharacterStats>().CharacterData_Temp = Instantiate(BoostBossArmy);
-            }
-            yield return new WaitForSeconds(0.2f);
         }
         SummonArmy = false;
         IsSkill = false;
@@ -943,21 +956,24 @@ public class BossController : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(-3, 0), Check.RightDownPo + (Vector2)transform.position + new Vector2(-3, 0), Check.Ground))
+            if (BossArmyBox.transform.childCount < 5)
             {
-                var NewArmy = Instantiate(BossArmy, transform.position + new Vector3(-3, 0, 0), Quaternion.identity);
-                NewArmy.GetComponent<SpriteRenderer>().color = ColorManager.Instance.UpdateColor(2);
-                NewArmy.GetComponent<CharacterStats>().CharacterData_Temp = Instantiate(BoostBossArmy);
-                NewArmy.GetComponent<BossArmy>().IsLevel4 = true;
+                if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(-3, 0), Check.RightDownPo + (Vector2)transform.position + new Vector2(-3, 0), Check.Ground))
+                {
+                    var NewArmy = Instantiate(BossArmy, transform.position + new Vector3(-3, 0, 0), Quaternion.identity, BossArmyBox.transform);
+                    NewArmy.GetComponent<SpriteRenderer>().color = ColorManager.Instance.UpdateColor(2);
+                    NewArmy.GetComponent<CharacterStats>().CharacterData_Temp = Instantiate(BoostBossArmy);
+                    NewArmy.GetComponent<BossArmy>().IsLevel4 = true;
+                }
+                else if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(3, 0), Check.RightDownPo + (Vector2)transform.position + new Vector2(3, 0), Check.Ground))
+                {
+                    var NewArmy = Instantiate(BossArmy, transform.position + new Vector3(3, 0, 0), Quaternion.identity, BossArmyBox.transform);
+                    NewArmy.GetComponent<SpriteRenderer>().color = ColorManager.Instance.UpdateColor(2);
+                    NewArmy.GetComponent<CharacterStats>().CharacterData_Temp = Instantiate(BoostBossArmy);
+                    NewArmy.GetComponent<BossArmy>().IsLevel4 = true;
+                }
+                yield return new WaitForSeconds(0.2f);
             }
-            else if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(3, 0), Check.RightDownPo + (Vector2)transform.position + new Vector2(3, 0), Check.Ground))
-            {
-                var NewArmy = Instantiate(BossArmy, transform.position + new Vector3(3, 0, 0), Quaternion.identity);
-                NewArmy.GetComponent<SpriteRenderer>().color = ColorManager.Instance.UpdateColor(2);
-                NewArmy.GetComponent<CharacterStats>().CharacterData_Temp = Instantiate(BoostBossArmy);
-                NewArmy.GetComponent<BossArmy>().IsLevel4 = true;
-            }
-            yield return new WaitForSeconds(0.2f);
         }
         SummonArmy = false;
         IsSkill = false;
@@ -967,23 +983,26 @@ public class BossController : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(-3, 0), Check.RightDownPo + (Vector2)transform.position + new Vector2(-3, 0), Check.Ground))
+            if (BossArmyBox.transform.childCount < 5)
             {
-                var NewArmy = Instantiate(BossArmy, transform.position + new Vector3(-3, 0, 0), Quaternion.identity);
-                NewArmy.GetComponent<SpriteRenderer>().color = ColorManager.Instance.UpdateColor(2);
-                NewArmy.GetComponent<CharacterStats>().CharacterData_Temp = Instantiate(BoostBossArmy);
-                NewArmy.GetComponent<BossArmy>().IsLevel4 = true;
-                NewArmy.GetComponent<BossArmy>().IsLevel5 = true;
+                if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(-3, 0), Check.RightDownPo + (Vector2)transform.position + new Vector2(-3, 0), Check.Ground))
+                {
+                    var NewArmy = Instantiate(BossArmy, transform.position + new Vector3(-3, 0, 0), Quaternion.identity, BossArmyBox.transform);
+                    NewArmy.GetComponent<SpriteRenderer>().color = ColorManager.Instance.UpdateColor(2);
+                    NewArmy.GetComponent<CharacterStats>().CharacterData_Temp = Instantiate(BoostBossArmy);
+                    NewArmy.GetComponent<BossArmy>().IsLevel4 = true;
+                    NewArmy.GetComponent<BossArmy>().IsLevel5 = true;
+                }
+                else if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(3, 0), Check.RightDownPo + (Vector2)transform.position + new Vector2(3, 0), Check.Ground))
+                {
+                    var NewArmy = Instantiate(BossArmy, transform.position + new Vector3(3, 0, 0), Quaternion.identity, BossArmyBox.transform);
+                    NewArmy.GetComponent<SpriteRenderer>().color = ColorManager.Instance.UpdateColor(2);
+                    NewArmy.GetComponent<CharacterStats>().CharacterData_Temp = Instantiate(BoostBossArmy);
+                    NewArmy.GetComponent<BossArmy>().IsLevel4 = true;
+                    NewArmy.GetComponent<BossArmy>().IsLevel5 = true;
+                }
+                yield return new WaitForSeconds(0.2f);
             }
-            else if (!Physics2D.OverlapArea(Check.LeftUpPo + (Vector2)transform.position + new Vector2(3, 0), Check.RightDownPo + (Vector2)transform.position + new Vector2(3, 0), Check.Ground))
-            {
-                var NewArmy = Instantiate(BossArmy, transform.position + new Vector3(3, 0, 0), Quaternion.identity);
-                NewArmy.GetComponent<SpriteRenderer>().color = ColorManager.Instance.UpdateColor(2);
-                NewArmy.GetComponent<CharacterStats>().CharacterData_Temp = Instantiate(BoostBossArmy);
-                NewArmy.GetComponent<BossArmy>().IsLevel4 = true;
-                NewArmy.GetComponent<BossArmy>().IsLevel5 = true;
-            }
-            yield return new WaitForSeconds(0.2f);
         }
         SummonArmy = false;
         IsSkill = false;

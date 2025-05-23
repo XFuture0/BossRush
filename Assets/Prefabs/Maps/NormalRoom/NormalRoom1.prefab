@@ -2607,10 +2607,13 @@ MonoBehaviour:
   Width: 36
   Height: 24
   RoomType: 1
-  Size: 10.21
+  Size: 9.1
   polygonCollider: {fileID: 2996521580945918871}
   CurPlayer: {fileID: 2175943167716333536}
   NoFind: {fileID: 5043804168176981777}
+  TransmissionTower: {fileID: 0}
+  CardPaper: {fileID: 0}
+  DoorBox: {fileID: 4817785817282751984}
 --- !u!61 &4731724498839663832
 BoxCollider2D:
   m_ObjectHideFlags: 0
