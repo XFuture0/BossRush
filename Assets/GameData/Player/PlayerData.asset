@@ -16,10 +16,10 @@ MonoBehaviour:
   CurrentRoomCount: 1
   JumpForce: 18
   JumpDownSpeed_Max: -18
-  CoinCount: 0
-  ScoreCount: 400
+  CoinCount: 8
+  ScoreCount: 460
   StartGame: 1
-  PlayerPosition: {x: 22.824974, y: -12.513172, z: 0}
+  PlayerPosition: {x: 30.975063, y: 12.17434, z: 0}
   RoomType: 1
   CurrentScene: {fileID: 11400000, guid: 2e9a28ac1d2d60945a3b351ceced992b, type: 2}
   HatData:
@@ -42,3 +42,11 @@ MonoBehaviour:
     BulletSprite: {fileID: 2101184385, guid: f8fb58ab41dedec43b5da41d2aa68004, type: 3}
     AttackPower: 5
     Description: "\u57FA\u7840\u4F24\u5BB3+5"
+  CurrentColor:
+    Index: 4
+    Name: "\u7126\u7CD6\u5E03\u4E01"
+    InvokeName: CaramelPudding
+    Description: "Q\u5F39\u7684\u53E3\u611F\uFF0C\u5165\u53E3\u5373\u5316\u7684\u751C\u871C"
+    UseDescription: "\u8DF3\u8DC3\u7684\u5E03\u4E01\uFF0C\u8DF3\u8DC3\u9AD8\u5EA6\u6539\u53D8"
+    Color1: {r: 0.91823894, g: 0.63082576, b: 0.33206737, a: 1}
+    Color2: {r: 0.61006284, g: 0.35341614, b: 0.23596765, a: 1}

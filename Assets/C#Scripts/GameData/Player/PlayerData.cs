@@ -17,4 +17,5 @@ public class PlayerData : ScriptableObject
     public HatList.HatData HatData;//帽子数据
     public CharacterList.CharacterData CharacterData;//特质数据
     public WeaponList.WeaponData WeaponData;//武器数据
+    public ColorData.Colordata CurrentColor;//颜色数据
 }

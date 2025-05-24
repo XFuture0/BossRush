@@ -8,6 +8,13 @@ public class ColorData : ScriptableObject
     [System.Serializable]
     public class Colordata
     {
+        public int Index;
+        public string Name;
+        public string InvokeName;
+        [TextArea]
+        public string Description;
+        [TextArea]
+        public string UseDescription;
         public Color Color1;
         public Color Color2;
     }

@@ -37,6 +37,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         {
             MapManager.Instance.SetNewMap();//创建新地图
             GameManager.Instance.PlayerData.RoomType = RoomType.StartRoom;
+            ColorManager.Instance.ChangeColor();
         }
         yield return new WaitForSeconds(5f);
         DataManager.Instance.Save(DataManager.Instance.Index);//存档
@@ -53,7 +54,10 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
                 yield break;
             }
         }
-        ColorManager.Instance.ChangeColor();
+        else if (IsSetRoomData)
+        {
+            ColorManager.Instance.SetColorData(GameManager.Instance.PlayerData.CurrentColor);
+        }
         if (!IsSetPosition)
         {
             Player.transform.position = new Vector3(-20.64f, -0.44f, 0);//地图切换回到初始点
@@ -71,6 +75,10 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         Door.GetComponent<Door>().SetDoor();
         ChangeMiniMapPositionEvent.RaiseVector3Event(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);//改变小地图相机位置
         yield return new WaitForSeconds(1f);
+        if (!IsSetRoomData)
+        {
+            ColorManager.Instance.SetColorText();
+        }
         OpenDoorEvent.RaiseEvent();
         SetChangeRoom();
         GameManager.Instance.PlayerStats.gameObject.GetComponent<PlayerController>().ContinuePlayer();
@@ -96,18 +104,26 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         {
             MapManager.Instance.SetNewMap();//创建新地图
             GameManager.Instance.PlayerData.RoomType = RoomType.StartRoom;
+            ColorManager.Instance.ChangeColor();
+        }
+        else if (IsSetRoomData)
+        {
+            ColorManager.Instance.SetColorData(GameManager.Instance.PlayerData.CurrentColor);
         }
         IsSetRoomData = false;
         yield return new WaitForSeconds(5f);
         DataManager.Instance.Save(DataManager.Instance.Index);//存档
         GameManager.Instance.PlayerData.CurrentRoomCount = 1;
-        ColorManager.Instance.ChangeColor();
         yield return new WaitForSeconds(0.5f);
         Fadecanvs.FadeOut();
         Door.SetActive(true);
         Door.GetComponent<Door>().SetDoor();
         ChangeMiniMapPositionEvent.RaiseVector3Event(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);//改变小地图相机位置
         yield return new WaitForSeconds(1f);
+        if (!IsSetRoomData)
+        {
+            ColorManager.Instance.SetColorText();
+        }
         OpenDoorEvent.RaiseEvent();
         MapManager.Instance.AccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);
         MapManager.Instance.FindRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);
@@ -201,6 +217,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         Bosscanvs.gameObject.SetActive(false);
         GameManager.Instance.PlayerCanvs.gameObject.SetActive(false);
         GameManager.Instance.PlayerStats.CharacterData_Temp = Instantiate(GameManager.Instance.PlayerStats.CharacterData);
+        ColorManager.Instance.CancelColorStats();
         MapManager.Instance.ClearMap();
         yield return new WaitForSeconds(0.1f);
         Boss.SetActive(false);

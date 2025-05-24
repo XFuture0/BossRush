@@ -42,9 +42,9 @@ public class ScoreManager : SingleTons<ScoreManager>
     }
     private void Update()
     {
-        if(ScoreText.color != ColorManager.Instance.UpdateColor(1))
+        if(ScoreText.color != ColorManager.Instance.UpdateColor(2))
         {
-            ScoreText.color = ColorManager.Instance.UpdateColor(1);
+            ScoreText.color = ColorManager.Instance.UpdateColor(2);
         }
         if(LastScore != GameManager.Instance.PlayerData.ScoreCount)
         {
