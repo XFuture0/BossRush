@@ -24,7 +24,6 @@ public class MainMenuCanvs : MonoBehaviour
     private void OnSetting()
     {
         SettingCanvs.SetActive(true);
-        gameObject.SetActive(false);
     }
     private void OnQuit()
     {

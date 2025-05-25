@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -81,6 +82,19 @@ public class ColorManager : SingleTons<ColorManager>
         }
         yield return new WaitForSeconds(2f);
         ColorCanvs.SetActive(false);
+    }
+    public void ReSetColor()
+    {
+        GameManager.Instance.PlayerData.CurrentColor = ColorData.ColorLists[0];
+        ColorIndex = 0;
+        GameManager.Instance.PlayerData.CurrentColor = ColorData.ColorLists[ColorIndex];
+        Camera.GetComponent<Camera>().backgroundColor = ColorData.ColorLists[ColorIndex].Color1;
+        TransmissionCamera.GetComponent<Camera>().backgroundColor = ColorData.ColorLists[ColorIndex].Color1;
+        Player.GetComponent<SpriteRenderer>().color = ColorData.ColorLists[ColorIndex].Color2;
+        Boss.GetComponent<SpriteRenderer>().color = ColorData.ColorLists[ColorIndex].Color2;
+        BossHealthBox.GetComponent<Image>().color = ColorData.ColorLists[ColorIndex].Color2;
+        BossHealthBox.transform.GetChild(0).GetComponent<Image>().color = ColorData.ColorLists[ColorIndex].Color2;
+        BossHealthBox.transform.GetChild(1).GetComponent<Image>().color = ColorData.ColorLists[ColorIndex].Color2;
     }
     public void CancelColorStats()
     {

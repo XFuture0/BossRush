@@ -12,6 +12,7 @@ public class GameManager : SingleTons<GameManager>
     public GameObject PlayerCanvs;
     public GameObject BossCanvs;
     public PlayerData PlayerData;
+    public GlobalData GlobalData;
     public CharacterStats PlayerStats;
     public CharacterStats BossStats;
     public bool BossActive = true;

@@ -14,6 +14,7 @@ public class DataManager : SingleTons<DataManager>
     private FileStream CardListDataFile;//卡牌基本数据文件
     private FileStream PlotDataFile;//剧情基本数据文件
     private FileStream MapDataFile;//地图基本数据文件
+    private FileStream GlobalDataFile;//全局数据文件
     [Header("数据")]
     public PlayerData PlayerData;//玩家基本数据
     public CharacterData PlayerCharacterData;//玩家属性数据
@@ -22,10 +23,47 @@ public class DataManager : SingleTons<DataManager>
     public ChooseCardList CardListData;//卡牌基本数据
     public Plot PlotData;//剧情基本数据
     public MapData MapData;//地图基本数据
+    public GlobalData  GlobalData;//全局数据
     protected override void Awake()
     {
         base.Awake();
         formatter = new BinaryFormatter();
+    }
+    private void Start()
+    {
+        LoadGlobal();
+    }
+    public void SaveGlobal()
+    {
+        if (!Directory.Exists(Application.persistentDataPath + "/SaveData"))
+        {
+            Directory.CreateDirectory(Application.persistentDataPath + "/SaveData");
+        }
+        //总文件夹
+        var Json = JsonUtility.ToJson(GameManager.Instance.GlobalData);
+        JsonUtility.FromJsonOverwrite(Json.ToString(), GlobalData);
+        if (!File.Exists(Application.persistentDataPath + "/SaveData" + "/GlobalData.txt"))
+        {
+            File.Create(Application.persistentDataPath + "/SaveData" + "/GlobalData.txt").Dispose();
+        }
+        GlobalDataFile = File.Open(Application.persistentDataPath + "/SaveData" + "/GlobalData.txt", FileMode.Open);
+        Json = JsonUtility.ToJson(GlobalData);
+        formatter.Serialize(GlobalDataFile, Json);
+        GlobalDataFile.Close();
+        //全局基本数据
+    }
+    private void LoadGlobal()
+    {
+        if (File.Exists(Application.persistentDataPath + "/SaveData" + "/GlobalData.txt"))
+        {
+            GlobalDataFile = File.Open(Application.persistentDataPath + "/SaveData" + "/GlobalData.txt", FileMode.Open);
+            JsonUtility.FromJsonOverwrite(formatter.Deserialize(GlobalDataFile).ToString(), GlobalData);
+            var Json = JsonUtility.ToJson(GlobalData);
+            JsonUtility.FromJsonOverwrite(Json.ToString(), GameManager.Instance.GlobalData);
+            GlobalDataFile.Close();
+            AudioManager.Instance.SetMainAudioVolume();
+            //全局基本数据
+        }
     }
     public void Save(int index)
     {
@@ -175,6 +213,7 @@ public class DataManager : SingleTons<DataManager>
             PlayerEquipManager.Instance.ChangeWeapon(0);
             PlayerEquipManager.Instance.ChangeHat(0);
             PlayerEquipManager.Instance.ChangeCharacter(0);
+            ColorManager.Instance.ReSetColor();
             MapManager.Instance.ClearMap();
             //恢复数据初始化(判定当前存档为空时使用)
         }

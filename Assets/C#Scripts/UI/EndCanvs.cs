@@ -10,6 +10,7 @@ public class EndCanvs : MonoBehaviour
     public Button ReturnButton;
     public SceneData CurrentScene;
     public SceneData NextScene;
+    public Text ScoreText;
     private void Awake()
     {
         ReturnButton.onClick.AddListener(EndGame);
@@ -18,6 +19,7 @@ public class EndCanvs : MonoBehaviour
     {
         KeyBoardManager.Instance.StopAnyKey = true;
         SceneChangeManager.Instance.Boss.GetComponent<BossController>().IsStopBoss = true;
+        ScoreText.text = "µÃ·ÖÊý£º " + GameManager.Instance.PlayerData.ScoreCount.ToString();
     }
     private void EndGame()
     {
