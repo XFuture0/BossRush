@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e87602f768ee574d998cfcf1ecb0d4c, type: 3}
   m_Name: BossSkillList
   m_EditorClassIdentifier: 
-  BossSkillNameList_Count: 1
+  BossSkillNameList_Count: 0
   BossSkills:
   - SkillName: ShootBall
     Type: 0
@@ -24,29 +24,29 @@ MonoBehaviour:
     Type: 3
     State: 1
     SkillProbability: 0.5
-    SkillLevel: 0
+    SkillLevel: 2
     IsOpen: 0
   - SkillName: GroundFissue
     Type: 2
     State: 0
     SkillProbability: 0.2
-    SkillLevel: 0
+    SkillLevel: 3
     IsOpen: 0
   - SkillName: Laser
     Type: 1
     State: 0
     SkillProbability: 0.4
-    SkillLevel: 0
+    SkillLevel: 4
     IsOpen: 0
   - SkillName: SummonArmy
     Type: 4
     State: 0
     SkillProbability: 0.5
-    SkillLevel: 4
-    IsOpen: 1
+    SkillLevel: 5
+    IsOpen: 0
   - SkillName: Trident
     Type: 5
     State: 0
     SkillProbability: 0.4
-    SkillLevel: 0
+    SkillLevel: 5
     IsOpen: 0
