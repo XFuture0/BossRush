@@ -217,9 +217,10 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     private IEnumerator Ending() 
     {
         Bosscanvs.gameObject.SetActive(false);
+        ColorManager.Instance.CancelColorStats();
+        yield return new WaitForSeconds(0.1f);
         GameManager.Instance.PlayerCanvs.gameObject.SetActive(false);
         GameManager.Instance.PlayerStats.CharacterData_Temp = Instantiate(GameManager.Instance.PlayerStats.CharacterData);
-        ColorManager.Instance.CancelColorStats();
         MapManager.Instance.ClearMap();
         ColorManager.Instance.ReSetColor();
         yield return new WaitForSeconds(0.1f);

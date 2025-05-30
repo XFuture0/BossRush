@@ -33,4 +33,11 @@ public class TransmissionTower : MonoBehaviour
             CanTransmission = true;
         }
     }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.tag == "Player")
+        {
+            CanTransmission = false;
+        }
+    }
 }

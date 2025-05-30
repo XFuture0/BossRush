@@ -6,10 +6,13 @@ using UnityEngine.UI;
 
 public class SaveCanvs : MonoBehaviour
 {
+    public Button ReturnButton;
+    public GameObject MainaMenuCanvs;
     public List<SaveSlot> saveSlots = new List<SaveSlot>();
     private void Awake()
     {
         RefreshIndex();
+        ReturnButton.onClick.AddListener(OnReturnButton);
     }
     private void RefreshIndex()
     {
@@ -17,5 +20,10 @@ public class SaveCanvs : MonoBehaviour
         {
             saveSlots[i-1].Index = i;
         }
+    }
+    private void OnReturnButton()
+    {
+        MainaMenuCanvs.SetActive(true);
+        gameObject.SetActive(false);
     }
 }

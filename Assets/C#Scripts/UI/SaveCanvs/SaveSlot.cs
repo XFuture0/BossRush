@@ -8,6 +8,7 @@ public class SaveSlot : MonoBehaviour
     public Button DeleteDataButton;
     public int Index;
     public Text TimeText;
+    public GameObject DeletePanel;
     private void Awake()
     {
         ThisButton = GetComponent<Button>();
@@ -57,33 +58,20 @@ public class SaveSlot : MonoBehaviour
             }
         }
     }
-    private void DeleteTimeText()
-    {
-        if (Index == GameManager.Instance.GlobalData.SaveTime1.Index)
-        {
-            GameManager.Instance.GlobalData.SaveTime1.Time = "";
-        }
-        if (Index == GameManager.Instance.GlobalData.SaveTime2.Index)
-        {
-            GameManager.Instance.GlobalData.SaveTime2.Time = "";
-        }
-        if (Index == GameManager.Instance.GlobalData.SaveTime3.Index)
-        {
-            GameManager.Instance.GlobalData.SaveTime3.Time = "";
-        }
-        DataManager.Instance.SaveGlobal();
-    }
     private void OnLoad()
     {
         DataManager.Instance.Load(Index);
         SaveTimeText();
         DataManager.Instance.SaveGlobal();
-        gameObject.transform.parent.parent.gameObject.SetActive(false);
+        gameObject.transform.parent.parent.parent.gameObject.SetActive(false);
     }
     private void OnDelete()
     {
-        TimeText.text = "";
-        DeleteTimeText();
-        DataManager.Instance.Delete(Index);
+        if(TimeText.text != "")
+        {
+            DeletePanel.SetActive(true);
+            DeletePanel.GetComponent<DeletePanel>().Index = Index;
+            DeletePanel.GetComponent<DeletePanel>().TimeText = TimeText;
+        }
     }
 }

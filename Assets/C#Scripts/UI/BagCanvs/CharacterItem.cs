@@ -17,16 +17,16 @@ public class CharacterItem : MonoBehaviour
                 if(count > 0)
                 {
                     CharacterText.color = Color.green;
-                    CharacterText.text = "+" + count.ToString();
+                    CharacterText.text = "+" + (count * 100).ToString() + "%";
                 }
                 else if(count == 0)
                 {
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 else if(count < 0)
                 {
                     CharacterText.color = Color.red;
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 break;
             case "AttackBonus":
@@ -34,16 +34,16 @@ public class CharacterItem : MonoBehaviour
                 if (count > 0)
                 {
                     CharacterText.color = Color.green;
-                    CharacterText.text = "+" + count.ToString();
+                    CharacterText.text = "+" + (count * 100).ToString() + "%";
                 }
                 else if (count == 0)
                 {
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 else if (count < 0)
                 {
                     CharacterText.color = Color.red;
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 break;
             case "AutoHealth":
@@ -68,16 +68,16 @@ public class CharacterItem : MonoBehaviour
                 if (count > 0)
                 {
                     CharacterText.color = Color.green;
-                    CharacterText.text = "+" + count.ToString();
+                    CharacterText.text = "+" + (count * 100).ToString() + "%";
                 }
                 else if (count == 0)
                 {
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 else if (count < 0)
                 {
                     CharacterText.color = Color.red;
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 break;
             case "CriticalBonus":
@@ -85,16 +85,16 @@ public class CharacterItem : MonoBehaviour
                 if (count > 0)
                 {
                     CharacterText.color = Color.green;
-                    CharacterText.text = "+" + count.ToString();
+                    CharacterText.text = "+" + (count * 100).ToString() + "%";
                 }
                 else if (count == 0)
                 {
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 else if (count < 0)
                 {
                     CharacterText.color = Color.red;
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 break;
             case "DodgeRate":
@@ -102,16 +102,16 @@ public class CharacterItem : MonoBehaviour
                 if (count > 0)
                 {
                     CharacterText.color = Color.green;
-                    CharacterText.text = "+" + count.ToString();
+                    CharacterText.text = "+" + (count * 100).ToString() + "%";
                 }
                 else if (count == 0)
                 {
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 else if (count < 0)
                 {
                     CharacterText.color = Color.red;
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 break;
             case "AttackRate":
@@ -119,16 +119,16 @@ public class CharacterItem : MonoBehaviour
                 if (count > 0)
                 {
                     CharacterText.color = Color.green;
-                    CharacterText.text = "+" + count.ToString();
+                    CharacterText.text = "+" + (count * 100).ToString() + "%";
                 }
                 else if (count == 0)
                 {
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 else if (count < 0)
                 {
                     CharacterText.color = Color.red;
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 break;
             case "PoizonDamage":
@@ -136,16 +136,16 @@ public class CharacterItem : MonoBehaviour
                 if (count > 0)
                 {
                     CharacterText.color = Color.green;
-                    CharacterText.text = "+" + count.ToString();
+                    CharacterText.text = "+" + (count * 100).ToString() + "%";
                 }
                 else if (count == 0)
                 {
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 else if (count < 0)
                 {
                     CharacterText.color = Color.red;
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 break;
             case "ThunderBonus":
@@ -153,16 +153,16 @@ public class CharacterItem : MonoBehaviour
                 if (count > 0)
                 {
                     CharacterText.color = Color.green;
-                    CharacterText.text = "+" + count.ToString();
+                    CharacterText.text = "+" + (count * 100).ToString() + "%";
                 }
                 else if (count == 0)
                 {
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 else if (count < 0)
                 {
                     CharacterText.color = Color.red;
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 break;
             case "ThunderRate":
@@ -170,16 +170,16 @@ public class CharacterItem : MonoBehaviour
                 if (count > 0)
                 {
                     CharacterText.color = Color.green;
-                    CharacterText.text = "+" + count.ToString();
+                    CharacterText.text = "+" + (count * 100).ToString() + "%";
                 }
                 else if (count == 0)
                 {
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 else if (count < 0)
                 {
                     CharacterText.color = Color.red;
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 break;
             case "Vulnerability_AttackBonus":
@@ -187,16 +187,16 @@ public class CharacterItem : MonoBehaviour
                 if (count > 0)
                 {
                     CharacterText.color = Color.green;
-                    CharacterText.text = "+" + count.ToString();
+                    CharacterText.text = "+" + (count * 100).ToString() + "%";
                 }
                 else if (count == 0)
                 {
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 else if (count < 0)
                 {
                     CharacterText.color = Color.red;
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 break;
             case "Vulnerability_CriticalRate":
@@ -204,16 +204,16 @@ public class CharacterItem : MonoBehaviour
                 if (count > 0)
                 {
                     CharacterText.color = Color.green;
-                    CharacterText.text = "+" + count.ToString();
+                    CharacterText.text = "+" + (count * 100).ToString() + "%";
                 }
                 else if (count == 0)
                 {
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 else if (count < 0)
                 {
                     CharacterText.color = Color.red;
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 break;
             case "WaterElementBonus":
@@ -221,16 +221,16 @@ public class CharacterItem : MonoBehaviour
                 if (count > 0)
                 {
                     CharacterText.color = Color.green;
-                    CharacterText.text = "+" + count.ToString();
+                    CharacterText.text = "+" + (count * 100).ToString() + "%";
                 }
                 else if (count == 0)
                 {
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 else if (count < 0)
                 {
                     CharacterText.color = Color.red;
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 break;
             case "DangerousBulletBonus":
@@ -238,16 +238,16 @@ public class CharacterItem : MonoBehaviour
                 if (count > 0)
                 {
                     CharacterText.color = Color.green;
-                    CharacterText.text = "+" + count.ToString();
+                    CharacterText.text = "+" + (count * 100).ToString() + "%";
                 }
                 else if (count == 0)
                 {
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 else if (count < 0)
                 {
                     CharacterText.color = Color.red;
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 break;
 
@@ -296,16 +296,16 @@ public class CharacterItem : MonoBehaviour
                 if (count > 0)
                 {
                     CharacterText.color = Color.green;
-                    CharacterText.text = "+" + count.ToString();
+                    CharacterText.text = "+" + (count * 100).ToString() + "%";
                 }
                 else if (count == 0)
                 {
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 else if (count < 0)
                 {
                     CharacterText.color = Color.red;
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 break;
             case "AttackRate":
@@ -313,16 +313,16 @@ public class CharacterItem : MonoBehaviour
                 if (count > 0)
                 {
                     CharacterText.color = Color.green;
-                    CharacterText.text = "+" + count.ToString();
+                    CharacterText.text = "+" + (count * 100).ToString() + "%";
                 }
                 else if (count == 0)
                 {
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 else if (count < 0)
                 {
                     CharacterText.color = Color.red;
-                    CharacterText.text = count.ToString();
+                    CharacterText.text = (count * 100).ToString() + "%";
                 }
                 break;
             case "ShootBall":

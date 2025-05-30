@@ -13,17 +13,8 @@ public class DifficultSlot : MonoBehaviour
         public Plot RoomPlot;
         public ChooseCardList CardList;
     }
-    private Button LeftChange;
-    private Button RightChange;
     public int ThisIndex = 0;
     public List<DifficultData> DifficultList = new List<DifficultData>();
-    private void Awake()
-    {
-        LeftChange = transform.GetChild(0).GetComponent<Button>();
-        RightChange = transform.GetChild(1).GetComponent<Button>();
-        LeftChange.onClick.AddListener(OnLeftChange);
-        RightChange.onClick.AddListener(OnRightChange);
-    }
     private void Start()
     {
         SceneChangeManager.Instance.ShowRoomCount(DifficultList[ThisIndex].RoomCount);

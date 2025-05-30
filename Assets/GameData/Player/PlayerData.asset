@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   RoomCount: 10
-  CurrentRoomCount: 0
-  JumpForce: 18
+  CurrentRoomCount: 1
+  JumpForce: 25
   JumpDownSpeed_Max: -18
-  CoinCount: 0
-  ScoreCount: 0
-  StartGame: 0
-  PlayerPosition: {x: -7.4492903, y: -2.5131493, z: 0}
-  RoomType: 0
-  CurrentScene: {fileID: 11400000, guid: efa07ffd72e72e24f97e21e75bf8bc7a, type: 2}
+  CoinCount: 62
+  ScoreCount: 4920
+  StartGame: 1
+  PlayerPosition: {x: -23.2, y: -0.5, z: 0}
+  RoomType: 1
+  CurrentScene: {fileID: 11400000, guid: 2e9a28ac1d2d60945a3b351ceced992b, type: 2}
   HatData:
     Index: 0
     HatName: Null
@@ -43,7 +43,7 @@ MonoBehaviour:
     AttackPower: 5
     Description: "\u57FA\u7840\u4F24\u5BB3+5"
   CurrentColor:
-    Index: 0
+    Index: 3
     Name: "\u7126\u7CD6\u5E03\u4E01"
     InvokeName: CaramelPudding
     Description: "Q\u5F39\u7684\u53E3\u611F\uFF0C\u5165\u53E3\u5373\u5316\u7684\u751C\u871C"

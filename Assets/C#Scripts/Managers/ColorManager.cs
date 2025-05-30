@@ -36,7 +36,7 @@ public class ColorManager : SingleTons<ColorManager>
         CancelColorStats();
         ColorIndex = UnityEngine.Random.Range(0,ColorData.ColorLists.Count);
         GameManager.Instance.PlayerData.CurrentColor = ColorData.ColorLists[ColorIndex];
-        //ColorIndex = 0;//锁定颜色
+        //ColorIndex = 3;//锁定颜色
         Camera.GetComponent<Camera>().backgroundColor = ColorData.ColorLists[ColorIndex].Color1;
         TransmissionCamera.GetComponent<Camera>().backgroundColor = ColorData.ColorLists[ColorIndex].Color1;
         Player.GetComponent<SpriteRenderer>().color = ColorData.ColorLists[ColorIndex].Color2;
@@ -94,7 +94,6 @@ public class ColorManager : SingleTons<ColorManager>
         Boss.GetComponent<SpriteRenderer>().color = ColorData.ColorLists[ColorIndex].Color2;
         BossHealthBox.GetComponent<Image>().color = ColorData.ColorLists[ColorIndex].Color2;
         BossHealthBox.transform.GetChild(0).GetComponent<Image>().color = ColorData.ColorLists[ColorIndex].Color2;
-        BossHealthBox.transform.GetChild(1).GetComponent<Image>().color = ColorData.ColorLists[ColorIndex].Color2;
     }
     public void CancelColorStats()
     {
