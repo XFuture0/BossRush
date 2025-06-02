@@ -5,8 +5,6 @@ using UnityEngine.UIElements;
 
 public class MapCharacrter : MonoBehaviour
 {
-    public float Width;//房间宽度
-    public float Height;//房间高度
     public RoomType RoomType;//房间类型
     public float Size;//房间视角大小
     public PolygonCollider2D polygonCollider;
@@ -17,9 +15,14 @@ public class MapCharacrter : MonoBehaviour
     public GameObject TransmissionTower;
     public GameObject CardPaper;
     public Transform DoorBox;
+    public List<GameObject> LeftDoor = new List<GameObject>();//左侧门
+    public List<GameObject> RightDoor = new List<GameObject>();//右侧门
     public void BuildNewRoom()
     {
-        StartCoroutine(MapManager.Instance.BuildNewRoom(Width,Height,(Vector2)transform.position,RoomType));
+        var doorcount = Random.Range(0,DoorBox.childCount);
+        DoorType NewDoorType = DoorBox.transform.GetChild(doorcount).gameObject.GetComponent<RoomDoor>().doorType;
+        Vector3 NewDoorPosition = DoorBox.transform.GetChild(doorcount).gameObject.transform.position;
+        StartCoroutine(MapManager.Instance.BuildNewRoom((Vector2)transform.position,NewDoorType,NewDoorPosition, DoorBox.transform.GetChild(doorcount).GetChild(0).gameObject));
     }
     public bool CheckCanBuildRoom()//减少建造时间
     {
@@ -28,25 +31,13 @@ public class MapCharacrter : MonoBehaviour
         {
             switch (DoorBox.GetChild(i).GetComponent<RoomDoor>().doorType)
             {
-                case DoorType.LeftUpDoor:
-                    if(Physics2D.OverlapPoint(DoorBox.GetChild(i).position + new Vector3(-6, 0, 0), SceneChangeManager.Instance.Room))
-                    {
-                        DoorCount++;
-                    }
-                    break;
-                case DoorType.LeftDownDoor:
+                case DoorType.LeftDoor:
                     if (Physics2D.OverlapPoint(DoorBox.GetChild(i).position + new Vector3(-6, 0, 0), SceneChangeManager.Instance.Room))
                     {
                         DoorCount++;
                     }
                     break;
-                case DoorType.RightUpDoor:
-                    if (Physics2D.OverlapPoint(DoorBox.GetChild(i).position + new Vector3(6, 0, 0), SceneChangeManager.Instance.Room))
-                    {
-                        DoorCount++;
-                    }
-                    break;
-                case DoorType.RightDownDoor:
+                case DoorType.RightDoor:
                     if (Physics2D.OverlapPoint(DoorBox.GetChild(i).position + new Vector3(6, 0, 0), SceneChangeManager.Instance.Room))
                     {
                         DoorCount++;
@@ -54,7 +45,7 @@ public class MapCharacrter : MonoBehaviour
                     break;
             }
         }
-        if(DoorCount == 4)
+        if(DoorCount == DoorBox.childCount)
         {
             return false;
         }
@@ -62,7 +53,7 @@ public class MapCharacrter : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-      if(other.tag == "Player")
+      if(other.tag == "Player" && gameObject.layer == 13)
       {
             GameManager.Instance.OnBoundEvent(polygonCollider,Size);
             CurPlayer.SetActive(true);

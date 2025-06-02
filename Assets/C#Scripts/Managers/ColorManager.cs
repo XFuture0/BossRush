@@ -43,7 +43,6 @@ public class ColorManager : SingleTons<ColorManager>
         Boss.GetComponent<SpriteRenderer>().color = ColorData.ColorLists[ColorIndex].Color2;
         BossHealthBox.GetComponent<Image>().color = ColorData.ColorLists[ColorIndex].Color2;
         BossHealthBox.transform.GetChild(0).GetComponent<Image>().color = ColorData.ColorLists[ColorIndex].Color2;
-        BossHealthBox.transform.GetChild(1).GetComponent<Image>().color = ColorData.ColorLists[ColorIndex].Color2;
     }
     public Color UpdateColor(int Index)
     {
@@ -66,7 +65,6 @@ public class ColorManager : SingleTons<ColorManager>
         Boss.GetComponent<SpriteRenderer>().color = ColorData.ColorLists[ColorIndex].Color2;
         BossHealthBox.GetComponent<Image>().color = ColorData.ColorLists[ColorIndex].Color2;
         BossHealthBox.transform.GetChild(0).GetComponent<Image>().color = ColorData.ColorLists[ColorIndex].Color2;
-        BossHealthBox.transform.GetChild(1).GetComponent<Image>().color = ColorData.ColorLists[ColorIndex].Color2;
     }
     public void SetColorText()
     {

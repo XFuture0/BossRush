@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class StartGameDoor : MonoBehaviour
 {
-    public SceneData CurrentScene;
-    public SceneData NextScene;
+    public GameObject StartBox;
     private bool IsPlayer;
     private void Update()
     {
@@ -20,6 +19,7 @@ public class StartGameDoor : MonoBehaviour
         if (other.tag == "Player")
         {
             IsPlayer = true;
+            StartBox.SetActive(true);
         }
     }
     private void OnTriggerExit2D(Collider2D other)
@@ -27,6 +27,7 @@ public class StartGameDoor : MonoBehaviour
         if (other.tag == "Player")
         {
             IsPlayer = false;
+            StartBox.SetActive(false);
         }
     }
 }

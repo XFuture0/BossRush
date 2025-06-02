@@ -80,7 +80,6 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         yield return new WaitForSeconds(0.5f);
         DataManager.Instance.Save(DataManager.Instance.Index);//´æµµ
         IsSetRoomData = false;
-        OpenDoorEvent.RaiseEvent();
         SetChangeRoom();
         GameManager.Instance.PlayerStats.gameObject.GetComponent<PlayerController>().ContinuePlayer();
         KeyBoardManager.Instance.StopAnyKey = false;
@@ -93,7 +92,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     private IEnumerator OnStartGame()
     {
         Fadecanvs.FadeIn();
-        KeyBoardManager.Instance.StopAnyKey = true;
+        GameManager.Instance.PlayerStats.gameObject.GetComponent<PlayerController>().StopPlayer();
         yield return new WaitForSeconds(0.1f);
         GameManager.Instance.Boss().NowHealth = GameManager.Instance.Boss().MaxHealth;
         GameManager.Instance.PlayerData.StartGame = true;
@@ -113,6 +112,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         }
         yield return new WaitForSeconds(5f);
         GameManager.Instance.PlayerData.CurrentRoomCount = 1;
+        Player.transform.position = new Vector3(-20.64f, -0.44f, 0);
         yield return new WaitForSeconds(0.5f);
         Fadecanvs.FadeOut();
         Door.SetActive(true);
@@ -126,7 +126,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         yield return new WaitForSeconds(0.5f);
         DataManager.Instance.Save(DataManager.Instance.Index);//´æµµ
         IsSetRoomData = false;
-        OpenDoorEvent.RaiseEvent();
+        SetChangeRoom();
         MapManager.Instance.AccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);
         MapManager.Instance.FindRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);
         KeyBoardManager.Instance.StopAnyKey = false;
@@ -150,7 +150,6 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         {
             Fadecanvs.FadeIn();
         }
-        yield return new WaitForSeconds(0.1f);
         SceneManager.UnloadSceneAsync(CurrentScene.SceneName);
         SceneManager.LoadSceneAsync(NextScene.SceneName, LoadSceneMode.Additive);
         GameManager.Instance.PlayerStats.gameObject.transform.position = NextScene.ToPosition;
@@ -242,16 +241,10 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         GameManager.Instance.Boss().NowHealth = GameManager.Instance.Boss().MaxHealth;
         switch (doorType)
         {
-            case DoorType.LeftUpDoor:
+            case DoorType.LeftDoor:
                 Player.transform.position = Position + new Vector3(-6,0,0);
                 break;
-            case DoorType.LeftDownDoor:
-                Player.transform.position = Position + new Vector3(-6,0,0);
-                break;
-            case DoorType.RightUpDoor:
-                Player.transform.position = Position + new Vector3(6, 0, 0);
-                break;
-            case DoorType.RightDownDoor:
+            case DoorType.RightDoor:
                 Player.transform.position = Position + new Vector3(6, 0, 0);
                 break;
         }

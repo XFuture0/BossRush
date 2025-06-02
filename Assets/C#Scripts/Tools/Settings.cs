@@ -12,11 +12,4 @@ public class Settings : MonoBehaviour
     public const int CardRoom = 2;
     public const int TransmissionTowerRoom = 3;
     public const int BossRoom = 4;
-    //∑ΩœÚ–Ú∫≈
-    public const int WestNorth = 0;
-    public const int WestCenter = 1;
-    public const int WestSouth = 2;
-    public const int EastNorth = 3;
-    public const int EastCenter = 4;
-    public const int EastSouth = 5;
 }

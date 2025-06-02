@@ -4,16 +4,29 @@ using UnityEngine;
 
 public class TreasuerBox : MonoBehaviour
 {
-    private RTip R_Tip;
-    private void Awake()
-    {
-        R_Tip = GetComponent<RTip>();
-    }
+    private bool IsPlayer;
+    public GameObject RKey;
     private void Update()
     {
-        if (R_Tip.IsPlayer && KeyBoardManager.Instance.GetKeyDown_R())
+        if(IsPlayer && KeyBoardManager.Instance.GetKeyDown_R())
         {
             PlayerEquipManager.Instance.OpenEquipCanvs(2);
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == "Player")
+        {
+            IsPlayer = true;
+            RKey.SetActive(true);
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            IsPlayer = false;
+            RKey.SetActive(false);
         }
     }
 }

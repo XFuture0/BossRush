@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class RoomDoor : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class RoomDoor : MonoBehaviour
     public DoorType doorType;
     private RoomType roomType;
     public LayerMask Room;
+    public GameObject DoorSprite;
     [Header("ÊÂ¼þ¼àÌý")]
     public VoidEventSO OpenDoorEvent;
     public VoidEventSO CloseDoorEvent;
@@ -21,68 +23,9 @@ public class RoomDoor : MonoBehaviour
     }
     private void Update()
     {
-        CheckRoom();
-    }
-    private void CheckRoom()
-    {
-        switch (doorType) 
+        if (DoorSprite.activeSelf)
         {
-            case DoorType.LeftUpDoor:
-                if (Physics2D.OverlapCircle((Vector2)transform.position - new Vector2(5, 0), 0.1f, Room))
-                {
-                    var ray1 = Physics2D.OverlapCircle((Vector2)transform.position - new Vector2(5,0),0.1f,Room);
-                    if(ray1.gameObject.transform.position.y != transform.parent.parent.position.y)
-                    {
-                        transform.GetChild(0).gameObject.SetActive(false);
-                    }
-                    else if(ray1.gameObject.transform.position.y == transform.parent.parent.position.y)
-                    {
-                        transform.GetChild(0).gameObject.SetActive(true);
-                    }
-                }
-                else if (!Physics2D.OverlapCircle((Vector2)transform.position - new Vector2(5, 0), 0.1f, Room))
-                {
-                    transform.GetChild(0).gameObject.SetActive(true);
-                }
-                break;
-            case DoorType.LeftDownDoor:
-                if (Physics2D.OverlapCircle((Vector2)transform.position - new Vector2(5, 0), 0.1f, Room))
-                {
-                    transform.GetChild(0).gameObject.SetActive(false);
-                }
-                else if (!Physics2D.OverlapCircle((Vector2)transform.position - new Vector2(5, 0), 0.1f, Room))
-                {
-                    transform.GetChild(0).gameObject.SetActive(true);
-                }
-                break;
-            case DoorType.RightUpDoor:
-               if (Physics2D.OverlapCircle((Vector2)transform.position + new Vector2(5, 0), 0.1f, Room))
-               {
-                    var ray1 = Physics2D.OverlapCircle((Vector2)transform.position + new Vector2(5, 0), 0.1f, Room);
-                    if (ray1.gameObject.transform.position.y != transform.parent.parent.position.y)
-                    {
-                        transform.GetChild(0).gameObject.SetActive(false);
-                    }
-                    else if (ray1.gameObject.transform.position.y == transform.parent.parent.position.y)
-                    {
-                        transform.GetChild(0).gameObject.SetActive(true);
-                    }
-                }
-               else if (!Physics2D.OverlapCircle((Vector2)transform.position + new Vector2(5, 0), 0.1f, Room))
-               {
-                    transform.GetChild(0).gameObject.SetActive(true);
-               }
-               break;
-            case DoorType.RightDownDoor:
-                if (Physics2D.OverlapCircle((Vector2)transform.position + new Vector2(5, 0), 0.1f, Room))
-                {
-                    transform.GetChild(0).gameObject.SetActive(false);
-                }
-                else if (!Physics2D.OverlapCircle((Vector2)transform.position + new Vector2(5, 0), 0.1f, Room))
-                {
-                    transform.GetChild(0).gameObject.SetActive(true);
-                }
-                break;
+            DoorSprite.GetComponent<Tilemap>().color = ColorManager.Instance.UpdateColor(2);
         }
     }
     private void OnTriggerEnter2D(Collider2D other)

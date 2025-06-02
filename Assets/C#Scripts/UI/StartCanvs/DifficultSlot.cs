@@ -5,42 +5,19 @@ using UnityEngine.UI;
 
 public class DifficultSlot : MonoBehaviour
 {
-    [System.Serializable]
-    public class DifficultData
-    {
-        public int Index;
-        public int RoomCount;
-        public Plot RoomPlot;
-        public ChooseCardList CardList;
-    }
+    public GameObject DifficultPanel;
     public int ThisIndex = 0;
-    public List<DifficultData> DifficultList = new List<DifficultData>();
-    private void Start()
+    public Button ChooseButton;
+    private Image image;
+    private void Awake()
     {
-        SceneChangeManager.Instance.ShowRoomCount(DifficultList[ThisIndex].RoomCount);
-        CardManager.Instance.SetCardList(DifficultList[ThisIndex].CardList);
-        PlotManager.Instance.ThisRoomPlot = Instantiate(DifficultList[ThisIndex].RoomPlot);
+        ChooseButton.onClick.AddListener(OnChooseButton);
+        image = GetComponent<Image>();
     }
-    private void OnLeftChange()
+    public void OnChooseButton()
     {
-        if(ThisIndex - 1 >= 0)
-        {
-            ThisIndex--;
-            transform.GetChild(2).GetComponent<Text>().text = DifficultList[ThisIndex].Index.ToString();
-            SceneChangeManager.Instance.ShowRoomCount(DifficultList[ThisIndex].RoomCount);
-            CardManager.Instance.SetCardList(DifficultList[ThisIndex].CardList);
-            PlotManager.Instance.ThisRoomPlot = Instantiate(DifficultList[ThisIndex].RoomPlot);
-        }
-    }
-    private void OnRightChange()
-    {
-        if (ThisIndex + 1 <= DifficultList.Count - 1)
-        {
-            ThisIndex++;
-            transform.GetChild(2).GetComponent<Text>().text = DifficultList[ThisIndex].Index.ToString();
-            SceneChangeManager.Instance.ShowRoomCount(DifficultList[ThisIndex].RoomCount);
-            CardManager.Instance.SetCardList(DifficultList[ThisIndex].CardList);
-            PlotManager.Instance.ThisRoomPlot = Instantiate(DifficultList[ThisIndex].RoomPlot);
-        }
+        DifficultPanel.GetComponent<DifficultPanel>().ClearChoose();
+        image.color = new Color(0.8f, 0.8f, 0.8f, 1f);
+        DifficultPanel.GetComponent<DifficultPanel>().ChooseDifficult(ThisIndex);
     }
 }

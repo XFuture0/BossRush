@@ -94,5 +94,13 @@ public class KeyBoardManager : SingleTons<KeyBoardManager>
         }
         return false;
     }
+    public bool GetKeyDown_Esc()
+    {
+        if (!StopAnyKey)
+        {
+            return Input.GetKeyDown(KeyCode.Escape);
+        }
+        return false;
+    }
 }
 

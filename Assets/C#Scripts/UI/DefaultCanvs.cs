@@ -17,6 +17,14 @@ public class DefaultCanvs : MonoBehaviour
         {
             StopButton.GetComponent<Image>().color = ColorManager.Instance.UpdateColor(2);
         }
+        OpenStopCanvs();
+    }
+    private void OpenStopCanvs()
+    {
+        if (KeyBoardManager.Instance.GetKeyDown_Esc())
+        {
+            StopCanvs.SetActive(true);
+        }
     }
     private void OnStopButton()
     {

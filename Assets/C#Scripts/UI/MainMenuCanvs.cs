@@ -21,6 +21,14 @@ public class MainMenuCanvs : MonoBehaviour
         SettingButton.onClick.AddListener(OnSetting);
         QuitButton.onClick.AddListener(OnQuit);
     }
+    private void OnEnable()
+    {
+        StartCoroutine(OpenMenu());
+    }
+    private void OnDisable()
+    {
+        CloseMenu();
+    }
     private void Update()
     {
         SetPoint();
@@ -63,5 +71,23 @@ public class MainMenuCanvs : MonoBehaviour
                 Point.GetComponent<RectTransform>().anchoredPosition = new Vector2(-370, 0);
             }
         }
+    }
+    private IEnumerator OpenMenu()
+    {
+        yield return new WaitForSeconds(0.5f);
+        StartText.transform.parent.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        SettingText.transform.parent.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        ExitText.transform.parent.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        Point.SetActive(true);
+    }
+    private void CloseMenu()
+    {
+        StartText.transform.parent.gameObject.SetActive(false);
+        SettingText.transform.parent.gameObject.SetActive(false);
+        ExitText.transform.parent.gameObject.SetActive(false);
+        Point.SetActive(false);
     }
 }
