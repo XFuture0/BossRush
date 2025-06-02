@@ -35,9 +35,14 @@ public class MapManager : SingleTons<MapManager>
         ClearMap();
         var NewRoomCount = UnityEngine.Random.Range(0, MapLists[Settings.StartRoom].RoomLists.Count);
         var NewRoom = Instantiate(MapLists[Settings.StartRoom].RoomLists[NewRoomCount], MapBox);
+        NewRoom.GetComponent<MapCharacrter>().Index = 0;
         MapData.Room NewRoomPoint = new MapData.Room();
         NewRoomPoint.RoomPosition = NewRoom.transform.position;
-        NewRoomPoint.RoomType = NewRoom.GetComponent<MapCharacrter>().RoomType;
+        NewRoomPoint.RoomType = RoomType.StartRoom;
+        NewRoomPoint.RoomIndex = 0;
+        NewRoomPoint.Index = NewRoomCount;
+        NewRoomPoint.LeftDoor = NewRoom.GetComponent<MapCharacrter>().LeftDoor;
+        NewRoomPoint.RightDoor = NewRoom.GetComponent<MapCharacrter>().RightDoor;//保存门的开启状态
         MapData.RoomLists.Add(NewRoomPoint);//添加房间数据
         StartCoroutine(SetNewRoom());
     }
@@ -52,7 +57,7 @@ public class MapManager : SingleTons<MapManager>
                 if (MapBox.GetChild(i).gameObject.GetComponent<MapCharacrter>().CheckCanBuildRoom())
                 {
                     MapBox.GetChild(i).gameObject.GetComponent<MapCharacrter>().BuildNewRoom();
-                    yield return new WaitForSeconds(0.05f);
+                    yield return new WaitForSeconds(0.08f);
                 }
             }
         }
@@ -65,7 +70,7 @@ public class MapManager : SingleTons<MapManager>
             IsBuild = false;
         }
     }
-    public IEnumerator BuildNewRoom(Vector2 RoomCenter,DoorType doorType,Vector3 DoorPosition,GameObject DoorSprite)
+    public IEnumerator BuildNewRoom(Vector2 RoomCenter,DoorType doorType,Vector3 DoorPosition, MapCharacrter CurrentRoom,int CurrentRoomDoorCount)
     {
         switch (doorType) 
         {
@@ -81,29 +86,45 @@ public class MapManager : SingleTons<MapManager>
                     var NewRoomCount = UnityEngine.Random.Range(0, MapLists[(int)NewRoomType_LeftDoor].RoomLists.Count);
                     var NewRoom = Instantiate(MapLists[(int)NewRoomType_LeftDoor].RoomLists[NewRoomCount],MapBox);//生成新房间
                     NewRoom.layer = 0;
-                    var NewRightDoorPo = UnityEngine.Random.Range(0,NewRoom.GetComponent<MapCharacrter>().RightDoor.Count);//新的门
-                    var RightCenterOffect = NewRoom.transform.position - NewRoom.GetComponent<MapCharacrter>().RightDoor[NewRightDoorPo].transform.position;//与右门的偏移
+                    var NewRightDoorCount = UnityEngine.Random.Range(0,NewRoom.GetComponent<MapCharacrter>().RightDoor.Count);//新的门
+                    if(NewRoom.GetComponent <MapCharacrter>().RightDoor.Count == 0)
+                    {
+                        Destroy(NewRoom);
+                        yield break;
+                    }
+                    var RightCenterOffect = NewRoom.transform.position - NewRoom.GetComponent<MapCharacrter>().RightDoor[NewRightDoorCount].DoorObject.transform.position;//与右门的偏移
                     NewRoom.transform.position = DoorPosition + RightCenterOffect + new Vector3(-4,0,0);//确定新房间的位置
                     yield return new WaitForSeconds(0.02f);
                     if (CheckOverride(NewRoom.GetComponent<MapCharacrter>().polygonCollider, NewRoom.transform.position))//是否出现覆盖
                     {
+                        CurrentRoomCount++;//当前房间数量加1
                         NewRoom.layer = 13;
-                        DoorSprite.SetActive(false);
-                        NewRoom.GetComponent<MapCharacrter>().RightDoor[NewRightDoorPo].transform.GetChild(0).gameObject.SetActive(false);
+                        CurrentRoom.LeftDoor[CurrentRoomDoorCount].DoorObject.transform.GetChild(0).gameObject.SetActive(false);
+                        CurrentRoom.LeftDoor[CurrentRoomDoorCount].DoorOpen = true;
+                        MapData.RoomLists[CurrentRoom.Index].LeftDoor = CurrentRoom.LeftDoor;//保存门的开启状态
+                        NewRoom.GetComponent<MapCharacrter>().RightDoor[NewRightDoorCount].DoorObject.transform.GetChild(0).gameObject.SetActive(false);
+                        NewRoom.GetComponent<MapCharacrter>().RightDoor[NewRightDoorCount].DoorOpen = true;
+                        NewRoom.GetComponent<MapCharacrter>().Index = CurrentRoomCount;
                         if (NewRoomType_LeftDoor == Settings.BossRoom)//是否是boss房
                         {
-                            CurrentRoomCount++;//当前房间数量加1
                             MapData.Room NewRoomPoint = new MapData.Room();
                             NewRoomPoint.RoomPosition = NewRoom.transform.position;
                             NewRoomPoint.RoomType = NewRoom.GetComponent<MapCharacrter>().RoomType;
+                            NewRoomPoint.RoomIndex = CurrentRoomCount;
+                            NewRoomPoint.Index = NewRoomCount;
+                            NewRoomPoint.LeftDoor = NewRoom.GetComponent<MapCharacrter>().LeftDoor;
+                            NewRoomPoint.RightDoor = NewRoom.GetComponent<MapCharacrter>().RightDoor;//保存门的开启状态
                             MapData.RoomLists.Add(NewRoomPoint);//添加房间数据
                         }
                         if (NewRoomType_LeftDoor != Settings.BossRoom)
                         { 
-                            CurrentRoomCount++;//当前房间数量加1
                             MapData.Room NewRoomPoint = new MapData.Room();
                             NewRoomPoint.RoomPosition = NewRoom.transform.position;
                             NewRoomPoint.RoomType = NewRoom.GetComponent<MapCharacrter>().RoomType;
+                            NewRoomPoint.RoomIndex = CurrentRoomCount;
+                            NewRoomPoint.Index = NewRoomCount;
+                            NewRoomPoint.LeftDoor = NewRoom.GetComponent<MapCharacrter>().LeftDoor;
+                            NewRoomPoint.RightDoor = NewRoom.GetComponent<MapCharacrter>().RightDoor;//保存门的开启状态
                             MapData.RoomLists.Add(NewRoomPoint);//添加房间数据
                         }
                     }
@@ -125,29 +146,45 @@ public class MapManager : SingleTons<MapManager>
                     var NewRoomCount = UnityEngine.Random.Range(0, MapLists[(int)NewRoomType_RightDoor].RoomLists.Count);
                     var NewRoom = Instantiate(MapLists[(int)NewRoomType_RightDoor].RoomLists[NewRoomCount], MapBox);//生成新房间
                     NewRoom.layer = 0;
-                    var NewLeftDoorPo = UnityEngine.Random.Range(0, NewRoom.GetComponent<MapCharacrter>().LeftDoor.Count);//新的门
-                    var LeftCenterOffect = NewRoom.transform.position - NewRoom.GetComponent<MapCharacrter>().LeftDoor[NewLeftDoorPo].transform.position;//与左门的偏移
+                    var NewLeftDoorCount = UnityEngine.Random.Range(0, NewRoom.GetComponent<MapCharacrter>().LeftDoor.Count);//新的门
+                    if (NewRoom.GetComponent<MapCharacrter>().LeftDoor.Count == 0)
+                    {
+                        Destroy(NewRoom);
+                        yield break;
+                    }
+                    var LeftCenterOffect = NewRoom.transform.position - NewRoom.GetComponent<MapCharacrter>().LeftDoor[NewLeftDoorCount].DoorObject.transform.position;//与左门的偏移
                     NewRoom.transform.position = DoorPosition + LeftCenterOffect + new Vector3(4, 0, 0);//确定新房间的位置
                     yield return new WaitForSeconds(0.02f);
                     if (CheckOverride(NewRoom.GetComponent<MapCharacrter>().polygonCollider, NewRoom.transform.position))//是否出现覆盖
                     {
+                        CurrentRoomCount++;//当前房间数量加1
                         NewRoom.layer = 13;
-                        DoorSprite.SetActive(false);
-                        NewRoom.GetComponent<MapCharacrter>().LeftDoor[NewLeftDoorPo].transform.GetChild(0).gameObject.SetActive(false);
+                        CurrentRoom.RightDoor[CurrentRoomDoorCount].DoorObject.transform.GetChild(0).gameObject.SetActive(false);
+                        CurrentRoom.RightDoor[CurrentRoomDoorCount].DoorOpen = true;
+                        MapData.RoomLists[CurrentRoom.Index].RightDoor = CurrentRoom.RightDoor;//保存门的开启状态
+                        NewRoom.GetComponent<MapCharacrter>().LeftDoor[NewLeftDoorCount].DoorObject.transform.GetChild(0).gameObject.SetActive(false);
+                        NewRoom.GetComponent<MapCharacrter>().LeftDoor[NewLeftDoorCount].DoorOpen = true;
+                        NewRoom.GetComponent<MapCharacrter>().Index = CurrentRoomCount;
                         if (NewRoomType_RightDoor == Settings.BossRoom)//是否是boss房
                         {
-                            CurrentRoomCount++;//当前房间数量加1
                             MapData.Room NewRoomPoint = new MapData.Room();
                             NewRoomPoint.RoomPosition = NewRoom.transform.position;
                             NewRoomPoint.RoomType = NewRoom.GetComponent<MapCharacrter>().RoomType;
+                            NewRoomPoint.RoomIndex = CurrentRoomCount;
+                            NewRoomPoint.Index = NewRoomCount;
+                            NewRoomPoint.LeftDoor = NewRoom.GetComponent<MapCharacrter>().LeftDoor;
+                            NewRoomPoint.RightDoor = NewRoom.GetComponent<MapCharacrter>().RightDoor;//保存门的开启状态
                             MapData.RoomLists.Add(NewRoomPoint);//添加房间数据
                         }
                         if (NewRoomType_RightDoor != Settings.BossRoom)
                         {
-                            CurrentRoomCount++;//当前房间数量加1
                             MapData.Room NewRoomPoint = new MapData.Room();
                             NewRoomPoint.RoomPosition = NewRoom.transform.position;
                             NewRoomPoint.RoomType = NewRoom.GetComponent<MapCharacrter>().RoomType;
+                            NewRoomPoint.RoomIndex = CurrentRoomCount;
+                            NewRoomPoint.Index = NewRoomCount;
+                            NewRoomPoint.LeftDoor = NewRoom.GetComponent<MapCharacrter>().LeftDoor;
+                            NewRoomPoint.RightDoor = NewRoom.GetComponent<MapCharacrter>().RightDoor;//保存门的开启状态
                             MapData.RoomLists.Add(NewRoomPoint);//添加房间数据
                         }
                     }
@@ -206,9 +243,10 @@ public class MapManager : SingleTons<MapManager>
         }
         foreach (var Room in MapData.RoomLists)
         {
-            Instantiate(MapLists[(int)Room.RoomType],Room.RoomPosition, Quaternion.identity, MapBox);
+            Instantiate(MapLists[(int)Room.RoomType].RoomLists[Room.Index],Room.RoomPosition, Quaternion.identity, MapBox);
         }//重建地图
         CheckFindRoom();
+        CheckDoorOpen();
     }
     public void ClearMap()
     {
@@ -278,6 +316,26 @@ public class MapManager : SingleTons<MapManager>
             if (room.IsAccess)
             {
                 Physics2D.OverlapPoint(room.RoomPosition, Room).gameObject.GetComponent<MapCharacrter>().AccessRoom();
+            }
+        }
+    }
+    private void CheckDoorOpen()
+    {
+        foreach (var room in MapData.RoomLists)
+        {
+            foreach (var door in room.LeftDoor)
+            {
+                if (door.DoorOpen)
+                {
+                    MapBox.GetChild(room.RoomIndex).GetComponent<MapCharacrter>().LeftDoor[door.DoorIndex].DoorObject.transform.GetChild(0).gameObject.SetActive(false);
+                }
+            }
+            foreach (var door in room.RightDoor)
+            {
+                if (door.DoorOpen)
+                {
+                    MapBox.GetChild(room.RoomIndex).GetComponent<MapCharacrter>().RightDoor[door.DoorIndex].DoorObject.transform.GetChild(0).gameObject.SetActive(false);
+                }
             }
         }
     }

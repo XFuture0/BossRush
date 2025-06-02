@@ -5,6 +5,14 @@ using UnityEngine.UIElements;
 
 public class MapCharacrter : MonoBehaviour
 {
+    [System.Serializable]
+    public class Door
+    {
+        public GameObject DoorObject;
+        public int DoorIndex;
+        public bool DoorOpen;
+    }
+    public int Index;
     public RoomType RoomType;//房间类型
     public float Size;//房间视角大小
     public PolygonCollider2D polygonCollider;
@@ -15,14 +23,22 @@ public class MapCharacrter : MonoBehaviour
     public GameObject TransmissionTower;
     public GameObject CardPaper;
     public Transform DoorBox;
-    public List<GameObject> LeftDoor = new List<GameObject>();//左侧门
-    public List<GameObject> RightDoor = new List<GameObject>();//右侧门
+    public List<Door> LeftDoor = new List<Door>();//左侧门
+    public List<Door> RightDoor = new List<Door>();//右侧门
     public void BuildNewRoom()
     {
-        var doorcount = Random.Range(0,DoorBox.childCount);
-        DoorType NewDoorType = DoorBox.transform.GetChild(doorcount).gameObject.GetComponent<RoomDoor>().doorType;
-        Vector3 NewDoorPosition = DoorBox.transform.GetChild(doorcount).gameObject.transform.position;
-        StartCoroutine(MapManager.Instance.BuildNewRoom((Vector2)transform.position,NewDoorType,NewDoorPosition, DoorBox.transform.GetChild(doorcount).GetChild(0).gameObject));
+        var doorcount = Random.Range(0f, 1f);
+        int CurRoomDoor = 0;
+        if(doorcount <= 0.5f && RightDoor.Count != 0)
+        {
+            CurRoomDoor = UnityEngine.Random.Range(0,RightDoor.Count);
+            StartCoroutine(MapManager.Instance.BuildNewRoom((Vector2)transform.position, DoorType.RightDoor, RightDoor[CurRoomDoor].DoorObject.transform.position,this,CurRoomDoor));
+        }
+        else if(doorcount > 0.5f && LeftDoor.Count != 0)
+        {
+            CurRoomDoor = UnityEngine.Random.Range(0, LeftDoor.Count);
+            StartCoroutine(MapManager.Instance.BuildNewRoom((Vector2)transform.position, DoorType.LeftDoor, LeftDoor[CurRoomDoor].DoorObject.transform.position,this,CurRoomDoor));
+        }
     }
     public bool CheckCanBuildRoom()//减少建造时间
     {

@@ -13,5 +13,231 @@ MonoBehaviour:
   m_Name: MapData
   m_EditorClassIdentifier: 
   RoomLists:
-  - RoomPosition: {x: 0, y: 0, z: 0}
+  - IsAccess: 0
+    IsFind: 0
+    RoomPosition: {x: 0, y: 0, z: 0}
     RoomType: 0
+    RoomIndex: 0
+    Index: 0
+    LeftDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+    RightDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+  - IsAccess: 0
+    IsFind: 0
+    RoomPosition: {x: 36.04, y: -12, z: 0}
+    RoomType: 2
+    RoomIndex: 0
+    Index: 0
+    LeftDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+    - DoorIndex: 0
+      DoorOpen: 0
+    RightDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+    - DoorIndex: 0
+      DoorOpen: 1
+  - IsAccess: 0
+    IsFind: 0
+    RoomPosition: {x: 72.08, y: 0, z: 0}
+    RoomType: 3
+    RoomIndex: 0
+    Index: 0
+    LeftDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+    RightDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+  - IsAccess: 0
+    IsFind: 0
+    RoomPosition: {x: 108.12, y: -12, z: 0}
+    RoomType: 1
+    RoomIndex: 0
+    Index: 8
+    LeftDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+    RightDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+  - IsAccess: 0
+    IsFind: 0
+    RoomPosition: {x: 144.16, y: -12, z: 0}
+    RoomType: 3
+    RoomIndex: 0
+    Index: 0
+    LeftDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+    RightDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+  - IsAccess: 0
+    IsFind: 0
+    RoomPosition: {x: 180.20001, y: -12, z: 0}
+    RoomType: 1
+    RoomIndex: 0
+    Index: 5
+    LeftDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+    RightDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+  - IsAccess: 0
+    IsFind: 0
+    RoomPosition: {x: -36.04, y: -12, z: 0}
+    RoomType: 1
+    RoomIndex: 0
+    Index: 4
+    LeftDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+    RightDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+  - IsAccess: 0
+    IsFind: 0
+    RoomPosition: {x: -72.08, y: -12, z: 0}
+    RoomType: 2
+    RoomIndex: 0
+    Index: 0
+    LeftDoor:
+    - DoorIndex: 0
+      DoorOpen: 0
+    - DoorIndex: 0
+      DoorOpen: 1
+    RightDoor:
+    - DoorIndex: 0
+      DoorOpen: 0
+    - DoorIndex: 0
+      DoorOpen: 1
+  - IsAccess: 0
+    IsFind: 0
+    RoomPosition: {x: 216.24002, y: -12, z: 0}
+    RoomType: 1
+    RoomIndex: 0
+    Index: 2
+    LeftDoor:
+    - DoorIndex: 0
+      DoorOpen: 0
+    - DoorIndex: 0
+      DoorOpen: 1
+    RightDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+    - DoorIndex: 0
+      DoorOpen: 0
+  - IsAccess: 0
+    IsFind: 0
+    RoomPosition: {x: 252.28003, y: -12, z: 0}
+    RoomType: 3
+    RoomIndex: 0
+    Index: 0
+    LeftDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+    RightDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+  - IsAccess: 0
+    IsFind: 0
+    RoomPosition: {x: 72.08, y: -24, z: 0}
+    RoomType: 1
+    RoomIndex: 0
+    Index: 9
+    LeftDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+    RightDoor:
+    - DoorIndex: 0
+      DoorOpen: 0
+  - IsAccess: 0
+    IsFind: 0
+    RoomPosition: {x: 288.32004, y: -12, z: 0}
+    RoomType: 1
+    RoomIndex: 0
+    Index: 0
+    LeftDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+    RightDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+  - IsAccess: 0
+    IsFind: 0
+    RoomPosition: {x: -108.12, y: -24, z: 0}
+    RoomType: 1
+    RoomIndex: 0
+    Index: 7
+    LeftDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+    RightDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+  - IsAccess: 0
+    IsFind: 0
+    RoomPosition: {x: -144.16, y: -24, z: 0}
+    RoomType: 1
+    RoomIndex: 0
+    Index: 2
+    LeftDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+    - DoorIndex: 0
+      DoorOpen: 0
+    RightDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+    - DoorIndex: 0
+      DoorOpen: 0
+  - IsAccess: 0
+    IsFind: 0
+    RoomPosition: {x: -180.20001, y: -24, z: 0}
+    RoomType: 3
+    RoomIndex: 0
+    Index: 0
+    LeftDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+    RightDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+  - IsAccess: 0
+    IsFind: 0
+    RoomPosition: {x: 324.36005, y: -24, z: 0}
+    RoomType: 1
+    RoomIndex: 0
+    Index: 6
+    LeftDoor:
+    - DoorIndex: 0
+      DoorOpen: 0
+    - DoorIndex: 0
+      DoorOpen: 1
+    RightDoor:
+    - DoorIndex: 0
+      DoorOpen: 0
+    - DoorIndex: 0
+      DoorOpen: 0
+  - IsAccess: 0
+    IsFind: 0
+    RoomPosition: {x: -216.24002, y: -24, z: 0}
+    RoomType: 4
+    RoomIndex: 0
+    Index: 0
+    LeftDoor:
+    - DoorIndex: 0
+      DoorOpen: 0
+    - DoorIndex: 0
+      DoorOpen: 0
+    RightDoor:
+    - DoorIndex: 0
+      DoorOpen: 1
+    - DoorIndex: 0
+      DoorOpen: 0
