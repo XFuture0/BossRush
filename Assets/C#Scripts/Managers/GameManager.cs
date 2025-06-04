@@ -7,6 +7,7 @@ using static MapData;
 public class GameManager : SingleTons<GameManager>
 {
     public GameObject CardPaper;
+    public GameObject Fruit;
     public GameObject AngerPanel;
     public GameObject HurtText;
     public GameObject PlayerCanvs;
@@ -295,6 +296,7 @@ public class GameManager : SingleTons<GameManager>
             var DoorPosition = Physics2D.OverlapPoint(PlayerStats.gameObject.transform.position, SceneChangeManager.Instance.Room).gameObject.transform.position + new Vector3(-21,0,0);
             SceneChangeManager.Instance.Door.transform.position = DoorPosition;
             Instantiate(CardPaper, BossStats.transform.position, Quaternion.identity);
+            Instantiate(Fruit, BossStats.transform.position, Quaternion.identity);
         }
         var GetCoin = UnityEngine.Random.Range(10, 20);
         CoinManager.Instance.GiveCoins(BossStats.gameObject.transform.position,GetCoin);

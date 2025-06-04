@@ -270,7 +270,7 @@ public class BossController : MonoBehaviour
             }
         }
     }
-    private void BossDead()
+    private void BossDead()//在动画中使用
     {
         GameManager.Instance.BossDead();
     }

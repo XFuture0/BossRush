@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 public class MapManager : SingleTons<MapManager>
@@ -10,6 +11,7 @@ public class MapManager : SingleTons<MapManager>
     public MapData MapData;
     public GameObject TransmissionCamera;
     public GameObject CanvsBox;
+    private int FinishCount;//防止房间自封闭
     [Header("地图建造属性")]
     private bool IsSetCardRoom;
     public int RandomRoomCount;//大致房间数量
@@ -49,6 +51,7 @@ public class MapManager : SingleTons<MapManager>
     private IEnumerator SetNewRoom()
     {
         Debug.Log(BuildTime);
+        FinishCount = 0;
         for(int i = 0; i < MapBox.childCount; i++)
         {
             if(CurrentRoomCount < RoomCount)
@@ -59,7 +62,17 @@ public class MapManager : SingleTons<MapManager>
                     MapBox.GetChild(i).gameObject.GetComponent<MapCharacrter>().BuildNewRoom();
                     yield return new WaitForSeconds(0.08f);
                 }
+                else if (!MapBox.GetChild(i).gameObject.GetComponent<MapCharacrter>().CheckCanBuildRoom())
+                {
+                    FinishCount++;
+                }
             }
+        }
+        if(FinishCount == MapBox.childCount)
+        {
+            StopAllCoroutines();
+            ClearMap();
+            SetNewMap();//重新建造
         }
         if(CurrentRoomCount < RoomCount)
         {

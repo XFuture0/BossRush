@@ -17,6 +17,7 @@ public class ColorData : ScriptableObject
         public string UseDescription;
         public Color Color1;
         public Color Color2;
+        public Sprite FrultSprite;//水果样式
     }
     public List<Colordata> ColorLists = new List<Colordata>();
 }

@@ -2851,7 +2851,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -15.0217, y: 7.9977007, z: 0}
-  m_LocalScale: {x: 8.98634, y: 9.1305485, z: 1}
+  m_LocalScale: {x: 9, y: 9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3526007067163323224}
@@ -3029,9 +3029,11 @@ MonoBehaviour:
   DoorBox: {fileID: 4817785817282751984}
   LeftDoor:
   - DoorObject: {fileID: 8196944456929528208}
+    DoorIndex: 0
     DoorOpen: 0
   RightDoor:
   - DoorObject: {fileID: 3296625096628697237}
+    DoorIndex: 0
     DoorOpen: 0
 --- !u!60 &2996521580945918871
 PolygonCollider2D:

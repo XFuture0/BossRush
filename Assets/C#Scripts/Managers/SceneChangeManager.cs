@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,9 +18,11 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     public FadeCanvs Fadecanvs;
     public GameObject EndCanvs;
     public LayerMask Room;
+    public PlayerRoomData PlayerRoomData;
     [Header("¹ã²¥")]
     public VoidEventSO OpenDoorEvent;
     public VoidEventSO CloseDoorEvent;
+    public VoidEventSO ReloadPlayerRoomEvent;
     public Vector3EventSO ChangeBossSkillEvent;
     public Vector3EventSO ChangeMiniMapPositionEvent;
     public void ChangeMap()
@@ -154,7 +157,8 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         SceneManager.LoadSceneAsync(NextScene.SceneName, LoadSceneMode.Additive);
         GameManager.Instance.PlayerStats.gameObject.transform.position = NextScene.ToPosition;
         GameManager.Instance.PlayerData.CurrentScene = NextScene;
-        if(CurrentScene.SceneName == "BossMap")
+        CheckSceneType(NextScene.SceneName);
+        if (CurrentScene.SceneName == "BossMap")
         {
             GameManager.Instance.PlayerData.StartGame = false;
         }
@@ -190,8 +194,10 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         }
         if (!GameManager.Instance.PlayerData.StartGame)
         {
+            yield return new WaitForSeconds(0.1f);
+            CheckSceneType(CurrentScene.SceneName);
             Fadecanvs.FadeOut();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.4f);
         }
         GameManager.Instance.PlayerStats.gameObject.GetComponent<PlayerController>().ContinuePlayer();
         KeyBoardManager.Instance.StopAnyKey = false;
@@ -395,6 +401,23 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
                 break;
         }
         KeyBoardManager.Instance.StopAnyKey = false;
+    }
+    private void CheckSceneType(string CurrentScene)
+    {
+        switch (CurrentScene) 
+        {
+            case "BossMap":
+                break;
+            case "PlayerRoom":
+                ReloadPlayerRoomEvent.RaiseEvent();
+                break;
+        }
+    }
+    public void ClearPlayerRoom()
+    {
+        PlayerRoomData.Beer1 = null;
+        PlayerRoomData.Beer2 = null;
+        PlayerRoomData.Beer3 = null;
     }
     public void DeleteCurrentScene()
     {

@@ -2,6 +2,7 @@ using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System;
+using UnityEngine.Rendering;
 public class DataManager : SingleTons<DataManager>
 {
     public SceneData BaseScene;//初始场景
@@ -14,6 +15,9 @@ public class DataManager : SingleTons<DataManager>
     private FileStream CardListDataFile;//卡牌基本数据文件
     private FileStream PlotDataFile;//剧情基本数据文件
     private FileStream MapDataFile;//地图基本数据文件
+    private FileStream FruitDataFile;//水果数据文件
+    private FileStream PlayerRoomDataFile;//玩家房间数据文件
+    private FileStream JuiceDataFile;//果汁数据文件
     private FileStream GlobalDataFile;//全局数据文件
     [Header("数据")]
     public PlayerData PlayerData;//玩家基本数据
@@ -23,6 +27,9 @@ public class DataManager : SingleTons<DataManager>
     public ChooseCardList CardListData;//卡牌基本数据
     public Plot PlotData;//剧情基本数据
     public MapData MapData;//地图基本数据
+    public FruitData FruitData;//水果数据
+    public PlayerRoomData PlayerRoomData;//玩家房间数据
+    public JuiceData JuiceData;//果汁数据
     public GlobalData  GlobalData;//全局数据
     protected override void Awake()
     {
@@ -154,6 +161,39 @@ public class DataManager : SingleTons<DataManager>
         formatter.Serialize(MapDataFile, Json);
         MapDataFile.Close();
         //地图基本数据
+        Json = JsonUtility.ToJson(FruitManager.Instance.Fruitdata);
+        JsonUtility.FromJsonOverwrite(Json.ToString(), FruitData);
+        if (!File.Exists(Application.persistentDataPath + "/SaveData" + "/Save" + index + "/FruitData.txt"))
+        {
+            File.Create(Application.persistentDataPath + "/SaveData" + "/Save" + index + "/FruitData.txt").Dispose();
+        }
+        FruitDataFile = File.Open(Application.persistentDataPath + "/SaveData" + "/Save" + index + "/FruitData.txt", FileMode.Open);
+        Json = JsonUtility.ToJson(FruitData);
+        formatter.Serialize(FruitDataFile, Json);
+        FruitDataFile.Close();
+        //水果基本数据
+        Json = JsonUtility.ToJson(SceneChangeManager.Instance.PlayerRoomData);
+        JsonUtility.FromJsonOverwrite(Json.ToString(), PlayerRoomData);
+        if (!File.Exists(Application.persistentDataPath + "/SaveData" + "/Save" + index + "/PlayerRoomData.txt"))
+        {
+            File.Create(Application.persistentDataPath + "/SaveData" + "/Save" + index + "/PlayerRoomData.txt").Dispose();
+        }
+        PlayerRoomDataFile = File.Open(Application.persistentDataPath + "/SaveData" + "/Save" + index + "/PlayerRoomData.txt", FileMode.Open);
+        Json = JsonUtility.ToJson(PlayerRoomData);
+        formatter.Serialize(PlayerRoomDataFile, Json);
+        PlayerRoomDataFile.Close();
+        //玩家房间基本数据
+        Json = JsonUtility.ToJson(FruitManager.Instance.Juicedata);
+        JsonUtility.FromJsonOverwrite(Json.ToString(), JuiceData);
+        if (!File.Exists(Application.persistentDataPath + "/SaveData" + "/Save" + index + "/JuiceData.txt"))
+        {
+            File.Create(Application.persistentDataPath + "/SaveData" + "/Save" + index + "/JuiceData.txt").Dispose();
+        }
+        JuiceDataFile = File.Open(Application.persistentDataPath + "/SaveData" + "/Save" + index + "/JuiceData.txt", FileMode.Open);
+        Json = JsonUtility.ToJson(JuiceData);
+        formatter.Serialize(JuiceDataFile, Json);
+        JuiceDataFile.Close();
+        //果汁基本数据
     }
     public void Load(int index)
     {
@@ -202,6 +242,24 @@ public class DataManager : SingleTons<DataManager>
             JsonUtility.FromJsonOverwrite(Json.ToString(), MapManager.Instance.MapData);
             MapDataFile.Close();
             //地图基本数据
+            FruitDataFile = File.Open(Application.persistentDataPath + "/SaveData" + "/Save" + index + "/FruitData.txt", FileMode.Open);
+            JsonUtility.FromJsonOverwrite(formatter.Deserialize(FruitDataFile).ToString(), FruitData);
+            Json = JsonUtility.ToJson(FruitData);
+            JsonUtility.FromJsonOverwrite(Json.ToString(), FruitManager.Instance.Fruitdata);
+            FruitDataFile.Close();
+            //地图基本数据
+            PlayerRoomDataFile = File.Open(Application.persistentDataPath + "/SaveData" + "/Save" + index + "/PlayerRoomData.txt", FileMode.Open);
+            JsonUtility.FromJsonOverwrite(formatter.Deserialize(PlayerRoomDataFile).ToString(), PlayerRoomData);
+            Json = JsonUtility.ToJson(PlayerRoomData);
+            JsonUtility.FromJsonOverwrite(Json.ToString(), SceneChangeManager.Instance.PlayerRoomData);
+            PlayerRoomDataFile.Close();
+            //玩家房间基本数据
+            JuiceDataFile = File.Open(Application.persistentDataPath + "/SaveData" + "/Save" + index + "/JuiceData.txt", FileMode.Open);
+            JsonUtility.FromJsonOverwrite(formatter.Deserialize(JuiceDataFile).ToString(), JuiceData);
+            Json = JsonUtility.ToJson(JuiceData);
+            JsonUtility.FromJsonOverwrite(Json.ToString(), FruitManager.Instance.Juicedata);
+            JuiceDataFile.Close();
+            //果汁基本数据
         }
         if (!Directory.Exists(Application.persistentDataPath + "/SaveData" + "/Save" + index))
         {
@@ -215,6 +273,8 @@ public class DataManager : SingleTons<DataManager>
             PlayerEquipManager.Instance.ChangeCharacter(0);
             ColorManager.Instance.ReSetColor();
             MapManager.Instance.ClearMap();
+            FruitManager.Instance.ClearFruit();
+            SceneChangeManager.Instance.ClearPlayerRoom();
             //恢复数据初始化(判定当前存档为空时使用)
         }
         SceneChangeManager.Instance.LoadGame();
