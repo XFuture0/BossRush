@@ -11594,7 +11594,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 9.1
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -25702,10 +25702,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   MapData: {fileID: 11400000, guid: f6d03f41c9aba2540836c8a5eaf4fbca, type: 2}
+  itemList: {fileID: 11400000, guid: 2df712f810eafdb4794fe683c514cf66, type: 2}
   TransmissionCamera: {fileID: 1342952744}
   CanvsBox: {fileID: 1113980661}
+  ItemBox: {fileID: 508012729}
   RandomRoomCount: 20
   BuildTime: 0
+  Coin: {fileID: 1905623365546430168, guid: 9e74af1ee2783024d9bf332895a624ba, type: 3}
+  SaveItemEvent: {fileID: 11400000, guid: 5dbf94006e0e4814aafc6be5b376a464, type: 2}
 --- !u!1 &1147027877
 GameObject:
   m_ObjectHideFlags: 0
@@ -32250,7 +32254,7 @@ GameObject:
   - component: {fileID: 1342952748}
   m_Layer: 0
   m_Name: TransmissionCamera
-  m_TagString: Untagged
+  m_TagString: MiniCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37476,11 +37480,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 340fcd2ebf133e7498b311db59ba87ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AutoUpSpeed: 0.5
   Isdead: 0
   PlayerData: {fileID: 11400000, guid: 43490a6b7ae5f9341a5fd80838856f40, type: 2}
   EndCanvs: {fileID: 1975173949}
   bullet: {fileID: 6555429722445140546, guid: ddfe0c5403689024f88688f7781e9a15, type: 3}
   AngerRing: {fileID: 452670580}
+  AutoUpTime: 0.1
   DashTemp: {fileID: 1752133803048547985, guid: 7722d658805d8fc4580d748a2d121641, type: 3}
   DashPool: {fileID: 753119803}
   DashForce: 40
@@ -49961,6 +49967,7 @@ MonoBehaviour:
   FruitData: {fileID: 11400000, guid: df3c956a3a4f28640b2141a22559b6e1, type: 2}
   PlayerRoomData: {fileID: 11400000, guid: 22aec4b3dbb75dc469fc5aead326058a, type: 2}
   JuiceData: {fileID: 11400000, guid: e2b66244e4c1a514096e7a0d7d8ec9d9, type: 2}
+  ItemListData: {fileID: 11400000, guid: 3dc44378077060345af6900fa950c94a, type: 2}
   GlobalData: {fileID: 11400000, guid: 2301fb0c10e6a874db3a7b3eb1c06e8a, type: 2}
 --- !u!1001 &1962776160
 PrefabInstance:
@@ -51167,7 +51174,7 @@ MonoBehaviour:
   m_Follow: {fileID: 1545711573}
   m_Lens:
     FieldOfView: 34
-    OrthographicSize: 8
+    OrthographicSize: 9.1
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0

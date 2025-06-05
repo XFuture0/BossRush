@@ -59,6 +59,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         else if (IsSetRoomData)
         {
             ColorManager.Instance.SetColorData(GameManager.Instance.PlayerData.CurrentColor);
+            MapManager.Instance.SetItemList();
         }
         if (!IsSetPosition)
         {
@@ -255,22 +256,23 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
                 break;
         }
         yield return new WaitForSeconds(0.1f);
-        GameManager.Instance.PlayerData.RoomType = Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.GetComponent<MapCharacrter>().RoomType;
+        var CurRoom = Physics2D.OverlapPoint(Player.transform.position, Room).gameObject;
+        GameManager.Instance.PlayerData.RoomType = CurRoom.GetComponent<MapCharacrter>().RoomType;
         DataManager.Instance.Save(DataManager.Instance.Index);//存档
         yield return new WaitForSeconds(0.4f);
-        ChangeMiniMapPositionEvent.RaiseVector3Event(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);//改变小地图相机位置
+        ChangeMiniMapPositionEvent.RaiseVector3Event(CurRoom.transform.position);//改变小地图相机位置
         switch (GameManager.Instance.PlayerData.RoomType)
         {
             case RoomType.StartRoom:
                 break;
             case RoomType.NormalRoom:
-                if (!MapManager.Instance.CheckAccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position))
+                if (!MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
                 {
-                    Boss.transform.position = Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position + new Vector3(-15f, 0.97f, 0);
+                    Boss.transform.position = CurRoom.transform.position + CurRoom.GetComponent<MapCharacrter>().BossPosition;
                     GameManager.Instance.AddBossHealth();
                     Boss.SetActive(true);
                     Bosscanvs.gameObject.SetActive(true);
-                    ChangeBossSkillEvent.RaiseVector3Event(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);
+                    ChangeBossSkillEvent.RaiseVector3Event(CurRoom.transform.position);
                     GameManager.Instance.BossActive = true;
                     Boss.GetComponent<BossController>().IsStopBoss = true;
                 }
@@ -278,13 +280,13 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
             case RoomType.CardRoom:
                 break;
             case RoomType.BossRoom:
-                if (!MapManager.Instance.CheckAccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position))
+                if (!MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
                 {
-                    Boss.transform.position = Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position + new Vector3(-15f, 0.97f, 0);
+                    Boss.transform.position = CurRoom.transform.position + CurRoom.GetComponent<MapCharacrter>().BossPosition;
                     GameManager.Instance.AddBossHealth();
                     Boss.SetActive(true);
                     Bosscanvs.gameObject.SetActive(true);
-                    ChangeBossSkillEvent.RaiseVector3Event(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);
+                    ChangeBossSkillEvent.RaiseVector3Event(CurRoom.transform.position);
                     GameManager.Instance.BossActive = true;
                     Boss.GetComponent<BossController>().IsStopBoss = true;
                     GameManager.Instance.RefreshBossSkill();
@@ -296,16 +298,16 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
                 break;
         }
         Fadecanvs.FadeOut();
-        MapManager.Instance.FindRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);
+        MapManager.Instance.FindRoom(CurRoom.transform.position);
         yield return new WaitForSeconds(0.5f);
         switch (GameManager.Instance.PlayerData.RoomType)
         {
             case RoomType.StartRoom:
                 OpenDoorEvent.RaiseEvent();
-                MapManager.Instance.AccessRoom(Physics2D.OverlapPoint(Player.transform.position,Room).gameObject.transform.position);
+                MapManager.Instance.AccessRoom(CurRoom.transform.position);
                 break;
             case RoomType.NormalRoom:
-                if (!MapManager.Instance.CheckAccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position))
+                if (!MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
                 {
                     CloseDoorEvent.RaiseEvent();
                     PlotManager.Instance.SetRoomPlotText();
@@ -313,13 +315,13 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
                 }
                 break;
             case RoomType.CardRoom:
-                if (!MapManager.Instance.CheckAccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position))
+                if (!MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
                 {
                     CloseDoorEvent.RaiseEvent();
                 }
                 break;
             case RoomType.BossRoom:
-                if (!MapManager.Instance.CheckAccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position))
+                if (!MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
                 {
                     CloseDoorEvent.RaiseEvent();
                     PlotManager.Instance.SetRoomPlotText();
@@ -328,7 +330,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
                 break;
             case RoomType.TransmissionTowerRoom:
                 OpenDoorEvent.RaiseEvent();
-                MapManager.Instance.AccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);
+                MapManager.Instance.AccessRoom(CurRoom.transform.position);
                 break;
             default:
                 break;
@@ -339,62 +341,63 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     {
         KeyBoardManager.Instance.StopAnyKey = true;
         GameManager.Instance.Boss().NowHealth = GameManager.Instance.Boss().MaxHealth;
+        var CurRoom = Physics2D.OverlapPoint(Player.transform.position, Room).gameObject;
         switch (GameManager.Instance.PlayerData.RoomType)
         {
             case RoomType.StartRoom:
-                MapManager.Instance.AccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);
+                MapManager.Instance.AccessRoom(CurRoom.transform.position);
                 OpenDoorEvent.RaiseEvent();
                 break;
             case RoomType.NormalRoom:
-                if (!MapManager.Instance.CheckAccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position))
+                if (!MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
                 {
                     CloseDoorEvent.RaiseEvent();
                     Bosscanvs.gameObject.SetActive(true);
                     Boss.SetActive(true);
-                    Boss.transform.position = Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position + new Vector3(-15f, 0.97f, 0);
-                    ChangeBossSkillEvent.RaiseVector3Event(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);
+                    Boss.transform.position = CurRoom.transform.position + CurRoom.GetComponent<MapCharacrter>().BossPosition;
+                    ChangeBossSkillEvent.RaiseVector3Event(CurRoom.transform.position);
                     GameManager.Instance.BossActive = true;
                     Boss.GetComponent<BossController>().IsStopBoss = true;
                     PlotManager.Instance.SetRoomPlotText();
                     Boss.GetComponent<BossController>().IsStopBoss = false;
                 }
-                else if(MapManager.Instance.CheckAccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position))
+                else if(MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
                 {
                     OpenDoorEvent.RaiseEvent();
                 }
                 break;
             case RoomType.CardRoom:
-                if (!MapManager.Instance.CheckAccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position))
+                if (!MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
                 {
                     CloseDoorEvent.RaiseEvent();
                 }
-                else if (MapManager.Instance.CheckAccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position))
+                else if (MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
                 {
                     OpenDoorEvent.RaiseEvent();
                 }
                 break;
             case RoomType.BossRoom:
-                if (!MapManager.Instance.CheckAccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position))
+                if (!MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
                 {
                     CloseDoorEvent.RaiseEvent();
                     Bosscanvs.gameObject.SetActive(true);
                     Boss.SetActive(true);
-                    Boss.transform.position = Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position + new Vector3(-15f, 0.97f, 0);
-                    ChangeBossSkillEvent.RaiseVector3Event(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);
+                    Boss.transform.position = CurRoom.transform.position + CurRoom.GetComponent<MapCharacrter>().BossPosition;
+                    ChangeBossSkillEvent.RaiseVector3Event(CurRoom.transform.position);
                     GameManager.Instance.BossActive = true;
                     Boss.GetComponent<BossController>().IsStopBoss = true;
                     PlotManager.Instance.SetRoomPlotText();
                     Boss.GetComponent<BossController>().IsStopBoss = false;
                     GameManager.Instance.RefreshBossSkill();
                 }
-                else if (MapManager.Instance.CheckAccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position))
+                else if (MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
                 {
                     Bosscanvs.gameObject.SetActive(false);
                     OpenDoorEvent.RaiseEvent();
                 }
                 break;
             case RoomType.TransmissionTowerRoom:
-                MapManager.Instance.AccessRoom(Physics2D.OverlapPoint(Player.transform.position, Room).gameObject.transform.position);
+                MapManager.Instance.AccessRoom(CurRoom.transform.position);
                 OpenDoorEvent.RaiseEvent();
                 break;
             default:

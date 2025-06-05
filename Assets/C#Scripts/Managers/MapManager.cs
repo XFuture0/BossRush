@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MapManager : SingleTons<MapManager>
 {
@@ -9,8 +10,10 @@ public class MapManager : SingleTons<MapManager>
     public List<RoomList> MapLists = new List<RoomList>();
     public LayerMask Room;
     public MapData MapData;
+    public ItemList itemList;
     public GameObject TransmissionCamera;
     public GameObject CanvsBox;
+    public Transform ItemBox;
     private int FinishCount;//防止房间自封闭
     [Header("地图建造属性")]
     private bool IsSetCardRoom;
@@ -20,6 +23,10 @@ public class MapManager : SingleTons<MapManager>
     [Header("建造计时器")]
     public float BuildTime;
     private bool IsBuild;
+    [Header("物品列表")]
+    public GameObject Coin;
+    [Header("广播")]
+    public VoidEventSO SaveItemEvent;
     private void Update()
     {
         if (IsBuild)
@@ -72,6 +79,7 @@ public class MapManager : SingleTons<MapManager>
         {
             StopAllCoroutines();
             ClearMap();
+            yield return new WaitForSeconds(0.1f);
             SetNewMap();//重新建造
         }
         if(CurrentRoomCount < RoomCount)
@@ -380,5 +388,62 @@ public class MapManager : SingleTons<MapManager>
         KeyBoardManager.Instance.StopMoveKey = false;
         CanvsBox.SetActive(true);
         TransmissionCamera.SetActive(false);
+    }
+    public void SaveItemList()
+    {
+        SaveItemEvent.RaiseEvent();
+    }
+    public void ClearItemList()
+    {
+        itemList.ItemLists.Clear();
+    }
+    public void AddItemList(ItemList.Item Thisitem)
+    {
+        foreach (var item in itemList.ItemLists)
+        {
+            if (Thisitem.Index == item.Index)
+            {
+                item.ItemPosition = Thisitem.ItemPosition;
+                return;
+            }
+        }
+        ItemList.Item NewItem = new ItemList.Item();
+        NewItem.ItemType = Thisitem.ItemType;
+        NewItem.ItemPosition = Thisitem.ItemPosition;
+        itemList.ItemLists.Add(NewItem);
+        Thisitem.Index = itemList.ItemLists.Count;
+        NewItem.Index = itemList.ItemLists.Count;
+    }
+    public void DeleteItemList(ItemList.Item Thisitem)
+    {
+        for(int i = 0;i < itemList.ItemLists.Count; i++)
+        {
+            if (Thisitem.Index == itemList.ItemLists[i].Index)
+            {
+                itemList.ItemLists.Remove(itemList.ItemLists[i]);
+            }
+        }
+        for (int i = 0; i < itemList.ItemLists.Count; i++)
+        {
+            itemList.ItemLists[i].Index = i + 1;
+        }
+    }
+    public void SetItemList()
+    {
+        for (int i = 0; i < itemList.ItemLists.Count; i++)
+        {
+            var item = itemList.ItemLists[i];
+            CheckItem(item);
+        }
+    }
+    private void CheckItem(ItemList.Item item)
+    {
+        switch(item.ItemType)
+        {
+            case ItemType.Coin:
+                var NewItem = Instantiate(Coin,item.ItemPosition,Quaternion.identity,ItemBox);
+                NewItem.GetComponent<Coin>().Thisitem.Index = item.Index;
+                break;
+        }
     }
 }

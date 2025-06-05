@@ -44,4 +44,8 @@ public enum DoorType
     LeftDoor,
     RightDoor,
 }
+public enum ItemType
+{
+    Coin,
+}
 

@@ -8,8 +8,9 @@ public class RoomCanvs : MonoBehaviour
 {
     public Canvas roomcanvs;
     public Button ChangeButton;
-    public GameObject TransmissionTower;
+    public GameObject Target;
     public GameObject TransmissionTowerMini;
+    public MiniRoomCanvs MiniRoomCanvs;
     [Header("ÊÂ¼þ¼àÌý")]
     public CameraEventSO SetCameraEvent;
     public VoidEventSO CloseCameraEvent;
@@ -19,9 +20,9 @@ public class RoomCanvs : MonoBehaviour
     }
     private void OnChangeButton()
     {
-        if (TransmissionTowerMini.activeSelf)
+        if (MiniRoomCanvs.FindMiniSlot("TransmissionTower") || MiniRoomCanvs.FindMiniSlot("StartDoor"))
         {
-            MapManager.Instance.TransmissionRoom(TransmissionTower.transform.position);
+            MapManager.Instance.TransmissionRoom(Target.transform.position);
         }
     }
     private void OnEnable()

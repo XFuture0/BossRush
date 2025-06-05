@@ -30,12 +30,13 @@ public class BossCanvs : MonoBehaviour
         var BaseHealthLevel = HealthLevel;
         HealthLevel = GameManager.Instance.BossStats.CharacterData_Temp.NowHealth / GameManager.Instance.BossStats.CharacterData_Temp.MaxHealth;
         BossHealth.gameObject.transform.localScale = new Vector3(HealthLevel, 1, 1);
-        if (BaseHealthLevel - HealthLevel > 0 && HealthLevel > 0)
+      /*  if (BaseHealthLevel - HealthLevel > 0 && HealthLevel > 0)
         {
             var NewDeleteHealth = Instantiate(DeleteHealth, DeleteHealthTemp);
             NewDeleteHealth.GetComponent<RectTransform>().localScale = new Vector3((BaseHealthLevel - HealthLevel) / BossHealth.gameObject.transform.localScale.x, 1, 1);
             NewDeleteHealth.GetComponent<Image>().color = color;
         }
+      */
     }
     private void OnDisable()
     {

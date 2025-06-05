@@ -4,6 +4,8 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
     private PlayerCheck Check;
+    private Vector3 LastPosition = Vector3.zero;
+    public float AutoUpSpeed;
     private float InputX;
     public bool Isdead;
     private bool IsJumpDown;
@@ -24,6 +26,9 @@ public class PlayerController : MonoBehaviour
     public delegate void AngerSkill();
     public AngerSkill angerskill;
     public GameObject AngerRing;
+    [Header("自动跳跃计时器")]
+    public float AutoUpTime;
+    private float AutoUpTime_Count;
     [Header("临时属性")]
     private int CurDashCount;
     private int CurJumpCount;
@@ -68,6 +73,7 @@ public class PlayerController : MonoBehaviour
         {
             Player.CharacterData_Temp.NowHealth = Player.CharacterData_Temp.MaxHealth;
         }
+        AutoUp();
         Jump();
         PlayerDead();
         CheckDash();
@@ -108,6 +114,22 @@ public class PlayerController : MonoBehaviour
         {
             transform.localScale = new Vector3(-1, 1, 1);
         }
+    }
+    private void AutoUp()
+    {
+        if(LastPosition != transform.position)
+        {
+            AutoUpTime_Count = AutoUpTime;
+        }
+        if(AutoUpTime_Count > -2 && KeyBoardManager.Instance.GetHorizontalRaw() != 0)
+        {
+            AutoUpTime_Count -= Time.deltaTime;
+        }
+        if(AutoUpTime_Count < 0)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + AutoUpSpeed);
+        }
+        LastPosition = transform.position;
     }
     private void Jump()
     {

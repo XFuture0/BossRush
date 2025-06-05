@@ -19,12 +19,14 @@ public class MapCharacrter : MonoBehaviour
     public GameObject CurPlayer;
     public GameObject NoFind;
     private int DoorCount;
+    public MiniRoomCanvs MiniRoomCanvs;
     [Header("房间物品")]
-    public GameObject TransmissionTower;
+    public GameObject RoomMini;
     public GameObject CardPaper;
     public Transform DoorBox;
     public List<Door> LeftDoor = new List<Door>();//左侧门
     public List<Door> RightDoor = new List<Door>();//右侧门
+    public Vector3 BossPosition;
     public void BuildNewRoom()
     {
         var doorcount = Random.Range(0f, 1f);
@@ -74,9 +76,9 @@ public class MapCharacrter : MonoBehaviour
             GameManager.Instance.OnBoundEvent(polygonCollider,Size);
             CurPlayer.SetActive(true);
             NoFind.SetActive(false);
-            if(RoomType == RoomType.TransmissionTowerRoom)
+            if(RoomMini != null)
             {
-                TransmissionTower.SetActive(true);
+                MiniRoomCanvs.SetMiniRoom(RoomMini);
             }
       }   
     }
@@ -90,9 +92,9 @@ public class MapCharacrter : MonoBehaviour
     public void FindRoom()
     {
         NoFind.SetActive(false);
-        if (RoomType == RoomType.TransmissionTowerRoom)
+        if (RoomMini != null)
         {
-            TransmissionTower.SetActive(true);
+            MiniRoomCanvs.SetMiniRoom(RoomMini);
         }
     }
     public void AccessRoom()

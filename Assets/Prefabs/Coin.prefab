@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fa65ba69283fe24aafbf8fe4bd673b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Prefab: {fileID: 1905623365546430168}
 --- !u!50 &8559520659420309726
 Rigidbody2D:
   serializedVersion: 4
@@ -165,7 +166,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 131072
+    m_Bits: 131080
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
