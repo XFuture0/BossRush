@@ -24,6 +24,7 @@ public class Card : MonoBehaviour
         UseCardManager.Instance.StartInvoke(ThisCard.CardInvokeName);
         KeyBoardManager.Instance.StopMoveKey = false;
         SceneChangeManager.Instance.Door.GetComponent<Door>().OpenDoor();
+        SceneChangeManager.Instance.OpenDoorEvent.RaiseEvent();
         transform.parent.gameObject.SetActive(false);
     }
 }

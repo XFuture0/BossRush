@@ -15,6 +15,7 @@ public class CharacterData : ScriptableObject
     public float WeaponAttackPower;//枪械攻击力
     public int WeaponCount;//枪械数量
     public float AttackBonus;//攻击加成
+    public float AttackDistance;//攻击距离
     public float InvincibleTime;//无敌时间
     public float HealCount;//治疗量
     public float AutoHealCount;//自动回复量

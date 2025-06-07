@@ -10,49 +10,49 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b96ce6a610dde2458f9208d2447d5cd, type: 3}
-  m_Name: Player
+  m_Name: Monster2
   m_EditorClassIdentifier: 
-  MaxHealth: 3
-  NowHealth: 3
-  HealthRate: 1
-  Speed: 300
-  SpeedRate: 1
+  MaxHealth: 20
+  NowHealth: 20
+  HealthRate: 0
+  Speed: 20
+  SpeedRate: 0
   AttackPower: 1
-  WeaponAttackPower: 5
-  WeaponCount: 1
+  WeaponAttackPower: 0
+  WeaponCount: 0
   AttackBonus: 1
-  AttackDistance: 10
-  InvincibleTime: 1
+  AttackDistance: 0
+  InvincibleTime: 0
   HealCount: 0
   AutoHealCount: 0
-  CriticalDamageRate: 0.2
-  CriticalDamageBonus: 0.5
-  DodgeRate: 0.1
-  AttackRate: 1
-  CanDash: 1
+  CriticalDamageRate: 0
+  CriticalDamageBonus: 0
+  DodgeRate: 0
+  AttackRate: 0
+  CanDash: 0
   DashInvincibleFrame: 0
   DashDamage: 0
-  DashCount: 1
-  JumpCount: 1
+  DashCount: 0
+  JumpCount: 0
   AngerValue: 0
-  FullAnger: 1
-  AngerTime: 2
+  FullAnger: 0
+  AngerTime: 0
   PoizonDamage: 0
-  PoizonTime: 20
-  ThunderBonus: 1
+  PoizonTime: 0
+  ThunderBonus: 0
   ThunderRate: 0
   Vulnerability: 0
-  VulnerabilityTime: 5
+  VulnerabilityTime: 0
   Vulnerability_AttackBonus: 0
   Vulnerability_CriticalRate: 0
   MaxVulnerabilityRate: 0
   WaterElementBullet: 0
   WaterElementBonus: 0
   EasyWater: 0
-  EasyWaterTime: 5
+  EasyWaterTime: 0
   DangerousBullet: 0
-  DangerousBulletCount: 10
-  DangerousBulletBonus: 2
+  DangerousBulletCount: 0
+  DangerousBulletBonus: 0
   MucusDeathRage: 0
   FearlessFury: 0
   MucousRage: 0

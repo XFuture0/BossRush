@@ -3096,7 +3096,7 @@ MonoBehaviour:
   CurPlayer: {fileID: 2175943167716333536}
   NoFind: {fileID: 5043804168176981777}
   MiniRoomCanvs: {fileID: 3876612240476988381}
-  TransmissionTowerMini: {fileID: 0}
+  RoomMini: {fileID: 0}
   CardPaper: {fileID: 0}
   DoorBox: {fileID: 4817785817282751984}
   LeftDoor:
@@ -3107,6 +3107,19 @@ MonoBehaviour:
   - DoorObject: {fileID: 2220687024086036935}
     DoorIndex: 0
     DoorOpen: 0
+  Monsters:
+  - MonsterObject: {fileID: 6974842156561999683, guid: 67753ba80ca35d848977f59c362ee1ad, type: 3}
+    MonsterPosition: {x: -15.019224, y: 6.0240717, z: 0}
+  - MonsterObject: {fileID: 6974842156561999683, guid: 67753ba80ca35d848977f59c362ee1ad, type: 3}
+    MonsterPosition: {x: -14.996534, y: 12.762986, z: 0}
+  - MonsterObject: {fileID: 1135386495769081827, guid: c8b2930dfc5dca345aa31a650262fd2d, type: 3}
+    MonsterPosition: {x: -23.028774, y: -0.4425602, z: 0}
+  - MonsterObject: {fileID: 1135386495769081827, guid: c8b2930dfc5dca345aa31a650262fd2d, type: 3}
+    MonsterPosition: {x: -6.034004, y: -0.5333204, z: 0}
+  - MonsterObject: {fileID: 5252499179430844574, guid: 04ade8ca87c50bb49a3d50a4faedae14, type: 3}
+    MonsterPosition: {x: -27.135654, y: 4.662675, z: 0}
+  - MonsterObject: {fileID: 5252499179430844574, guid: 04ade8ca87c50bb49a3d50a4faedae14, type: 3}
+    MonsterPosition: {x: -2.95, y: 4.66, z: 0}
   BossPosition: {x: -15, y: 4, z: 0}
 --- !u!60 &2996521580945918871
 PolygonCollider2D:

@@ -21,7 +21,7 @@ public class CardPaper : MonoBehaviour
         if(IsPlayer && KeyBoardManager.Instance.GetKeyDown_R())
         {
             IsPlayer = false;
-            Invoke("Destorying", 0.02f);
+            Invoke("Destorying", 0.1f);
         }
        
     }

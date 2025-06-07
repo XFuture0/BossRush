@@ -10,9 +10,9 @@ public class BossArmyBall : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
-    private void OnEnable()
+    private void Start()
     {
-        var PlayerPosition = GameManager.Instance.PlayerStats.gameObject.transform.position;
+        var PlayerPosition = SceneChangeManager.Instance.Player.transform.position;
         var PlayerRotation = (PlayerPosition - transform.position).normalized;
         rb.velocity = PlayerRotation * Speed;
     }
@@ -24,7 +24,7 @@ public class BossArmyBall : MonoBehaviour
         }
         if(other.tag == "Player")
         {
-            GameManager.Instance.Attack(GameManager.Instance.PlayerStats,2);
+            GameManager.Instance.Attack(GameManager.Instance.PlayerStats,1);
             Destroy(gameObject);
         }
     }

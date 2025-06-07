@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private CharacterStats Player;
     public GameObject EndCanvs;
     public Bullet bullet;
+    public CircleCollider2D AttackDistance;
     private float AngerTime = 1;
     public delegate void AngerSkill();
     public AngerSkill angerskill;
@@ -73,6 +74,7 @@ public class PlayerController : MonoBehaviour
         {
             Player.CharacterData_Temp.NowHealth = Player.CharacterData_Temp.MaxHealth;
         }
+        AttackDistance.radius = Player.CharacterData_Temp.AttackDistance;
         AutoUp();
         Jump();
         PlayerDead();

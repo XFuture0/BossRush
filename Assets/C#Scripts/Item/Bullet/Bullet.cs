@@ -77,6 +77,22 @@ public class Bullet : MonoBehaviour
             rb.velocity = Vector2.zero;
             anim.SetTrigger("Hit");
         }
+        if(other.tag == "Monster")
+        {
+            IsHit = true;
+            rb.velocity = Vector2.zero;
+            anim.SetTrigger("Hit");
+            GameManager.Instance.Attack(GameManager.Instance.PlayerStats, other.GetComponent<CharacterStats>());
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.tag == "AttackDistance")
+        {
+            IsHit = true;
+            rb.velocity = Vector2.zero;
+            anim.SetTrigger("Hit");
+        }
     }
     private void BulletRotate()
     {

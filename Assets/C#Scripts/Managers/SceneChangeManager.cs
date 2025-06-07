@@ -38,11 +38,11 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         GameManager.Instance.Boss().NowHealth = GameManager.Instance.Boss().MaxHealth;
         if (!IsSetRoomData)
         {
-            MapManager.Instance.SetNewMap();//创建新地图
+            StartCoroutine(MapManager.Instance.SetNewMap());//创建新地图
             GameManager.Instance.PlayerData.RoomType = RoomType.StartRoom;
             ColorManager.Instance.ChangeColor();
         }
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(8f);
         if (!IsSetRoomData)
         {
             if (GameManager.Instance.PlayerData.CurrentRoomCount < GameManager.Instance.PlayerData.RoomCount)
@@ -106,7 +106,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         ScoreManager.Instance.StartGetScore();
         if (!IsSetRoomData)
         {
-            MapManager.Instance.SetNewMap();//创建新地图
+            StartCoroutine(MapManager.Instance.SetNewMap());//创建新地图
             GameManager.Instance.PlayerData.RoomType = RoomType.StartRoom;
             ColorManager.Instance.ChangeColor();
         }
@@ -268,13 +268,13 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
             case RoomType.NormalRoom:
                 if (!MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
                 {
-                    Boss.transform.position = CurRoom.transform.position + CurRoom.GetComponent<MapCharacrter>().BossPosition;
-                    GameManager.Instance.AddBossHealth();
-                    Boss.SetActive(true);
-                    Bosscanvs.gameObject.SetActive(true);
-                    ChangeBossSkillEvent.RaiseVector3Event(CurRoom.transform.position);
-                    GameManager.Instance.BossActive = true;
-                    Boss.GetComponent<BossController>().IsStopBoss = true;
+               //     Boss.transform.position = CurRoom.transform.position + CurRoom.GetComponent<MapCharacrter>().BossPosition;
+                //    GameManager.Instance.AddBossHealth();
+                //    Boss.SetActive(true);
+            //        Bosscanvs.gameObject.SetActive(true);
+             //       ChangeBossSkillEvent.RaiseVector3Event(CurRoom.transform.position);
+              //      GameManager.Instance.BossActive = true;
+               //     Boss.GetComponent<BossController>().IsStopBoss = true;
                 }
                 break;
             case RoomType.CardRoom:
@@ -310,8 +310,9 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
                 if (!MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
                 {
                     CloseDoorEvent.RaiseEvent();
+                    CurRoom.GetComponent<MapCharacrter>().SetMonster();
                     PlotManager.Instance.SetRoomPlotText();
-                    Boss.GetComponent<BossController>().IsStopBoss = false;
+            //        Boss.GetComponent<BossController>().IsStopBoss = false;
                 }
                 break;
             case RoomType.CardRoom:
@@ -352,14 +353,15 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
                 if (!MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
                 {
                     CloseDoorEvent.RaiseEvent();
-                    Bosscanvs.gameObject.SetActive(true);
-                    Boss.SetActive(true);
-                    Boss.transform.position = CurRoom.transform.position + CurRoom.GetComponent<MapCharacrter>().BossPosition;
-                    ChangeBossSkillEvent.RaiseVector3Event(CurRoom.transform.position);
-                    GameManager.Instance.BossActive = true;
-                    Boss.GetComponent<BossController>().IsStopBoss = true;
+            //        Bosscanvs.gameObject.SetActive(true);
+           //         Boss.SetActive(true);
+                    CurRoom.GetComponent<MapCharacrter>().SetMonster();
+            //        Boss.transform.position = CurRoom.transform.position + CurRoom.GetComponent<MapCharacrter>().BossPosition;
+           //         ChangeBossSkillEvent.RaiseVector3Event(CurRoom.transform.position);
+          //          GameManager.Instance.BossActive = true;
+           //         Boss.GetComponent<BossController>().IsStopBoss = true;
                     PlotManager.Instance.SetRoomPlotText();
-                    Boss.GetComponent<BossController>().IsStopBoss = false;
+           //         Boss.GetComponent<BossController>().IsStopBoss = false;
                 }
                 else if(MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
                 {

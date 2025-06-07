@@ -11598,7 +11598,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 229375
+    m_Bits: 2064383
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -11619,7 +11619,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.69, y: -3.9, z: -10}
+  m_LocalPosition: {x: -22.31, y: -0.2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -25692,12 +25692,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MapBox: {fileID: 1560974290}
+  CoinBox: {fileID: 2020904598}
   MapLists:
   - {fileID: 11400000, guid: 658afe82691eaec4e946915b9468fbee, type: 2}
   - {fileID: 11400000, guid: 17f297fd79860c846bde81d2962770bb, type: 2}
   - {fileID: 11400000, guid: e806e7545f650ae4782228cdeb4b6ebb, type: 2}
   - {fileID: 11400000, guid: 355ba5b26daf15f48a9ec342d79e0f32, type: 2}
   - {fileID: 11400000, guid: cb3cb3786eec5774cbc7dbc5db09bc1e, type: 2}
+  NewMapRoom: []
   Room:
     serializedVersion: 2
     m_Bits: 8192
@@ -25706,7 +25708,7 @@ MonoBehaviour:
   TransmissionCamera: {fileID: 1342952744}
   CanvsBox: {fileID: 1113980661}
   ItemBox: {fileID: 508012729}
-  RandomRoomCount: 20
+  RandomRoomCount: 10
   BuildTime: 0
   Coin: {fileID: 1905623365546430168, guid: 9e74af1ee2783024d9bf332895a624ba, type: 3}
   SaveItemEvent: {fileID: 11400000, guid: 5dbf94006e0e4814aafc6be5b376a464, type: 2}
@@ -26541,6 +26543,73 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1179292468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1179292470}
+  - component: {fileID: 1179292469}
+  m_Layer: 0
+  m_Name: AttackDistance
+  m_TagString: AttackDistance
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!58 &1179292469
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179292468}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 10
+--- !u!4 &1179292470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179292468}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1545711573}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1182967950
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31746,7 +31815,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 87244113321031951, guid: f261e00c29be2134a87c19949761799f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1955.6755
+      value: 1983.6499
       objectReference: {fileID: 0}
     - target: {fileID: 87244113321031951, guid: f261e00c29be2134a87c19949761799f, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -37352,7 +37421,7 @@ Transform:
   m_GameObject: {fileID: 1545711571}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.69, y: -3.9, z: 0}
+  m_LocalPosition: {x: -22.31, y: -0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -37362,6 +37431,7 @@ Transform:
   - {fileID: 866556923}
   - {fileID: 1764424569}
   - {fileID: 1615337526}
+  - {fileID: 1179292470}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1545711574
@@ -37485,6 +37555,7 @@ MonoBehaviour:
   PlayerData: {fileID: 11400000, guid: 43490a6b7ae5f9341a5fd80838856f40, type: 2}
   EndCanvs: {fileID: 1975173949}
   bullet: {fileID: 6555429722445140546, guid: ddfe0c5403689024f88688f7781e9a15, type: 3}
+  AttackDistance: {fileID: 1179292469}
   AngerRing: {fileID: 452670580}
   AutoUpTime: 0.1
   DashTemp: {fileID: 1752133803048547985, guid: 7722d658805d8fc4580d748a2d121641, type: 3}
@@ -38417,7 +38488,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 87244113321031951, guid: f261e00c29be2134a87c19949761799f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1264.5256
+      value: 1292.5
       objectReference: {fileID: 0}
     - target: {fileID: 87244113321031951, guid: f261e00c29be2134a87c19949761799f, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -51200,7 +51271,7 @@ Transform:
   m_GameObject: {fileID: 2000859241}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.69, y: -3.9, z: -10}
+  m_LocalPosition: {x: -22.31, y: -0.2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -56108,7 +56179,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 87244113321031951, guid: f261e00c29be2134a87c19949761799f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 573.3756
+      value: 601.35
       objectReference: {fileID: 0}
     - target: {fileID: 87244113321031951, guid: f261e00c29be2134a87c19949761799f, type: 3}
       propertyPath: m_AnchoredPosition.y

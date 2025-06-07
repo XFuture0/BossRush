@@ -6,6 +6,12 @@ using UnityEngine.UIElements;
 public class MapCharacrter : MonoBehaviour
 {
     [System.Serializable]
+    public class Monster
+    {
+        public GameObject MonsterObject;
+        public Vector3 MonsterPosition;
+    }
+    [System.Serializable]
     public class Door
     {
         public GameObject DoorObject;
@@ -19,6 +25,7 @@ public class MapCharacrter : MonoBehaviour
     public GameObject CurPlayer;
     public GameObject NoFind;
     private int DoorCount;
+    private bool IsAccess;
     public MiniRoomCanvs MiniRoomCanvs;
     [Header("房间物品")]
     public GameObject RoomMini;
@@ -26,7 +33,12 @@ public class MapCharacrter : MonoBehaviour
     public Transform DoorBox;
     public List<Door> LeftDoor = new List<Door>();//左侧门
     public List<Door> RightDoor = new List<Door>();//右侧门
+    public List<Monster> Monsters = new List<Monster>();
     public Vector3 BossPosition;
+    private void Update()
+    {
+        CheckFinishRoom();
+    }
     public void BuildNewRoom()
     {
         var doorcount = Random.Range(0f, 1f);
@@ -99,9 +111,34 @@ public class MapCharacrter : MonoBehaviour
     }
     public void AccessRoom()
     {
+        IsAccess = true;
         if (RoomType == RoomType.CardRoom)
         {
-            Destroy(CardPaper);
+            Invoke("DesCardPaper", 0.1f);
+        }
+    }
+    private void DesCardPaper()
+    {
+        Destroy(CardPaper);
+    }
+    public void SetMonster()
+    {
+        foreach (var NewMonster in Monsters)
+        {
+           var New = Instantiate(NewMonster.MonsterObject,NewMonster.MonsterPosition + transform.position,Quaternion.identity,DoorBox);
+            New.GetComponent<BaseMonster>().ThisMonster = NewMonster;
+        }
+    }
+    public void DeleteMonster(Monster monster)
+    {
+        Monsters.Remove(monster);
+    }
+    public void CheckFinishRoom()
+    {
+        if(Monsters.Count == 0 && RoomType == RoomType.NormalRoom && !IsAccess)
+        {
+            SceneChangeManager.Instance.OpenDoorEvent.RaiseEvent();
+            MapManager.Instance.AccessRoom(transform.position);
         }
     }
 }
