@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1594857042525615394}
   - component: {fileID: -6514234829409654052}
   - component: {fileID: 4354398024640586829}
+  - component: {fileID: 513333906457494299}
   m_Layer: 17
   m_Name: CardPaper
   m_TagString: Untagged
@@ -230,3 +231,20 @@ CapsuleCollider2D:
   m_Offset: {x: 0.013453485, y: 0.00000005800087}
   m_Size: {x: 1.5467937, y: 1.1258234}
   m_Direction: 1
+--- !u!114 &513333906457494299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4725019079896970894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df0fa079b3a24a04ebddec2a82a663ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Thisitem:
+    ItemType: 1
+    ItemPosition: {x: 0, y: 0, z: 0}
+    Index: 0
+  ClearItemEvent: {fileID: 11400000, guid: 0131a5d256441794cbc6f4d428958826, type: 2}

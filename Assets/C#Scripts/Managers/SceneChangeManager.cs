@@ -225,6 +225,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         Bosscanvs.gameObject.SetActive(false);
         ColorManager.Instance.CancelColorStats();
         yield return new WaitForSeconds(0.1f);
+        MapManager.Instance.ClearMonster();
         GameManager.Instance.PlayerCanvs.gameObject.SetActive(false);
         GameManager.Instance.PlayerStats.CharacterData_Temp = Instantiate(GameManager.Instance.PlayerStats.CharacterData);
         MapManager.Instance.ClearMap();
@@ -266,16 +267,6 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
             case RoomType.StartRoom:
                 break;
             case RoomType.NormalRoom:
-                if (!MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
-                {
-               //     Boss.transform.position = CurRoom.transform.position + CurRoom.GetComponent<MapCharacrter>().BossPosition;
-                //    GameManager.Instance.AddBossHealth();
-                //    Boss.SetActive(true);
-            //        Bosscanvs.gameObject.SetActive(true);
-             //       ChangeBossSkillEvent.RaiseVector3Event(CurRoom.transform.position);
-              //      GameManager.Instance.BossActive = true;
-               //     Boss.GetComponent<BossController>().IsStopBoss = true;
-                }
                 break;
             case RoomType.CardRoom:
                 break;
@@ -311,8 +302,6 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
                 {
                     CloseDoorEvent.RaiseEvent();
                     CurRoom.GetComponent<MapCharacrter>().SetMonster();
-                    PlotManager.Instance.SetRoomPlotText();
-            //        Boss.GetComponent<BossController>().IsStopBoss = false;
                 }
                 break;
             case RoomType.CardRoom:
@@ -353,15 +342,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
                 if (!MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
                 {
                     CloseDoorEvent.RaiseEvent();
-            //        Bosscanvs.gameObject.SetActive(true);
-           //         Boss.SetActive(true);
                     CurRoom.GetComponent<MapCharacrter>().SetMonster();
-            //        Boss.transform.position = CurRoom.transform.position + CurRoom.GetComponent<MapCharacrter>().BossPosition;
-           //         ChangeBossSkillEvent.RaiseVector3Event(CurRoom.transform.position);
-          //          GameManager.Instance.BossActive = true;
-           //         Boss.GetComponent<BossController>().IsStopBoss = true;
-                    PlotManager.Instance.SetRoomPlotText();
-           //         Boss.GetComponent<BossController>().IsStopBoss = false;
                 }
                 else if(MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
                 {
@@ -395,6 +376,10 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
                 else if (MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
                 {
                     Bosscanvs.gameObject.SetActive(false);
+                    Door.SetActive(true);
+                    var DoorPosition = Physics2D.OverlapPoint(Player.gameObject.transform.position, SceneChangeManager.Instance.Room).gameObject.transform.position + new Vector3(-21, 0, 0);
+                    Door.transform.position = DoorPosition;
+                    Door.GetComponent<Door>().OpenDoor();
                     OpenDoorEvent.RaiseEvent();
                 }
                 break;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +8,22 @@ public class BaseMonster : MonoBehaviour
 {
     private CharacterStats ThisStats;
     public MapCharacrter.Monster ThisMonster;
+    [Header("ÊÂ¼þ¼àÌý")]
+    public VoidEventSO ClearMonsterEvent;
     private void Awake()
     {
         ThisStats = GetComponent<CharacterStats>();
     }
+    private void OnEnable()
+    {
+        ClearMonsterEvent.OnEventRaised += OnClear;
+    }
+
+    private void OnClear()
+    {
+        Destroy(gameObject);
+    }
+
     private void Update()
     {
         if(ThisStats.CharacterData_Temp.NowHealth <= 0)
@@ -27,6 +40,10 @@ public class BaseMonster : MonoBehaviour
     }
     private void OnDisable()
     {
-        Physics2D.OverlapPoint(SceneChangeManager.Instance.Player.transform.position,SceneChangeManager.Instance.Room).gameObject.GetComponent<MapCharacrter>().DeleteMonster(ThisMonster);
+        ClearMonsterEvent.OnEventRaised -= OnClear;
+        if(Physics2D.OverlapPoint(SceneChangeManager.Instance.Player.transform.position, SceneChangeManager.Instance.Room))
+        {
+            Physics2D.OverlapPoint(SceneChangeManager.Instance.Player.transform.position, SceneChangeManager.Instance.Room).gameObject.GetComponent<MapCharacrter>().DeleteMonster(ThisMonster);
+        }
     }
 }

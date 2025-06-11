@@ -22,6 +22,10 @@ public class MapManager : SingleTons<MapManager>
     public GameObject TransmissionCamera;
     public GameObject CanvsBox;
     public Transform ItemBox;
+    [Header("关卡难度")]
+    public RoomList NormalRoomList1_3;
+    public RoomList NormalRoomList4_6;
+    public RoomList NormalRoomList7_9;
     [Header("地图建造属性")]
     public int RandomRoomCount;//大致房间数量
     private int RoomCount;//实际房间数量
@@ -31,8 +35,12 @@ public class MapManager : SingleTons<MapManager>
     private bool IsBuild;
     [Header("物品列表")]
     public GameObject Coin;
+    public GameObject CardPaper;
+    public GameObject Fruit;
     [Header("广播")]
     public VoidEventSO SaveItemEvent;
+    public VoidEventSO ClearItemEvent;
+    public VoidEventSO ClearMonsterEvent;
     private void Update()
     {
         if (IsBuild)
@@ -361,6 +369,7 @@ public class MapManager : SingleTons<MapManager>
         SceneChangeManager.Instance.Fadecanvs.FadeIn();
         SceneChangeManager.Instance.Player.transform.position = TargetPosition;
         yield return new WaitForSeconds(0.1f);
+        SceneChangeManager.Instance.ChangeMiniMapPositionEvent.RaiseVector3Event(Physics2D.OverlapPoint(TargetPosition,SceneChangeManager.Instance.Room).gameObject.transform.position);
         DataManager.Instance.Save(DataManager.Instance.Index);//存档
         SceneChangeManager.Instance.Fadecanvs.FadeOut();
         KeyBoardManager.Instance.StopMoveKey = false;
@@ -384,6 +393,7 @@ public class MapManager : SingleTons<MapManager>
     }
     public void ClearItemList()
     {
+        ClearItemEvent.RaiseEvent();
         itemList.ItemLists.Clear();
     }
     public void AddItemList(ItemList.Item Thisitem)
@@ -430,13 +440,33 @@ public class MapManager : SingleTons<MapManager>
         switch(item.ItemType)
         {
             case ItemType.Coin:
-                var NewItem = Instantiate(Coin,item.ItemPosition,Quaternion.identity,ItemBox);
-                NewItem.GetComponent<Coin>().Thisitem.Index = item.Index;
+                var NewCoin = Instantiate(Coin,item.ItemPosition,Quaternion.identity,ItemBox);
+                NewCoin.GetComponent<DroppedItems>().Thisitem.Index = item.Index;
+                break;
+            case ItemType.CardPaper:
+                var NewCardPaper = Instantiate(CardPaper, item.ItemPosition,Quaternion.identity,ItemBox);
+                NewCardPaper.GetComponent<DroppedItems>().Thisitem.Index = item.Index;
+                break;
+            case ItemType.Fruit:
+                var NewFruit = Instantiate(Fruit, item.ItemPosition,Quaternion.identity,ItemBox);
+                NewFruit.GetComponent<DroppedItems>().Thisitem.Index = item.Index;
                 break;
         }
     }
     private void ChooseNewRoom(int Count)
     {
+        if(GameManager.Instance.PlayerData.CurrentRoomCount < 3)
+        {
+            MapLists[Settings.NormalRoom] = Instantiate(NormalRoomList1_3);
+        }
+        else if(GameManager.Instance.PlayerData.CurrentRoomCount < 6)
+        {
+            MapLists[Settings.NormalRoom] = Instantiate(NormalRoomList4_6);
+        }
+        else
+        {
+            MapLists[Settings.NormalRoom] = Instantiate(NormalRoomList7_9);
+        }
         var CardRoomCount = UnityEngine.Random.Range(0, MapLists[Settings.CardRoom].RoomLists.Count);
         var NewChooseCardRoom = new ChooseRoom();
         NewChooseCardRoom.Room = MapLists[Settings.CardRoom].RoomLists[CardRoomCount];
@@ -463,5 +493,9 @@ public class MapManager : SingleTons<MapManager>
         NewChooseBossRoom.Room = MapLists[Settings.BossRoom].RoomLists[BossRoomCount];
         NewChooseBossRoom.Index = BossRoomCount;
         NewMapRoom.Add(NewChooseBossRoom);
+    }
+    public void ClearMonster()
+    {
+        ClearMonsterEvent.RaiseEvent();
     }
 }

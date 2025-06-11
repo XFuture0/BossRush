@@ -139,6 +139,7 @@ public class MapCharacrter : MonoBehaviour
         {
             SceneChangeManager.Instance.OpenDoorEvent.RaiseEvent();
             MapManager.Instance.AccessRoom(transform.position);
+            GameManager.Instance.BossDeadEvent.RaiseEvent();
         }
     }
 }

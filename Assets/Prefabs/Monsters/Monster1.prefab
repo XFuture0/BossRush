@@ -194,6 +194,7 @@ MonoBehaviour:
   ThisMonster:
     MonsterObject: {fileID: 0}
     MonsterPosition: {x: 0, y: 0, z: 0}
+  ClearMonsterEvent: {fileID: 11400000, guid: 0a25d83ebb07d39439cf6d115cdc62d1, type: 2}
 --- !u!114 &4863484602602371822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,6 +210,11 @@ MonoBehaviour:
   JumpHigh: 6
   JumpDistance: 3
   JumpTime: 2
+  LeftUpPo: {x: 30, y: 2}
+  RightDownPo: {x: -30, y: -2}
+  Player:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!60 &1630874036652198725
 PolygonCollider2D:
   m_ObjectHideFlags: 0

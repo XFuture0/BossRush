@@ -201,6 +201,7 @@ MonoBehaviour:
   ThisMonster:
     MonsterObject: {fileID: 0}
     MonsterPosition: {x: 0, y: 0, z: 0}
+  ClearMonsterEvent: {fileID: 11400000, guid: 0a25d83ebb07d39439cf6d115cdc62d1, type: 2}
 --- !u!114 &4156027863987732673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,6 +231,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbd146aeda7300e4cb19589bfe0afe41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Monster10: {fileID: 1847135926745563488, guid: 5da1de5dcfbe0cc45af818933a8264e2, type: 3}
+  LeftUpPo: {x: 20, y: 5}
+  RightDownPo: {x: -20, y: -5}
+  Player:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!50 &6931187161481632143
 Rigidbody2D:
   serializedVersion: 4

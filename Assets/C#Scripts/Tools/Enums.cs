@@ -47,5 +47,7 @@ public enum DoorType
 public enum ItemType
 {
     Coin,
+    CardPaper,
+    Fruit
 }
 

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8391359275646591834}
   - component: {fileID: 8575363686795801378}
   - component: {fileID: 4778614359110348295}
+  - component: {fileID: 7961554148417813185}
   m_Layer: 16
   m_Name: Coin
   m_TagString: Untagged
@@ -123,7 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fa65ba69283fe24aafbf8fe4bd673b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 1905623365546430168}
 --- !u!50 &8559520659420309726
 Rigidbody2D:
   serializedVersion: 4
@@ -244,3 +244,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ColorIndex: 2
+--- !u!114 &7961554148417813185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905623365546430168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df0fa079b3a24a04ebddec2a82a663ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Thisitem:
+    ItemType: 0
+    ItemPosition: {x: 0, y: 0, z: 0}
+    Index: 0
+  ClearItemEvent: {fileID: 11400000, guid: 0131a5d256441794cbc6f4d428958826, type: 2}
