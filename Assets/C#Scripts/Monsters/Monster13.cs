@@ -50,9 +50,9 @@ public class Monster13 : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-        Gizmos.DrawSphere((Vector2)transform.position + PositionLeft,0.1f);
-        Gizmos.DrawSphere((Vector2)transform.position + PositionRight,0.1f);
-        Gizmos.DrawSphere((Vector2)transform.position + PositionLeftCenter,0.1f);
-        Gizmos.DrawSphere((Vector2)transform.position + PositionRightCenter,0.1f);
+        Gizmos.DrawSphere((Vector2)transform.position + PositionLeft, 0.1f);
+        Gizmos.DrawSphere((Vector2)transform.position + PositionRight, 0.1f);
+        Gizmos.DrawSphere((Vector2)transform.position + PositionLeftCenter, 0.1f);
+        Gizmos.DrawSphere((Vector2)transform.position + PositionRightCenter, 0.1f);
     }
 }

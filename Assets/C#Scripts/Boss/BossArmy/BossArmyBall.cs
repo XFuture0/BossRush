@@ -27,5 +27,10 @@ public class BossArmyBall : MonoBehaviour
             GameManager.Instance.Attack(GameManager.Instance.PlayerStats,1);
             Destroy(gameObject);
         }
+        if (other.tag == "RoomItem")
+        {
+            GameManager.Instance.Attack(other.GetComponent<CharacterStats>(),5);
+            Destroy(gameObject);
+        }
     }
 }

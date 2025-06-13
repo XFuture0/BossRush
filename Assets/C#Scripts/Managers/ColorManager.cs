@@ -35,8 +35,8 @@ public class ColorManager : SingleTons<ColorManager>
     {
         CancelColorStats();
         ColorIndex = UnityEngine.Random.Range(0,ColorData.ColorLists.Count);
+        ColorIndex = 0;//锁定颜色
         GameManager.Instance.PlayerData.CurrentColor = ColorData.ColorLists[ColorIndex];
-        //ColorIndex = 3;//锁定颜色
         Camera.GetComponent<Camera>().backgroundColor = ColorData.ColorLists[ColorIndex].Color1;
         TransmissionCamera.GetComponent<Camera>().backgroundColor = ColorData.ColorLists[ColorIndex].Color1;
         Player.GetComponent<SpriteRenderer>().color = ColorData.ColorLists[ColorIndex].Color2;

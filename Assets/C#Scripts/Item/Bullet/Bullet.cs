@@ -77,6 +77,13 @@ public class Bullet : MonoBehaviour
             rb.velocity = Vector2.zero;
             anim.SetTrigger("Hit");
         }
+        if(other.tag == "RoomItem")
+        {
+            IsHit = true;
+            rb.velocity = Vector2.zero;
+            anim.SetTrigger("Hit");
+            GameManager.Instance.Attack(GameManager.Instance.PlayerStats, other.GetComponent<CharacterStats>());
+        }
         if(other.tag == "Monster")
         {
             IsHit = true;
