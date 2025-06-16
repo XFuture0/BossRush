@@ -24,6 +24,7 @@ public class MapCharacrter : MonoBehaviour
     public PolygonCollider2D polygonCollider;
     public GameObject CurPlayer;
     public GameObject NoFind;
+    public GameObject MonsterBox;
     private int DoorCount;
     private bool IsAccess;
     public MiniRoomCanvs MiniRoomCanvs;
@@ -37,7 +38,10 @@ public class MapCharacrter : MonoBehaviour
     public Vector3 BossPosition;
     private void Update()
     {
-        CheckFinishRoom();
+        if (RoomType == RoomType.NormalRoom)
+        {
+            CheckFinishRoom();
+        }
     }
     public void BuildNewRoom()
     {
@@ -123,19 +127,11 @@ public class MapCharacrter : MonoBehaviour
     }
     public void SetMonster()
     {
-        foreach (var NewMonster in Monsters)
-        {
-           var New = Instantiate(NewMonster.MonsterObject,NewMonster.MonsterPosition + transform.position,Quaternion.identity,DoorBox);
-            New.GetComponent<BaseMonster>().ThisMonster = NewMonster;
-        }
-    }
-    public void DeleteMonster(Monster monster)
-    {
-        Monsters.Remove(monster);
+        MonsterBox.SetActive(true);
     }
     public void CheckFinishRoom()
     {
-        if(Monsters.Count == 0 && RoomType == RoomType.NormalRoom && !IsAccess)
+        if(MonsterBox.transform.childCount == 0 && RoomType == RoomType.NormalRoom && !IsAccess)
         {
             SceneChangeManager.Instance.OpenDoorEvent.RaiseEvent();
             MapManager.Instance.AccessRoom(transform.position);

@@ -41,9 +41,5 @@ public class BaseMonster : MonoBehaviour
     private void OnDisable()
     {
         ClearMonsterEvent.OnEventRaised -= OnClear;
-        if(Physics2D.OverlapPoint(SceneChangeManager.Instance.Player.transform.position, SceneChangeManager.Instance.Room))
-        {
-            Physics2D.OverlapPoint(SceneChangeManager.Instance.Player.transform.position, SceneChangeManager.Instance.Room).gameObject.GetComponent<MapCharacrter>().DeleteMonster(ThisMonster);
-        }
     }
 }
