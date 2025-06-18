@@ -50,4 +50,9 @@ public enum ItemType
     CardPaper,
     Fruit
 }
+public enum HeartType
+{
+    Heart,
+    Shield,
+}
 

@@ -37,14 +37,4 @@ public class PlayerEquipManager : SingleTons<PlayerEquipManager>
             UseHatManager.Instance.StartInvoke(HatList.HatDatas[Index].HatInvokeName);
         }
     }
-    public void ChangeCharacter(int Index)
-    {
-        if (CharacterList.CharacterDatas[Index] != null)
-        {
-            GameManager.Instance.PlayerData.CharacterData = CharacterList.CharacterDatas[Index];
-            GameManager.Instance.PlayerStats.CharacterData.MaxHealth = CharacterList.CharacterDatas[Index].BaseHealth;
-            GameManager.Instance.PlayerStats.CharacterData.AttackPower = CharacterList.CharacterDatas[Index].BaseAttackPower;
-            GameManager.Instance.PlayerStats.CharacterData.Speed = CharacterList.CharacterDatas[Index].BaseSpeed;
-        }
-    }
 }

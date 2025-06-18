@@ -8,6 +8,7 @@ public class CharacterData : ScriptableObject
 {
     public float MaxHealth;//总生命值
     public float NowHealth;//当前生命值
+    public float Shield;//护盾值
     public float HealthRate;//生命值加成
     public float Speed;//移速
     public float SpeedRate;//移速加成

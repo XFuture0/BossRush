@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14fd15783546abb4e9f0f811399e0e4a, type: 3}
+  m_Name: Slime1
+  m_EditorClassIdentifier: 
+  SlimeSprite: {fileID: 266365366, guid: 6c07320f792191b408ddb3f08201b7fb, type: 3}
+  SlimeAnim: {fileID: 9100000, guid: 9e1727985d754474092b0c798716662d, type: 2}
+  Index: 0
+  WeaponName: Gun
+  WeaponAnim: {fileID: 9100000, guid: d9aa00801b4265c4faf981e06fd92004, type: 2}
+  BulletAnim: {fileID: 9100000, guid: ad6d7160b7031934e899894cf44f4413, type: 2}
+  AttackPower: 5
+  Speed: 300
+  HeartCount: 3
+  ShieldCount: 1

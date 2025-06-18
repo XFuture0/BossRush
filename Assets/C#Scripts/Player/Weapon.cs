@@ -10,9 +10,9 @@ public class Weapon : MonoBehaviour
     private float RotationX;
     private float RotationY;
     private float ResRotation;
-    public GameObject NewWeapon;
     private int WeaponCount;
     private int RealWeaponCount;
+    public SlimeData SlimeData;
     private void Update()
     {
         if (!SceneChangeManager.Instance.EndCanvs.activeSelf)

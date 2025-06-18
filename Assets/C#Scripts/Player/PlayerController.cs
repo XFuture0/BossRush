@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
-        StopPlayer();
+      //  StopPlayer();
     }
     private void Update()
     {

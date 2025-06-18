@@ -19,7 +19,6 @@ public class EndCanvs : MonoBehaviour
     {
         KeyBoardManager.Instance.StopAnyKey = true;
         SceneChangeManager.Instance.Boss.GetComponent<BossController>().IsStopBoss = true;
-        ScoreText.text = "µÃ·ÖÊý£º " + GameManager.Instance.PlayerData.ScoreCount.ToString();
     }
     private void EndGame()
     {

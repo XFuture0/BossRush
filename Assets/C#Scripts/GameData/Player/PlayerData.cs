@@ -9,7 +9,6 @@ public class PlayerData : ScriptableObject
     public float JumpForce;
     public float JumpDownSpeed_Max;
     public int CoinCount;//金币数
-    public int ScoreCount;//得分数
     public bool StartGame;//游戏开始
     public Vector3 PlayerPosition;//玩家位置
     public RoomType RoomType;//玩家当前房间
@@ -18,4 +17,9 @@ public class PlayerData : ScriptableObject
     public CharacterList.CharacterData CharacterData;//特质数据
     public WeaponList.WeaponData WeaponData;//武器数据
     public ColorData.Colordata CurrentColor;//颜色数据
+    [Header("小队成员")]
+    public SlimeData Player;
+    public SlimeData Teamer1;
+    public SlimeData Teamer2;
+    public SlimeData Teamer3;
 }

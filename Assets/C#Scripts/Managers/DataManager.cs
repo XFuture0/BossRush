@@ -5,6 +5,7 @@ using System;
 using UnityEngine.Rendering;
 public class DataManager : SingleTons<DataManager>
 {
+    public SlimeData BaseSlime;//基础角色
     public SceneData BaseScene;//初始场景
     public int Index;
     private BinaryFormatter formatter;
@@ -288,9 +289,12 @@ public class DataManager : SingleTons<DataManager>
             GameManager.Instance.PlayerData.StartGame = false;
             GameManager.Instance.PlayerData.CoinCount = 0;
             GameManager.Instance.PlayerData.JumpForce = 18;
+            GameManager.Instance.PlayerData.Player = BaseSlime;
+            GameManager.Instance.PlayerData.Teamer1 = null;
+            GameManager.Instance.PlayerData.Teamer2 = null;
+            GameManager.Instance.PlayerData.Teamer3 = null;
             PlayerEquipManager.Instance.ChangeWeapon(0);
             PlayerEquipManager.Instance.ChangeHat(0);
-            PlayerEquipManager.Instance.ChangeCharacter(0);
             ColorManager.Instance.ReSetColor();
             MapManager.Instance.ClearMap();
             MapManager.Instance.ClearItemList();

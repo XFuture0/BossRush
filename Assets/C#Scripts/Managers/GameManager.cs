@@ -32,7 +32,6 @@ public class GameManager : SingleTons<GameManager>
     }
     private void Update()
     {
-        PlayerCanvs.SetActive(PlayerData.StartGame);
         if(BossStats.CharacterData_Temp.NowHealth <= 0 && BossActive)
         {
             BossActive = false;
@@ -41,12 +40,6 @@ public class GameManager : SingleTons<GameManager>
     }
     public void Attack(CharacterStats Attacker,CharacterStats Defender)
     {
-        string attackName = "Уќжа";
-        int attackScore = 20;
-        if(Defender.gameObject.tag == "Boss")
-        {
-            attackScore = 20;
-        }
         if (Defender.CharacterData_Temp.ShengqiCore)
         {
             if(Defender.CharacterData_Temp.AngerValue >= Defender.CharacterData_Temp.FullAnger)
@@ -89,8 +82,6 @@ public class GameManager : SingleTons<GameManager>
             {
                 BulletCount = 0;
                 CriticalDamageBonus += Attacker.CharacterData_Temp.CriticalDamageBonus;
-                attackName = "БЉЛї";
-                attackScore = 40;
                 if (Attacker.CharacterData_Temp.WaterEmblem)
                 {
                     CriticalDamageBonus += 0.5f;
@@ -136,7 +127,6 @@ public class GameManager : SingleTons<GameManager>
                     StartCoroutine(CheckElasticGel());
                     break;
                 case "Boss":
-                    ScoreManager.Instance.AddScore(attackScore, attackName);
                     HurtText.GetComponent<HurtText>().SetHurtText();
                     if (Attacker.CharacterData_Temp.PoisonBullet)
                     {
@@ -300,7 +290,6 @@ public class GameManager : SingleTons<GameManager>
         }
         var GetCoin = UnityEngine.Random.Range(10, 20);
         CoinManager.Instance.GiveCoins(BossStats.gameObject.transform.position,GetCoin);
-        ScoreManager.Instance.EndGetScore();
         BossDeadEvent.RaiseEvent();
         SceneChangeManager.Instance.OpenDoorEvent.RaiseEvent();
         MapManager.Instance.AccessRoom(Physics2D.OverlapPoint(PlayerStats.gameObject.transform.position,SceneChangeManager.Instance.Room).gameObject.transform.position);

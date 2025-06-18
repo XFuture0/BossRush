@@ -12,8 +12,11 @@ public class ItemSlot : MonoBehaviour
     private void Awake()
     {
         itemData = transform.GetChild(0).GetComponent<ItemData>();
-        ChooseButton = GetComponent<Button>();
-        ChooseButton.onClick.AddListener(OnChooseButton);
+        if(transform.parent.gameObject.tag != "Character")
+        {
+            ChooseButton = GetComponent<Button>();
+            ChooseButton.onClick.AddListener(OnChooseButton);
+        }
     }
     private void OnChooseButton()
     {
@@ -26,9 +29,6 @@ public class ItemSlot : MonoBehaviour
                     break;
                 case "Hat":
                     PlayerEquipManager.Instance.ChangeHat(itemData.Index);
-                    break;
-                case "Character":
-                    PlayerEquipManager.Instance.ChangeCharacter(itemData.Index);
                     break;
                 default:
                     break;
@@ -44,9 +44,6 @@ public class ItemSlot : MonoBehaviour
                 break;
             case "Hat":
                 itemData.ItemImage.sprite = PlayerEquipManager.Instance.HatList.HatDatas[itemData.Index].HatImage;
-                break;
-            case "Character":
-               // itemData.ItemImage.sprite = PlayerEquipManager.Instance.CharacterList.CharacterDatas[itemData.Index].;
                 break;
             default:
                 break;

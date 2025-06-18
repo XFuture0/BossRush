@@ -103,7 +103,6 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         GameManager.Instance.RefreshPlayer();
         PlayerEquipManager.Instance.UseHat(GameManager.Instance.PlayerData.HatData.Index);
         GameManager.Instance.RefreshBoss();
-        ScoreManager.Instance.StartGetScore();
         if (!IsSetRoomData)
         {
             StartCoroutine(MapManager.Instance.SetNewMap());//创建新地图
@@ -114,7 +113,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         {
             ColorManager.Instance.SetColorData(GameManager.Instance.PlayerData.CurrentColor);
         }
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(8f);
         GameManager.Instance.PlayerData.CurrentRoomCount = 1;
         Player.transform.position = new Vector3(-20.64f, -0.44f, 0);
         yield return new WaitForSeconds(0.5f);
@@ -182,6 +181,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     {
         KeyBoardManager.Instance.StopAnyKey = true;
         GameManager.Instance.PlayerStats.gameObject.GetComponent<PlayerController>().StopPlayer();
+        Player.GetComponent<AllPlayerController>().ReFreshTeam();
         if (!GameManager.Instance.PlayerData.StartGame)
         {
             Fadecanvs.FadeIn();

@@ -19,7 +19,8 @@ public class BulletBox : MonoBehaviour
     }
     private void Update()
     {
-        if(spriteRenderer.sprite != GameManager.Instance.PlayerData.WeaponData.WeaponSprite)
+        SetWeapon();
+        if (spriteRenderer.sprite != GameManager.Instance.PlayerData.WeaponData.WeaponSprite)
         {
            spriteRenderer.sprite = GameManager.Instance.PlayerData.WeaponData.WeaponSprite;
         }
@@ -72,4 +73,15 @@ public class BulletBox : MonoBehaviour
         NewBullet.transform.SetParent(bulletBox);
         CancelInvoke("ExtraBullet");
     } 
+    public void SetWeapon()
+    {
+        if(transform.parent.parent.GetComponent<Weapon>().SlimeData != null)
+        {
+            if (transform.parent.parent.GetComponent<Weapon>().SlimeData.WeaponAnim != anim.runtimeAnimatorController)
+            {
+                anim.runtimeAnimatorController = transform.parent.parent.GetComponent<Weapon>().SlimeData.WeaponAnim;
+                bullet.GetComponent<Animator>().runtimeAnimatorController = transform.parent.parent.GetComponent<Weapon>().SlimeData.BulletAnim;
+            }
+        }
+    }
 }
