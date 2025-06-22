@@ -37,6 +37,10 @@ public class MapManager : SingleTons<MapManager>
     public GameObject Coin;
     public GameObject CardPaper;
     public GameObject Fruit;
+    public GameObject HeartItem;
+    public GameObject ShieldItem;
+    public GameObject GemItem;
+    public GameObject TreasureBox;
     [Header("广播")]
     public VoidEventSO SaveItemEvent;
     public VoidEventSO ClearItemEvent;
@@ -67,6 +71,7 @@ public class MapManager : SingleTons<MapManager>
         NewRoomPoint.RightDoor = NewRoom.GetComponent<MapCharacrter>().RightDoor;//保存门的开启状态
         MapData.RoomLists.Add(NewRoomPoint);//添加房间数据
         ChooseNewRoom(RoomCount - 1);
+        ReFreshShop();
         yield return new WaitForSeconds(0.5f);
         StartCoroutine(SetNewRoom());
     }
@@ -451,6 +456,22 @@ public class MapManager : SingleTons<MapManager>
                 var NewFruit = Instantiate(Fruit, item.ItemPosition,Quaternion.identity,ItemBox);
                 NewFruit.GetComponent<DroppedItems>().Thisitem.Index = item.Index;
                 break;
+            case ItemType.HeartItem: 
+                var NewHeartItem = Instantiate(HeartItem, item.ItemPosition,Quaternion.identity,ItemBox);
+                NewHeartItem.GetComponent<DroppedItems>().Thisitem.Index = item.Index;
+                break;
+            case ItemType.ShieldItem:
+                var NewShieldItem = Instantiate(ShieldItem, item.ItemPosition,Quaternion.identity,ItemBox);
+                NewShieldItem.GetComponent<DroppedItems>().Thisitem.Index = item.Index;
+                break;
+            case ItemType.GemItem:
+                var NewGemItem = Instantiate(GemItem, item.ItemPosition,Quaternion.identity,ItemBox);
+                NewGemItem.GetComponent<DroppedItems>().Thisitem.Index = item.Index;
+                break;
+            case ItemType.TreasureBox:
+                var NewTreasureBox = Instantiate(TreasureBox, item.ItemPosition,Quaternion.identity,ItemBox);
+                NewTreasureBox.GetComponent<DroppedItems>().Thisitem.Index = item.Index;
+                break;
         }
     }
     private void ChooseNewRoom(int Count)
@@ -480,7 +501,12 @@ public class MapManager : SingleTons<MapManager>
             NewChooseTransmissionRoom.Index = TransmissionCount;
             NewMapRoom.Add(NewChooseTransmissionRoom);
         }
-        for(int i = 0;i < Count - 3; i++)
+        var ShopRoomCount = UnityEngine.Random.Range(0, MapLists[Settings.ShopRoom].RoomLists.Count);
+        var NewChooseShopRoom = new ChooseRoom();
+        NewChooseShopRoom.Room = MapLists[Settings.ShopRoom].RoomLists[ShopRoomCount];
+        NewChooseShopRoom.Index = ShopRoomCount;
+        NewMapRoom.Add(NewChooseShopRoom);
+        for (int i = 0;i < Count - 3; i++)
         {
             var NormalRoomCount = UnityEngine.Random.Range(0, MapLists[Settings.NormalRoom].RoomLists.Count);
             var NewChooseNormalRoom = new ChooseRoom();
@@ -493,6 +519,13 @@ public class MapManager : SingleTons<MapManager>
         NewChooseBossRoom.Room = MapLists[Settings.BossRoom].RoomLists[BossRoomCount];
         NewChooseBossRoom.Index = BossRoomCount;
         NewMapRoom.Add(NewChooseBossRoom);
+    }
+    private void ReFreshShop()
+    {
+        MapData.Goods1 = GemItem;
+        MapData.Goods2 = Coin;
+        MapData.Goods3 = HeartItem;
+        MapData.Goods4 = ShieldItem;
     }
     public void ClearMonster()
     {

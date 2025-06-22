@@ -12,16 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc22f4014594d0a49af8028308bf323e, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  RoomCount: 10
-  CurrentRoomCount: 0
+  RoomCount: 9
+  CurrentRoomCount: 1
   JumpForce: 18
   JumpDownSpeed_Max: -18
-  CoinCount: 0
-  ScoreCount: 0
-  StartGame: 0
-  PlayerPosition: {x: 5.5149508, y: -4.497948, z: 0}
-  RoomType: 1
-  CurrentScene: {fileID: 11400000, guid: efa07ffd72e72e24f97e21e75bf8bc7a, type: 2}
+  CoinCount: 31
+  StartGame: 1
+  PlayerPosition: {x: 62.079865, y: 12.515024, z: 0}
+  RoomType: 3
+  CurrentScene: {fileID: 11400000, guid: 2e9a28ac1d2d60945a3b351ceced992b, type: 2}
   HatData:
     Index: 0
     HatName: Null
@@ -55,3 +54,9 @@ MonoBehaviour:
   Teamer1: {fileID: 0}
   Teamer2: {fileID: 0}
   Teamer3: {fileID: 0}
+  PlayerWeaponSlotCount: 1
+  Teamer1WeaponSlotCount: 1
+  Teamer2WeaponSlotCount: 0
+  Teamer3WeaponSlotCount: 0
+  FreeWeaponSlotCount: 0
+  EmptyWeaponSlotCount: 0

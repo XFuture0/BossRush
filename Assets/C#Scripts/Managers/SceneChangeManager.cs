@@ -181,7 +181,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     {
         KeyBoardManager.Instance.StopAnyKey = true;
         GameManager.Instance.PlayerStats.gameObject.GetComponent<PlayerController>().StopPlayer();
-        Player.GetComponent<AllPlayerController>().ReFreshTeam();
+        Player.GetComponent<AllPlayerController>().OpenTeam();
         if (!GameManager.Instance.PlayerData.StartGame)
         {
             Fadecanvs.FadeIn();
@@ -258,72 +258,81 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         }
         yield return new WaitForSeconds(0.1f);
         var CurRoom = Physics2D.OverlapPoint(Player.transform.position, Room).gameObject;
-        GameManager.Instance.PlayerData.RoomType = CurRoom.GetComponent<MapCharacrter>().RoomType;
-        DataManager.Instance.Save(DataManager.Instance.Index);//存档
-        yield return new WaitForSeconds(0.4f);
-        ChangeMiniMapPositionEvent.RaiseVector3Event(CurRoom.transform.position);//改变小地图相机位置
-        switch (GameManager.Instance.PlayerData.RoomType)
+        if(CurRoom != null)
         {
-            case RoomType.StartRoom:
-                break;
-            case RoomType.NormalRoom:
-                break;
-            case RoomType.CardRoom:
-                break;
-            case RoomType.BossRoom:
-                if (!MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
-                {
-                    Boss.transform.position = CurRoom.transform.position + CurRoom.GetComponent<MapCharacrter>().BossPosition;
-                    GameManager.Instance.AddBossHealth();
-                    Boss.SetActive(true);
-                    Bosscanvs.gameObject.SetActive(true);
-                    ChangeBossSkillEvent.RaiseVector3Event(CurRoom.transform.position);
-                    GameManager.Instance.BossActive = true;
-                    Boss.GetComponent<BossController>().IsStopBoss = true;
-                    GameManager.Instance.RefreshBossSkill();
-                }
-                break;
-            case RoomType.TransmissionTowerRoom:
-                break;
-            default:
-                break;
-        }
-        Fadecanvs.FadeOut();
-        MapManager.Instance.FindRoom(CurRoom.transform.position);
-        yield return new WaitForSeconds(0.5f);
-        switch (GameManager.Instance.PlayerData.RoomType)
-        {
-            case RoomType.StartRoom:
-                OpenDoorEvent.RaiseEvent();
-                MapManager.Instance.AccessRoom(CurRoom.transform.position);
-                break;
-            case RoomType.NormalRoom:
-                if (!MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
-                {
-                    CloseDoorEvent.RaiseEvent();
-                    CurRoom.GetComponent<MapCharacrter>().SetMonster();
-                }
-                break;
-            case RoomType.CardRoom:
-                if (!MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
-                {
-                    CloseDoorEvent.RaiseEvent();
-                }
-                break;
-            case RoomType.BossRoom:
-                if (!MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
-                {
-                    CloseDoorEvent.RaiseEvent();
-                    PlotManager.Instance.SetRoomPlotText();
-                    Boss.GetComponent<BossController>().IsStopBoss = false;
-                }
-                break;
-            case RoomType.TransmissionTowerRoom:
-                OpenDoorEvent.RaiseEvent();
-                MapManager.Instance.AccessRoom(CurRoom.transform.position);
-                break;
-            default:
-                break;
+            GameManager.Instance.PlayerData.RoomType = CurRoom.GetComponent<MapCharacrter>().RoomType;
+            DataManager.Instance.Save(DataManager.Instance.Index);//存档
+            yield return new WaitForSeconds(0.4f);
+            ChangeMiniMapPositionEvent.RaiseVector3Event(CurRoom.transform.position);//改变小地图相机位置
+            switch (GameManager.Instance.PlayerData.RoomType)
+            {
+                case RoomType.StartRoom:
+                    break;
+                case RoomType.NormalRoom:
+                    break;
+                case RoomType.CardRoom:
+                    break;
+                case RoomType.BossRoom:
+                    if (!MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
+                    {
+                        Boss.transform.position = CurRoom.transform.position + CurRoom.GetComponent<MapCharacrter>().SetPosition;
+                        GameManager.Instance.AddBossHealth();
+                        Boss.SetActive(true);
+                        Bosscanvs.gameObject.SetActive(true);
+                        ChangeBossSkillEvent.RaiseVector3Event(CurRoom.transform.position);
+                        GameManager.Instance.BossActive = true;
+                        Boss.GetComponent<BossController>().IsStopBoss = true;
+                        GameManager.Instance.RefreshBossSkill();
+                    }
+                    break;
+                case RoomType.TransmissionTowerRoom:
+                    break;
+                case RoomType.ShopRoom:
+                    break;
+                default:
+                    break;
+            }
+            Fadecanvs.FadeOut();
+            MapManager.Instance.FindRoom(CurRoom.transform.position);
+            yield return new WaitForSeconds(0.5f);
+            switch (GameManager.Instance.PlayerData.RoomType)
+            {
+                case RoomType.StartRoom:
+                    OpenDoorEvent.RaiseEvent();
+                    MapManager.Instance.AccessRoom(CurRoom.transform.position);
+                    break;
+                case RoomType.NormalRoom:
+                    if (!MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
+                    {
+                        CloseDoorEvent.RaiseEvent();
+                        CurRoom.GetComponent<MapCharacrter>().SetMonster();
+                    }
+                    break;
+                case RoomType.CardRoom:
+                    if (!MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
+                    {
+                        CloseDoorEvent.RaiseEvent();
+                    }
+                    break;
+                case RoomType.BossRoom:
+                    if (!MapManager.Instance.CheckAccessRoom(CurRoom.transform.position))
+                    {
+                        CloseDoorEvent.RaiseEvent();
+                        PlotManager.Instance.SetRoomPlotText();
+                        Boss.GetComponent<BossController>().IsStopBoss = false;
+                    }
+                    break;
+                case RoomType.TransmissionTowerRoom:
+                    OpenDoorEvent.RaiseEvent();
+                    MapManager.Instance.AccessRoom(CurRoom.transform.position);
+                    break;
+                case RoomType.ShopRoom:
+                    OpenDoorEvent.RaiseEvent();
+                    MapManager.Instance.AccessRoom(CurRoom.transform.position);
+                    break;
+                default:
+                    break;
+            }
         }
         KeyBoardManager.Instance.StopAnyKey = false;
     }
@@ -365,7 +374,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
                     CloseDoorEvent.RaiseEvent();
                     Bosscanvs.gameObject.SetActive(true);
                     Boss.SetActive(true);
-                    Boss.transform.position = CurRoom.transform.position + CurRoom.GetComponent<MapCharacrter>().BossPosition;
+                    Boss.transform.position = CurRoom.transform.position + CurRoom.GetComponent<MapCharacrter>().SetPosition;
                     ChangeBossSkillEvent.RaiseVector3Event(CurRoom.transform.position);
                     GameManager.Instance.BossActive = true;
                     Boss.GetComponent<BossController>().IsStopBoss = true;
@@ -384,6 +393,10 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
                 }
                 break;
             case RoomType.TransmissionTowerRoom:
+                MapManager.Instance.AccessRoom(CurRoom.transform.position);
+                OpenDoorEvent.RaiseEvent();
+                break;
+            case RoomType.ShopRoom:
                 MapManager.Instance.AccessRoom(CurRoom.transform.position);
                 OpenDoorEvent.RaiseEvent();
                 break;

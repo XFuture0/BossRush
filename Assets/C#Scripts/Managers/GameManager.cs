@@ -6,8 +6,8 @@ using UnityEngine;
 using static MapData;
 public class GameManager : SingleTons<GameManager>
 {
+    public GameObject GemItem;
     public GameObject CardPaper;
-    public GameObject Fruit;
     public GameObject AngerPanel;
     public GameObject HurtText;
     public GameObject PlayerCanvs;
@@ -163,7 +163,6 @@ public class GameManager : SingleTons<GameManager>
                     {
                         Player().AngerValue += 0.02f;
                     }
-                    BossCanvs.GetComponent<BossCanvs>().SetDeleteHealth(ColorManager.Instance.UpdateColor(2));
                     break;
                 default:
                     break;
@@ -280,16 +279,12 @@ public class GameManager : SingleTons<GameManager>
     public void BossDead()
     {
         BossStats.gameObject.SetActive(false);
-        if(PlayerData.RoomType == RoomType.BossRoom)
-        {
-            SceneChangeManager.Instance.Door.SetActive(true);
-            var DoorPosition = Physics2D.OverlapPoint(PlayerStats.gameObject.transform.position, SceneChangeManager.Instance.Room).gameObject.transform.position + new Vector3(-21,0,0);
-            SceneChangeManager.Instance.Door.transform.position = DoorPosition;
-            Instantiate(CardPaper, BossStats.transform.position, Quaternion.identity);
-            Instantiate(Fruit, BossStats.transform.position, Quaternion.identity);
-        }
-        var GetCoin = UnityEngine.Random.Range(10, 20);
-        CoinManager.Instance.GiveCoins(BossStats.gameObject.transform.position,GetCoin);
+        SceneChangeManager.Instance.Door.SetActive(true);
+        var CurRoom = Physics2D.OverlapPoint(PlayerStats.gameObject.transform.position, SceneChangeManager.Instance.Room).gameObject;
+        var DoorPosition = CurRoom.transform.position + new Vector3(-21,0,0);
+        SceneChangeManager.Instance.Door.transform.position = DoorPosition;
+        Instantiate(CardPaper, BossStats.transform.position, Quaternion.identity);
+        Instantiate(GemItem, CurRoom.GetComponent<MapCharacrter>().SetPosition, Quaternion.identity);
         BossDeadEvent.RaiseEvent();
         SceneChangeManager.Instance.OpenDoorEvent.RaiseEvent();
         MapManager.Instance.AccessRoom(Physics2D.OverlapPoint(PlayerStats.gameObject.transform.position,SceneChangeManager.Instance.Room).gameObject.transform.position);

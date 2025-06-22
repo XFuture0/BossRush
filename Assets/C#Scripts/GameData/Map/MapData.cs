@@ -16,5 +16,9 @@ public class MapData : ScriptableObject
         public List<MapCharacrter.Door> LeftDoor = new List<MapCharacrter.Door>();//◊Û≤‡√≈
         public List<MapCharacrter.Door> RightDoor = new List<MapCharacrter.Door>();//”“≤‡√≈
     }
+    public GameObject Goods1;
+    public GameObject Goods2;
+    public GameObject Goods3;
+    public GameObject Goods4;
     public List<Room> RoomLists = new List<Room>();
 }

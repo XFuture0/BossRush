@@ -68,8 +68,9 @@ MonoBehaviour:
   polygonCollider: {fileID: 4325622237636697175}
   CurPlayer: {fileID: 1203274135678782120}
   NoFind: {fileID: 3080808887907523507}
+  MonsterBox: {fileID: 0}
   MiniRoomCanvs: {fileID: 3724815498166593260}
-  TransmissionTowerMini: {fileID: 0}
+  RoomMini: {fileID: 0}
   CardPaper: {fileID: 0}
   DoorBox: {fileID: 3851160423365726914}
   LeftDoor:
@@ -80,7 +81,8 @@ MonoBehaviour:
   - DoorObject: {fileID: 1232570502101023976}
     DoorIndex: 0
     DoorOpen: 0
-  BossPosition: {x: -15, y: 3, z: 0}
+  Monsters: []
+  SetPosition: {x: -15, y: 2.8, z: 0}
 --- !u!60 &4325622237636697175
 PolygonCollider2D:
   m_ObjectHideFlags: 0

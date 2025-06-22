@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d19cb82aadc9c543bdd5f23a5bcef14, type: 3}
+  m_Name: TreasureList
+  m_EditorClassIdentifier: 
+  TreasureLists:
+  - ItemObject: {fileID: 1905623365546430168, guid: 9e74af1ee2783024d9bf332895a624ba, type: 3}
+    Probability: 100
+  - ItemObject: {fileID: 1905623365546430168, guid: 9e74af1ee2783024d9bf332895a624ba, type: 3}
+    Probability: 80
+  - ItemObject: {fileID: 1905623365546430168, guid: 9e74af1ee2783024d9bf332895a624ba, type: 3}
+    Probability: 60
+  - ItemObject: {fileID: 1905623365546430168, guid: 9e74af1ee2783024d9bf332895a624ba, type: 3}
+    Probability: 40
+  - ItemObject: {fileID: 1905623365546430168, guid: 9e74af1ee2783024d9bf332895a624ba, type: 3}
+    Probability: 20
+  - ItemObject: {fileID: 1905623365546430168, guid: 9e74af1ee2783024d9bf332895a624ba, type: 3}
+    Probability: 5
+  - ItemObject: {fileID: 9102499007696851769, guid: 022fbac9b22673248abccbbcf2b25245, type: 3}
+    Probability: 20
+  - ItemObject: {fileID: 4589054128236232938, guid: 9f1eb57d4b2e4374887b1e8b178e08d8, type: 3}
+    Probability: 20
+  - ItemObject: {fileID: 8914399329536430748, guid: f09f7b4f0e7ba99469d5cf39c3b6dc79, type: 3}
+    Probability: 5
+  - ItemObject: {fileID: 9102499007696851769, guid: 022fbac9b22673248abccbbcf2b25245, type: 3}
+    Probability: 1
+  - ItemObject: {fileID: 4589054128236232938, guid: 9f1eb57d4b2e4374887b1e8b178e08d8, type: 3}
+    Probability: 1

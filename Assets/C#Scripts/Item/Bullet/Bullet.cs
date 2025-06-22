@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
     private Animator anim;
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;
+    public int AttackPower;
     public Vector2 BulletRotation;
     public float BulletSpeed;
     private bool IsHit;
@@ -59,7 +60,7 @@ public class Bullet : MonoBehaviour
                 rb.velocity = Vector2.zero;
                 anim.SetTrigger("Hit");
             }
-            GameManager.Instance.Attack(GameManager.Instance.PlayerStats,GameManager.Instance.BossStats);
+            GameManager.Instance.Attack(GameManager.Instance.BossStats,AttackPower);
         }
         if(other.tag == "BossArmy")
         {
@@ -69,7 +70,7 @@ public class Bullet : MonoBehaviour
                 rb.velocity = Vector2.zero;
                 anim.SetTrigger("Hit");
             }
-            GameManager.Instance.Attack(GameManager.Instance.PlayerStats,other.GetComponent<CharacterStats>());
+            GameManager.Instance.Attack(other.GetComponent<CharacterStats>(),AttackPower);
         }
         if(other.tag == "Ground")
         {
@@ -82,14 +83,14 @@ public class Bullet : MonoBehaviour
             IsHit = true;
             rb.velocity = Vector2.zero;
             anim.SetTrigger("Hit");
-            GameManager.Instance.Attack(GameManager.Instance.PlayerStats, other.GetComponent<CharacterStats>());
+            GameManager.Instance.Attack(other.GetComponent<CharacterStats>(),AttackPower);
         }
         if(other.tag == "Monster")
         {
             IsHit = true;
             rb.velocity = Vector2.zero;
             anim.SetTrigger("Hit");
-            GameManager.Instance.Attack(GameManager.Instance.PlayerStats, other.GetComponent<CharacterStats>());
+            GameManager.Instance.Attack(other.GetComponent<CharacterStats>(), AttackPower);
         }
     }
     private void OnTriggerExit2D(Collider2D other)

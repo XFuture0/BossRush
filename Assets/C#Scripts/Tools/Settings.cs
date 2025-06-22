@@ -11,5 +11,6 @@ public class Settings : MonoBehaviour
     public const int NormalRoom = 1;
     public const int CardRoom = 2;
     public const int TransmissionTowerRoom = 3;
-    public const int BossRoom = 4;
+    public const int ShopRoom = 4;
+    public const int BossRoom = 5;
 }

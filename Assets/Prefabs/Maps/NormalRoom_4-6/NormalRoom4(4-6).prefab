@@ -3109,6 +3109,7 @@ MonoBehaviour:
   Index: 0
   RoomType: 1
   Size: 9.1
+  TreasureBox: {fileID: 6673079757245636077, guid: 8c2b7ae9b82519d45803e62f2cf6fc6b, type: 3}
   polygonCollider: {fileID: 2996521580945918871}
   CurPlayer: {fileID: 2175943167716333536}
   NoFind: {fileID: 5043804168176981777}
@@ -3138,7 +3139,7 @@ MonoBehaviour:
     MonsterPosition: {x: -23.47261, y: -0.28784943, z: 0}
   - MonsterObject: {fileID: 1733327012510293589, guid: 8a2a26dd923b55f4191190ad469da3b3, type: 3}
     MonsterPosition: {x: -6.8863673, y: -0.25724745, z: 0}
-  BossPosition: {x: -15, y: 4, z: 0}
+  SetPosition: {x: -14.981208, y: 3.1691897, z: 0}
 --- !u!60 &2996521580945918871
 PolygonCollider2D:
   m_ObjectHideFlags: 0

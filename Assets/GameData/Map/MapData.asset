@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b5ce3a7475ac9b48a96b800e8332de3, type: 3}
   m_Name: MapData
   m_EditorClassIdentifier: 
+  Goods1: {fileID: 0}
+  Goods2: {fileID: 0}
+  Goods3: {fileID: 0}
+  Goods4: {fileID: 0}
   RoomLists:
   - IsAccess: 0
     IsFind: 0
@@ -20,10 +24,12 @@ MonoBehaviour:
     RoomIndex: 0
     Index: 0
     LeftDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
     RightDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
   - IsAccess: 0
     IsFind: 0
@@ -32,14 +38,18 @@ MonoBehaviour:
     RoomIndex: 0
     Index: 0
     LeftDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 0
     RightDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
   - IsAccess: 0
     IsFind: 0
@@ -48,10 +58,12 @@ MonoBehaviour:
     RoomIndex: 0
     Index: 0
     LeftDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
     RightDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
   - IsAccess: 0
     IsFind: 0
@@ -60,10 +72,12 @@ MonoBehaviour:
     RoomIndex: 0
     Index: 8
     LeftDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
     RightDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
   - IsAccess: 0
     IsFind: 0
@@ -72,10 +86,12 @@ MonoBehaviour:
     RoomIndex: 0
     Index: 0
     LeftDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
     RightDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
   - IsAccess: 0
     IsFind: 0
@@ -84,10 +100,12 @@ MonoBehaviour:
     RoomIndex: 0
     Index: 5
     LeftDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
     RightDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
   - IsAccess: 0
     IsFind: 0
@@ -96,10 +114,12 @@ MonoBehaviour:
     RoomIndex: 0
     Index: 4
     LeftDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
     RightDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
   - IsAccess: 0
     IsFind: 0
@@ -108,14 +128,18 @@ MonoBehaviour:
     RoomIndex: 0
     Index: 0
     LeftDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 0
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
     RightDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 0
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
   - IsAccess: 0
     IsFind: 0
@@ -124,14 +148,18 @@ MonoBehaviour:
     RoomIndex: 0
     Index: 2
     LeftDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 0
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
     RightDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 0
   - IsAccess: 0
     IsFind: 0
@@ -140,10 +168,12 @@ MonoBehaviour:
     RoomIndex: 0
     Index: 0
     LeftDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
     RightDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
   - IsAccess: 0
     IsFind: 0
@@ -152,10 +182,12 @@ MonoBehaviour:
     RoomIndex: 0
     Index: 9
     LeftDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
     RightDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 0
   - IsAccess: 0
     IsFind: 0
@@ -164,10 +196,12 @@ MonoBehaviour:
     RoomIndex: 0
     Index: 0
     LeftDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
     RightDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
   - IsAccess: 0
     IsFind: 0
@@ -176,10 +210,12 @@ MonoBehaviour:
     RoomIndex: 0
     Index: 7
     LeftDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
     RightDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
   - IsAccess: 0
     IsFind: 0
@@ -188,14 +224,18 @@ MonoBehaviour:
     RoomIndex: 0
     Index: 2
     LeftDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 0
     RightDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 0
   - IsAccess: 0
     IsFind: 0
@@ -204,10 +244,12 @@ MonoBehaviour:
     RoomIndex: 0
     Index: 0
     LeftDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
     RightDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
   - IsAccess: 0
     IsFind: 0
@@ -216,14 +258,18 @@ MonoBehaviour:
     RoomIndex: 0
     Index: 6
     LeftDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 0
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
     RightDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 0
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 0
   - IsAccess: 0
     IsFind: 0
@@ -232,12 +278,16 @@ MonoBehaviour:
     RoomIndex: 0
     Index: 0
     LeftDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 0
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 0
     RightDoor:
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 1
-    - DoorIndex: 0
+    - DoorObject: {fileID: 0}
+      DoorIndex: 0
       DoorOpen: 0

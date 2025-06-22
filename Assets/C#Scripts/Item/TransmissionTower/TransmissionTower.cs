@@ -22,7 +22,6 @@ public class TransmissionTower : MonoBehaviour
         if (MapManager.Instance.GetRoom(Physics2D.OverlapPoint(transform.position, SceneChangeManager.Instance.Room).gameObject.transform.position))
         {
             anim.SetBool("Open", true);
-            CanTransmission = true;
         }
     }
     private void OnTriggerEnter2D(Collider2D other)

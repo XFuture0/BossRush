@@ -26,17 +26,13 @@ public enum CharacterType
     Player,
     Boss,
 }
-public enum AttackType 
-{ 
-    HitBoss,
-    HitBoss_Critical
-}
 public enum RoomType
 {
     StartRoom,
     NormalRoom,
     CardRoom,
     TransmissionTowerRoom,
+    ShopRoom,
     BossRoom,
 }
 public enum DoorType
@@ -48,11 +44,22 @@ public enum ItemType
 {
     Coin,
     CardPaper,
-    Fruit
+    Fruit,
+    HeartItem,
+    ShieldItem,
+    GemItem,
+    TreasureBox,
 }
 public enum HeartType
 {
     Heart,
     Shield,
+}
+public enum TeamerType
+{
+    Player,
+    Teamer1,
+    Teamer2,
+    Teamer3,
 }
 

@@ -7,10 +7,11 @@ using UnityEngine.Rendering.Universal;
 
 public class Weapon : MonoBehaviour
 {
+    public TeamerType TeamType;
     private float RotationX;
     private float RotationY;
     private float ResRotation;
-    private int WeaponCount;
+    private int WeaponCount = -1;
     private int RealWeaponCount;
     public SlimeData SlimeData;
     private void Update()
@@ -19,11 +20,7 @@ public class Weapon : MonoBehaviour
         {
             ChangeRotation();
         }
-        if (WeaponCount != GameManager.Instance.Player().WeaponCount)
-        {
-            WeaponCount = GameManager.Instance.Player().WeaponCount;
-            RefreshWeapon();
-        }
+        ChooseWeaponType();
     }
     private void ChangeRotation()
     {
@@ -52,6 +49,40 @@ public class Weapon : MonoBehaviour
             RotationY += 180f;
         }
         transform.rotation = Quaternion.Euler(0, 0,RotationY);
+    }
+    private void ChooseWeaponType()
+    {
+        switch (TeamType)
+        {
+            case TeamerType.Player:
+                if (WeaponCount != GameManager.Instance.PlayerData.PlayerWeaponSlotCount)
+                {
+                    WeaponCount = GameManager.Instance.PlayerData.PlayerWeaponSlotCount;
+                    RefreshWeapon();
+                }
+                break;
+            case TeamerType.Teamer1:
+                if (WeaponCount != GameManager.Instance.PlayerData.Teamer1WeaponSlotCount)
+                {
+                    WeaponCount = GameManager.Instance.PlayerData.Teamer1WeaponSlotCount;
+                    RefreshWeapon();
+                }
+                break;
+            case TeamerType.Teamer2:
+                if (WeaponCount != GameManager.Instance.PlayerData.Teamer2WeaponSlotCount)
+                {
+                    WeaponCount = GameManager.Instance.PlayerData.Teamer2WeaponSlotCount;
+                    RefreshWeapon();
+                }
+                break;
+            case TeamerType.Teamer3:
+                if (WeaponCount != GameManager.Instance.PlayerData.Teamer3WeaponSlotCount)
+                {
+                    WeaponCount = GameManager.Instance.PlayerData.Teamer3WeaponSlotCount;
+                    RefreshWeapon();
+                }
+                break;
+        }
     }
     private void RefreshWeapon()
     {

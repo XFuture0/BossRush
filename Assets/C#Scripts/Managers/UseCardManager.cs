@@ -50,7 +50,6 @@ public class UseCardManager : SingleTons<UseCardManager>
     }
     private void WowMushroom()
     {
-        GameManager.Instance.Player().WeaponCount += 1;
         CancelInvoke();
     }
     private void Adrenaline()
@@ -150,7 +149,6 @@ public class UseCardManager : SingleTons<UseCardManager>
     }
     private void ArmedPreparation()
     {
-        GameManager.Instance.Player().WeaponCount += 1;
         GameManager.Instance.Player().SpeedRate -= 0.1f;
         GameManager.Instance.Player().AngerValue += 0.1f;
         GameManager.Instance.Boss().AttackPower += 1;
@@ -322,7 +320,6 @@ public class UseCardManager : SingleTons<UseCardManager>
     {
         GameManager.Instance.Player().MaxHealth += 1;
         GameManager.Instance.Player().NowHealth += 1;
-        GameManager.Instance.Player().WeaponCount += 1;
         GameManager.Instance.Boss().AttackPower += 1;
         GameManager.Instance.AddBossSkillLevel();
         CancelInvoke();
@@ -531,7 +528,6 @@ public class UseCardManager : SingleTons<UseCardManager>
     private void HallucinogenicSlime()
     {
         GameManager.Instance.Player().NowHealth -= 1;
-        GameManager.Instance.Player().WeaponCount += 1;
         GameManager.Instance.Player().AttackBonus -= 0.25f;
         GameManager.Instance.Boss().DodgeRate += 0.1f;
         GameManager.Instance.Boss().AttackRate -= 0.05f;
@@ -878,14 +874,12 @@ public class UseCardManager : SingleTons<UseCardManager>
     }
     private void RKeyReload()
     {
-        GameManager.Instance.Player().WeaponCount += 1;
         GameManager.Instance.Boss().HealthRate += 0.1f;
         GameManager.Instance.AddBossSkillLevel();
         CancelInvoke();
     }
     private void ThunderAlchemy()
     {
-        GameManager.Instance.Player().WeaponCount += 1;
         GameManager.Instance.Player().ThunderRate -= 0.1f;
         GameManager.Instance.Player().ThunderBonus -= 0.2f;
         GameManager.Instance.AddBossSkillLevel();
@@ -1108,7 +1102,6 @@ public class UseCardManager : SingleTons<UseCardManager>
     }
     private void VeteranBattle()
     {
-        GameManager.Instance.Player().WeaponCount += 1;
         GameManager.Instance.Player().AttackBonus += 0.1f;
         GameManager.Instance.Player().AttackRate -= 0.05f;
         GameManager.Instance.Player().Vulnerability_AttackBonus += 0.02f;
@@ -1198,7 +1191,6 @@ public class UseCardManager : SingleTons<UseCardManager>
     }
     private void SelfHarmingSlime()
     {
-        GameManager.Instance.Player().WeaponCount -= 1;
         GameManager.Instance.Player().NowHealth -= 1;
         GameManager.Instance.Player().Vulnerability_AttackBonus -= 0.02f;
         GameManager.Instance.Player().Vulnerability_CriticalRate -= 0.01f;
@@ -1475,7 +1467,6 @@ public class UseCardManager : SingleTons<UseCardManager>
     }
     private void ExchangeSeaGod()
     {
-        GameManager.Instance.Player().WeaponCount += 1;
         GameManager.Instance.Player().WaterElementBonus -= 0.1f;
         GameManager.Instance.Player().EasyWaterTime -= 0.5f;
         GameManager.Instance.Boss().HealthRate += 0.2f;
@@ -1487,7 +1478,6 @@ public class UseCardManager : SingleTons<UseCardManager>
     {
         GameManager.Instance.Player().MaxHealth += 1;
         GameManager.Instance.Player().NowHealth += 1;
-        GameManager.Instance.Player().WeaponCount += 1;
         GameManager.Instance.Boss().HealthRate += 0.3f;
         GameManager.Instance.Boss().AttackRate -= 0.1f;
         CancelInvoke();
@@ -1687,7 +1677,6 @@ public class UseCardManager : SingleTons<UseCardManager>
     }
     private void CrazyShooting()
     {
-        GameManager.Instance.Player().WeaponCount += 1;
         GameManager.Instance.Player().AttackRate -= 0.1f;
         GameManager.Instance.Player().DangerousBulletBonus += 0.25f;
         GameManager.Instance.Boss().AttackRate -= 0.15f;
@@ -1698,7 +1687,6 @@ public class UseCardManager : SingleTons<UseCardManager>
     {
         GameManager.Instance.Player().NowHealth -= 2;
         GameManager.Instance.Player().MaxHealth -= 2;
-        GameManager.Instance.Player().WeaponCount += 1;
         GameManager.Instance.Player().DangerousBulletBonus += 0.25f;
         GameManager.Instance.Boss().HealthRate += 0.2f;
         CancelInvoke();

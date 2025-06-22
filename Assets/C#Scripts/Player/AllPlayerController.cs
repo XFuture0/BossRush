@@ -17,6 +17,11 @@ public class AllPlayerController : MonoBehaviour
     private float Speed;//移动速度
     private float HeartCount;//生命值
     private float ShieldCount;//护盾值
+    [Header("射程")]
+    public CircleCollider2D PlayerCollider;
+    public CircleCollider2D Teamer1Collider;
+    public CircleCollider2D Teamer2Collider;
+    public CircleCollider2D Teamer3Collider;
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -27,6 +32,8 @@ public class AllPlayerController : MonoBehaviour
         HeartCount = PlayerData.Player.HeartCount;
         ShieldCount = PlayerData.Player.ShieldCount;
         Speed = PlayerData.Player.Speed;
+        PlayerCollider.radius = PlayerData.Player.Distance;
+        PlayerData.PlayerWeaponSlotCount = PlayerData.Player.BaseWeaponCount;
         RefreshSlimeData(PlayerData.Player);
         TeamerCount = 1;
         if(PlayerData.Teamer1 == null)
@@ -40,6 +47,8 @@ public class AllPlayerController : MonoBehaviour
             Teamer1.GetComponent<PlayerTeamer>().RefreshSlimeData(PlayerData.Teamer1);
             HeartCount += PlayerData.Teamer1.HeartCount;
             ShieldCount += PlayerData.Teamer1.ShieldCount;
+            Teamer1Collider.radius = PlayerData.Teamer1.Distance; 
+            PlayerData.Teamer1WeaponSlotCount = PlayerData.Teamer1.BaseWeaponCount;
         }
         if(PlayerData.Teamer2 == null)
         {
@@ -52,6 +61,8 @@ public class AllPlayerController : MonoBehaviour
             Teamer2.GetComponent<PlayerTeamer>().RefreshSlimeData(PlayerData.Teamer2);
             HeartCount += PlayerData.Teamer2.HeartCount;
             ShieldCount += PlayerData.Teamer2.ShieldCount;
+            Teamer2Collider.radius = PlayerData.Teamer2.Distance;
+            PlayerData.Teamer2WeaponSlotCount = PlayerData.Teamer2.BaseWeaponCount;
         }
         if (PlayerData.Teamer3 == null)
         {
@@ -64,6 +75,8 @@ public class AllPlayerController : MonoBehaviour
             Teamer3.GetComponent<PlayerTeamer>().RefreshSlimeData(PlayerData.Teamer3);
             HeartCount += PlayerData.Teamer3.HeartCount;
             ShieldCount += PlayerData.Teamer3.ShieldCount;
+            Teamer3Collider.radius = PlayerData.Teamer3.Distance;
+            PlayerData.Teamer3WeaponSlotCount = PlayerData.Teamer3.BaseWeaponCount;
         }
         GameManager.Instance.PlayerStats.CharacterData_Temp.MaxHealth = HeartCount;
         GameManager.Instance.PlayerStats.CharacterData_Temp.NowHealth = HeartCount;
@@ -97,6 +110,45 @@ public class AllPlayerController : MonoBehaviour
                 boxCollider.size = new Vector2(1.5f,3.4f);
                 break;
         }
-
+    }
+    public void OpenTeam()
+    {
+        PlayerCollider.radius = PlayerData.Player.Distance;
+        RefreshSlimeData(PlayerData.Player);
+        TeamerCount = 1;
+        if (PlayerData.Teamer1 == null)
+        {
+            Teamer1.SetActive(false);
+        }
+        else
+        {
+            TeamerCount++;
+            Teamer1.SetActive(true);
+            Teamer1.GetComponent<PlayerTeamer>().RefreshSlimeData(PlayerData.Teamer1);
+            Teamer1Collider.radius = PlayerData.Teamer1.Distance;
+        }
+        if (PlayerData.Teamer2 == null)
+        {
+            Teamer2.SetActive(false);
+        }
+        else
+        {
+            TeamerCount++;
+            Teamer2.SetActive(true);
+            Teamer2.GetComponent<PlayerTeamer>().RefreshSlimeData(PlayerData.Teamer2);
+            Teamer2Collider.radius = PlayerData.Teamer2.Distance;
+        }
+        if (PlayerData.Teamer3 == null)
+        {
+            Teamer3.SetActive(false);
+        }
+        else
+        {
+            TeamerCount++;
+            Teamer3.SetActive(true);
+            Teamer3.GetComponent<PlayerTeamer>().RefreshSlimeData(PlayerData.Teamer3);
+            Teamer3Collider.radius = PlayerData.Teamer3.Distance;
+        }
+        SetBoxCollider();
     }
 }

@@ -11,8 +11,9 @@ public class SlimeData : ScriptableObject
     public string WeaponName;
     public AnimatorController WeaponAnim;
     public AnimatorController BulletAnim;
-    public int AttackPower;
     public float Speed;//移动速度
     public float HeartCount;//生命值
     public float ShieldCount;//护盾值
+    public float Distance;//攻击距离
+    public int BaseWeaponCount;//基础武器槽数量
 }

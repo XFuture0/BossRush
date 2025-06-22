@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
     private CharacterStats Player;
     public GameObject EndCanvs;
     public Bullet bullet;
-    public CircleCollider2D AttackDistance;
     private float AngerTime = 1;
     public delegate void AngerSkill();
     public AngerSkill angerskill;
@@ -65,7 +64,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
-      //  StopPlayer();
+        StopPlayer();
     }
     private void Update()
     {
@@ -74,7 +73,6 @@ public class PlayerController : MonoBehaviour
         {
             Player.CharacterData_Temp.NowHealth = Player.CharacterData_Temp.MaxHealth;
         }
-        AttackDistance.radius = Player.CharacterData_Temp.AttackDistance;
         AutoUp();
         Jump();
         PlayerDead();
@@ -548,12 +546,10 @@ public class PlayerController : MonoBehaviour
             if(Player.CharacterData_Temp.SpeedRate >= 1.5f && !IsAddWeapon)
             {
                 IsAddWeapon = true;
-                Player.CharacterData_Temp.WeaponCount += 1; 
             }
             if(Player.CharacterData_Temp.SpeedRate < 1.5f && IsAddWeapon)
             {
                 IsAddWeapon = false;
-                Player.CharacterData_Temp.WeaponCount -= 1;
             }
         }
     }
@@ -564,12 +560,10 @@ public class PlayerController : MonoBehaviour
             if (Player.CharacterData_Temp.PoizonDamage >= 0.5f && !IsAddPoizonWeapon)
             {
                 IsAddPoizonWeapon = true;
-                Player.CharacterData_Temp.WeaponCount += 1;
             }
             if (Player.CharacterData_Temp.PoizonDamage < 0.5f && IsAddPoizonWeapon)
             {
                 IsAddPoizonWeapon = false;
-                Player.CharacterData_Temp.WeaponCount -= 1;
             }
         }
     }
@@ -580,12 +574,10 @@ public class PlayerController : MonoBehaviour
             if (Player.CharacterData_Temp.ThunderBonus >= 1.5f && !IsAddThunderWeapon)
             {
                 IsAddThunderWeapon = true;
-                Player.CharacterData_Temp.WeaponCount += 1;
             }
             if (Player.CharacterData_Temp.ThunderBonus < 1.5f && IsAddThunderWeapon)
             {
                 IsAddThunderWeapon = false;
-                Player.CharacterData_Temp.WeaponCount -= 1;
             }
         }
     }
@@ -596,12 +588,10 @@ public class PlayerController : MonoBehaviour
             if (Player.CharacterData_Temp.WaterElementBonus >= 0.6f && !IsWeaponsSeaGod)
             {
                 IsWeaponsSeaGod = true;
-                Player.CharacterData_Temp.WeaponCount += 1;
             }
             if (Player.CharacterData_Temp.WaterElementBonus < 0.6f && IsWeaponsSeaGod)
             {
                 IsWeaponsSeaGod = false;
-                Player.CharacterData_Temp.WeaponCount -= 1;
             }
         }
     }
@@ -612,12 +602,10 @@ public class PlayerController : MonoBehaviour
             if (Player.CharacterData_Temp.DangerousBulletBonus >= 4f && !IsDangerousWeapons)
             {
                 IsDangerousWeapons = true;
-                Player.CharacterData_Temp.WeaponCount += 1;
             }
             if (Player.CharacterData_Temp.DangerousBulletBonus < 4f && IsDangerousWeapons)
             {
                 IsDangerousWeapons = false;
-                Player.CharacterData_Temp.WeaponCount -= 1;
             }
         }
     }

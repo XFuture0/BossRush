@@ -290,9 +290,12 @@ public class DataManager : SingleTons<DataManager>
             GameManager.Instance.PlayerData.CoinCount = 0;
             GameManager.Instance.PlayerData.JumpForce = 18;
             GameManager.Instance.PlayerData.Player = BaseSlime;
+            GameManager.Instance.PlayerData.PlayerWeaponSlotCount = 1;
             GameManager.Instance.PlayerData.Teamer1 = null;
             GameManager.Instance.PlayerData.Teamer2 = null;
             GameManager.Instance.PlayerData.Teamer3 = null;
+            GameManager.Instance.PlayerData.FreeWeaponSlotCount = 0;
+            GameManager.Instance.PlayerData.EmptyWeaponSlotCount = 0;
             PlayerEquipManager.Instance.ChangeWeapon(0);
             PlayerEquipManager.Instance.ChangeHat(0);
             ColorManager.Instance.ReSetColor();

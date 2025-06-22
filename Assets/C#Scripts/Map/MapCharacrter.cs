@@ -21,6 +21,7 @@ public class MapCharacrter : MonoBehaviour
     public int Index;
     public RoomType RoomType;//房间类型
     public float Size;//房间视角大小
+    public GameObject TreasureBox;
     public PolygonCollider2D polygonCollider;
     public GameObject CurPlayer;
     public GameObject NoFind;
@@ -35,7 +36,7 @@ public class MapCharacrter : MonoBehaviour
     public List<Door> LeftDoor = new List<Door>();//左侧门
     public List<Door> RightDoor = new List<Door>();//右侧门
     public List<Monster> Monsters = new List<Monster>();
-    public Vector3 BossPosition;
+    public Vector3 SetPosition;
     private void Update()
     {
         if (RoomType == RoomType.NormalRoom)
@@ -134,6 +135,7 @@ public class MapCharacrter : MonoBehaviour
         if(MonsterBox.transform.childCount == 0 && RoomType == RoomType.NormalRoom && !IsAccess)
         {
             SceneChangeManager.Instance.OpenDoorEvent.RaiseEvent();
+            Instantiate(TreasureBox,transform.position + SetPosition,Quaternion.identity);
             MapManager.Instance.AccessRoom(transform.position);
             GameManager.Instance.BossDeadEvent.RaiseEvent();
         }

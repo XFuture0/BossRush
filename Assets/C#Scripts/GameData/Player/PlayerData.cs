@@ -22,4 +22,11 @@ public class PlayerData : ScriptableObject
     public SlimeData Teamer1;
     public SlimeData Teamer2;
     public SlimeData Teamer3;
+    [Header("Ğ¯´øÎäÆ÷²ÛÊıÁ¿")]
+    public int PlayerWeaponSlotCount;
+    public int Teamer1WeaponSlotCount;
+    public int Teamer2WeaponSlotCount;
+    public int Teamer3WeaponSlotCount;
+    public int FreeWeaponSlotCount;
+    public int EmptyWeaponSlotCount;
 }
