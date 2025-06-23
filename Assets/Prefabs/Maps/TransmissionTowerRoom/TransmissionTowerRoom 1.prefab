@@ -4765,11 +4765,15 @@ MonoBehaviour:
   Index: 0
   RoomType: 3
   Size: 9.1
+  TreasureBox: {fileID: 0}
   polygonCollider: {fileID: 4252656586834582698}
   CurPlayer: {fileID: 7418593794825955369}
   NoFind: {fileID: 2986919778444225675}
+  MonsterBox: {fileID: 0}
+  DropItem:
+    serializedVersion: 2
+    m_Bits: 65536
   MiniRoomCanvs: {fileID: 1722835535694758670}
-  RoomMini: {fileID: 1323498270222277737, guid: 36ba48c8564636547a2f34b3838bf998, type: 3}
   CardPaper: {fileID: 0}
   DoorBox: {fileID: 718788727069729970}
   LeftDoor:
@@ -4780,7 +4784,18 @@ MonoBehaviour:
   - DoorObject: {fileID: 7359991547300273917}
     DoorIndex: 0
     DoorOpen: 0
-  BossPosition: {x: 0, y: 0, z: 0}
+  Monsters: []
+  SetPosition: {x: 0, y: 0, z: 0}
+  TransmissionMini: {fileID: 1323498270222277737, guid: 36ba48c8564636547a2f34b3838bf998, type: 3}
+  ShopMini: {fileID: 1323498270222277737, guid: 979132dc6fe6fdd4189bc68296672ac3, type: 3}
+  BossMini: {fileID: 1323498270222277737, guid: fab67a3d06e81914c936636370e240c2, type: 3}
+  StartRoomMini: {fileID: 1323498270222277737, guid: 92a5c5ff65510964782937731d7af19c, type: 3}
+  CoinMini: {fileID: 1323498270222277737, guid: 93377c144e48d4b4b811202b4300f7df, type: 3}
+  HeartMini: {fileID: 1323498270222277737, guid: 1d2ebd526b839c84d911fff8ed4fb9d8, type: 3}
+  SheildMini: {fileID: 1323498270222277737, guid: 8d2e42e6ba6d70a4a832c3f9a9b4f11d, type: 3}
+  GemMini: {fileID: 1323498270222277737, guid: c40a0f991c43be847b7fcd4b076939bc, type: 3}
+  TreasureBoxMini: {fileID: 1323498270222277737, guid: ebf8b39f309ab3a48addcafbea3ce9bb, type: 3}
+  GetItemEvent: {fileID: 11400000, guid: dd8e905a60d625e44845cd5eae1c25df, type: 2}
 --- !u!60 &4252656586834582698
 PolygonCollider2D:
   m_ObjectHideFlags: 0

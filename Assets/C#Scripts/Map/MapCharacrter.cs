@@ -26,17 +26,42 @@ public class MapCharacrter : MonoBehaviour
     public GameObject CurPlayer;
     public GameObject NoFind;
     public GameObject MonsterBox;
+    public LayerMask DropItem;
     private int DoorCount;
     private bool IsAccess;
     public MiniRoomCanvs MiniRoomCanvs;
     [Header("房间物品")]
-    public GameObject RoomMini;
     public GameObject CardPaper;
     public Transform DoorBox;
     public List<Door> LeftDoor = new List<Door>();//左侧门
     public List<Door> RightDoor = new List<Door>();//右侧门
     public List<Monster> Monsters = new List<Monster>();
     public Vector3 SetPosition;
+    [Header("小地图信息")]
+    private bool HaveCoin;
+    private bool HaveHeart;
+    private bool HaveSheild;
+    private bool HaveGem;
+    private bool HaveTreasureBox;
+    public GameObject TransmissionMini;
+    public GameObject ShopMini;
+    public GameObject BossMini;
+    public GameObject StartRoomMini;
+    public GameObject CoinMini;
+    public GameObject HeartMini;
+    public GameObject SheildMini;
+    public GameObject GemMini;
+    public GameObject TreasureBoxMini;
+    [Header("事件监听")]
+    public VoidEventSO GetItemEvent;
+    private void OnEnable()
+    {
+        GetItemEvent.OnEventRaised += CheckMapMini;
+    }
+    private void OnDisable()
+    {
+        GetItemEvent.OnEventRaised -= CheckMapMini;
+    }
     private void Update()
     {
         if (RoomType == RoomType.NormalRoom)
@@ -93,10 +118,7 @@ public class MapCharacrter : MonoBehaviour
             GameManager.Instance.OnBoundEvent(polygonCollider,Size);
             CurPlayer.SetActive(true);
             NoFind.SetActive(false);
-            if(RoomMini != null)
-            {
-                MiniRoomCanvs.SetMiniRoom(RoomMini);
-            }
+            RefreshMapMini();
       }   
     }
     private void OnTriggerExit2D(Collider2D other)
@@ -109,10 +131,7 @@ public class MapCharacrter : MonoBehaviour
     public void FindRoom()
     {
         NoFind.SetActive(false);
-        if (RoomMini != null)
-        {
-            MiniRoomCanvs.SetMiniRoom(RoomMini);
-        }
+        RefreshMapMini();
     }
     public void AccessRoom()
     {
@@ -138,6 +157,88 @@ public class MapCharacrter : MonoBehaviour
             Instantiate(TreasureBox,transform.position + SetPosition,Quaternion.identity);
             MapManager.Instance.AccessRoom(transform.position);
             GameManager.Instance.BossDeadEvent.RaiseEvent();
+        }
+    }
+    public void RefreshMapMini()
+    {
+        switch (RoomType)
+        {
+            case RoomType.StartRoom:
+                MiniRoomCanvs.SetMiniRoom(StartRoomMini);
+                break;
+            case RoomType.NormalRoom:
+                break;
+            case RoomType.CardRoom:
+                break;
+            case RoomType.TransmissionTowerRoom:
+                MiniRoomCanvs.SetMiniRoom(TransmissionMini);
+                break;
+            case RoomType.ShopRoom:
+                MiniRoomCanvs.SetMiniRoom(ShopMini);
+                break;
+            case RoomType.BossRoom:
+                MiniRoomCanvs.SetMiniRoom(BossMini);
+                break;
+        }
+    }
+    private void CheckMapMini()
+    {
+        HaveCoin = false;
+        HaveHeart = false;
+        HaveSheild = false;
+        HaveGem = false;
+        HaveTreasureBox = false;
+        var RoomPoLeftUp = gameObject.transform.position + new Vector3(-30, 16, 0);
+        var RoomPoRightDown = gameObject.transform.position;
+        var Result = Physics2D.OverlapAreaAll(RoomPoLeftUp, RoomPoRightDown,DropItem);
+        if(Result != null)
+        {
+            foreach (var item in Result)
+            {
+                switch (item.GetComponent<DroppedItems>().Thisitem.ItemType) 
+                {
+                    case ItemType.Coin:
+                        HaveCoin = true;
+                        MiniRoomCanvs.SetMiniRoom(CoinMini);
+                        break;
+                    case ItemType.HeartItem:
+                        HaveHeart = true;
+                        MiniRoomCanvs.SetMiniRoom(HeartMini);
+                        break;
+                    case ItemType.ShieldItem:
+                        HaveSheild = true;
+                        MiniRoomCanvs.SetMiniRoom(SheildMini);
+                        break;
+                    case ItemType.GemItem:
+                        HaveGem = true;
+                        MiniRoomCanvs.SetMiniRoom(GemMini);
+                        break;
+                    case ItemType.TreasureBox:
+                        HaveTreasureBox = true;
+                        MiniRoomCanvs.SetMiniRoom(TreasureBoxMini);
+                        break;
+                }
+            }
+            if (!HaveCoin)
+            {
+                MiniRoomCanvs.RemoveMiniRoom(CoinMini);
+            }
+            if (!HaveHeart)
+            {
+                MiniRoomCanvs.RemoveMiniRoom(HeartMini);
+            }
+            if (!HaveSheild)
+            {
+                MiniRoomCanvs.RemoveMiniRoom(SheildMini);
+            }
+            if (!HaveGem)
+            {
+                MiniRoomCanvs.RemoveMiniRoom(GemMini);
+            }
+            if (!HaveTreasureBox)
+            {
+                MiniRoomCanvs.RemoveMiniRoom(TreasureBoxMini);
+            }
         }
     }
 }

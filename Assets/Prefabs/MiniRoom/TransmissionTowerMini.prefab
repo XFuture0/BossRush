@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5712578391040103479}
   - component: {fileID: 3678046436849265903}
   - component: {fileID: 9177320392877501039}
-  m_Layer: 5
+  m_Layer: 15
   m_Name: TransmissionTowerMini
-  m_TagString: Untagged
+  m_TagString: MiniRoomItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6ff4f5357fbb68a44ac68bf0a3b31aa9, type: 3}
+  m_Sprite: {fileID: 1292824137, guid: 209e865b2e0965d4caff5f3c2d7d3e0d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

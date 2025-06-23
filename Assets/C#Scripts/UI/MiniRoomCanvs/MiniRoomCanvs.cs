@@ -30,6 +30,25 @@ public class MiniRoomCanvs : MonoBehaviour
         miniRoomSlots.Add(MiniImage.GetComponent<MiniRoomSlot>());
         Instantiate(MiniImage,MiniRoomPanel);
     }
+    public void RemoveMiniRoom(GameObject MiniImage)
+    {
+        foreach (var slot in miniRoomSlots)
+        {
+            if(slot.SlotName == MiniImage.GetComponent<MiniRoomSlot>().SlotName)
+            {
+                  for(int i = 0;i < MiniRoomPanel.transform.childCount; i++)
+                  {
+                      if(MiniRoomPanel.GetChild(i).GetComponent<MiniRoomSlot>().SlotName == slot.SlotName)
+                      {
+                          Destroy(MiniRoomPanel.GetChild(i).gameObject);
+                          miniRoomSlots.Remove(slot);
+                      }
+                  }
+                
+                return;
+            }
+        }
+    }
     public bool FindMiniSlot(string mininame)
     {
         foreach (var slot in miniRoomSlots)
