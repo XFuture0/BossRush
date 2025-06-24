@@ -32,6 +32,10 @@ public class MiniRoomCanvs : MonoBehaviour
     }
     public void RemoveMiniRoom(GameObject MiniImage)
     {
+        if(miniRoomSlots.Count == 0)
+        {
+            return;
+        }
         foreach (var slot in miniRoomSlots)
         {
             if(slot.SlotName == MiniImage.GetComponent<MiniRoomSlot>().SlotName)
@@ -44,7 +48,6 @@ public class MiniRoomCanvs : MonoBehaviour
                           miniRoomSlots.Remove(slot);
                       }
                   }
-                
                 return;
             }
         }

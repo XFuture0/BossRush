@@ -18,9 +18,11 @@ MonoBehaviour:
   WeaponName: Gun
   WeaponAnim: {fileID: 9100000, guid: d9aa00801b4265c4faf981e06fd92004, type: 2}
   BulletAnim: {fileID: 9100000, guid: ad6d7160b7031934e899894cf44f4413, type: 2}
-  AttackPower: 5
   Speed: 300
   HeartCount: 3
   ShieldCount: 1
   Distance: 10
   BaseWeaponCount: 1
+  BasePower: 5
+  BaseAttackSpeedTime: 0.5
+  BaseBulletLarge: 1.5

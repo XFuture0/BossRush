@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class AllPlayerController : MonoBehaviour
 {
+    [System.Serializable]
+    public class ExtraGemBonus
+    {
+        public float ShootBonus;
+        public float DamageBonus;
+        public float SpeedBonus;
+        public float BiggerBonus;
+        public float WeaponBonus;
+    }
+    public ExtraGemBonus TeamerBonus;
     private Animator anim;
     private BoxCollider2D boxCollider;
     private int TeamerCount;
@@ -22,6 +32,11 @@ public class AllPlayerController : MonoBehaviour
     public CircleCollider2D Teamer1Collider;
     public CircleCollider2D Teamer2Collider;
     public CircleCollider2D Teamer3Collider;
+    [Header(" Ù–‘")]
+    public Weapon PlayerWeapon;
+    public Weapon Teamer1Weapon;
+    public Weapon Teamer2Weapon;
+    public Weapon Teamer3Weapon;
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -34,6 +49,11 @@ public class AllPlayerController : MonoBehaviour
         Speed = PlayerData.Player.Speed;
         PlayerCollider.radius = PlayerData.Player.Distance;
         PlayerData.PlayerWeaponSlotCount = PlayerData.Player.BaseWeaponCount;
+        PlayerWeapon.AttackPower = PlayerData.Player.BasePower;
+        PlayerWeapon.AttackSpeedTime = PlayerData.Player.BaseAttackSpeedTime;
+        PlayerWeapon.BulletLarge = PlayerData.Player.BaseBulletLarge;
+        GameManager.Instance.PlayerData.PlayerExtraGemData.ExtraGemList.Clear();
+        GameManager.Instance.PlayerData.PlayerExtraGemData.EmptyGemSlotCount = 0;
         RefreshSlimeData(PlayerData.Player);
         TeamerCount = 1;
         if(PlayerData.Teamer1 == null)
@@ -49,6 +69,11 @@ public class AllPlayerController : MonoBehaviour
             ShieldCount += PlayerData.Teamer1.ShieldCount;
             Teamer1Collider.radius = PlayerData.Teamer1.Distance; 
             PlayerData.Teamer1WeaponSlotCount = PlayerData.Teamer1.BaseWeaponCount;
+            Teamer1Weapon.AttackPower = PlayerData.Teamer1.BasePower;
+            Teamer1Weapon.AttackSpeedTime = PlayerData.Teamer1.BaseAttackSpeedTime;
+            Teamer1Weapon.BulletLarge = PlayerData.Teamer1.BaseBulletLarge;
+            GameManager.Instance.PlayerData.Teamer1ExtraGemData.ExtraGemList.Clear();
+            GameManager.Instance.PlayerData.Teamer1ExtraGemData.EmptyGemSlotCount = 0;
         }
         if(PlayerData.Teamer2 == null)
         {
@@ -63,6 +88,11 @@ public class AllPlayerController : MonoBehaviour
             ShieldCount += PlayerData.Teamer2.ShieldCount;
             Teamer2Collider.radius = PlayerData.Teamer2.Distance;
             PlayerData.Teamer2WeaponSlotCount = PlayerData.Teamer2.BaseWeaponCount;
+            Teamer2Weapon.AttackPower = PlayerData.Teamer2.BasePower;
+            Teamer2Weapon.AttackSpeedTime = PlayerData.Teamer2.BaseAttackSpeedTime;
+            Teamer2Weapon.BulletLarge = PlayerData.Teamer2.BaseBulletLarge;
+            GameManager.Instance.PlayerData.Teamer2ExtraGemData.ExtraGemList.Clear();
+            GameManager.Instance.PlayerData.Teamer2ExtraGemData.EmptyGemSlotCount = 0;
         }
         if (PlayerData.Teamer3 == null)
         {
@@ -77,6 +107,11 @@ public class AllPlayerController : MonoBehaviour
             ShieldCount += PlayerData.Teamer3.ShieldCount;
             Teamer3Collider.radius = PlayerData.Teamer3.Distance;
             PlayerData.Teamer3WeaponSlotCount = PlayerData.Teamer3.BaseWeaponCount;
+            Teamer3Weapon.AttackPower = PlayerData.Teamer3.BasePower;
+            Teamer3Weapon.AttackSpeedTime = PlayerData.Teamer3.BaseAttackSpeedTime;
+            Teamer3Weapon.BulletLarge = PlayerData.Teamer3.BaseBulletLarge;
+            GameManager.Instance.PlayerData.Teamer3ExtraGemData.ExtraGemList.Clear();
+            GameManager.Instance.PlayerData.Teamer3ExtraGemData.EmptyGemSlotCount = 0;
         }
         GameManager.Instance.PlayerStats.CharacterData_Temp.MaxHealth = HeartCount;
         GameManager.Instance.PlayerStats.CharacterData_Temp.NowHealth = HeartCount;
@@ -150,5 +185,51 @@ public class AllPlayerController : MonoBehaviour
             Teamer3Collider.radius = PlayerData.Teamer3.Distance;
         }
         SetBoxCollider();
+        RefreshTeamExtraGemBonus();
+    }
+    public void RefreshTeamExtraGemBonus()
+    {
+        CheckExtraGemBonus(GameManager.Instance.PlayerData.PlayerExtraGemData);
+        if(PlayerData.Teamer1 != null)
+        {
+            Teamer1.GetComponent<PlayerTeamer>().CheckExtraGemBonus(GameManager.Instance.PlayerData.Teamer1ExtraGemData, GameManager.Instance.PlayerData.Teamer1);
+        }
+        if (PlayerData.Teamer2 != null)
+        {
+            Teamer2.GetComponent<PlayerTeamer>().CheckExtraGemBonus(GameManager.Instance.PlayerData.Teamer2ExtraGemData, GameManager.Instance.PlayerData.Teamer2);
+        }
+        if (PlayerData.Teamer3 != null)
+        {
+            Teamer3.GetComponent<PlayerTeamer>().CheckExtraGemBonus(GameManager.Instance.PlayerData.Teamer3ExtraGemData, GameManager.Instance.PlayerData.Teamer3);
+        }
+    }
+    public void CheckExtraGemBonus(ExtraGemData extraGemData)
+    {
+        foreach (var extragem in extraGemData.ExtraGemList)
+        {
+            switch (extragem.GemType)
+            {
+                case GemType.ShootGem:
+                    TeamerBonus.ShootBonus += extragem.GemBonus;
+                    break;
+                case GemType.DamageGem:
+                    TeamerBonus.DamageBonus += extragem.GemBonus;
+                    break;
+                case GemType.SpeedGem:
+                    TeamerBonus.SpeedBonus += extragem.GemBonus;
+                    break;
+                case GemType.BiggerGem:
+                    TeamerBonus.BiggerBonus += extragem.GemBonus;
+                    break;
+            }
+        }
+        AddExtraGemBonus();
+    }
+    private void AddExtraGemBonus()
+    {
+        PlayerCollider.radius = PlayerData.Player.Distance + TeamerBonus.ShootBonus;
+        WeaponBox.GetComponent<Weapon>().AttackPower = PlayerData.Player.BasePower + TeamerBonus.DamageBonus;
+        WeaponBox.GetComponent<Weapon>().AttackSpeedTime = PlayerData.Player.BaseAttackSpeedTime - TeamerBonus.SpeedBonus;
+        WeaponBox.GetComponent<Weapon>().BulletLarge = PlayerData.Player.BaseBulletLarge + TeamerBonus.BiggerBonus;
     }
 }

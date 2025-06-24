@@ -20,7 +20,7 @@ public class RoomCanvs : MonoBehaviour
     }
     private void OnChangeButton()
     {
-        if (MiniRoomCanvs.FindMiniSlot("TransmissionTower") || MiniRoomCanvs.FindMiniSlot("StartDoor"))
+        if (MiniRoomCanvs.FindMiniSlot("TransmissionTower") || MiniRoomCanvs.FindMiniSlot("StartRoomMini"))
         {
             MapManager.Instance.TransmissionRoom(Target.transform.position);
         }

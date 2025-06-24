@@ -16,4 +16,7 @@ public class SlimeData : ScriptableObject
     public float ShieldCount;//护盾值
     public float Distance;//攻击距离
     public int BaseWeaponCount;//基础武器槽数量
+    public float BasePower;//基础攻击力
+    public float BaseAttackSpeedTime;//基础攻击速度
+    public float BaseBulletLarge;//基础子弹大小
 }

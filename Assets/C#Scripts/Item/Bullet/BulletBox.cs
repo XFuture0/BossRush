@@ -10,7 +10,6 @@ public class BulletBox : MonoBehaviour
     public Bullet bullet;
     private Animator anim;
     [Header("¹¥ËÙ¼ÆÊ±Æ÷")]
-    public float BaseAttackSpeedTime;
     private float AttackSpeedTime_Count;
     private void Awake()
     {
@@ -33,11 +32,11 @@ public class BulletBox : MonoBehaviour
         {
             if (GameManager.Instance.Player().TurbulentRadiation)
             {
-                AttackSpeedTime_Count = BaseAttackSpeedTime * (GameManager.Instance.Player().AttackRate - GameManager.Instance.Player().WaterElementBonus * 0.2f);
+                AttackSpeedTime_Count = transform.parent.parent.GetComponent<Weapon>().AttackSpeedTime;
             }
             else
             {
-                AttackSpeedTime_Count = BaseAttackSpeedTime * GameManager.Instance.Player().AttackRate;
+                AttackSpeedTime_Count = transform.parent.parent.GetComponent<Weapon>().AttackSpeedTime;
             }
             if (GameManager.Instance.Player().MucusDeathRage)
             {
@@ -53,6 +52,9 @@ public class BulletBox : MonoBehaviour
     private void SetBullet()
     {
         var NewBullet = Instantiate(bullet, transform.GetChild(0));
+        NewBullet.GetComponent<Bullet>().AttackPower = transform.parent.parent.GetComponent<Weapon>().AttackPower;
+        var NewBulletLarge = transform.parent.parent.GetComponent<Weapon>().BulletLarge;
+        NewBullet.transform.localScale = new Vector3(NewBulletLarge,NewBulletLarge, 1);
         var bulletRotation = ((Vector2)transform.GetChild(0).position - (Vector2)transform.position).normalized;
         NewBullet.GetComponent<Bullet>().BulletRotation = bulletRotation;
         NewBullet.transform.SetParent(bulletBox);

@@ -14,6 +14,9 @@ public class Weapon : MonoBehaviour
     private int WeaponCount = -1;
     private int RealWeaponCount;
     public SlimeData SlimeData;
+    public float AttackPower;
+    public float AttackSpeedTime;
+    public float BulletLarge;
     private void Update()
     {
         if (!SceneChangeManager.Instance.EndCanvs.activeSelf)

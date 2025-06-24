@@ -43,6 +43,7 @@ public class MapCharacrter : MonoBehaviour
     private bool HaveSheild;
     private bool HaveGem;
     private bool HaveTreasureBox;
+    private bool HaveExtraGem;
     public GameObject TransmissionMini;
     public GameObject ShopMini;
     public GameObject BossMini;
@@ -52,6 +53,7 @@ public class MapCharacrter : MonoBehaviour
     public GameObject SheildMini;
     public GameObject GemMini;
     public GameObject TreasureBoxMini;
+    public GameObject ExtraGemMini;
     [Header("ÊÂ¼þ¼àÌý")]
     public VoidEventSO GetItemEvent;
     private void OnEnable()
@@ -217,6 +219,22 @@ public class MapCharacrter : MonoBehaviour
                         HaveTreasureBox = true;
                         MiniRoomCanvs.SetMiniRoom(TreasureBoxMini);
                         break;
+                    case ItemType.ShootGem:
+                        HaveExtraGem = true;
+                        MiniRoomCanvs.SetMiniRoom(ExtraGemMini);
+                        break;
+                    case ItemType.DamageGem:
+                        HaveExtraGem = true;
+                        MiniRoomCanvs.SetMiniRoom(ExtraGemMini);
+                        break;
+                    case ItemType.SpeedGem:
+                        HaveExtraGem = true;
+                        MiniRoomCanvs.SetMiniRoom(ExtraGemMini);
+                        break;
+                    case ItemType.BiggerGem:
+                        HaveExtraGem = true;
+                        MiniRoomCanvs.SetMiniRoom(ExtraGemMini);
+                        break;
                 }
             }
             if (!HaveCoin)
@@ -238,6 +256,10 @@ public class MapCharacrter : MonoBehaviour
             if (!HaveTreasureBox)
             {
                 MiniRoomCanvs.RemoveMiniRoom(TreasureBoxMini);
+            }
+            if (!HaveExtraGem)
+            {
+                MiniRoomCanvs.RemoveMiniRoom(ExtraGemMini);
             }
         }
     }

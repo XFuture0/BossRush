@@ -5,6 +5,7 @@ using UnityEngine;
 public class TreasureBox : MonoBehaviour
 {
     private bool IsPlayer;
+    private bool HaveExtraGem;
     public GameObject RKey;
     public TreasureList TreasureList;
     private void Update()
@@ -38,8 +39,20 @@ public class TreasureBox : MonoBehaviour
             var Treasure_Probability = UnityEngine.Random.Range(0f,100f);
             if(Treasure_Probability < Treasure.Probability)
             {
-                Instantiate(Treasure.ItemObject,transform.position + new Vector3(0,1.5f,0),Quaternion.identity);
-                yield return new WaitForSeconds(0.1f);
+                if(Treasure.ItemObject.tag == "ExtraGem")
+                {
+                    if (!HaveExtraGem)
+                    {
+                        HaveExtraGem = true;
+                        Instantiate(Treasure.ItemObject, transform.position + new Vector3(0, 1.5f, 0), Quaternion.identity);
+                        yield return new WaitForSeconds(0.1f);
+                    }
+                }
+                else if(!(Treasure.ItemObject.tag == "ExtraGem"))
+                {
+                    Instantiate(Treasure.ItemObject, transform.position + new Vector3(0, 1.5f, 0), Quaternion.identity);
+                    yield return new WaitForSeconds(0.1f);
+                }
             }
         }
         Destroy(gameObject);

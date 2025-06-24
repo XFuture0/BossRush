@@ -27,6 +27,11 @@ public class PlayerData : ScriptableObject
     public int Teamer1WeaponSlotCount;
     public int Teamer2WeaponSlotCount;
     public int Teamer3WeaponSlotCount;
+    public ExtraGemData PlayerExtraGemData;
+    public ExtraGemData Teamer1ExtraGemData;
+    public ExtraGemData Teamer2ExtraGemData;
+    public ExtraGemData Teamer3ExtraGemData;
     public int FreeWeaponSlotCount;
     public int EmptyWeaponSlotCount;
+    public ExtraGemData ExtraGemData;
 }

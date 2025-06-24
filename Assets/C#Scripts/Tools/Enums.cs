@@ -49,6 +49,10 @@ public enum ItemType
     ShieldItem,
     GemItem,
     TreasureBox,
+    ShootGem,
+    DamageGem,
+    SpeedGem,
+    BiggerGem,
 }
 public enum HeartType
 {
@@ -61,5 +65,12 @@ public enum TeamerType
     Teamer1,
     Teamer2,
     Teamer3,
+}
+public enum GemType
+{
+    ShootGem,
+    DamageGem,
+    SpeedGem,
+    BiggerGem,
 }
 

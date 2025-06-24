@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour
     private Animator anim;
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;
-    public int AttackPower;
+    public float AttackPower;
     public Vector2 BulletRotation;
     public float BulletSpeed;
     private bool IsHit;

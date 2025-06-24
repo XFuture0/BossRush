@@ -41,6 +41,10 @@ public class MapManager : SingleTons<MapManager>
     public GameObject ShieldItem;
     public GameObject GemItem;
     public GameObject TreasureBox;
+    public GameObject ShootGem;
+    public GameObject DamageGem;
+    public GameObject SpeedGem;
+    public GameObject BiggerGem;
     [Header("¹ã²¥")]
     public VoidEventSO SaveItemEvent;
     public VoidEventSO ClearItemEvent;
@@ -472,6 +476,22 @@ public class MapManager : SingleTons<MapManager>
                 var NewTreasureBox = Instantiate(TreasureBox, item.ItemPosition,Quaternion.identity,ItemBox);
                 NewTreasureBox.GetComponent<DroppedItems>().Thisitem.Index = item.Index;
                 break;
+            case ItemType.ShootGem:
+                var NewShootGem = Instantiate(ShootGem, item.ItemPosition,Quaternion.identity,ItemBox);
+                NewShootGem.GetComponent<DroppedItems>().Thisitem.Index = item.Index;
+                break;
+            case ItemType.DamageGem: 
+                var NewDamageGem = Instantiate(DamageGem, item.ItemPosition,Quaternion.identity,ItemBox);
+                NewDamageGem.GetComponent<DroppedItems>().Thisitem.Index = item.Index;
+                break;
+            case ItemType.SpeedGem: 
+                var NewSpeedGem = Instantiate(SpeedGem, item.ItemPosition,Quaternion.identity,ItemBox);
+                NewSpeedGem.GetComponent<DroppedItems>().Thisitem.Index = item.Index;
+                break;
+            case ItemType.BiggerGem:
+                var NewBiggerGem = Instantiate(BiggerGem, item.ItemPosition,Quaternion.identity,ItemBox);
+                NewBiggerGem.GetComponent<DroppedItems>().Thisitem.Index = item.Index;
+                break;
         }
     }
     private void ChooseNewRoom(int Count)
@@ -523,9 +543,24 @@ public class MapManager : SingleTons<MapManager>
     private void ReFreshShop()
     {
         MapData.Goods1 = GemItem;
-        MapData.Goods2 = Coin;
+        MapData.Goods2 = ChooseExtraGem(UnityEngine.Random.Range(0, 4));
         MapData.Goods3 = HeartItem;
         MapData.Goods4 = ShieldItem;
+    }
+    private GameObject ChooseExtraGem(int Count)
+    {
+        switch (Count)
+        {
+            case 0:
+                return ShootGem;
+            case 1:
+                return DamageGem;
+            case 2:
+                return SpeedGem;
+            case 3:
+                return BiggerGem;
+        }
+        return null;
     }
     public void ClearMonster()
     {

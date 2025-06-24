@@ -5,7 +5,18 @@ using UnityEngine;
 
 public class PlayerTeamer : MonoBehaviour
 {
+    [System.Serializable]
+    public class ExtraGemBonus
+    {
+        public float ShootBonus;
+        public float DamageBonus;
+        public float SpeedBonus;
+        public float BiggerBonus;
+        public float WeaponBonus;
+    }
+    public ExtraGemBonus TeamerBonus;
     private Animator anim;
+    public CircleCollider2D TeamerCollider;
     public GameObject Player;
     public GameObject WeaponBox;
     private void Awake()
@@ -33,5 +44,34 @@ public class PlayerTeamer : MonoBehaviour
     {
         anim.runtimeAnimatorController = slimeData.SlimeAnim;
         WeaponBox.GetComponent<Weapon>().SlimeData = slimeData;
+    }
+    public void CheckExtraGemBonus(ExtraGemData extraGemData,SlimeData ThisSlime)
+    {
+        foreach (var extragem in extraGemData.ExtraGemList)
+        {
+            switch (extragem.GemType)
+            {
+                case GemType.ShootGem: 
+                    TeamerBonus.ShootBonus += extragem.GemBonus;
+                    break;
+                case GemType.DamageGem: 
+                    TeamerBonus.DamageBonus += extragem.GemBonus;
+                    break;
+                case GemType.SpeedGem: 
+                    TeamerBonus.SpeedBonus += extragem.GemBonus;
+                    break;
+                case GemType.BiggerGem: 
+                    TeamerBonus.BiggerBonus += extragem.GemBonus;
+                    break;
+            }
+        }
+        AddExtraGemBonus(ThisSlime);
+    }
+    private void AddExtraGemBonus(SlimeData ThisSlime)
+    {
+        TeamerCollider.radius = ThisSlime.Distance + TeamerBonus.ShootBonus;
+        WeaponBox.GetComponent<Weapon>().AttackPower = ThisSlime.BasePower + TeamerBonus.DamageBonus;
+        WeaponBox.GetComponent<Weapon>().AttackSpeedTime = ThisSlime.BaseAttackSpeedTime - TeamerBonus.SpeedBonus;
+        WeaponBox.GetComponent<Weapon>().BulletLarge = ThisSlime.BaseBulletLarge + TeamerBonus.BiggerBonus;
     }
 }

@@ -296,6 +296,10 @@ public class DataManager : SingleTons<DataManager>
             GameManager.Instance.PlayerData.Teamer3 = null;
             GameManager.Instance.PlayerData.FreeWeaponSlotCount = 0;
             GameManager.Instance.PlayerData.EmptyWeaponSlotCount = 0;
+            GameManager.Instance.PlayerData.ExtraGemData.ExtraGemList.Clear();
+            GameManager.Instance.PlayerData.ExtraGemData.EmptyGemSlotCount = 0;
+            GameManager.Instance.PlayerData.PlayerExtraGemData.ExtraGemList.Clear();
+            GameManager.Instance.PlayerData.PlayerExtraGemData.EmptyGemSlotCount = 0;
             PlayerEquipManager.Instance.ChangeWeapon(0);
             PlayerEquipManager.Instance.ChangeHat(0);
             ColorManager.Instance.ReSetColor();

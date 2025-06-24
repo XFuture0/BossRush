@@ -5,9 +5,14 @@ using UnityEngine.EventSystems;
 
 public class WeaponGemDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
+    public ExtraGemData.ExtraGem ThisExtraGem;
     private Transform LastParent;
+    public bool IsWeaponGem;
+    public bool IsExtraGem;
     public void OnBeginDrag(PointerEventData eventData)
     {
+        IsWeaponGem = false;
+        IsExtraGem = false;
         DeleteWeapon();
         LastParent = eventData.pointerDrag.transform.parent;
         eventData.pointerDrag.transform.SetParent(transform.parent.parent.parent.parent);
@@ -31,57 +36,146 @@ public class WeaponGemDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
             {
                 transform.SetParent(raycastResult.gameObject.transform);
                 gameObject.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-                GetWeapon();
+                GetWeapon(eventData);
                 return;
             }
         }
         eventData.pointerDrag.transform.SetParent(LastParent);
         gameObject.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-        GetWeapon();
+        GetWeapon(eventData);
     }
     private void DeleteWeapon()
     {
         switch (transform.parent.parent.parent.name)
         {
             case "TeamerSlot":
-                GameManager.Instance.PlayerData.Teamer3WeaponSlotCount--;
+                if(ThisExtraGem.GemBonus == 0)
+                {
+                    GameManager.Instance.PlayerData.Teamer3WeaponSlotCount--;
+                    IsWeaponGem = true;
+                }
+                else if(ThisExtraGem.GemBonus != 0)
+                {
+                    GameManager.Instance.PlayerData.Teamer3ExtraGemData.ExtraGemList.Remove(ThisExtraGem);
+                    IsExtraGem = true;
+                }
                 break;
             case "TeamerSlot1":
-                GameManager.Instance.PlayerData.Teamer2WeaponSlotCount--;
+                if (ThisExtraGem.GemBonus == 0)
+                {
+                    GameManager.Instance.PlayerData.Teamer2WeaponSlotCount--;
+                    IsWeaponGem = true;
+                }
+                else if (ThisExtraGem.GemBonus != 0)
+                {
+                    GameManager.Instance.PlayerData.Teamer2ExtraGemData.ExtraGemList.Remove(ThisExtraGem);
+                    IsExtraGem = true;
+                }
                 break;
             case "TeamerSlot2":
-                GameManager.Instance.PlayerData.Teamer1WeaponSlotCount--;
+                if (ThisExtraGem.GemBonus == 0)
+                {
+                    GameManager.Instance.PlayerData.Teamer1WeaponSlotCount--;
+                    IsWeaponGem = true;
+                }
+                else if (ThisExtraGem.GemBonus != 0)
+                {
+                    GameManager.Instance.PlayerData.Teamer1ExtraGemData.ExtraGemList.Remove(ThisExtraGem);
+                    IsExtraGem = true;
+                }
                 break;
             case "TeamerSlot3":
-                GameManager.Instance.PlayerData.PlayerWeaponSlotCount--;
+                if (ThisExtraGem.GemBonus == 0)
+                {
+                    GameManager.Instance.PlayerData.PlayerWeaponSlotCount--;
+                    IsWeaponGem = true;
+                }
+                else if (ThisExtraGem.GemBonus != 0)
+                {
+                    GameManager.Instance.PlayerData.PlayerExtraGemData.ExtraGemList.Remove(ThisExtraGem);
+                    IsExtraGem = true;
+                }
                 break;
-            case "GemBag":
+            case "WeaponGemBag":
+                IsWeaponGem = true;
                 GameManager.Instance.PlayerData.FreeWeaponSlotCount--;
                 GameManager.Instance.PlayerData.EmptyWeaponSlotCount++;
                 break;
+            case "ExtraGemBag":
+                IsExtraGem = true;
+                GameManager.Instance.PlayerData.ExtraGemData.ExtraGemList.Remove(ThisExtraGem);
+                GameManager.Instance.PlayerData.ExtraGemData.EmptyGemSlotCount++;
+                break;
         }
     }
-    private void GetWeapon()
+    private void GetWeapon(PointerEventData eventData)
     {
         switch (transform.parent.parent.parent.name)
         {
             case "TeamerSlot":
-                GameManager.Instance.PlayerData.Teamer3WeaponSlotCount++;
+                if (IsWeaponGem)
+                {
+                    GameManager.Instance.PlayerData.Teamer3WeaponSlotCount++;
+                }
+                else if (IsExtraGem)
+                {
+                    GameManager.Instance.PlayerData.Teamer3ExtraGemData.ExtraGemList.Add(ThisExtraGem);
+                }
                 break;
             case "TeamerSlot1":
-                GameManager.Instance.PlayerData.Teamer2WeaponSlotCount++;
+                if (IsWeaponGem)
+                {
+                    GameManager.Instance.PlayerData.Teamer2WeaponSlotCount++;
+                }
+                else if (IsExtraGem)
+                {
+                    GameManager.Instance.PlayerData.Teamer2ExtraGemData.ExtraGemList.Add(ThisExtraGem);
+                }
                 break;
             case "TeamerSlot2":
-                GameManager.Instance.PlayerData.Teamer1WeaponSlotCount++;
+                if (IsWeaponGem)
+                {
+                    GameManager.Instance.PlayerData.Teamer1WeaponSlotCount++;
+                }
+                else if (IsExtraGem)
+                {
+                    GameManager.Instance.PlayerData.Teamer1ExtraGemData.ExtraGemList.Add(ThisExtraGem);
+                }
                 break;
             case "TeamerSlot3":
-                GameManager.Instance.PlayerData.PlayerWeaponSlotCount++;
+                if (IsWeaponGem)
+                {
+                    GameManager.Instance.PlayerData.PlayerWeaponSlotCount++;
+                }
+                else if (IsExtraGem)
+                {
+                    GameManager.Instance.PlayerData.PlayerExtraGemData.ExtraGemList.Add(ThisExtraGem);
+                }
                 break;
-            case "GemBag":
+            case "WeaponGemBag":
+                if (IsExtraGem)
+                {
+                    eventData.pointerDrag.transform.SetParent(LastParent);
+                    gameObject.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+                    GetWeapon(eventData);
+                    return;
+                }
                 GameManager.Instance.PlayerData.FreeWeaponSlotCount++;
                 GameManager.Instance.PlayerData.EmptyWeaponSlotCount--;
                 break;
+            case "ExtraGemBag":
+                if (IsWeaponGem)
+                {
+                    eventData.pointerDrag.transform.SetParent(LastParent);
+                    gameObject.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+                    GetWeapon(eventData);
+                    return;
+                }
+                GameManager.Instance.PlayerData.ExtraGemData.ExtraGemList.Add(ThisExtraGem);
+                GameManager.Instance.PlayerData.ExtraGemData.EmptyGemSlotCount--;
+                break;
         }
+        GameManager.Instance.PlayerStats.gameObject.GetComponent<AllPlayerController>().RefreshTeamExtraGemBonus();
         DataManager.Instance.Save(DataManager.Instance.Index);//´æµµ
     }
 }

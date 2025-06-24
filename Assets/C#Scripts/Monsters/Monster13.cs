@@ -12,6 +12,11 @@ public class Monster13 : MonoBehaviour
     public Vector2 PositionRight;
     public Vector2 PositionLeftCenter;
     public Vector2 PositionRightCenter;
+    [Header("自动跳跃计时器")]
+    private Vector3 LastPosition = Vector3.zero;
+    public float AutoUpTime;
+    private float AutoUpTime_Count;
+    public float AutoUpSpeed;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -40,6 +45,10 @@ public class Monster13 : MonoBehaviour
             LeftWalk();
         }
     }
+    private void Update()
+    {
+        AutoUp();
+    }
     private void LeftWalk()
     {
         rb.velocity = new Vector2(-ThisStats.CharacterData_Temp.Speed, 0);
@@ -54,5 +63,21 @@ public class Monster13 : MonoBehaviour
         Gizmos.DrawSphere((Vector2)transform.position + PositionRight, 0.1f);
         Gizmos.DrawSphere((Vector2)transform.position + PositionLeftCenter, 0.1f);
         Gizmos.DrawSphere((Vector2)transform.position + PositionRightCenter, 0.1f);
+    }
+    private void AutoUp()
+    {
+        if (LastPosition != transform.position)
+        {
+            AutoUpTime_Count = AutoUpTime;
+        }
+        if (AutoUpTime_Count > -2)
+        {
+            AutoUpTime_Count -= Time.deltaTime;
+        }
+        if (AutoUpTime_Count < 0)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + AutoUpSpeed);
+        }
+        LastPosition = transform.position;
     }
 }

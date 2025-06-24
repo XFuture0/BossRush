@@ -18,7 +18,7 @@ MonoBehaviour:
   JumpDownSpeed_Max: -18
   CoinCount: 31
   StartGame: 1
-  PlayerPosition: {x: 62.079865, y: 12.515024, z: 0}
+  PlayerPosition: {x: -22.31, y: -0.2, z: 0}
   RoomType: 3
   CurrentScene: {fileID: 11400000, guid: 2e9a28ac1d2d60945a3b351ceced992b, type: 2}
   HatData:
@@ -51,12 +51,17 @@ MonoBehaviour:
     Color2: {r: 0.9254902, g: 0.9254902, b: 0.9254902, a: 1}
     FrultSprite: {fileID: -1398823267, guid: 1926959cc2c6c184eab08e48e726b482, type: 3}
   Player: {fileID: 11400000, guid: 4effde7ee5bcac14b827a7bb2fe953aa, type: 2}
-  Teamer1: {fileID: 0}
-  Teamer2: {fileID: 0}
-  Teamer3: {fileID: 0}
+  Teamer1: {fileID: 11400000, guid: 4effde7ee5bcac14b827a7bb2fe953aa, type: 2}
+  Teamer2: {fileID: 11400000, guid: 4effde7ee5bcac14b827a7bb2fe953aa, type: 2}
+  Teamer3: {fileID: 11400000, guid: 4effde7ee5bcac14b827a7bb2fe953aa, type: 2}
   PlayerWeaponSlotCount: 1
   Teamer1WeaponSlotCount: 1
   Teamer2WeaponSlotCount: 0
   Teamer3WeaponSlotCount: 0
+  PlayerExtraGemData: {fileID: 11400000, guid: 1473f5e0b0dab674eaf6a4e49a17cbdf, type: 2}
+  Teamer1ExtraGemData: {fileID: 11400000, guid: 7c1a2465e3ab5d04f85ff670325c8a7d, type: 2}
+  Teamer2ExtraGemData: {fileID: 11400000, guid: 0008f294bd5407f4e9e8c3a0bd2cc112, type: 2}
+  Teamer3ExtraGemData: {fileID: 11400000, guid: 7850bc9d4aa6607458a321dffbbc869a, type: 2}
   FreeWeaponSlotCount: 0
   EmptyWeaponSlotCount: 0
+  ExtraGemData: {fileID: 11400000, guid: 0f02373883893d442ac3d0fa6bcc87d6, type: 2}

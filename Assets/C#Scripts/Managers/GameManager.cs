@@ -107,7 +107,22 @@ public class GameManager : SingleTons<GameManager>
             {
                 CriticalDamageBonus += 0.2f;
             }
-            Defender.CharacterData_Temp.NowHealth -= (Attacker.CharacterData_Temp.AttackPower + Attacker.CharacterData_Temp.WeaponAttackPower) * CriticalDamageBonus * Attacker.CharacterData_Temp.AttackBonus;
+            var DamageCount = (Attacker.CharacterData_Temp.AttackPower + Attacker.CharacterData_Temp.WeaponAttackPower) * CriticalDamageBonus * Attacker.CharacterData_Temp.AttackBonus;
+            if (Defender.CharacterData_Temp.Shield > 0)
+            {
+                var ShieldCount = Defender.CharacterData_Temp.Shield;
+                Defender.CharacterData_Temp.Shield -=  DamageCount;
+                if (Defender.CharacterData_Temp.Shield < 0)
+                {
+                    Defender.CharacterData_Temp.Shield = 0;
+                    DamageCount -= (int)ShieldCount;
+                }
+                else if (Defender.CharacterData_Temp.Shield >= 0)
+                {
+                    DamageCount = 0;
+                }
+            }
+            Defender.CharacterData_Temp.NowHealth -= DamageCount;
             Defender.Invincible = true;
             Defender.InvincibleTime_Count = Defender.CharacterData.InvincibleTime;
             if (Defender.CharacterData_Temp.NowHealth <= 0)
@@ -169,7 +184,7 @@ public class GameManager : SingleTons<GameManager>
             }
         }
     }
-    public void Attack(CharacterStats Defender,int Count)
+    public void Attack(CharacterStats Defender,float Count)
     {
         if (Defender.CharacterData_Temp.ShengqiCore)
         {
@@ -181,6 +196,20 @@ public class GameManager : SingleTons<GameManager>
         }
         if (!Defender.Invincible)
         {
+            if(Defender.CharacterData_Temp.Shield > 0)
+            {
+                var ShieldCount = Defender.CharacterData_Temp.Shield;
+                Defender.CharacterData_Temp.Shield -= Count;
+                if(Defender.CharacterData_Temp.Shield < 0)
+                {
+                    Defender.CharacterData_Temp.Shield = 0;
+                    Count -= (int)ShieldCount;
+                }
+                else if(Defender.CharacterData_Temp.Shield >= 0)
+                {
+                    Count = 0;
+                }
+            }
             Defender.CharacterData_Temp.NowHealth -= Count;
             if (Defender.CharacterData_Temp.NowHealth <= 0)
             {
@@ -292,8 +321,6 @@ public class GameManager : SingleTons<GameManager>
     }
     public void RefreshPlayer()
     {
-        PlayerStats.CharacterData_Temp = Instantiate(PlayerStats.CharacterData);
-        PlayerStats.CharacterData_Temp.NowHealth = PlayerStats.CharacterData_Temp.MaxHealth;//»Ø¸´ÑªÁ¿
         AngerPanel.SetActive(true);
         PlayerStats.gameObject.GetComponent<PlayerController>().Isdead = false;
         ChangePlayerAngerSkill(1);

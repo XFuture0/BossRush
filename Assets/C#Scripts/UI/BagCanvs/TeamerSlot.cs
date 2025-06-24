@@ -8,7 +8,12 @@ public class TeamerSlot : MonoBehaviour
 {
     public Image PlayerImage;
     public Image[] GemSlots;
+    [Header("±¦Ê¯")]
     public GameObject WeaponGem;
+    public GameObject ShootGem;
+    public GameObject DamageGem;
+    public GameObject SpeedGem;
+    public GameObject BiggerGem;
     private void OnEnable()
     {
         RefreshImage();
@@ -32,11 +37,36 @@ public class TeamerSlot : MonoBehaviour
                 break;
         }
     }
-    public void RefreshGem(int Count)
+    public void RefreshGem(int Count,ExtraGemData extraGemData)
     {
-        for(int i = 0; i < Count; i++)
+        for(int i = 0; i < Count + extraGemData.ExtraGemList.Count; i++)
         {
-            Instantiate(WeaponGem, GemSlots[i].transform);
+            if(i < Count)
+            {
+                Instantiate(WeaponGem, GemSlots[i].transform);
+            }
+            else if(i >= Count)
+            {
+                switch(extraGemData.ExtraGemList[i - Count].GemType)
+                {
+                    case GemType.ShootGem:
+                        var NewShootGem = Instantiate(ShootGem, GemSlots[i].transform);
+                        NewShootGem.GetComponent<WeaponGemDrag>().ThisExtraGem.GemBonus = extraGemData.ExtraGemList[i - Count].GemBonus;
+                        break;
+                    case GemType.DamageGem:
+                        var NewDamageGem = Instantiate(DamageGem, GemSlots[i].transform);
+                        NewDamageGem.GetComponent<WeaponGemDrag>().ThisExtraGem.GemBonus = extraGemData.ExtraGemList[i - Count].GemBonus;
+                        break;
+                    case GemType.SpeedGem:
+                        var NewSpeedGem = Instantiate(SpeedGem, GemSlots[i].transform);
+                        NewSpeedGem.GetComponent<WeaponGemDrag>().ThisExtraGem.GemBonus = extraGemData.ExtraGemList[i - Count].GemBonus;
+                        break;
+                    case GemType.BiggerGem:
+                        var NewBiggerGem = Instantiate(BiggerGem, GemSlots[i].transform);
+                        NewBiggerGem.GetComponent<WeaponGemDrag>().ThisExtraGem.GemBonus = extraGemData.ExtraGemList[i - Count].GemBonus;
+                        break;
+                }
+            }
         }
     }
     private void OnDisable()

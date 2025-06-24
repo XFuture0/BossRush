@@ -17,6 +17,11 @@ public class Monster14 : MonoBehaviour
     [Header("射击计时器")]
     public float ShootTime;
     private float ShootTime_Count;
+    [Header("自动跳跃计时器")]
+    private Vector3 LastPosition = Vector3.zero;
+    public float AutoUpTime;
+    private float AutoUpTime_Count;
+    public float AutoUpSpeed;
     private void Awake()
     {
         ShootTime_Count = ShootTime;
@@ -38,6 +43,7 @@ public class Monster14 : MonoBehaviour
             ShootTime_Count = ShootTime;
             Shoot();
         }
+        AutoUp();
     }
     private void FixedUpdate()
     {
@@ -76,5 +82,21 @@ public class Monster14 : MonoBehaviour
     private void Shoot()
     {
         var NewBall1 = Instantiate(ShootBall, transform.position + new Vector3(0,0.5f,0), Quaternion.identity);
+    }
+    private void AutoUp()
+    {
+        if (LastPosition != transform.position)
+        {
+            AutoUpTime_Count = AutoUpTime;
+        }
+        if (AutoUpTime_Count > -2)
+        {
+            AutoUpTime_Count -= Time.deltaTime;
+        }
+        if (AutoUpTime_Count < 0)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + AutoUpSpeed);
+        }
+        LastPosition = transform.position;
     }
 }

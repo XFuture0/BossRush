@@ -10,7 +10,6 @@ public class EndCanvs : MonoBehaviour
     public Button ReturnButton;
     public SceneData CurrentScene;
     public SceneData NextScene;
-    public Text ScoreText;
     private void Awake()
     {
         ReturnButton.onClick.AddListener(EndGame);
