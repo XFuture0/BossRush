@@ -12,7 +12,6 @@ public class PlayerTeamer : MonoBehaviour
         public float DamageBonus;
         public float SpeedBonus;
         public float BiggerBonus;
-        public float WeaponBonus;
     }
     public ExtraGemBonus TeamerBonus;
     private Animator anim;
@@ -47,6 +46,10 @@ public class PlayerTeamer : MonoBehaviour
     }
     public void CheckExtraGemBonus(ExtraGemData extraGemData,SlimeData ThisSlime)
     {
+        TeamerBonus.ShootBonus = 0;
+        TeamerBonus.DamageBonus = 0;
+        TeamerBonus.SpeedBonus = 0;
+        TeamerBonus.BiggerBonus = 0;
         foreach (var extragem in extraGemData.ExtraGemList)
         {
             switch (extragem.GemType)
@@ -69,8 +72,8 @@ public class PlayerTeamer : MonoBehaviour
     }
     private void AddExtraGemBonus(SlimeData ThisSlime)
     {
-        TeamerCollider.radius = ThisSlime.Distance + TeamerBonus.ShootBonus;
-        WeaponBox.GetComponent<Weapon>().AttackPower = ThisSlime.BasePower + TeamerBonus.DamageBonus;
+        TeamerCollider.radius = ThisSlime.Distance * (1 + TeamerBonus.ShootBonus);
+        WeaponBox.GetComponent<Weapon>().AttackPower = ThisSlime.BasePower * (1 + TeamerBonus.DamageBonus);
         WeaponBox.GetComponent<Weapon>().AttackSpeedTime = ThisSlime.BaseAttackSpeedTime - TeamerBonus.SpeedBonus;
         WeaponBox.GetComponent<Weapon>().BulletLarge = ThisSlime.BaseBulletLarge + TeamerBonus.BiggerBonus;
     }

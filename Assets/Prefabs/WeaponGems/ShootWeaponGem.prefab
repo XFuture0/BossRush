@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bdabf85b7108a464cb6cfa6b43bdb6b2, type: 3}
+  m_Sprite: {fileID: -1698111710, guid: ce4960fc353faec429b4db7dabf37272, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -88,3 +88,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5799e11b1bca26a4b8b72f2f510600f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ThisExtraGem:
+    GemType: 0
+    GemBonus: 0
+  IsWeaponGem: 0
+  IsExtraGem: 0

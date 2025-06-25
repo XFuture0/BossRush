@@ -5838,7 +5838,6 @@ MonoBehaviour:
     DamageBonus: 0
     SpeedBonus: 0
     BiggerBonus: 0
-    WeaponBonus: 0
   TeamerCollider: {fileID: 616826061}
   Player: {fileID: 1545711571}
   WeaponBox: {fileID: 827171886}
@@ -15742,7 +15741,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 9.1
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -26213,7 +26212,6 @@ MonoBehaviour:
     DamageBonus: 0
     SpeedBonus: 0
     BiggerBonus: 0
-    WeaponBonus: 0
   TeamerCollider: {fileID: 714465842}
   Player: {fileID: 1545711571}
   WeaponBox: {fileID: 1586502636}
@@ -26797,6 +26795,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GemItem: {fileID: 8914399329536430748, guid: f09f7b4f0e7ba99469d5cf39c3b6dc79, type: 3}
+  TreasureBox: {fileID: 6673079757245636077, guid: 8c2b7ae9b82519d45803e62f2cf6fc6b, type: 3}
   CardPaper: {fileID: 4725019079896970894, guid: 58a5d2a9d82b82d45a241b9e4f4e3509, type: 3}
   AngerPanel: {fileID: 1113168710}
   HurtText: {fileID: 973344095}
@@ -47246,7 +47245,6 @@ MonoBehaviour:
     DamageBonus: 0
     SpeedBonus: 0
     BiggerBonus: 0
-    WeaponBonus: 0
   WeaponBox: {fileID: 1843134669}
   PlayerData: {fileID: 11400000, guid: 43490a6b7ae5f9341a5fd80838856f40, type: 2}
   Teamer1: {fileID: 1592309151}
@@ -49239,7 +49237,6 @@ MonoBehaviour:
     DamageBonus: 0
     SpeedBonus: 0
     BiggerBonus: 0
-    WeaponBonus: 0
   TeamerCollider: {fileID: 1910950076}
   Player: {fileID: 1545711571}
   WeaponBox: {fileID: 398542126}
@@ -50487,7 +50484,7 @@ Transform:
   m_GameObject: {fileID: 1616715118}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -21, y: 0, z: 0}
+  m_LocalPosition: {x: -21, y: 2, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -65098,7 +65095,7 @@ MonoBehaviour:
   m_Follow: {fileID: 1545711573}
   m_Lens:
     FieldOfView: 34
-    OrthographicSize: 8
+    OrthographicSize: 9.1
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0

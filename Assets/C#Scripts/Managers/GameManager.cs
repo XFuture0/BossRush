@@ -7,6 +7,7 @@ using static MapData;
 public class GameManager : SingleTons<GameManager>
 {
     public GameObject GemItem;
+    public GameObject TreasureBox;
     public GameObject CardPaper;
     public GameObject AngerPanel;
     public GameObject HurtText;
@@ -309,11 +310,12 @@ public class GameManager : SingleTons<GameManager>
     {
         BossStats.gameObject.SetActive(false);
         SceneChangeManager.Instance.Door.SetActive(true);
+        SceneChangeManager.Instance.Door.GetComponent<Door>().OpenDoor();
         var CurRoom = Physics2D.OverlapPoint(PlayerStats.gameObject.transform.position, SceneChangeManager.Instance.Room).gameObject;
-        var DoorPosition = CurRoom.transform.position + new Vector3(-21,0,0);
+        var DoorPosition = CurRoom.transform.position + new Vector3(-21, 0, 0);
         SceneChangeManager.Instance.Door.transform.position = DoorPosition;
-        Instantiate(CardPaper, BossStats.transform.position, Quaternion.identity);
-        Instantiate(GemItem, CurRoom.GetComponent<MapCharacrter>().SetPosition, Quaternion.identity);
+        Instantiate(GemItem,CurRoom.transform.position + CurRoom.GetComponent<MapCharacrter>().SetPosition, Quaternion.identity);
+        Instantiate(TreasureBox, CurRoom.transform.position + CurRoom.GetComponent<MapCharacrter>().SetPosition, Quaternion.identity);
         BossDeadEvent.RaiseEvent();
         SceneChangeManager.Instance.OpenDoorEvent.RaiseEvent();
         MapManager.Instance.AccessRoom(Physics2D.OverlapPoint(PlayerStats.gameObject.transform.position,SceneChangeManager.Instance.Room).gameObject.transform.position);
@@ -329,6 +331,21 @@ public class GameManager : SingleTons<GameManager>
     public void ChangePlayerAngerSkill(int Index)
     {
         PlayerStats.gameObject.GetComponent<PlayerController>().ChangeAngerSkill(Index);
+    }
+    public void ClearPlayerData()
+    {
+        PlayerData.FreeWeaponSlotCount = 0;
+        PlayerData.EmptyWeaponSlotCount = 0;
+        PlayerData.PlayerWeaponSlotCount = 1;
+        PlayerData.Teamer1WeaponSlotCount = 1;
+        PlayerData.Teamer2WeaponSlotCount = 1;
+        PlayerData.Teamer3WeaponSlotCount = 1;
+        PlayerData.PlayerExtraGemData.ExtraGemList.Clear();
+        PlayerData.Teamer1ExtraGemData.ExtraGemList.Clear();
+        PlayerData.Teamer2ExtraGemData.ExtraGemList.Clear();
+        PlayerData.Teamer3ExtraGemData.ExtraGemList.Clear();
+        PlayerData.ExtraGemData.EmptyGemSlotCount = 0;
+        PlayerData.ExtraGemData.ExtraGemList.Clear();
     }
     public void OnBoundEvent(Collider2D collider2D, float Size) 
     {

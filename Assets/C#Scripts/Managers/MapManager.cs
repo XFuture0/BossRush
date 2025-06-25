@@ -508,11 +508,6 @@ public class MapManager : SingleTons<MapManager>
         {
             MapLists[Settings.NormalRoom] = Instantiate(NormalRoomList7_9);
         }
-        var CardRoomCount = UnityEngine.Random.Range(0, MapLists[Settings.CardRoom].RoomLists.Count);
-        var NewChooseCardRoom = new ChooseRoom();
-        NewChooseCardRoom.Room = MapLists[Settings.CardRoom].RoomLists[CardRoomCount];
-        NewChooseCardRoom.Index = CardRoomCount;
-        NewMapRoom.Add(NewChooseCardRoom);
         for(int i = 0;i < 2; i++)
         {
             var TransmissionCount = UnityEngine.Random.Range(0, MapLists[Settings.TransmissionTowerRoom].RoomLists.Count);

@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TreasureBox : MonoBehaviour
 {
     private bool IsPlayer;
-    private bool HaveExtraGem;
     public GameObject RKey;
     public TreasureList TreasureList;
     private void Update()
@@ -34,25 +34,13 @@ public class TreasureBox : MonoBehaviour
     }
     private IEnumerator OpenTreasureBox()
     {
-        foreach (var Treasure in TreasureList.TreasureLists)
+        foreach (var Treasure in TreasureList.TreasureLists.ToList())
         {
             var Treasure_Probability = UnityEngine.Random.Range(0f,100f);
             if(Treasure_Probability < Treasure.Probability)
             {
-                if(Treasure.ItemObject.tag == "ExtraGem")
-                {
-                    if (!HaveExtraGem)
-                    {
-                        HaveExtraGem = true;
-                        Instantiate(Treasure.ItemObject, transform.position + new Vector3(0, 1.5f, 0), Quaternion.identity);
-                        yield return new WaitForSeconds(0.1f);
-                    }
-                }
-                else if(!(Treasure.ItemObject.tag == "ExtraGem"))
-                {
-                    Instantiate(Treasure.ItemObject, transform.position + new Vector3(0, 1.5f, 0), Quaternion.identity);
-                    yield return new WaitForSeconds(0.1f);
-                }
+                Instantiate(Treasure.ItemObject, transform.position + new Vector3(0, 1.5f, 0), Quaternion.identity);
+                yield return new WaitForSeconds(0.1f);
             }
         }
         Destroy(gameObject);

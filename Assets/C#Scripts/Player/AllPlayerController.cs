@@ -11,7 +11,6 @@ public class AllPlayerController : MonoBehaviour
         public float DamageBonus;
         public float SpeedBonus;
         public float BiggerBonus;
-        public float WeaponBonus;
     }
     public ExtraGemBonus TeamerBonus;
     private Animator anim;
@@ -148,7 +147,6 @@ public class AllPlayerController : MonoBehaviour
     }
     public void OpenTeam()
     {
-        PlayerCollider.radius = PlayerData.Player.Distance;
         RefreshSlimeData(PlayerData.Player);
         TeamerCount = 1;
         if (PlayerData.Teamer1 == null)
@@ -160,7 +158,6 @@ public class AllPlayerController : MonoBehaviour
             TeamerCount++;
             Teamer1.SetActive(true);
             Teamer1.GetComponent<PlayerTeamer>().RefreshSlimeData(PlayerData.Teamer1);
-            Teamer1Collider.radius = PlayerData.Teamer1.Distance;
         }
         if (PlayerData.Teamer2 == null)
         {
@@ -171,7 +168,6 @@ public class AllPlayerController : MonoBehaviour
             TeamerCount++;
             Teamer2.SetActive(true);
             Teamer2.GetComponent<PlayerTeamer>().RefreshSlimeData(PlayerData.Teamer2);
-            Teamer2Collider.radius = PlayerData.Teamer2.Distance;
         }
         if (PlayerData.Teamer3 == null)
         {
@@ -182,7 +178,6 @@ public class AllPlayerController : MonoBehaviour
             TeamerCount++;
             Teamer3.SetActive(true);
             Teamer3.GetComponent<PlayerTeamer>().RefreshSlimeData(PlayerData.Teamer3);
-            Teamer3Collider.radius = PlayerData.Teamer3.Distance;
         }
         SetBoxCollider();
         RefreshTeamExtraGemBonus();
@@ -205,6 +200,10 @@ public class AllPlayerController : MonoBehaviour
     }
     public void CheckExtraGemBonus(ExtraGemData extraGemData)
     {
+        TeamerBonus.ShootBonus = 0;
+        TeamerBonus.DamageBonus = 0;
+        TeamerBonus.SpeedBonus = 0;
+        TeamerBonus.BiggerBonus = 0;
         foreach (var extragem in extraGemData.ExtraGemList)
         {
             switch (extragem.GemType)
@@ -227,8 +226,8 @@ public class AllPlayerController : MonoBehaviour
     }
     private void AddExtraGemBonus()
     {
-        PlayerCollider.radius = PlayerData.Player.Distance + TeamerBonus.ShootBonus;
-        WeaponBox.GetComponent<Weapon>().AttackPower = PlayerData.Player.BasePower + TeamerBonus.DamageBonus;
+        PlayerCollider.radius = PlayerData.Player.Distance * (1 + TeamerBonus.ShootBonus);
+        WeaponBox.GetComponent<Weapon>().AttackPower = PlayerData.Player.BasePower * (1 + TeamerBonus.DamageBonus);
         WeaponBox.GetComponent<Weapon>().AttackSpeedTime = PlayerData.Player.BaseAttackSpeedTime - TeamerBonus.SpeedBonus;
         WeaponBox.GetComponent<Weapon>().BulletLarge = PlayerData.Player.BaseBulletLarge + TeamerBonus.BiggerBonus;
     }

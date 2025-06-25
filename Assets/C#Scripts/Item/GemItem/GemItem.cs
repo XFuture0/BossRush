@@ -19,7 +19,7 @@ public class GemItem : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            //TODO加入装备槽
+            GameManager.Instance.PlayerData.FreeWeaponSlotCount++;
             Destroy(gameObject);
         }
     }

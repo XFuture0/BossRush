@@ -56,7 +56,7 @@ public class WeaponGemDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
                 }
                 else if(ThisExtraGem.GemBonus != 0)
                 {
-                    GameManager.Instance.PlayerData.Teamer3ExtraGemData.ExtraGemList.Remove(ThisExtraGem);
+                    ReMoveExtraGem(GameManager.Instance.PlayerData.Teamer3ExtraGemData);
                     IsExtraGem = true;
                 }
                 break;
@@ -68,7 +68,7 @@ public class WeaponGemDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
                 }
                 else if (ThisExtraGem.GemBonus != 0)
                 {
-                    GameManager.Instance.PlayerData.Teamer2ExtraGemData.ExtraGemList.Remove(ThisExtraGem);
+                    ReMoveExtraGem(GameManager.Instance.PlayerData.Teamer2ExtraGemData);
                     IsExtraGem = true;
                 }
                 break;
@@ -80,7 +80,8 @@ public class WeaponGemDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
                 }
                 else if (ThisExtraGem.GemBonus != 0)
                 {
-                    GameManager.Instance.PlayerData.Teamer1ExtraGemData.ExtraGemList.Remove(ThisExtraGem);
+                    Debug.Log(1);
+                    ReMoveExtraGem(GameManager.Instance.PlayerData.Teamer1ExtraGemData);
                     IsExtraGem = true;
                 }
                 break;
@@ -92,7 +93,7 @@ public class WeaponGemDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
                 }
                 else if (ThisExtraGem.GemBonus != 0)
                 {
-                    GameManager.Instance.PlayerData.PlayerExtraGemData.ExtraGemList.Remove(ThisExtraGem);
+                    ReMoveExtraGem(GameManager.Instance.PlayerData.PlayerExtraGemData);
                     IsExtraGem = true;
                 }
                 break;
@@ -103,7 +104,7 @@ public class WeaponGemDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
                 break;
             case "ExtraGemBag":
                 IsExtraGem = true;
-                GameManager.Instance.PlayerData.ExtraGemData.ExtraGemList.Remove(ThisExtraGem);
+                ReMoveExtraGem(GameManager.Instance.PlayerData.ExtraGemData);
                 GameManager.Instance.PlayerData.ExtraGemData.EmptyGemSlotCount++;
                 break;
         }
@@ -177,5 +178,16 @@ public class WeaponGemDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
         }
         GameManager.Instance.PlayerStats.gameObject.GetComponent<AllPlayerController>().RefreshTeamExtraGemBonus();
         DataManager.Instance.Save(DataManager.Instance.Index);//´æµµ
+    }
+    private void ReMoveExtraGem(ExtraGemData Extragemdata)
+    {
+        for(int i = 0;i < Extragemdata.ExtraGemList.Count; i++)
+        {
+            if(ThisExtraGem.GemType == Extragemdata.ExtraGemList[i].GemType && ThisExtraGem.GemBonus == Extragemdata.ExtraGemList[i].GemBonus)
+            {
+                Extragemdata.ExtraGemList.RemoveAt(i);
+                return;
+            }
+        }
     }
 }

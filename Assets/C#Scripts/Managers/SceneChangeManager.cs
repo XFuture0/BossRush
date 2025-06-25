@@ -223,13 +223,12 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     private IEnumerator Ending() 
     {
         Bosscanvs.gameObject.SetActive(false);
-        ColorManager.Instance.CancelColorStats();
+        GameManager.Instance.ClearPlayerData();
         yield return new WaitForSeconds(0.1f);
         MapManager.Instance.ClearMonster();
         GameManager.Instance.PlayerCanvs.gameObject.SetActive(false);
-        GameManager.Instance.PlayerStats.CharacterData_Temp = Instantiate(GameManager.Instance.PlayerStats.CharacterData);
+        Player.GetComponent<AllPlayerController>().OpenTeam();
         MapManager.Instance.ClearMap();
-        ColorManager.Instance.ReSetColor();
         yield return new WaitForSeconds(0.1f);
         Boss.SetActive(false);
         GameManager.Instance.BossDeadEvent.RaiseEvent();

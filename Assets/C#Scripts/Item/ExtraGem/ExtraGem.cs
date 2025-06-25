@@ -8,6 +8,10 @@ public class ExtraGem : MonoBehaviour
     public float GemBonus;
     public GameObject RKey;
     private bool IsPlayer;
+    private void OnEnable()
+    {
+        RefreshBonus();
+    }
     private void Update()
     {
         if(IsPlayer && KeyBoardManager.Instance.GetKeyDown_R())
@@ -18,6 +22,24 @@ public class ExtraGem : MonoBehaviour
             NewExtraGem.GemBonus = GemBonus;
             GameManager.Instance.PlayerData.ExtraGemData.ExtraGemList.Add(NewExtraGem);
             Destroy(gameObject);
+        }
+    }
+    private void RefreshBonus()
+    {
+        switch (ThisGemType)
+        {
+            case GemType.ShootGem:
+                GemBonus = UnityEngine.Random.Range(0f, 1f);
+                break;
+            case GemType.DamageGem:
+                GemBonus = UnityEngine.Random.Range(0f, 1f);
+                break;
+            case GemType.SpeedGem:
+                GemBonus = UnityEngine.Random.Range(0f, 0.2f);
+                break;
+            case GemType.BiggerGem:
+                GemBonus = UnityEngine.Random.Range(0f, 1f);
+                break;
         }
     }
     private void OnTriggerEnter2D(Collider2D other)

@@ -31,12 +31,12 @@ public class MapCharacrter : MonoBehaviour
     private bool IsAccess;
     public MiniRoomCanvs MiniRoomCanvs;
     [Header("房间物品")]
-    public GameObject CardPaper;
     public Transform DoorBox;
     public List<Door> LeftDoor = new List<Door>();//左侧门
     public List<Door> RightDoor = new List<Door>();//右侧门
     public List<Monster> Monsters = new List<Monster>();
     public Vector3 SetPosition;
+    public Vector3 BossDoorPosition;
     [Header("小地图信息")]
     private bool HaveCoin;
     private bool HaveHeart;
@@ -143,10 +143,6 @@ public class MapCharacrter : MonoBehaviour
             Invoke("DesCardPaper", 0.1f);
         }
     }
-    private void DesCardPaper()
-    {
-        Destroy(CardPaper);
-    }
     public void SetMonster()
     {
         MonsterBox.SetActive(true);
@@ -189,6 +185,7 @@ public class MapCharacrter : MonoBehaviour
         HaveHeart = false;
         HaveSheild = false;
         HaveGem = false;
+        HaveExtraGem = false;
         HaveTreasureBox = false;
         var RoomPoLeftUp = gameObject.transform.position + new Vector3(-30, 16, 0);
         var RoomPoRightDown = gameObject.transform.position;

@@ -63,9 +63,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Index: 0
-  RoomType: 4
+  RoomType: 5
   Size: 9.1
-  TreasureBox: {fileID: 0}
+  TreasureBox: {fileID: 6673079757245636077, guid: 8c2b7ae9b82519d45803e62f2cf6fc6b, type: 3}
   polygonCollider: {fileID: 4325622237636697175}
   CurPlayer: {fileID: 1203274135678782120}
   NoFind: {fileID: 3080808887907523507}
@@ -74,7 +74,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 65536
   MiniRoomCanvs: {fileID: 8467970383996581602}
-  CardPaper: {fileID: 0}
   DoorBox: {fileID: 3851160423365726914}
   LeftDoor:
   - DoorObject: {fileID: 682280967720800509}
@@ -92,6 +91,7 @@ MonoBehaviour:
     DoorOpen: 0
   Monsters: []
   SetPosition: {x: -15, y: 0.8, z: 0}
+  BossDoorPosition: {x: -21, y: 0, z: 0}
   TransmissionMini: {fileID: 1323498270222277737, guid: 36ba48c8564636547a2f34b3838bf998, type: 3}
   ShopMini: {fileID: 1323498270222277737, guid: 979132dc6fe6fdd4189bc68296672ac3, type: 3}
   BossMini: {fileID: 1323498270222277737, guid: fab67a3d06e81914c936636370e240c2, type: 3}
