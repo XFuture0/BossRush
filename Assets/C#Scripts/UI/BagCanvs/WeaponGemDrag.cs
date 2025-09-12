@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class WeaponGemDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     public ExtraGemData.ExtraGem ThisExtraGem;
+    public Text SumText;
     private Transform LastParent;
     public bool IsWeaponGem;
     public bool IsExtraGem;

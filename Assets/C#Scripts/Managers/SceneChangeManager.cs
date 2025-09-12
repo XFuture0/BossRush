@@ -217,6 +217,7 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
     }
     public void EndGame(SceneData CurrentScene,SceneData NextScene)
     {
+        GameManager.Instance.PlayerStats.CharacterData_Temp = Instantiate(GameManager.Instance.PlayerStats.CharacterData);
         ChangeScene(CurrentScene,NextScene);
         StartCoroutine(Ending());
     }
@@ -226,7 +227,6 @@ public class SceneChangeManager : SingleTons<SceneChangeManager>
         GameManager.Instance.ClearPlayerData();
         yield return new WaitForSeconds(0.1f);
         MapManager.Instance.ClearMonster();
-        GameManager.Instance.PlayerCanvs.gameObject.SetActive(false);
         Player.GetComponent<AllPlayerController>().OpenTeam();
         MapManager.Instance.ClearMap();
         yield return new WaitForSeconds(0.1f);

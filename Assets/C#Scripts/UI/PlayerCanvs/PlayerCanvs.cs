@@ -9,12 +9,14 @@ public class PlayerCanvs : MonoBehaviour
     public GameObject PlayerHeart;
     public GameObject PlayerShield;
     public GameObject PlayerHeartBox;
+    public Text PlayerCoinText;
     public List<GameObject> PlayerHearts;
     public List<GameObject> PlayerShields;
     private void Update()
     {
         UpdataHeart();
         UpdateShield();
+        RefreshCpinCountText();
     }
     private void UpdataHeart()
     {
@@ -47,5 +49,9 @@ public class PlayerCanvs : MonoBehaviour
             PlayerShields.Add(NewShield);
             PlayerShield_Count++;
         }
+    }
+    private void RefreshCpinCountText()
+    {
+        PlayerCoinText.text = "X " + GameManager.Instance.PlayerData.CoinCount.ToString();
     }
 }

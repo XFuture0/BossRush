@@ -3191,12 +3191,11 @@ MonoBehaviour:
   polygonCollider: {fileID: 2996521580945918871}
   CurPlayer: {fileID: 2175943167716333536}
   NoFind: {fileID: 5043804168176981777}
-  MonsterBox: {fileID: 0}
+  MonsterBox: {fileID: 7364083071095294476}
   DropItem:
     serializedVersion: 2
     m_Bits: 65536
   MiniRoomCanvs: {fileID: 5664901603977442642}
-  CardPaper: {fileID: 0}
   DoorBox: {fileID: 4817785817282751984}
   LeftDoor:
   - DoorObject: {fileID: 8196944456929528208}
@@ -3230,6 +3229,7 @@ MonoBehaviour:
   - MonsterObject: {fileID: 2130217165103113576, guid: 2391ea539c61aad488015050649dea95, type: 3}
     MonsterPosition: {x: -21.610285, y: 2.1384342, z: 0}
   SetPosition: {x: -15.028082, y: 7.4052544, z: 0}
+  BossDoorPosition: {x: 0, y: 0, z: 0}
   TransmissionMini: {fileID: 1323498270222277737, guid: 36ba48c8564636547a2f34b3838bf998, type: 3}
   ShopMini: {fileID: 1323498270222277737, guid: 979132dc6fe6fdd4189bc68296672ac3, type: 3}
   BossMini: {fileID: 1323498270222277737, guid: fab67a3d06e81914c936636370e240c2, type: 3}

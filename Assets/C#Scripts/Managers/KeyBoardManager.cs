@@ -102,5 +102,13 @@ public class KeyBoardManager : SingleTons<KeyBoardManager>
         }
         return false;
     }
+    public bool GetKey_S()
+    {
+        if (!StopAnyKey && !StopMoveKey)
+        {
+            return Input.GetKey(KeyCode.S);
+        }
+        return false;
+    }
 }
 

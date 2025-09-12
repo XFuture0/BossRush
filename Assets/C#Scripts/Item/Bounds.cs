@@ -5,6 +5,6 @@ public class Bounds : MonoBehaviour
 {
     private void OnEnable()
     {
-        GameManager.Instance.OnBoundEvent(gameObject.GetComponent<Collider2D>());
+       // GameManager.Instance.OnBoundEvent(gameObject.GetComponent<Collider2D>());
     }
 }

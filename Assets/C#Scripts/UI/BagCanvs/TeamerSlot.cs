@@ -66,6 +66,7 @@ public class TeamerSlot : MonoBehaviour
                         NewBiggerGem.GetComponent<WeaponGemDrag>().ThisExtraGem.GemBonus = extraGemData.ExtraGemList[i - Count].GemBonus;
                         break;
                 }
+                
             }
         }
     }

@@ -139,6 +139,7 @@ public class GameManager : SingleTons<GameManager>
                         Player().AngerValue += 0.1f;
                     }
                     UseImpulse();
+                    SceneChangeManager.Instance.Player.GetComponent<PlayerController>().StartHurt();
                     StartCoroutine(FrameDrop());
                     StartCoroutine(CheckElasticGel());
                     break;
@@ -221,6 +222,7 @@ public class GameManager : SingleTons<GameManager>
                 case "Player":
                     Player().AngerValue += 0.2f;
                     UseImpulse();
+                    SceneChangeManager.Instance.Player.GetComponent<PlayerController>().StartHurt();
                     StartCoroutine(FrameDrop());
                     StartCoroutine(CheckElasticGel());
                     break;
@@ -309,6 +311,7 @@ public class GameManager : SingleTons<GameManager>
     public void BossDead()
     {
         BossStats.gameObject.SetActive(false);
+        BossCanvs.gameObject.SetActive(false);
         SceneChangeManager.Instance.Door.SetActive(true);
         SceneChangeManager.Instance.Door.GetComponent<Door>().OpenDoor();
         var CurRoom = Physics2D.OverlapPoint(PlayerStats.gameObject.transform.position, SceneChangeManager.Instance.Room).gameObject;

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ScoreManager : SingleTons<ScoreManager>
 {
-    public Text ScoreText;
+  /*  public Text ScoreText;
     public GameObject GetScoreImage;
     public Transform GetScoreBox;
     private int LastScore;
@@ -68,4 +68,5 @@ public class ScoreManager : SingleTons<ScoreManager>
             ScoreText.text += ScoreCount[i].ToString() + " ";
         }
     }
+  */
 }

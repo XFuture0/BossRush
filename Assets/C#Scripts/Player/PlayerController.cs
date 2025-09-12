@@ -1,9 +1,11 @@
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
     private PlayerCheck Check;
+    private SpriteRenderer SpriteRenderer;
     private Vector3 LastPosition = Vector3.zero;
     public float AutoUpSpeed;
     private float InputX;
@@ -52,10 +54,16 @@ public class PlayerController : MonoBehaviour
     private float BaseThunderRate;
     private float BaseMaxVulnerabilityRate;
     private float BaseWaterElementBonus;
+    [Header("受击计时器")]
+    private bool IsHurt;
+    public float HurtSpeed;
+    public float HurtTime;
+    private float HurtTime_Count;
     [Header("事件监听")]
     public VoidEventSO BossDeadEvent;
     private void Awake()
     {
+        SpriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         Check = rb.GetComponent<PlayerCheck>();
         Player = GetComponent<CharacterStats>();
@@ -69,12 +77,9 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         PlayerData.PlayerPosition = transform.position;
-        if(Player.CharacterData_Temp.NowHealth > Player.CharacterData_Temp.MaxHealth)
-        {
-            Player.CharacterData_Temp.NowHealth = Player.CharacterData_Temp.MaxHealth;
-        }
         AutoUp();
         Jump();
+        OnHurt();
         PlayerDead();
         CheckDash();
         OnImperialWeapons();
@@ -155,6 +160,35 @@ public class PlayerController : MonoBehaviour
             {
                 StartCoroutine(OnUrgentEngine());
             }
+        }
+    }
+    public void StartHurt()
+    {
+        HurtTime_Count = HurtTime;
+        IsHurt = true;
+    }
+    private void OnHurt()
+    {
+        if (IsHurt)
+        {
+            HurtTime_Count -= Time.deltaTime;
+            var ThisAlpha = math.lerp(SpriteRenderer.color.a, 0, HurtSpeed * Time.deltaTime);
+            if(ThisAlpha > 0.25f)
+            {
+                SpriteRenderer.color = new Color(SpriteRenderer.color.r, SpriteRenderer.color.g, SpriteRenderer.color.b, ThisAlpha);
+            }
+            else if(ThisAlpha <= 0.25f)
+            {
+                SpriteRenderer.color = new Color(1, 1, 1, 1);
+            }
+            if(HurtTime_Count <= 0)
+            {
+                IsHurt = false;
+            }
+        }
+        if (!IsHurt)
+        {
+            SpriteRenderer.color = new Color(1, 1, 1, 1);
         }
     }
     private IEnumerator OnUrgentEngine()

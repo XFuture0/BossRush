@@ -194,6 +194,7 @@ MonoBehaviour:
   ThisMonster:
     MonsterObject: {fileID: 0}
     MonsterPosition: {x: 0, y: 0, z: 0}
+  DisappearSpeed: 5
   ClearMonsterEvent: {fileID: 11400000, guid: 0a25d83ebb07d39439cf6d115cdc62d1, type: 2}
 --- !u!114 &4863484602602371822
 MonoBehaviour:
