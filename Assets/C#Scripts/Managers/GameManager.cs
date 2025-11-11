@@ -337,6 +337,7 @@ public class GameManager : SingleTons<GameManager>
     }
     public void ClearPlayerData()
     {
+        PlayerData.CoinCount = 0;
         PlayerData.FreeWeaponSlotCount = 0;
         PlayerData.EmptyWeaponSlotCount = 0;
         PlayerData.PlayerWeaponSlotCount = 1;

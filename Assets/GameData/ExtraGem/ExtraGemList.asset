@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680ad2aa749f6c841a544c0d9fd671cb, type: 3}
   m_Name: ExtraGemList
   m_EditorClassIdentifier: 
-  EmptyGemSlotCount: 4
+  EmptyGemSlotCount: 2
   ExtraGemList:
   - GemType: 2
-    GemBonus: 0.050943434
+    GemBonus: 0.08761531
+  - GemType: 1
+    GemBonus: 0.57161146
